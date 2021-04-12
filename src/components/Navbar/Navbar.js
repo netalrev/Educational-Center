@@ -13,7 +13,10 @@ class Navbar extends Component {
     return (
       <nav className="NavbarItems">
         <h1 className="navbar-logo">
-          Yarin Gay<i className="fab fa-react"></i>
+          <i className="fab fa-react"  onClick = {(e) => {
+            e.preventDefault();
+            window.location.href='/'; //Url to icon button.
+            }} ></i>
         </h1>
 
         <div className="menu-icon" onClick={this.handleClick}>
