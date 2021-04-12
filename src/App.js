@@ -13,6 +13,8 @@ import {
   Route,
   useParams,
 } from "react-router-dom";
+import ContactForm from './components/ContactUs/ContactForm';
+
 const useStyles = makeStyles({
   gridContainer: {
     paddingLeft: "10px",
@@ -32,11 +34,14 @@ function App() {
             <Route exact path="/">
               <RecipeReviewCard />
             </Route>
-            <Route path="/register">
+            <Route exact path="/register">
               <SignUp />
             </Route>
-            <Route path="/login">
+            <Route exact path="/login">
               <SignInSide />
+            </Route>
+            <Route exact path="/contactus">
+              <ContactForm /> 
             </Route>
           </Switch>
         </Router>
