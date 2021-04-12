@@ -8,12 +8,12 @@ export const MenuItems = [
     },
        {
     title : 'Classes',
-    url: '#',
+    url: '/Classes',
     cName: 'nav-links'
     },
        {
     title : 'Activities',
-    url: '#',
+    url: '/Activities',
     cName: 'nav-links'
     },
        {

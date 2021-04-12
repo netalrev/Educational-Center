@@ -14,6 +14,8 @@ import {
   useParams,
 } from "react-router-dom";
 import ContactForm from './components/ContactUs/ContactForm';
+import ActivitiesPage from './components/Activities/ActivitiesPage';
+import ClassesPage from './components/Classes/ClassesPage';
 
 const useStyles = makeStyles({
   gridContainer: {
@@ -42,6 +44,12 @@ function App() {
             </Route>
             <Route exact path="/contactus">
               <ContactForm /> 
+            </Route>
+            <Route exact path="/activitiespage">
+              <ActivitiesPage /> 
+            </Route>
+            <Route exact path="/classespage">
+              <ClassesPage /> 
             </Route>
           </Switch>
         </Router>
