@@ -1,0 +1,23 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    max-width: 100%;
+}
+
+
+
+.main{
+    display: flex;
+    position:static;
+    background-color: rgb(54, 57, 59);
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    justify-self: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+}
