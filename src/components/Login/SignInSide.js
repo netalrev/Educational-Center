@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInSide() {
+export default function SignInSide() { //add 'export default' For import support to this component.
   const classes = useStyles();
 
   return (
