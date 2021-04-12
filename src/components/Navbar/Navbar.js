@@ -15,7 +15,7 @@ class Navbar extends Component {
         <h1 className="navbar-logo">
           <i className="fab fa-react"  onClick = {(e) => {
             e.preventDefault();
-            window.location.href='/register'; //Url to SignUp button.
+            window.location.href='/'; //Url to icon button.
             }} ></i>
         </h1>
 
