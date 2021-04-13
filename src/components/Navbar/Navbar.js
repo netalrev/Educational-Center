@@ -13,10 +13,13 @@ class Navbar extends Component {
     return (
       <nav className="NavbarItems">
         <h1 className="navbar-logo">
-          <i className="fab fa-react"  onClick = {(e) => {
-            e.preventDefault();
-            window.location.href='/'; //Url to icon button.
-            }} ></i>
+          <i
+            className="fab fa-react"
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = "/"; //Url to icon button.
+            }}
+          ></i>
         </h1>
 
         <div className="menu-icon" onClick={this.handleClick}>
@@ -37,7 +40,7 @@ class Navbar extends Component {
           })}
         </ul>
         <div className="daniels">
-          <Button>Sign Up</Button>
+          <Button>הרשמה</Button>
         </div>
       </nav>
     );

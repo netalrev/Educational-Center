@@ -7,60 +7,52 @@ import {
   FooterLink,
   Heading,
 } from "./FooterStyles";
-  
+
 const Footer = () => {
   return (
     <Box>
       <Container>
         <Row>
           <Column>
-            <Heading>About Us</Heading>
-            <FooterLink href="#">Aim</FooterLink>
-            <FooterLink href="#">Vision</FooterLink>
-            <FooterLink href="#">Testimonials</FooterLink>
+            <Heading>אודות הפרוייקט</Heading>
+            <FooterLink href="#">מטרה</FooterLink>
+            <FooterLink href="#">חזון</FooterLink>
+            <FooterLink href="#">יונה אפס</FooterLink>
           </Column>
           <Column>
-            <Heading>Services</Heading>
-            <FooterLink href="#">Writing</FooterLink>
-            <FooterLink href="#">Internships</FooterLink>
-            <FooterLink href="#">Coding</FooterLink>
-            <FooterLink href="#">Teaching</FooterLink>
+            <Heading>שירותים</Heading>
+            <FooterLink href="#">כתיבה</FooterLink>
+            <FooterLink href="#">התמחויות</FooterLink>
+            <FooterLink href="#">קוד</FooterLink>
+            <FooterLink href="#">הוראה</FooterLink>
           </Column>
           <Column>
-            <Heading>Contact Us</Heading>
-            <FooterLink href="#">Uttar Pradesh</FooterLink>
-            <FooterLink href="#">Ahemdabad</FooterLink>
-            <FooterLink href="#">Indore</FooterLink>
-            <FooterLink href="#">Mumbai</FooterLink>
+            <Heading>צור קשר</Heading>
+            <FooterLink href="#">משהו</FooterLink>
+            <FooterLink href="#">כזה</FooterLink>
+            <FooterLink href="#">בערך</FooterLink>
+            <FooterLink href="#">לפה</FooterLink>
           </Column>
           <Column>
-            <Heading>Social Media</Heading>
+            <Heading>הצטרפו אלינו!</Heading>
             <FooterLink href="#">
               <i className="fab fa-facebook-f">
-                <span style={{ marginLeft: "10px" }}>
-                  Facebook
-                </span>
+                <span style={{ marginLeft: "10px" }}>Facebook</span>
               </i>
             </FooterLink>
             <FooterLink href="#">
               <i className="fab fa-instagram">
-                <span style={{ marginLeft: "10px" }}>
-                  Instagram
-                </span>
+                <span style={{ marginLeft: "10px" }}>Instagram</span>
               </i>
             </FooterLink>
             <FooterLink href="#">
               <i className="fab fa-twitter">
-                <span style={{ marginLeft: "10px" }}>
-                  Twitter
-                </span>
+                <span style={{ marginLeft: "10px" }}>Twitter</span>
               </i>
             </FooterLink>
             <FooterLink href="#">
               <i className="fab fa-youtube">
-                <span style={{ marginLeft: "10px" }}>
-                  Youtube
-                </span>
+                <span style={{ marginLeft: "10px" }}>Youtube</span>
               </i>
             </FooterLink>
           </Column>
