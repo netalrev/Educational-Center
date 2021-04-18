@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-education-staging-204209-authRole",
+      "UnauthRoleArn": "arn:aws:iam::722642337815:role/amplify-education-staging-204209-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::722642337815:role/amplify-education-staging-204209-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-education-staging-204209-deployment",
+      "UnauthRoleName": "amplify-education-staging-204209-unauthRole",
+      "StackName": "amplify-education-staging-204209",
+      "StackId": "arn:aws:cloudformation:us-east-2:722642337815:stack/amplify-education-staging-204209/b7ef08b0-9c98-11eb-9106-0694293a01d6",
+      "AmplifyAppId": "d3mxalefrunyho"
+    },
+    "categories": {
+      "auth": {
+        "Education": {}
+      }
+    }
+  }
+}
