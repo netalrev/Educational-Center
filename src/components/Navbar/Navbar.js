@@ -5,6 +5,8 @@ import { Button } from "../Button";
 import { Auth } from "aws-amplify";
 
 var name;
+var loggedIn;
+
 Auth.currentAuthenticatedUser().then(
   (user) =>
     //alert(user.attributes.given_name)
@@ -28,7 +30,7 @@ class Navbar extends Component {
           }}
         >
           <i className="fab fa-react"></i>
-          המרחב החינוכי השלם - {name}
+          המרחב החינוכי
         </h1>
 
         <div className="menu-icon" onClick={this.handleClick}>
@@ -49,7 +51,7 @@ class Navbar extends Component {
           })}
         </ul>
         <div className="daniels">
-          <Button>הרשמה</Button>
+          <Button>התחברות\הרשמה</Button>
         </div>
       </nav>
     );

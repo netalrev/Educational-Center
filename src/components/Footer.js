@@ -1,5 +1,11 @@
 import React from "react";
 import {
+  AmplifyAuthenticator,
+  AmplifySignUp,
+  AmplifySignIn,
+  AmplifySignOut,
+} from "@aws-amplify/ui-react";
+import {
   Box,
   Container,
   Row,
@@ -57,6 +63,7 @@ const Footer = () => {
             </FooterLink>
           </Column>
         </Row>
+        <AmplifySignOut />
       </Container>
     </Box>
   );

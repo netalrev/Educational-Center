@@ -9,7 +9,7 @@
     border: none;
     cursor: pointer;
     background-color: #fa0808;
-
+    margin-right: 20px;
 }
 
 .btn:hover{

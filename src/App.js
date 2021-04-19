@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer";
+import Clock from "./components/Clock";
 import SignInSide from "./components/Login/SignInSide";
 //import AmplifySignUp from "./components/Register/AmplifySignUp"
 import RecipeReviewCard from "./components/RecipeReviewCard";
@@ -71,11 +72,15 @@ function App() {
     <div className="App">
       <Navbar />
       <div className="main">
+        <div className="clock">
+          <Clock></Clock>
+        </div>
         <Router>
           <Switch>
             <Route exact path="/">
               <h1>{name}</h1>
             </Route>
+
             <Route exact path="/register">
               <AmplifyAuthenticator>
                 <AmplifySignUp
@@ -125,9 +130,11 @@ function App() {
                 <AmplifySignIn slot="sign-in" usernameAlias="email" />
               </AmplifyAuthenticator>
             </Route>
+            {/*
             <Route exact path="/login">
               <AmplifySignIn />
             </Route>
+            */}
             <Route exact path="/SignOut">
               <AmplifySignOut />
             </Route>
