@@ -72,9 +72,7 @@ function App() {
     <div className="App">
       <Navbar />
       <div className="main">
-        <div className="clock">
-          <Clock></Clock>
-        </div>
+        <div className="clock"></div>
         <Router>
           <Switch>
             <Route exact path="/">
