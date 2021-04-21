@@ -63,7 +63,6 @@ const Footer = () => {
             </FooterLink>
           </Column>
         </Row>
-        <AmplifySignOut />
       </Container>
     </Box>
   );
