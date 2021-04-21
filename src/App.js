@@ -26,10 +26,15 @@ import {
   AmplifySignOut,
 } from "@aws-amplify/ui-react";
 import { I18n } from "aws-amplify";
+import  { useState, useEffect } from "react";
 
 Amplify.configure(awsconfig); //AWS CONFIGORE
 
 var name;
+
+
+
+
 Auth.currentAuthenticatedUser().then(
   (user) =>
     //alert(user.attributes.given_name)
@@ -42,6 +47,7 @@ const useStyles = makeStyles({
     paddingRight: "10px",
   },
 });
+
 
 const signUpConfig = {
   hideAllDefaults: true,
@@ -64,10 +70,32 @@ const signUpConfig = {
     },
   ],
 };
+function refreshPage(){ 
+    window.location.reload(); 
+}
+
 
 function App() {
   const classes = useStyles();
-
+  const [isAuthenticating, setIsAuthenticating] = useState(true);
+  const [isAuthenticated, userHasAuthenticated] = useState(false);
+  async function onLoad() {
+    try {
+      await Auth.currentSession();
+      userHasAuthenticated(true);
+    
+    }
+    catch(e) {
+      if (e !== 'No current user') {
+        alert(e);
+      }
+    }
+  
+    setIsAuthenticating(false);
+  }
+  useEffect(() => {
+    onLoad();
+  }, []);
   return (
     <div className="App">
       <Navbar />
@@ -80,6 +108,14 @@ function App() {
             </Route>
 
             <Route exact path="/register">
+            {isAuthenticated ? (
+                   <div onClick={ refreshPage }>  <AmplifySignOut />   </div>
+                  
+            ) : (
+             
+              <br></br>
+             
+            )}
               <AmplifyAuthenticator>
                 <AmplifySignUp
                   slot="sign-up"
@@ -109,7 +145,7 @@ function App() {
                       type: "phone_number",
                       label: "מספר טלפון נייד",
                       placeholder: "טלפון",
-                      dialCode: 972,
+                      dialCode: +972,
                       required: true,
                     },
                     {
