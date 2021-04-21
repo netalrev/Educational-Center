@@ -8,7 +8,6 @@
 }
 .main{
     background-image: url("https://cdn.pixabay.com/photo/2016/07/29/15/30/pokemon-1553995_1280.jpg");
-
     display: flex;
     position:static;
     background-color: rgb(27, 28, 29);
@@ -17,7 +16,7 @@
     min-height: 400px;
     justify-content: center;
     justify-self: center;
-    padding-top: 0;
+    padding-top: 20px;
     padding-bottom: 0;
 }
 .mainPage{

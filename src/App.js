@@ -88,18 +88,18 @@ function App() {
                   formFields={[
                     {
                       type: "email",
-                      label: "Custom email Label",
-                      placeholder: "custom email placeholder",
+                      label: "כתובת אימייל",
+                      placeholder: "example@host.com",
                       required: true,
                     },
                     {
                       type: "password",
-                      label: "Custom Password Label",
-                      placeholder: "custom password placeholder",
+                      label: "בחר סיסמה",
+                      placeholder: "סיסמה",
                       required: true,
                     },
                     {
-                      label: "Confirm Password",
+                      label: "אישור סיסמה",
                       name: "password2",
                       required: true,
                       type: "password",
@@ -107,8 +107,9 @@ function App() {
 
                     {
                       type: "phone_number",
-                      label: "Custom Phone Label",
-                      placeholder: "custom Phone placeholder",
+                      label: "מספר טלפון נייד",
+                      placeholder: "טלפון",
+                      dialCode: 972,
                       required: true,
                     },
                     {
