@@ -1,18 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer";
 import Clock from "./components/Clock";
-import SignInSide from "./components/Login/SignInSide";
-//import AmplifySignUp from "./components/Register/AmplifySignUp"
-import RecipeReviewCard from "./components/RecipeReviewCard";
-import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   useParams,
+  withRouter,
 } from "react-router-dom";
 import ContactForm from "./components/ContactUs/ContactForm";
 import ActivitiesPage from "./components/Activities/ActivitiesPage";
@@ -26,29 +23,27 @@ import {
   AmplifySignOut,
 } from "@aws-amplify/ui-react";
 import { I18n } from "aws-amplify";
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { onAuthUIStateChange } from "@aws-amplify/ui-components";
 
 Amplify.configure(awsconfig); //AWS CONFIGORE
-
-var name;
-
-
-
-
+var fname = "null";
+var gname = "null";
 Auth.currentAuthenticatedUser().then(
   (user) =>
     //alert(user.attributes.given_name)
-    (name = user.attributes.given_name)
+    (gname = user.attributes.given_name) &&
+    (fname = user.attributes.family_name)
 );
 
+var count = 0;
 const useStyles = makeStyles({
   gridContainer: {
     paddingLeft: "10px",
     paddingRight: "10px",
   },
 });
-
-
 const signUpConfig = {
   hideAllDefaults: true,
   signUpFields: [
@@ -70,109 +65,145 @@ const signUpConfig = {
     },
   ],
 };
-function refreshPage(){ 
-    window.location.reload(); 
+function refreshPage() {
+  window.location.reload();
 }
 
+function Content() {
+  let history = useHistory();
 
-function App() {
-  const classes = useStyles();
+  function handleAuthStateChange(state) {
+    //refreshPage();
+  }
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
+
   async function onLoad() {
     try {
       await Auth.currentSession();
       userHasAuthenticated(true);
-    
-    }
-    catch(e) {
-      if (e !== 'No current user') {
+    } catch (e) {
+      if (e !== "No current user") {
         alert(e);
       }
     }
-  
     setIsAuthenticating(false);
   }
   useEffect(() => {
     onLoad();
   }, []);
+  const [authState, setAuthState] = useState("");
+
+  function handleAuthStateChange(state) {
+    if (state === "signedin" || state === "signedout") {
+      setAuthState(state);
+    }
+    if (state === "signedin") {
+      refreshPage();
+    }
+  }
+  return (
+    <AmplifyAuthenticator>
+      <AmplifySignUp
+        slot="sign-up"
+        usernameAlias="email"
+        headerText="הרשמה"
+        formFields={[
+          {
+            type: "email",
+            label: "כתובת אימייל",
+            placeholder: "example@host.com",
+            required: true,
+          },
+          {
+            type: "password",
+            label: "בחר סיסמה",
+            placeholder: "סיסמה",
+            required: true,
+          },
+          {
+            label: "אישור סיסמה",
+            name: "password2",
+            required: true,
+            type: "password",
+          },
+
+          {
+            type: "phone_number",
+            label: "מספר טלפון נייד",
+            placeholder: "טלפון",
+            dialCode: +972,
+            required: true,
+          },
+          {
+            type: "given_name",
+            label: "שם פרטי",
+            placeholder: "שם פרטי",
+            required: true,
+          },
+          {
+            type: "family_name",
+            label: "שם משפחה",
+            placeholder: "שם משפחה",
+            required: true,
+          },
+        ]}
+      />
+      <AmplifySignIn
+        slot="sign-in"
+        usernameAlias="email"
+        //handleAuthStateChange={handleAuthStateChange}
+      />
+      <AmplifySignOut />
+    </AmplifyAuthenticator>
+  );
+}
+
+function App() {
+  const classes = useStyles();
+  const [isAuthenticating, setIsAuthenticating] = useState(true);
+  const [isAuthenticated, userHasAuthenticated] = useState(false);
+
+  async function onLoad() {
+    try {
+      await Auth.currentSession();
+      userHasAuthenticated(true);
+    } catch (e) {
+      if (e !== "No current user") {
+        alert(e);
+      }
+    }
+    setIsAuthenticating(false);
+  }
+  useEffect(() => {
+    onLoad();
+  }, []);
+
   return (
     <div className="App">
-      <Navbar />
+      <Navbar givenName={gname} familyName={fname} />
       <div className="main">
         <div className="clock"></div>
         <Router>
           <Switch>
             <Route exact path="/">
-              <h1>{name}</h1>
+              <h1>ברוכים הבאים ! מקווים שתהנה</h1>
+            </Route>
+            <Route exact path="/profile">
+              <h1>עמוד פרופיל</h1>
             </Route>
 
             <Route exact path="/register">
-            {isAuthenticated ? (
-                   <div onClick={ refreshPage }>  <AmplifySignOut />   </div>
-                  
-            ) : (
-             
-              <br></br>
-             
-            )}
-              <AmplifyAuthenticator>
-                <AmplifySignUp
-                  slot="sign-up"
-                  usernameAlias="email"
-                  headerText="הרשמה"
-                  formFields={[
-                    {
-                      type: "email",
-                      label: "כתובת אימייל",
-                      placeholder: "example@host.com",
-                      required: true,
-                    },
-                    {
-                      type: "password",
-                      label: "בחר סיסמה",
-                      placeholder: "סיסמה",
-                      required: true,
-                    },
-                    {
-                      label: "אישור סיסמה",
-                      name: "password2",
-                      required: true,
-                      type: "password",
-                    },
+              {isAuthenticated ? (
+                <div onClick={refreshPage}>
+                  {" "}
+                  <AmplifySignOut />{" "}
+                </div>
+              ) : (
+                <Content />
+              )}
+            </Route>
 
-                    {
-                      type: "phone_number",
-                      label: "מספר טלפון נייד",
-                      placeholder: "טלפון",
-                      dialCode: +972,
-                      required: true,
-                    },
-                    {
-                      type: "given_name",
-                      label: "שם פרטי",
-                      placeholder: "שם פרטי",
-                      required: true,
-                    },
-                    {
-                      type: "family_name",
-                      label: "שם משפחה",
-                      placeholder: "שם משפחה",
-                      required: true,
-                    },
-                  ]}
-                />
-                <AmplifySignIn slot="sign-in" usernameAlias="email" />
-              </AmplifyAuthenticator>
-            </Route>
-            {/*
-            <Route exact path="/login">
-              <AmplifySignIn />
-            </Route>
-            */}
-            <Route exact path="/SignOut">
-              <AmplifySignOut />
-            </Route>
             <Route exact path="/contactus">
               <ContactForm />
             </Route>

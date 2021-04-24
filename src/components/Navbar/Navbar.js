@@ -3,18 +3,15 @@ import { MenuItems } from "./MenuItems";
 import "./Navbar.css";
 import { Button } from "../Button";
 import { Auth } from "aws-amplify";
-
-var name;
-var loggedIn;
-
-Auth.currentAuthenticatedUser().then(
-  (user) =>
-    //alert(user.attributes.given_name)
-    (name = user.attributes.given_name)
-);
+var loggedIn = false;
+Auth.currentAuthenticatedUser().then((user) => (loggedIn = true));
 
 class Navbar extends Component {
+  if(loggedIn) {
+    MenuItems[4].title = this.props.givenName + " " + this.props.familyName;
+  }
   state = { clicked: false }; //for the menu btn
+
   handleClick = () => {
     this.setState({ clicked: !this.state.clicked });
   };
@@ -51,7 +48,16 @@ class Navbar extends Component {
           })}
         </ul>
         <div className="daniels">
-          <Button>התחברות\הרשמה</Button>
+          {this.props.givenName !== "null" ? (
+            (MenuItems[4].title =
+              this.props.givenName + " " + this.props.familyName) && (
+              <Button>
+                {this.props.givenName} {this.props.familyName}
+              </Button>
+            )
+          ) : (
+            <Button>התחברות\הרשמה</Button>
+          )}
         </div>
       </nav>
     );
