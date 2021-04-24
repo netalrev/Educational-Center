@@ -27,14 +27,21 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { onAuthUIStateChange } from "@aws-amplify/ui-components";
 
+
+
+
 Amplify.configure(awsconfig); //AWS CONFIGORE
 var fname = "null";
 var gname = "null";
+var groupName = "null";
+
+var groups = new Array(3);
 Auth.currentAuthenticatedUser().then(
   (user) =>
     //alert(user.attributes.given_name)
     (gname = user.attributes.given_name) &&
-    (fname = user.attributes.family_name)
+    (fname = user.attributes.family_name) && (groups = user.signInUserSession.accessToken.payload["cognito:groups"]
+    ) && (groupName = groups[0])
 );
 
 var count = 0;
@@ -152,7 +159,7 @@ function Content() {
       <AmplifySignIn
         slot="sign-in"
         usernameAlias="email"
-        //handleAuthStateChange={handleAuthStateChange}
+      //handleAuthStateChange={handleAuthStateChange}
       />
       <AmplifySignOut />
     </AmplifyAuthenticator>
@@ -181,7 +188,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar givenName={gname} familyName={fname} />
+      <Navbar givenName={gname} familyName={fname} groupName={groupName} />
       <div className="main">
         <div className="clock"></div>
         <Router>
@@ -191,8 +198,10 @@ function App() {
             </Route>
             <Route exact path="/profile">
               <h1>עמוד פרופיל</h1>
+            </Route>manageActivities
+            <Route exact path="/manageActivities">
+              <h1>manageActivities manageActivities</h1>
             </Route>
-
             <Route exact path="/register">
               {isAuthenticated ? (
                 <div onClick={refreshPage}>

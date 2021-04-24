@@ -20,8 +20,15 @@ export const MenuItems = [
     cName: "nav-links",
   },
   {
+    title: "ניהול תכנים",
+    url: "/manageActivities",
+    cName: "nav-links",
+
+  },
+  {
     title: "התחברות/הרשמה",
     url: "/register",
     cName: "nav-links-mobile",
   },
+
 ];

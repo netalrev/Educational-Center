@@ -3,12 +3,15 @@ import { MenuItems } from "./MenuItems";
 import "./Navbar.css";
 import { Button } from "../Button";
 import { Auth } from "aws-amplify";
+import $ from 'jquery';
+
 var loggedIn = false;
+
 Auth.currentAuthenticatedUser().then((user) => (loggedIn = true));
 
 class Navbar extends Component {
   if(loggedIn) {
-    MenuItems[4].title = this.props.givenName + " " + this.props.familyName;
+    MenuItems[5].title = this.props.givenName + " " + this.props.familyName;
   }
   state = { clicked: false }; //for the menu btn
 
@@ -39,17 +42,20 @@ class Navbar extends Component {
         <ul className={this.state.clicked ? "nav-menu active" : "nav-menu"}>
           {MenuItems.map((item, index) => {
             return (
-              <li key={index}>
+              <li key={index} toHide={item.title} style={{ visibility: this.props.groupName !== "contentSuppliers" && index === 4 ? 'hidden' : 'visible' }} >
                 <a className={item.cName} href={item.url}>
                   {item.title}
                 </a>
               </li>
             );
           })}
+
+
+
         </ul>
         <div className="daniels">
           {this.props.givenName !== "null" ? (
-            (MenuItems[4].title =
+            (MenuItems[5].title =
               this.props.givenName + " " + this.props.familyName) && (
               <Button>
                 {this.props.givenName} {this.props.familyName}
@@ -63,4 +69,5 @@ class Navbar extends Component {
     );
   }
 }
+
 export default Navbar;
