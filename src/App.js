@@ -161,7 +161,7 @@ function Content() {
       <AmplifySignIn
         slot="sign-in"
         usernameAlias="email"
-        //handleAuthStateChange={handleAuthStateChange}
+      //handleAuthStateChange={handleAuthStateChange}
       />
       <AmplifySignOut />
     </AmplifyAuthenticator>
