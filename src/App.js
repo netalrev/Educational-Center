@@ -1,8 +1,10 @@
 import React from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
+import ManagePanel from "./components/ManagePanel/ManagePanel";
 import Footer from "./components/Footer";
 import Clock from "./components/Clock";
+import contactUs from "./components/contactUs";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   BrowserRouter as Router,
@@ -11,7 +13,6 @@ import {
   useParams,
   withRouter,
 } from "react-router-dom";
-import ContactForm from "./components/ContactUs/ContactForm";
 import ActivitiesPage from "./components/Activities/ActivitiesPage";
 import ClassesPage from "./components/Classes/ClassesPage";
 import Amplify, { Auth } from "aws-amplify";
@@ -199,7 +200,10 @@ function App() {
             </Route>
             manageActivities
             <Route exact path="/manageActivities">
-              <h1>manageActivities manageActivities</h1>
+              <h1>manageActivities</h1>
+            </Route>
+            <Route exact path="/ManagerPanel">
+              <ManagePanel />
             </Route>
             <Route exact path="/register">
               {isAuthenticated ? (
@@ -212,7 +216,7 @@ function App() {
               )}
             </Route>
             <Route exact path="/contactus">
-              <ContactForm />
+              <contactUs />
             </Route>
             <Route exact path="/activitiespage">
               <ActivitiesPage />
@@ -224,7 +228,7 @@ function App() {
         </Router>
       </div>
       <Footer />
-    </div>
+    </div >
   );
 }
 

@@ -3,10 +3,8 @@ import { MenuItems } from "./MenuItems";
 import "./Navbar.css";
 import { Button } from "../Button";
 import { Auth } from "aws-amplify";
-import $ from 'jquery';
 
 var loggedIn = false;
-
 Auth.currentAuthenticatedUser().then((user) => (loggedIn = true));
 
 class Navbar extends Component {
@@ -43,7 +41,12 @@ class Navbar extends Component {
 
           {MenuItems.map((item, index) => {
             return (
-              <li key={index} toHide={item.title} style={{ display: (this.props.groupName !== "contentSuppliers" && index === 2) || (this.props.groupName !== "admins" && index === 3) || (this.props.groupName !== "approvedUsers" && this.props.groupName !== "contentSuppliers" && this.props.groupName !== "admins") ? 'none' : 'block' }} >
+              <li key={index} toHide={item.title}
+                style={{
+                  display: (this.props.groupName !== "admins" && this.props.groupName !== "contentSuppliers" && index === 2) ||
+                    (this.props.groupName !== "admins" && index === 3) || (this.props.groupName === "null" && index !== 4) ? 'none' : 'block'
+                }}
+              >
                 <a className={item.cName} href={item.url}>
                   {item.title}
                 </a>
