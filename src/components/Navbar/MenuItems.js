@@ -4,14 +4,24 @@ export const MenuItems = [
     url: "/",
     cName: "nav-links",
   },
-  {
-    title: "שיעורים",
-    url: "/Classes",
-    cName: "nav-links",
-  },
+  // {
+  //   title: "שיעורים",
+  //   url: "/Classes",
+  //   cName: "nav-links",
+  // },
   {
     title: "פעילויות",
     url: "/Activities",
+    cName: "nav-links",
+  },
+  {
+    title: "ניהול תכנים",
+    url: "/manageActivities",
+    cName: "nav-links",
+  },
+  {
+    title: "פנאל מנהל",
+    url: "/ManagerPanel",
     cName: "nav-links",
   },
   {
@@ -19,12 +29,7 @@ export const MenuItems = [
     url: "/ContactUs",
     cName: "nav-links",
   },
-  {
-    title: "ניהול תכנים",
-    url: "/manageActivities",
-    cName: "nav-links",
 
-  },
   {
     title: "התחברות/הרשמה",
     url: "/register",
