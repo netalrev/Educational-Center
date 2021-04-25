@@ -1,0 +1,16 @@
+projects:
+  TestAPI:
+    schemaPath: >-
+      D:/Users/Daniel/Desktop/EduCenter/Educational-Center/src/graphql/schema.json
+    includes:
+      - src/graphql/**/*.js
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: javascript
+        generatedFileName: ''
+        docsFilePath: src/graphql
+extensions:
+  amplify:
+    version: 3
