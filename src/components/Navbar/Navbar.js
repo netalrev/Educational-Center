@@ -3,10 +3,8 @@ import { MenuItems } from "./MenuItems";
 import "./Navbar.css";
 import { Button } from "../Button";
 import { Auth } from "aws-amplify";
-import $ from 'jquery';
 
 var loggedIn = false;
-
 Auth.currentAuthenticatedUser().then((user) => (loggedIn = true));
 
 class Navbar extends Component {
@@ -51,7 +49,6 @@ class Navbar extends Component {
               >
                 <a className={item.cName} href={item.url}>
                   {item.title}
-                  {console.log(this.props.groupName)}
                 </a>
               </li>
             );
