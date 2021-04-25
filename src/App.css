@@ -7,8 +7,10 @@
     max-width: 100%;
 }
 .main{
-    background-image: url("https://cdn.pixabay.com/photo/2016/07/29/15/30/pokemon-1553995_1280.jpg");
+    background-image: url('https://c4.wallpaperflare.com/wallpaper/381/519/745/abstract-waveforms-red-black-wallpaper-preview.jpg');
     display: flex;
+    background-repeat: no-repeat;
+    background-size: cover;
     position:static;
     background-color: rgb(27, 28, 29);
     align-items: center;
