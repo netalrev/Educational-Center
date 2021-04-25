@@ -27,9 +27,6 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { onAuthUIStateChange } from "@aws-amplify/ui-components";
 
-
-
-
 Amplify.configure(awsconfig); //AWS CONFIGORE
 var fname = "null";
 var gname = "null";
@@ -40,8 +37,9 @@ Auth.currentAuthenticatedUser().then(
   (user) =>
     //alert(user.attributes.given_name)
     (gname = user.attributes.given_name) &&
-    (fname = user.attributes.family_name) && (groups = user.signInUserSession.accessToken.payload["cognito:groups"]
-    ) && (groupName = groups[0])
+    (fname = user.attributes.family_name) &&
+    (groups = user.signInUserSession.accessToken.payload["cognito:groups"]) &&
+    (groupName = groups[0])
 );
 
 var count = 0;
@@ -159,7 +157,7 @@ function Content() {
       <AmplifySignIn
         slot="sign-in"
         usernameAlias="email"
-      //handleAuthStateChange={handleAuthStateChange}
+        //handleAuthStateChange={handleAuthStateChange}
       />
       <AmplifySignOut />
     </AmplifyAuthenticator>
@@ -198,7 +196,8 @@ function App() {
             </Route>
             <Route exact path="/profile">
               <h1>עמוד פרופיל</h1>
-            </Route>manageActivities
+            </Route>
+            manageActivities
             <Route exact path="/manageActivities">
               <h1>manageActivities manageActivities</h1>
             </Route>
@@ -212,7 +211,6 @@ function App() {
                 <Content />
               )}
             </Route>
-
             <Route exact path="/contactus">
               <ContactForm />
             </Route>
