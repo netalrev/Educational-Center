@@ -46,11 +46,12 @@ class Navbar extends Component {
               <li key={index} toHide={item.title}
                 style={{
                   display: (this.props.groupName !== "admins" && this.props.groupName !== "contentSuppliers" && index === 2) ||
-                    (this.props.groupName !== "admins" && index === 3) ? 'none' : 'block'
+                    (this.props.groupName !== "admins" && index === 3) || (this.props.groupName === "null" && index !== 4) ? 'none' : 'block'
                 }}
               >
                 <a className={item.cName} href={item.url}>
                   {item.title}
+                  {console.log(this.props.groupName)}
                 </a>
               </li>
             );
