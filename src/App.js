@@ -15,7 +15,7 @@ import {
 } from "react-router-dom";
 import ActivitiesPage from "./components/Activities/ActivitiesPage";
 import ClassesPage from "./components/Classes/ClassesPage";
-import Amplify, { Auth } from "aws-amplify";
+import Amplify, { Auth, API, graphqlOperation } from "aws-amplify";
 import awsconfig from "./aws-exports";
 import {
   AmplifyAuthenticator,
@@ -27,6 +27,9 @@ import { I18n } from "aws-amplify";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { onAuthUIStateChange } from "@aws-amplify/ui-components";
+
+import { listSongs } from "./graphql/queries";
+import { updateSong } from "./graphql/mutations";
 
 Amplify.configure(awsconfig); //AWS CONFIGORE
 var fname = "null";
@@ -169,7 +172,22 @@ function App() {
   const classes = useStyles();
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
+  const [songs, setSongs] = useState([]);
 
+  useEffect(() => {
+    fetchSongs();
+  }, []);
+
+  const fetchSongs = async () => {
+    try {
+      const songData = await API.graphql(graphqlOperation(listSongs));
+      const songList = songData.data.listSongs.items;
+      console.log("song list", songList);
+      setSongs(songList);
+    } catch (error) {
+      console.log("error on fetching songs", error);
+    }
+  };
   async function onLoad() {
     try {
       await Auth.currentSession();
