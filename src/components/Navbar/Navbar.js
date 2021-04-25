@@ -43,7 +43,12 @@ class Navbar extends Component {
 
           {MenuItems.map((item, index) => {
             return (
-              <li key={index} toHide={item.title} style={{ display: (this.props.groupName !== "contentSuppliers" && index === 2) || (this.props.groupName !== "admins" && index === 3) || (this.props.groupName !== "approvedUsers" && this.props.groupName !== "contentSuppliers" && this.props.groupName !== "admins") ? 'none' : 'block' }} >
+              <li key={index} toHide={item.title}
+                style={{
+                  display: (this.props.groupName !== "admins" && this.props.groupName !== "contentSuppliers" && index === 2) ||
+                    (this.props.groupName !== "admins" && index === 3) ? 'none' : 'block'
+                }}
+              >
                 <a className={item.cName} href={item.url}>
                   {item.title}
                 </a>
