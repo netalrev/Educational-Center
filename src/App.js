@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
+import ManagePanel from "./components/ManagePanel/ManagePanel";
 import Footer from "./components/Footer";
 import Clock from "./components/Clock";
 import { makeStyles } from "@material-ui/core/styles";
@@ -200,7 +201,10 @@ function App() {
               <h1>עמוד פרופיל</h1>
             </Route>manageActivities
             <Route exact path="/manageActivities">
-              <h1>manageActivities manageActivities</h1>
+              <h1>manageActivities</h1>
+            </Route>
+            <Route exact path="/ManagerPanel">
+              <ManagePanel />
             </Route>
             <Route exact path="/register">
               {isAuthenticated ? (
@@ -226,7 +230,7 @@ function App() {
         </Router>
       </div>
       <Footer />
-    </div>
+    </div >
   );
 }
 
