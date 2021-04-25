@@ -215,9 +215,7 @@ function App() {
                 <Content />
               )}
             </Route>
-            <Route exact path="/contactus">
-              <contactUs />
-            </Route>
+            <Route exact path="/contactus"></Route>
             <Route exact path="/activitiespage">
               <ActivitiesPage />
             </Route>
@@ -228,7 +226,7 @@ function App() {
         </Router>
       </div>
       <Footer />
-    </div >
+    </div>
   );
 }
 
