@@ -40,9 +40,10 @@ class Navbar extends Component {
         </div>
 
         <ul className={this.state.clicked ? "nav-menu active" : "nav-menu"}>
+
           {MenuItems.map((item, index) => {
             return (
-              <li key={index} toHide={item.title} style={{ visibility: this.props.groupName !== "contentSuppliers" && index === 4 ? 'hidden' : 'visible' }} >
+              <li key={index} toHide={item.title} style={{ display: (this.props.groupName !== "contentSuppliers" && index === 2) || (this.props.groupName !== "admins" && index === 3) || (this.props.groupName !== "approvedUsers" && this.props.groupName !== "contentSuppliers" && this.props.groupName !== "admins") ? 'none' : 'block' }} >
                 <a className={item.cName} href={item.url}>
                   {item.title}
                 </a>
