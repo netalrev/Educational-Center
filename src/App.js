@@ -2,7 +2,9 @@ import React from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import ManagePanel from "./components/ManagePanel/ManagePanel";
+//import manageActivites from "./components/manageActivites/manageActivites";
 import Footer from "./components/Footer";
+import ManageActivities from "./components/ManageActivities/ManageActivities";
 import Clock from "./components/Clock";
 import contactUs from "./components/contactUs";
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,7 +17,7 @@ import {
 } from "react-router-dom";
 import ActivitiesPage from "./components/Activities/ActivitiesPage";
 import ClassesPage from "./components/Classes/ClassesPage";
-import Amplify, { Auth, API, graphqlOperation } from "aws-amplify";
+import Amplify, { Auth, API, graphqlOperation, navBar } from "aws-amplify";
 import awsconfig from "./aws-exports";
 import {
   AmplifyAuthenticator,
@@ -23,10 +25,8 @@ import {
   AmplifySignIn,
   AmplifySignOut,
 } from "@aws-amplify/ui-react";
-import { I18n } from "aws-amplify";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { onAuthUIStateChange } from "@aws-amplify/ui-components";
 
 import { listSongs } from "./graphql/queries";
 import { updateSong } from "./graphql/mutations";
@@ -216,9 +216,8 @@ function App() {
             <Route exact path="/profile">
               <h1>עמוד פרופיל</h1>
             </Route>
-            manageActivities
             <Route exact path="/manageActivities">
-              <h1>manageActivities</h1>
+              <ManageActivities />
             </Route>
             <Route exact path="/ManagerPanel">
               <ManagePanel />
