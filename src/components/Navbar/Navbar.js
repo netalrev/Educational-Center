@@ -38,13 +38,20 @@ class Navbar extends Component {
         </div>
 
         <ul className={this.state.clicked ? "nav-menu active" : "nav-menu"}>
-
           {MenuItems.map((item, index) => {
             return (
-              <li key={index} toHide={item.title}
+              <li
+                key={index}
+                toHide={item.title}
                 style={{
-                  display: (this.props.groupName !== "admins" && this.props.groupName !== "contentSuppliers" && index === 2) ||
-                    (this.props.groupName !== "admins" && index === 3) || (this.props.groupName === "null" && index !== 4) ? 'none' : 'block'
+                  display:
+                    (this.props.groupName !== "admins" &&
+                      this.props.groupName !== "contentSuppliers" &&
+                      index === 2) ||
+                    (this.props.groupName !== "admins" && index === 3) ||
+                    (this.props.groupName === "null" && index !== 4)
+                      ? "none"
+                      : "block",
                 }}
               >
                 <a className={item.cName} href={item.url}>
@@ -53,9 +60,6 @@ class Navbar extends Component {
               </li>
             );
           })}
-
-
-
         </ul>
         <div className="daniels">
           {this.props.givenName !== "null" ? (
