@@ -3,7 +3,7 @@ import React, { Component } from "react";
 
 class ManageActivities extends Component {
   render() {
-    return <h1 color="red">מאןר</h1>;
+    return <h1 color="red">מאור</h1>;
   }
 }
 export default ManageActivities;
