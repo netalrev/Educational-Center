@@ -12,11 +12,15 @@
     font-size: 1.2rem;
 
 }
-.navbar-logo{
-    color: #fff;
+
+.logo{
+    height: 100%;
+    width: 130px;
+    margin-top: 2.3rem;
     justify-self: start;
-    margin-left: 20px;
+    margin-left: 15px;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 
 .fa-react{
@@ -103,11 +107,9 @@
         border-radius: 0;        
     }
 
-    .navbar-logo{
-        position:absolute;
-        top: 0;
-        left: 0;
-        transform: translate(25%, 50%);
+    .logo{
+        visibility: hidden;
+
     }
 
     .menu-icon{

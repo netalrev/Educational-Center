@@ -3,6 +3,7 @@ import { MenuItems } from "./MenuItems";
 import "./Navbar.css";
 import { Button } from "../Button";
 import { Auth } from "aws-amplify";
+import logo from "./logo.png"; // Tell webpack this JS file uses this image
 
 var loggedIn = false;
 Auth.currentAuthenticatedUser().then((user) => (loggedIn = true));
@@ -20,16 +21,15 @@ class Navbar extends Component {
   render() {
     return (
       <nav className="NavbarItems">
-        <h1
-          className="navbar-logo"
+        <img
+          className="logo"
+          src={logo}
+          alt="Logo"
           onClick={(e) => {
             e.preventDefault();
             window.location.href = "/"; //Url to icon button.
           }}
-        >
-          <i className="fab fa-react"></i>
-          המרחב החינוכי
-        </h1>
+        />
 
         <div className="menu-icon" onClick={this.handleClick}>
           <i
