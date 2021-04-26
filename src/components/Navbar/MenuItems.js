@@ -16,7 +16,7 @@ export const MenuItems = [
   },
   {
     title: "ניהול תכנים",
-    url: "/manageActivites",
+    url: "/manageActivities",
     cName: "nav-links",
   },
   {
@@ -35,5 +35,4 @@ export const MenuItems = [
     url: "/register",
     cName: "nav-links-mobile",
   },
-
 ];
