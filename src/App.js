@@ -215,18 +215,51 @@ function App() {
             <Route exact path="/">
               <img className="logoMain" src="/logo.png" />
             </Route>
-            <Route exact path="/profile">
-              <h1>עמוד פרופיל</h1>
-            </Route>
-            <Route exact path="/activitiespage">
-              <ActivitiesPage />
-            </Route>
-            <Route exact path="/classespage">
-              <ClassesPage />
-            </Route>
-            <Route exact path="/manageActivities">
-              <ManageActivities />
-            </Route>
+            {groupName === "admins" ||
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
+              <Route exact path="/profile">
+                <h1>עמוד פרופיל</h1>
+              </Route>
+            ) : (
+              <Route exact path="/profile">
+                <h2 className="forbidden">אנא התחבר\י על מנת לצפות בפרופיל</h2>
+              </Route>
+            )}
+            {groupName === "admins" ||
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
+              <Route exact path="/activitiespage">
+                <ActivitiesPage />
+              </Route>
+            ) : (
+              <Route exact path="/activitiespage">
+                <h2 className="forbidden">
+                  אנא התחבר\י על מנת לצפות בפעילויות
+                </h2>
+              </Route>
+            )}
+            {groupName === "admins" ||
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
+              <Route exact path="/classespage">
+                <ClassesPage />
+              </Route>
+            ) : (
+              <Route exact path="/classespage">
+                <h2 className="forbidden">אנא התחבר\י על מנת לצפות בשיעורים</h2>
+              </Route>
+            )}
+
+            {groupName === "admins" || groupName === "contentSuppliers" ? (
+              <Route exact path="/manageActivities">
+                <ManageActivities />
+              </Route>
+            ) : (
+              <Route exact path="/manageActivities">
+                <h2 className="forbidden">Access Forbbiden</h2>
+              </Route>
+            )}
             {groupName === "admins" ? (
               <Route exact path="/ManagerPanel">
                 <ManagePanel />
