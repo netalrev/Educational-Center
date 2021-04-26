@@ -213,7 +213,7 @@ function App() {
         <Router>
           <Switch>
             <Route exact path="/">
-              <h1>ברוכים הבאים ! מקווים שתהנה</h1>
+              <img className="logoMain" src="/logo.png" />
             </Route>
             <Route exact path="/profile">
               <h1>עמוד פרופיל</h1>
