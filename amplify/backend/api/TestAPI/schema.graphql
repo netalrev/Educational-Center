@@ -6,3 +6,10 @@
     like: Int!
     owner: String!
 }
+
+  type Activities @model {
+    id: ID!
+    title: String!
+    description: String!
+    owner: String!
+}
