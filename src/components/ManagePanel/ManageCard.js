@@ -9,7 +9,6 @@ import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
 import { red } from "@material-ui/core/colors";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import "./ManagePanel.css";
 
 const useStyles = makeStyles((theme) => ({
     root: {
