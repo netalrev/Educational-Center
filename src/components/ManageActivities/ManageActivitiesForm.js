@@ -16,9 +16,9 @@ const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 1000,
         margin: "10px",
-        backgroundColor: "rgba(0, 0, 0, 0.6)",
-        color: "white",
-        text: "white",
+        backgroundColor: "light gray",
+        color: "red",
+        text: "red",
         borderRadius: "4%",
         right: 0,
         transition: "transform 0.15s ease-in-out",

@@ -6,13 +6,13 @@ class FormElement extends Component {
     render() {
         return (
             <tr>
-                <td className="tdsForm">
-                    {/* <input className="formInputs" type={this.props.type} name={this.props.title} /> */}
-                    <TextField id="standard-basic" label="Standard" />
-                </td>
-                <td>
+                {/* <td className="tdsForm"> */}
+                {/* <input className="formInputs" type={this.props.type} name={this.props.title} /> */}
+                <TextField id="standard-basic" label={this.props.title} />
+                {/* </td> */}
+                {/* <td>
                     <h3>{this.props.title}</h3>
-                </td>
+                </td> */}
             </tr>
         );
     }
