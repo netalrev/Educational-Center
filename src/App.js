@@ -163,7 +163,7 @@ function Content() {
       <AmplifySignIn
         slot="sign-in"
         usernameAlias="email"
-        //handleAuthStateChange={handleAuthStateChange}
+      //handleAuthStateChange={handleAuthStateChange}
       />
       <AmplifySignOut />
     </AmplifyAuthenticator>
@@ -219,7 +219,6 @@ function App() {
               <h1>עמוד פרופיל</h1>
             </Route>
             <Route exact path="/manageActivities">
-              <h1>manageActivities</h1>
               <ManageActivities />
             </Route>
             <Route exact path="/ManagerPanel">
