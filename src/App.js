@@ -163,7 +163,7 @@ function Content() {
       <AmplifySignIn
         slot="sign-in"
         usernameAlias="email"
-      //handleAuthStateChange={handleAuthStateChange}
+        //handleAuthStateChange={handleAuthStateChange}
       />
       <AmplifySignOut />
     </AmplifyAuthenticator>
@@ -218,12 +218,25 @@ function App() {
             <Route exact path="/profile">
               <h1>עמוד פרופיל</h1>
             </Route>
+            <Route exact path="/activitiespage">
+              <ActivitiesPage />
+            </Route>
+            <Route exact path="/classespage">
+              <ClassesPage />
+            </Route>
             <Route exact path="/manageActivities">
               <ManageActivities />
             </Route>
-            <Route exact path="/ManagerPanel">
-              <ManagePanel />
-            </Route>
+            {groupName === "admins" ? (
+              <Route exact path="/ManagerPanel">
+                <ManagePanel />
+              </Route>
+            ) : (
+              <Route exact path="/ManagerPanel">
+                <h2 className="forbidden">Access Forbbiden</h2>
+              </Route>
+            )}
+
             <Route exact path="/register">
               {isAuthenticated ? (
                 <div onClick={refreshPage}>
@@ -236,12 +249,6 @@ function App() {
             </Route>
             <Route exact path="/contactus">
               <ContactForm />
-            </Route>
-            <Route exact path="/activitiespage">
-              <ActivitiesPage />
-            </Route>
-            <Route exact path="/classespage">
-              <ClassesPage />
             </Route>
           </Switch>
         </Router>
