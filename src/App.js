@@ -110,6 +110,7 @@ function Content() {
       setAuthState(state);
     }
     if (state === "signedin") {
+      //history.push("/");
       refreshPage();
     }
   }
@@ -160,11 +161,7 @@ function Content() {
           },
         ]}
       />
-      <AmplifySignIn
-        slot="sign-in"
-        usernameAlias="email"
-        //handleAuthStateChange={handleAuthStateChange}
-      />
+      <AmplifySignIn slot="sign-in" usernameAlias="email" />
       <AmplifySignOut />
     </AmplifyAuthenticator>
   );

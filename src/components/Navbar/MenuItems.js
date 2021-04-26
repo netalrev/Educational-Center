@@ -11,7 +11,7 @@ export const MenuItems = [
   // },
   {
     title: "פעילויות",
-    url: "/Activities",
+    url: "/activitiespage",
     cName: "nav-links",
   },
   {
