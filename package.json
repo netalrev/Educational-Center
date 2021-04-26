@@ -13,6 +13,7 @@
     "aws-amplify": "^3.3.27",
     "aws-amplify-react": "^2.1.1",
     "aws-sdk": "^2.886.0",
+    "axios": "^0.21.1",
     "history": "^5.0.0",
     "jquery": "^3.6.0",
     "json-server": "^0.16.3",

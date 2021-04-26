@@ -7,6 +7,8 @@ import Footer from "./components/Footer";
 import ManageActivities from "./components/ManageActivities/ManageActivities";
 import Clock from "./components/Clock";
 import contactUs from "./components/contactUs";
+import ContactForm from "./components/ContactForm";
+
 import { makeStyles } from "@material-ui/core/styles";
 import {
   BrowserRouter as Router,
@@ -232,7 +234,9 @@ function App() {
                 <Content />
               )}
             </Route>
-            <Route exact path="/contactus"></Route>
+            <Route exact path="/contactus">
+              <ContactForm />
+            </Route>
             <Route exact path="/activitiespage">
               <ActivitiesPage />
             </Route>
