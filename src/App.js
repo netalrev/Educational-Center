@@ -189,22 +189,22 @@ function App() {
   const classes = useStyles();
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
-  const [songs, setSongs] = useState([]);
+  // const [songs, setSongs] = useState([]);
 
-  useEffect(() => {
-    fetchSongs();
-  }, []);
+  // useEffect(() => {
+  //   fetchSongs();
+  // }, []);
 
-  const fetchSongs = async () => {
-    try {
-      const songData = await API.graphql(graphqlOperation(listSongs));
-      const songList = songData.data.listSongs.items;
-      console.log("song list", songList);
-      setSongs(songList);
-    } catch (error) {
-      console.log("error on fetching songs", error);
-    }
-  };
+  // const fetchSongs = async () => {
+  //   try {
+  //     const songData = await API.graphql(graphqlOperation(listSongs));
+  //     const songList = songData.data.listSongs.items;
+  //     console.log("song list", songList);
+  //     setSongs(songList);
+  //   } catch (error) {
+  //     console.log("error on fetching songs", error);
+  //   }
+  // };
   async function onLoad() {
     try {
       await Auth.currentSession();
@@ -231,8 +231,8 @@ function App() {
               <img className="logoMain" src="/logo.png" />
             </Route>
             {groupName === "admins" ||
-            groupName === "contentSuppliers" ||
-            groupName === "approvedUsers" ? (
+              groupName === "contentSuppliers" ||
+              groupName === "approvedUsers" ? (
               <Route exact path="/profile">
                 <h1>עמוד פרופיל</h1>
               </Route>
@@ -242,8 +242,8 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-            groupName === "contentSuppliers" ||
-            groupName === "approvedUsers" ? (
+              groupName === "contentSuppliers" ||
+              groupName === "approvedUsers" ? (
               <Route exact path="/activitiespage">
                 <ActivitiesPage />
               </Route>
@@ -255,8 +255,8 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-            groupName === "contentSuppliers" ||
-            groupName === "approvedUsers" ? (
+              groupName === "contentSuppliers" ||
+              groupName === "approvedUsers" ? (
               <Route exact path="/classespage">
                 <ClassesPage />
               </Route>

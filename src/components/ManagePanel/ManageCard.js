@@ -10,6 +10,11 @@ import IconButton from "@material-ui/core/IconButton";
 import { red } from "@material-ui/core/colors";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
+import { listActivitiess } from "../../graphql/queries";
+import Amplify, { Auth, API, graphqlOperation } from "aws-amplify";
+import { useState, useEffect } from "react";
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 1000,
@@ -49,6 +54,22 @@ const useStyles = makeStyles((theme) => ({
 export default function ManagePanel(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
+    const [activitiess, setActivitiess] = useState([]);
+
+    useEffect(() => {
+        fetchSongs();
+    }, []);
+
+    const fetchSongs = async () => {
+        try {
+            const activitiesData = await API.graphql(graphqlOperation(listActivitiess));
+            const activitiesList = activitiesData.data.listActivitiess.items;
+            console.log("activitiesList", activitiesList);
+            setActivitiess(activitiesList);
+        } catch (error) {
+            console.log("error on fetching songs", error);
+        }
+    };
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
