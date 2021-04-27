@@ -231,8 +231,8 @@ function App() {
               <img className="logoMain" src="/logo.png" />
             </Route>
             {groupName === "admins" ||
-              groupName === "contentSuppliers" ||
-              groupName === "approvedUsers" ? (
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
               <Route exact path="/profile">
                 <h1>עמוד פרופיל</h1>
               </Route>
@@ -242,8 +242,8 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-              groupName === "contentSuppliers" ||
-              groupName === "approvedUsers" ? (
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
               <Route exact path="/activitiespage">
                 <ActivitiesPage />
               </Route>
@@ -255,8 +255,8 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-              groupName === "contentSuppliers" ||
-              groupName === "approvedUsers" ? (
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
               <Route exact path="/classespage">
                 <ClassesPage />
               </Route>
