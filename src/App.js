@@ -29,7 +29,7 @@ import { I18n } from "aws-amplify";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { onAuthUIStateChange } from "@aws-amplify/ui-components";
-
+import { Hub, Logger } from "aws-amplify";
 import { listSongs } from "./graphql/queries";
 import { updateSong } from "./graphql/mutations";
 
@@ -55,6 +55,30 @@ const useStyles = makeStyles({
     paddingRight: "10px",
   },
 });
+const logger = new Logger("Logger", "INFO");
+const listener = (data) => {
+  switch (data.payload.event) {
+    case "signIn":
+      logger.info("user signed in");
+      refreshPage();
+      break;
+    case "signUp":
+      logger.info("user signed up");
+      break;
+    case "signOut":
+      logger.info("user signed out");
+      break;
+    case "signIn_failure":
+      logger.info("user sign in failed");
+      break;
+    case "configured":
+      logger.info("the Auth module is configured");
+      break;
+    default:
+      logger.error("Something went wrong, look at data object", data);
+  }
+};
+
 const signUpConfig = {
   hideAllDefaults: true,
   signUpFields: [
@@ -82,10 +106,6 @@ function refreshPage() {
 
 function Content() {
   let history = useHistory();
-
-  function handleAuthStateChange(state) {
-    //refreshPage();
-  }
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
 
@@ -108,10 +128,7 @@ function Content() {
   function handleAuthStateChange(state) {
     if (state === "signedin" || state === "signedout") {
       setAuthState(state);
-    }
-    if (state === "signedin") {
-      //history.push("/");
-      refreshPage();
+      //alert(state);
     }
   }
   return (
@@ -166,6 +183,7 @@ function Content() {
     </AmplifyAuthenticator>
   );
 }
+Hub.listen("auth", listener);
 
 function App() {
   const classes = useStyles();
