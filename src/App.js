@@ -32,6 +32,7 @@ import { onAuthUIStateChange } from "@aws-amplify/ui-components";
 import { Hub, Logger } from "aws-amplify";
 import { listSongs } from "./graphql/queries";
 import { updateSong } from "./graphql/mutations";
+import { AmplifyTheme } from "aws-amplify-react-native";
 
 Amplify.configure(awsconfig); //AWS CONFIGORE
 var fname = "null";
