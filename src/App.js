@@ -32,14 +32,13 @@ import { onAuthUIStateChange } from "@aws-amplify/ui-components";
 import { Hub, Logger } from "aws-amplify";
 import { listSongs } from "./graphql/queries";
 import { updateSong } from "./graphql/mutations";
-import { AmplifyTheme } from "aws-amplify-react-native";
 
 Amplify.configure(awsconfig); //AWS CONFIGORE
 var fname = "null";
 var gname = "null";
 var groupName = "null";
-
 var groups = new Array(3);
+
 Auth.currentAuthenticatedUser().then(
   (user) =>
     //alert(user.attributes.given_name)
@@ -154,6 +153,7 @@ function Content() {
           {
             label: "אישור סיסמה",
             name: "password2",
+            placeholder: "הזן סיסמה שוב",
             required: true,
             type: "password",
           },
@@ -179,7 +179,26 @@ function Content() {
           },
         ]}
       />
-      <AmplifySignIn slot="sign-in" usernameAlias="email" />
+      <AmplifySignIn
+        slot="sign-in"
+        usernameAlias="email"
+        headerText="התחברות"
+        formFields={[
+          {
+            type: "email",
+            label: "כתובת אימייל",
+            placeholder: "example@host.com",
+            required: true,
+          },
+          {
+            type: "password",
+            label: "סיסמה",
+            placeholder: "סיסמה",
+            required: true,
+          },
+          ,
+        ]}
+      />
       <AmplifySignOut />
     </AmplifyAuthenticator>
   );
