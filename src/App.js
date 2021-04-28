@@ -26,6 +26,8 @@ import {
   AmplifySignOut,
 } from "@aws-amplify/ui-react";
 import { I18n } from "aws-amplify";
+import { Translations } from "@aws-amplify/ui-components";
+
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { onAuthUIStateChange } from "@aws-amplify/ui-components";
@@ -108,7 +110,15 @@ function Content() {
   let history = useHistory();
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
-
+  I18n.putVocabulariesForLanguage("he", {
+    [Translations.SIGN_IN_HEADER_TEXT]: "Custom Sign In Header Text",
+    [Translations.SIGN_IN_ACTION]: "התחבר/י",
+    [Translations.SIGN_UP_SUBMIT_BUTTON_TEXT]: "יצירת משתמש חדש",
+    [Translations.SIGN_UP_HAVE_ACCOUNT_TEXT]: "כבר נרשמת לאתר?",
+    [Translations.SIGN_IN_TEXT]: "לחץ להתחברות",
+    [Translations.FORGOT_PASSWORD_TEXT]: "שכחת את הסיסמה?",
+    [Translations.RESET_PASSWORD_TEXT]: "איפוס סיסמה",
+  });
   async function onLoad() {
     try {
       await Auth.currentSession();
