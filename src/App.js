@@ -119,6 +119,13 @@ function Content() {
     [Translations.FORGOT_PASSWORD_TEXT]: "שכחת את הסיסמה?",
     [Translations.RESET_PASSWORD_TEXT]: "איפוס סיסמה",
     [Translations.SIGN_OUT]: "התנתקות",
+    [Translations.RESET_YOUR_PASSWORD]: "איפוס סיסמה",
+    [Translations.BACK_TO_SIGN_IN]: "חזרה למסך ההתחברות",
+    [Translations.USERNAME_LABEL]: "כתובת אימייל",
+    [Translations.USERNAME_PLACEHOLDER]: "אימייל",
+    [Translations.SEND_CODE]: "שלח לי קוד איפוס",
+    [Translations.NO_ACCOUNT_TEXT]: "למשתמשים חדשים",
+    [Translations.CREATE_ACCOUNT_TEXT]: "לחץ להרשמה",
   });
   async function onLoad() {
     try {
