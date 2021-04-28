@@ -327,6 +327,7 @@ function App() {
               {isAuthenticated ? (
                 <div onClick={refreshPage}>
                   {" "}
+                  <h1 className="profileHeader">עמוד פרופיל</h1>
                   <AmplifySignOut />{" "}
                 </div>
               ) : (

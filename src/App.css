@@ -38,6 +38,10 @@
 .forbidden{
     color: aliceblue;
 }
+.profileHeader{
+    color: #ffffff;
+
+}
 amplify-authenticator {
     color: #2fb415;
 
