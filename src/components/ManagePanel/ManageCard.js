@@ -14,7 +14,6 @@ import { listActivitiess } from "../../graphql/queries";
 import Amplify, { Auth, API, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
 
-
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 1000,
@@ -54,31 +53,43 @@ const useStyles = makeStyles((theme) => ({
 export default function ManagePanel(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
-    const [activitiess, setActivitiess] = useState([]);
+    // const [activitiess, setActivitiess] = useState([]);
+    // var activityName = "maor";
 
-    useEffect(() => {
-        fetchActivities();
-    }, []);
+    // useEffect(() => {
+    //     fetchActivities();
+    // }, []);
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
 
     const fetchActivities = async () => {
         try {
             const activitiesData = await API.graphql(graphqlOperation(listActivitiess));
             const activitiesList = activitiesData.data.listActivitiess.items;
-            console.log("activitiesList", activitiesList[0].id);
-            console.log("activitiesList", activitiesList[0].title);
-            setActivitiess(activitiesList);
-            // return await activitiesList.json();
+            // setActivitiess(activitiess);
+            return activitiesList;
         } catch (error) {
             console.log("error on fetching songs", error);
         }
     };
 
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
+    const fetchActivitiesResult = async () => {
+        let result = await fetchActivities();
+        return result;
+    }
+    // let myarray = Object.entries(fetchActivitiesResult());
+    var result = fetchActivitiesResult();
+    var x = "";
+    x = result.then(function (value) {
+        // x = "<td> " + value[0].description + " </td>";
+        var obj = JSON.stringify(value[0])
+        // console.log(value[0].description);
+        return obj;
+    })
+    console.log(x);
+
     var text = props.title;
-    // const result = await this.fetchActivities();
-    // console.log(result);
     return (
         <Card className={classes.root}>
             <CardHeader
@@ -108,7 +119,11 @@ export default function ManagePanel(props) {
                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>שם הפעילות</th>
                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>שם ספק התוכן</th>
                                 <tr>
-                                    {/* {useEffect()} */}
+                                    {result.then(function (value) {
+                                        x = "<td> " + value[0].description + " </td>";
+                                        // console.log(value[0].description);
+                                        return x;
+                                    })}
                                 </tr>
                             </table>
                         </div>
