@@ -26,6 +26,8 @@ import {
   AmplifySignOut,
 } from "@aws-amplify/ui-react";
 import { I18n } from "aws-amplify";
+import { Translations } from "@aws-amplify/ui-components";
+
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { onAuthUIStateChange } from "@aws-amplify/ui-components";
@@ -37,8 +39,8 @@ Amplify.configure(awsconfig); //AWS CONFIGORE
 var fname = "null";
 var gname = "null";
 var groupName = "null";
-
 var groups = new Array(3);
+
 Auth.currentAuthenticatedUser().then(
   (user) =>
     //alert(user.attributes.given_name)
@@ -108,7 +110,23 @@ function Content() {
   let history = useHistory();
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
-
+  I18n.putVocabulariesForLanguage("he", {
+    [Translations.SIGN_IN_HEADER_TEXT]: "Custom Sign In Header Text",
+    [Translations.SIGN_IN_ACTION]: "התחבר/י",
+    [Translations.SIGN_UP_SUBMIT_BUTTON_TEXT]: "יצירת משתמש חדש",
+    [Translations.SIGN_UP_HAVE_ACCOUNT_TEXT]: "כבר נרשמת לאתר?",
+    [Translations.SIGN_IN_TEXT]: "לחץ להתחברות",
+    [Translations.FORGOT_PASSWORD_TEXT]: "שכחת את הסיסמה?",
+    [Translations.RESET_PASSWORD_TEXT]: "איפוס סיסמה",
+    [Translations.SIGN_OUT]: "התנתקות",
+    [Translations.RESET_YOUR_PASSWORD]: "איפוס סיסמה",
+    [Translations.BACK_TO_SIGN_IN]: "חזרה למסך ההתחברות",
+    [Translations.USERNAME_LABEL]: "כתובת אימייל",
+    [Translations.USERNAME_PLACEHOLDER]: "אימייל",
+    [Translations.SEND_CODE]: "שלח לי קוד איפוס",
+    [Translations.NO_ACCOUNT_TEXT]: "למשתמשים חדשים",
+    [Translations.CREATE_ACCOUNT_TEXT]: "לחץ להרשמה",
+  });
   async function onLoad() {
     try {
       await Auth.currentSession();
@@ -153,6 +171,7 @@ function Content() {
           {
             label: "אישור סיסמה",
             name: "password2",
+            placeholder: "הזן סיסמה שוב",
             required: true,
             type: "password",
           },
@@ -178,7 +197,26 @@ function Content() {
           },
         ]}
       />
-      <AmplifySignIn slot="sign-in" usernameAlias="email" />
+      <AmplifySignIn
+        slot="sign-in"
+        usernameAlias="email"
+        headerText="התחברות"
+        formFields={[
+          {
+            type: "email",
+            label: "כתובת אימייל",
+            placeholder: "example@host.com",
+            required: true,
+          },
+          {
+            type: "password",
+            label: "סיסמה",
+            placeholder: "סיסמה",
+            required: true,
+          },
+          ,
+        ]}
+      />
       <AmplifySignOut />
     </AmplifyAuthenticator>
   );
@@ -231,8 +269,8 @@ function App() {
               <img className="logoMain" src="/logo.png" />
             </Route>
             {groupName === "admins" ||
-              groupName === "contentSuppliers" ||
-              groupName === "approvedUsers" ? (
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
               <Route exact path="/profile">
                 <h1>עמוד פרופיל</h1>
               </Route>
@@ -242,8 +280,8 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-              groupName === "contentSuppliers" ||
-              groupName === "approvedUsers" ? (
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
               <Route exact path="/activitiespage">
                 <ActivitiesPage />
               </Route>
@@ -255,8 +293,8 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-              groupName === "contentSuppliers" ||
-              groupName === "approvedUsers" ? (
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
               <Route exact path="/classespage">
                 <ClassesPage />
               </Route>
@@ -289,6 +327,7 @@ function App() {
               {isAuthenticated ? (
                 <div onClick={refreshPage}>
                   {" "}
+                  <h1 className="profileHeader">עמוד פרופיל</h1>
                   <AmplifySignOut />{" "}
                 </div>
               ) : (

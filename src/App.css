@@ -5,6 +5,20 @@
     text-align: center;
     font-family: 'Montserrat', sans-serif;
     max-width: 100%;
+    --amplify-primary-color: #ff2600;
+    --amplify-primary-tint: #000000;
+    --amplify-primary-shade: #e0573e;
+    --amplify-secondary-color: red; /*main text color*/
+    --amplify-font-family: 'Montserrat', sans-serif;
+    --amplify-secondary-contrast: white;/*textboxes inner color*/
+    --amplify-white: white;
+    --amplify-secondary-shade:red;
+    --amplify-tertiary-color: black;
+    --amplify-tertiary-contrast: white;
+    --amplify-text-xxl: 4rem;
+    --amplify-text-xl: 4rem;
+    --amplify-text-lg: 4rem;
+
 }
 .main{
     background-image: url('https://img2.goodfon.com/original/1920x1080/a/4c/material-tekstura-geometriya-4593.jpg');
@@ -24,3 +38,15 @@
 .forbidden{
     color: aliceblue;
 }
+.profileHeader{
+    color: #ffffff;
+
+}
+amplify-authenticator {
+    color: #2fb415;
+
+    padding: 5px;
+  }
+  amplify-sign-in{
+    padding: 0px;
+  }
