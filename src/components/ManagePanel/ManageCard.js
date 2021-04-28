@@ -57,15 +57,17 @@ export default function ManagePanel(props) {
     const [activitiess, setActivitiess] = useState([]);
 
     useEffect(() => {
-        fetchSongs();
+        fetchActivities();
     }, []);
 
-    const fetchSongs = async () => {
+    const fetchActivities = async () => {
         try {
             const activitiesData = await API.graphql(graphqlOperation(listActivitiess));
             const activitiesList = activitiesData.data.listActivitiess.items;
-            console.log("activitiesList", activitiesList);
+            console.log("activitiesList", activitiesList[0].id);
+            console.log("activitiesList", activitiesList[0].title);
             setActivitiess(activitiesList);
+            // return await activitiesList.json();
         } catch (error) {
             console.log("error on fetching songs", error);
         }
@@ -74,7 +76,9 @@ export default function ManagePanel(props) {
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
-    var text = props.title
+    var text = props.title;
+    // const result = await this.fetchActivities();
+    // console.log(result);
     return (
         <Card className={classes.root}>
             <CardHeader
@@ -103,6 +107,9 @@ export default function ManagePanel(props) {
                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>שם הפעילות</th>
                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>שם הפעילות</th>
                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>שם ספק התוכן</th>
+                                <tr>
+                                    {/* {useEffect()} */}
+                                </tr>
                             </table>
                         </div>
                         :
