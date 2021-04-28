@@ -118,6 +118,7 @@ function Content() {
     [Translations.SIGN_IN_TEXT]: "לחץ להתחברות",
     [Translations.FORGOT_PASSWORD_TEXT]: "שכחת את הסיסמה?",
     [Translations.RESET_PASSWORD_TEXT]: "איפוס סיסמה",
+    [Translations.SIGN_OUT]: "התנתקות",
   });
   async function onLoad() {
     try {
