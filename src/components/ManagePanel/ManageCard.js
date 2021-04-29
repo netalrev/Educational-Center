@@ -9,15 +9,11 @@ import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
 import { red } from "@material-ui/core/colors";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
-import DeleteIcon from '@material-ui/icons/Delete';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
 import SaveIcon from '@material-ui/icons/Save';
 
 import { listActivitiess } from "../../graphql/queries";
-import Amplify, { Auth, API, graphqlOperation } from "aws-amplify";
+import Amplify, { API, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
@@ -60,7 +56,6 @@ export default function ManagePanel(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
     const [activitiess, setActivitiess] = useState([]);
-    // var activityName = "maor";
 
     useEffect(() => {
         fetchActivities();
@@ -122,8 +117,7 @@ export default function ManagePanel(props) {
                                                 </Button>
                                             </td>
                                             <td>
-                                                <div className="ActivityDescription" word-wrap="break-word"
-                                                    maxWidth="50px">{activity.description}</div>
+                                                <div className="ActivityDescription">{activity.description}</div>
                                             </td>
                                             <td>
                                                 <div className="ActivityOwner">{activity.owner}</div>
