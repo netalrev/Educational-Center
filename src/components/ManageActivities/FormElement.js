@@ -1,18 +1,18 @@
+
 import { TextField } from "@material-ui/core";
 import React, { Component } from "react";
 import "./FormElement.css"
+
+function createDateInputs(event) {
+    console.log('Horray! Someone wrote "' + event.target.value + '"!');
+}
 
 class FormElement extends Component {
     render() {
         return (
             <tr>
-                {/* <td className="tdsForm"> */}
-                {/* <input className="formInputs" type={this.props.type} name={this.props.title} /> */}
-                <TextField id="standard-basic" label={this.props.title} />
-                {/* </td> */}
-                {/* <td>
-                    <h3>{this.props.title}</h3>
-                </td> */}
+                <TextField id="standard-basic" label={this.props.title} type={this.props.type} defaultValue={this.props.defaultValue}
+                    onChange={this.props.onChange} />
             </tr>
         );
     }
