@@ -10,8 +10,11 @@ import IconButton from "@material-ui/core/IconButton";
 import { red } from "@material-ui/core/colors";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import FormElement from "./FormElement";
-import { Input } from '@material-ui/core';
 import { useState } from "react";
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -59,9 +62,15 @@ export default function ManageActivitiesForm(props) {
     };
     function createDateInputs(event) {
         var toReturn = [];
+        if (event.target.value > 10) {
+            event.target.value = 10
+        }
+        else if (event.target.value < 1) {
+            event.target.value = 1
+        }
         for (var i = 0; i < event.target.value; i++) {
             var temp = ":תאריך פעילות מספר" + " " + (i + 1)
-            toReturn.push(<FormElement title={temp} type="date" defaultValue={new Date().toLocaleDateString('en-CA')} />);
+            toReturn.push(<tr><FormElement title={temp} type="date" defaultValue={new Date().toLocaleDateString('en-CA')} /></tr>);
         }
         setDates(toReturn);
     }
@@ -86,14 +95,37 @@ export default function ManageActivitiesForm(props) {
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
-                    <table>
-                        <FormElement title=": שם הפעילות" type="text" />
-                        <FormElement title=": מספר פעילויות" type="number" id="numActivities" onChange={createDateInputs} />
-                        {/* <FormElement title=": תאריך" type="date" defaultValue={new Date().toLocaleDateString('en-CA')}/> */}
-                        {dates}
-                        <FormElement title=": תיאור הפעילויות" type="text" />
-                    </table>
-                    <input type="submit" value="Submit" />
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                        <table>
+                            <tr>
+                                <FormElement title=": שם הפעילות" type="text" />
+                            </tr>
+                            <tr>
+                                <FormElement title=": מספר פעילויות" type="number" id="numActivities" onChange={createDateInputs} />
+                            </tr>
+                            {dates}
+                            <tr>
+                                <TextField
+                                    id="outlined-multiline-static"
+                                    label=": תיאור הפעילויות"
+                                    multiline
+                                    rows={4}
+                                    variant="outlined"
+                                />
+
+                            </tr>
+                            <td minWidth="100px">
+                                <Button
+                                    size="small"
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.button}
+                                    startIcon={<CloudUploadIcon></CloudUploadIcon>}>
+                                    עלה
+                                </Button>
+                            </td>
+                        </table>
+                    </div>
                 </CardContent>
             </Collapse>
         </Card >
