@@ -53,12 +53,12 @@ const useStyles = makeStyles((theme) => ({
 export default function ManagePanel(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
-    // const [activitiess, setActivitiess] = useState([]);
+    const [activitiess, setActivitiess] = useState([]);
     // var activityName = "maor";
 
-    // useEffect(() => {
-    //     fetchActivities();
-    // }, []);
+    useEffect(() => {
+        fetchActivities();
+    }, []);
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
@@ -68,26 +68,28 @@ export default function ManagePanel(props) {
             const activitiesData = await API.graphql(graphqlOperation(listActivitiess));
             const activitiesList = activitiesData.data.listActivitiess.items;
             // setActivitiess(activitiess);
-            return activitiesList;
+            setActivitiess(activitiesList);
+            // return activitiesList;
         } catch (error) {
             console.log("error on fetching songs", error);
         }
     };
 
-    const fetchActivitiesResult = async () => {
-        let result = await fetchActivities();
-        return result;
-    }
+    // const fetchActivitiesResult = async () => {
+    //     let result = await fetchActivities();
+    //     return result;
+    // }
     // let myarray = Object.entries(fetchActivitiesResult());
-    var result = fetchActivitiesResult();
-    var x = "";
-    x = result.then(function (value) {
-        // x = "<td> " + value[0].description + " </td>";
-        var obj = JSON.stringify(value[0])
-        // console.log(value[0].description);
-        return obj;
-    })
-    console.log(x);
+    // var result = fetchActivitiesResult();
+    // var x = "";
+    // x = result.then(function (value) {
+    //     // x = "<td> " + value[0].description + " </td>";
+    //     var obj = value[0];
+    //     //  = JSON.stringify(value[0]);
+    //     // console.log(value[0].description);
+    //     return obj;
+    // })
+    // console.log(x);
 
     var text = props.title;
     return (
@@ -119,10 +121,13 @@ export default function ManagePanel(props) {
                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>שם הפעילות</th>
                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>שם ספק התוכן</th>
                                 <tr>
-                                    {result.then(function (value) {
-                                        x = "<td> " + value[0].description + " </td>";
-                                        // console.log(value[0].description);
-                                        return x;
+                                    {activitiess.map((activity, idx) => {
+                                        return (
+                                            <div>
+                                                <div className="songTitle">{activity.title}</div>
+                                                <div className="songOwner">{activity.owner}</div>
+                                            </div>
+                                        );
                                     })}
                                 </tr>
                             </table>
