@@ -9,6 +9,12 @@ import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
 import { red } from "@material-ui/core/colors";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Icon from '@material-ui/core/Icon';
+import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
+import SaveIcon from '@material-ui/icons/Save';
 
 import { listActivitiess } from "../../graphql/queries";
 import Amplify, { Auth, API, graphqlOperation } from "aws-amplify";
@@ -67,29 +73,11 @@ export default function ManagePanel(props) {
         try {
             const activitiesData = await API.graphql(graphqlOperation(listActivitiess));
             const activitiesList = activitiesData.data.listActivitiess.items;
-            // setActivitiess(activitiess);
             setActivitiess(activitiesList);
-            // return activitiesList;
         } catch (error) {
             console.log("error on fetching songs", error);
         }
     };
-
-    // const fetchActivitiesResult = async () => {
-    //     let result = await fetchActivities();
-    //     return result;
-    // }
-    // let myarray = Object.entries(fetchActivitiesResult());
-    // var result = fetchActivitiesResult();
-    // var x = "";
-    // x = result.then(function (value) {
-    //     // x = "<td> " + value[0].description + " </td>";
-    //     var obj = value[0];
-    //     //  = JSON.stringify(value[0]);
-    //     // console.log(value[0].description);
-    //     return obj;
-    // })
-    // console.log(x);
 
     var text = props.title;
     return (
@@ -115,21 +103,38 @@ export default function ManagePanel(props) {
                         <div style={{ display: "flex", justifyContent: "center" }}>
                             <table>
                                 <th style={{ minWidth: "70px" }}>?אשר</th>
-                                <th style={{ minWidth: "120px", paddingLeft: "10px" }}>שם הפעילות</th>
-                                <th style={{ minWidth: "120px", paddingLeft: "10px" }}>שם הפעילות</th>
-                                <th style={{ minWidth: "120px", paddingLeft: "10px" }}>שם הפעילות</th>
+                                <th style={{ minWidth: "120px", paddingLeft: "10px" }}>תיאור הפעילות</th>
+                                <th style={{ minWidth: "120px", paddingLeft: "10px" }}>אימייל ספק התוכן</th>
                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>שם הפעילות</th>
                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>שם ספק התוכן</th>
-                                <tr>
-                                    {activitiess.map((activity, idx) => {
-                                        return (
-                                            <div>
-                                                <div className="songTitle">{activity.title}</div>
-                                                <div className="songOwner">{activity.owner}</div>
-                                            </div>
-                                        );
-                                    })}
-                                </tr>
+                                {activitiess.map((activity, idx) => {
+                                    return (
+                                        <tr>
+                                            <td minWidth="100px">
+                                                <Button
+                                                    size="small"
+                                                    variant="contained"
+                                                    color="primary"
+                                                    className={classes.button}
+                                                    startIcon={<SaveIcon></SaveIcon>}
+                                                >
+                                                    אשר
+                                                </Button>
+                                            </td>
+                                            <td>
+                                                <div className="ActivityDescription" word-wrap="break-word"
+                                                    maxWidth="50px">{activity.description}</div>
+                                            </td>
+                                            <td>
+                                                <div className="ActivityOwner">{activity.owner}</div>
+                                            </td>
+                                            <td>
+                                                <div className="ActivityTitle">{activity.title}</div>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+
                             </table>
                         </div>
                         :
