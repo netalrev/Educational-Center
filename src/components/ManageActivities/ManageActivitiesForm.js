@@ -55,6 +55,10 @@ export default function ManageActivitiesForm(props) {
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+    function createDateInputs(){
+        console.log('Horray! Someone wrote "' + this.value + '"!');
+     }
+
     var text = props.title
     return (
         <Card className={classes.root}>
@@ -76,8 +80,10 @@ export default function ManageActivitiesForm(props) {
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
                     <table>
-                        <FormElement title=": שם הפעילות" type="text" />
-                        <FormElement title=": E-mail" type="text" />
+                        <FormElement title=": שם הפעילות" type="text"/>
+                        <FormElement title=": מספר פעילויות" type="number" id = "numActivities" change="createDateInputs()"/>
+                        <FormElement title=": תאריך" type="date" defaultValue={new Date().toLocaleDateString('en-CA')}/>
+                        <FormElement title=": תיאור הפעילויות" type="text"/>
                     </table>
                     <input type="submit" value="Submit" />
                 </CardContent>
