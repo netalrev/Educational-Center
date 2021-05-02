@@ -1,4 +1,4 @@
-  type Song @model {
+  type Test @model {
     id: ID!
     title: String!
     description: String!
@@ -7,9 +7,22 @@
     owner: String!
 }
 
-  type Activities @model {
+  type PendingActivities @model {
     id: ID!
     title: String!
     description: String!
+    activityCount: String!
+    dates: [String!]
     owner: String!
+    email: String!
+}
+
+type ApprovedActivities @model {
+    id: ID!
+    title: String!
+    description: String!
+    activityCount: String!
+    dates: [String!]
+    owner: String!
+    email: String!
 }

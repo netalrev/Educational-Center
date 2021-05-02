@@ -1,9 +1,9 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getSong = /* GraphQL */ `
-  query GetSong($id: ID!) {
-    getSong(id: $id) {
+export const getTest = /* GraphQL */ `
+  query GetTest($id: ID!) {
+    getTest(id: $id) {
       id
       title
       description
@@ -15,13 +15,13 @@ export const getSong = /* GraphQL */ `
     }
   }
 `;
-export const listSongs = /* GraphQL */ `
-  query ListSongs(
-    $filter: ModelSongFilterInput
+export const listTests = /* GraphQL */ `
+  query ListTests(
+    $filter: ModelTestFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listSongs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listTests(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         title
@@ -36,30 +36,81 @@ export const listSongs = /* GraphQL */ `
     }
   }
 `;
-export const getActivities = /* GraphQL */ `
-  query GetActivities($id: ID!) {
-    getActivities(id: $id) {
+export const getPendingActivities = /* GraphQL */ `
+  query GetPendingActivities($id: ID!) {
+    getPendingActivities(id: $id) {
       id
       title
       description
+      activityCount
+      dates
       owner
+      email
       createdAt
       updatedAt
     }
   }
 `;
-export const listActivitiess = /* GraphQL */ `
-  query ListActivitiess(
-    $filter: ModelActivitiesFilterInput
+export const listPendingActivitiess = /* GraphQL */ `
+  query ListPendingActivitiess(
+    $filter: ModelPendingActivitiesFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listActivitiess(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listPendingActivitiess(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
       items {
         id
         title
         description
+        activityCount
+        dates
         owner
+        email
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getApprovedActivities = /* GraphQL */ `
+  query GetApprovedActivities($id: ID!) {
+    getApprovedActivities(id: $id) {
+      id
+      title
+      description
+      activityCount
+      dates
+      owner
+      email
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listApprovedActivitiess = /* GraphQL */ `
+  query ListApprovedActivitiess(
+    $filter: ModelApprovedActivitiesFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listApprovedActivitiess(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        title
+        description
+        activityCount
+        dates
+        owner
+        email
         createdAt
         updatedAt
       }

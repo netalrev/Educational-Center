@@ -1,9 +1,9 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateSong = /* GraphQL */ `
-  subscription OnCreateSong {
-    onCreateSong {
+export const onCreateTest = /* GraphQL */ `
+  subscription OnCreateTest {
+    onCreateTest {
       id
       title
       description
@@ -15,9 +15,9 @@ export const onCreateSong = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateSong = /* GraphQL */ `
-  subscription OnUpdateSong {
-    onUpdateSong {
+export const onUpdateTest = /* GraphQL */ `
+  subscription OnUpdateTest {
+    onUpdateTest {
       id
       title
       description
@@ -29,9 +29,9 @@ export const onUpdateSong = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteSong = /* GraphQL */ `
-  subscription OnDeleteSong {
-    onDeleteSong {
+export const onDeleteTest = /* GraphQL */ `
+  subscription OnDeleteTest {
+    onDeleteTest {
       id
       title
       description
@@ -43,37 +43,91 @@ export const onDeleteSong = /* GraphQL */ `
     }
   }
 `;
-export const onCreateActivities = /* GraphQL */ `
-  subscription OnCreateActivities {
-    onCreateActivities {
+export const onCreatePendingActivities = /* GraphQL */ `
+  subscription OnCreatePendingActivities {
+    onCreatePendingActivities {
       id
       title
       description
+      activityCount
+      dates
       owner
+      email
       createdAt
       updatedAt
     }
   }
 `;
-export const onUpdateActivities = /* GraphQL */ `
-  subscription OnUpdateActivities {
-    onUpdateActivities {
+export const onUpdatePendingActivities = /* GraphQL */ `
+  subscription OnUpdatePendingActivities {
+    onUpdatePendingActivities {
       id
       title
       description
+      activityCount
+      dates
       owner
+      email
       createdAt
       updatedAt
     }
   }
 `;
-export const onDeleteActivities = /* GraphQL */ `
-  subscription OnDeleteActivities {
-    onDeleteActivities {
+export const onDeletePendingActivities = /* GraphQL */ `
+  subscription OnDeletePendingActivities {
+    onDeletePendingActivities {
       id
       title
       description
+      activityCount
+      dates
       owner
+      email
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateApprovedActivities = /* GraphQL */ `
+  subscription OnCreateApprovedActivities {
+    onCreateApprovedActivities {
+      id
+      title
+      description
+      activityCount
+      dates
+      owner
+      email
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateApprovedActivities = /* GraphQL */ `
+  subscription OnUpdateApprovedActivities {
+    onUpdateApprovedActivities {
+      id
+      title
+      description
+      activityCount
+      dates
+      owner
+      email
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteApprovedActivities = /* GraphQL */ `
+  subscription OnDeleteApprovedActivities {
+    onDeleteApprovedActivities {
+      id
+      title
+      description
+      activityCount
+      dates
+      owner
+      email
       createdAt
       updatedAt
     }

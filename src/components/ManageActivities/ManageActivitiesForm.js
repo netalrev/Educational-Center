@@ -10,10 +10,9 @@ import IconButton from "@material-ui/core/IconButton";
 import { red } from "@material-ui/core/colors";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import FormElement from "./FormElement";
-import { useState } from "react";
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { useState } from "react";
+import ResponsiveDialogActivities from "./ResponsiveDialogActivities";
 
 
 
@@ -62,20 +61,19 @@ export default function ManageActivitiesForm(props) {
     };
     function createDateInputs(event) {
         var toReturn = [];
-        if (event.target.value > 10) {
-            event.target.value = 10
+        if (document.getElementsByName("activityCount")[0].value > 10) {
+            document.getElementsByName("activityCount")[0].value = 10
         }
-        else if (event.target.value < 1) {
-            event.target.value = 1
+        else if (document.getElementsByName("activityCount")[0].value < 1) {
+            document.getElementsByName("activityCount")[0].value = 1
         }
-        for (var i = 0; i < event.target.value; i++) {
+        for (var i = 0; i < document.getElementsByName("activityCount")[0].value; i++) {
             var temp = ":תאריך פעילות מספר" + " " + (i + 1)
-            toReturn.push(<tr><FormElement title={temp} type="date" defaultValue={new Date().toLocaleDateString('en-CA')} /></tr>);
+            toReturn.push(<tr><FormElement name="dates" title={temp} type="date" defaultValue={new Date().toLocaleDateString('en-CA')} /></tr>);
         }
         setDates(toReturn);
     }
-    //  console.log(dates);
-    var text = props.title
+    var text = props.title;
     return (
         <Card className={classes.root}>
             <CardHeader
@@ -98,12 +96,14 @@ export default function ManageActivitiesForm(props) {
                     <div style={{ display: "flex", justifyContent: "center" }}>
                         <table>
                             <tr>
-                                <FormElement title=": שם הפעילות" type="text" />
+                                <FormElement name="name" title=": שם הפעילות" type="text" />
                             </tr>
                             <tr>
-                                <FormElement title=": מספר פעילויות" type="number" id="numActivities" onChange={createDateInputs} />
+                                <FormElement name="activityCount" title=": מספר פעילויות" type="number" onChange={createDateInputs} />
                             </tr>
-                            {dates}
+                            <tr id="dates_tr">
+                                {dates}
+                            </tr>
                             <tr>
                                 <TextField
                                     id="outlined-multiline-static"
@@ -114,16 +114,21 @@ export default function ManageActivitiesForm(props) {
                                 />
 
                             </tr>
-                            <td minWidth="100px">
+                            {/* <td minWidth="100px">
                                 <Button
                                     size="small"
                                     variant="contained"
                                     color="primary"
                                     className={classes.button}
-                                    startIcon={<CloudUploadIcon></CloudUploadIcon>}>
+                                    startIcon={<CloudUploadIcon></CloudUploadIcon>}
+                                    onClick={createActivity}
+                                >
                                     עלה
                                 </Button>
-                            </td>
+                            </td> */}
+                            <tr>
+                                <ResponsiveDialogActivities email={props.email} givenName={props.givenName} familyName={props.familyName} />
+                            </tr>
                         </table>
                     </div>
                 </CardContent>

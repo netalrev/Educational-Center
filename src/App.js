@@ -38,14 +38,16 @@ import { updateSong } from "./graphql/mutations";
 Amplify.configure(awsconfig); //AWS CONFIGORE
 var fname = "null";
 var gname = "null";
+var emailAddress = "null"
 var groupName = "null";
 var groups = new Array(3);
 
 Auth.currentAuthenticatedUser().then(
   (user) =>
-    //alert(user.attributes.given_name)
+    // console.log(user.attributes.email) &&
     (gname = user.attributes.given_name) &&
     (fname = user.attributes.family_name) &&
+    (emailAddress = user.attributes.email) &&
     (groups = user.signInUserSession.accessToken.payload["cognito:groups"]) &&
     (groupName = groups[0])
 );
@@ -306,7 +308,7 @@ function App() {
 
             {groupName === "admins" || groupName === "contentSuppliers" ? (
               <Route exact path="/manageActivities">
-                <ManageActivities />
+                <ManageActivities givenName={gname} familyName={fname} email={emailAddress} />
               </Route>
             ) : (
               <Route exact path="/manageActivities">

@@ -1,12 +1,12 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createSong = /* GraphQL */ `
-  mutation CreateSong(
-    $input: CreateSongInput!
-    $condition: ModelSongConditionInput
+export const createTest = /* GraphQL */ `
+  mutation CreateTest(
+    $input: CreateTestInput!
+    $condition: ModelTestConditionInput
   ) {
-    createSong(input: $input, condition: $condition) {
+    createTest(input: $input, condition: $condition) {
       id
       title
       description
@@ -18,12 +18,12 @@ export const createSong = /* GraphQL */ `
     }
   }
 `;
-export const updateSong = /* GraphQL */ `
-  mutation UpdateSong(
-    $input: UpdateSongInput!
-    $condition: ModelSongConditionInput
+export const updateTest = /* GraphQL */ `
+  mutation UpdateTest(
+    $input: UpdateTestInput!
+    $condition: ModelTestConditionInput
   ) {
-    updateSong(input: $input, condition: $condition) {
+    updateTest(input: $input, condition: $condition) {
       id
       title
       description
@@ -35,12 +35,12 @@ export const updateSong = /* GraphQL */ `
     }
   }
 `;
-export const deleteSong = /* GraphQL */ `
-  mutation DeleteSong(
-    $input: DeleteSongInput!
-    $condition: ModelSongConditionInput
+export const deleteTest = /* GraphQL */ `
+  mutation DeleteTest(
+    $input: DeleteTestInput!
+    $condition: ModelTestConditionInput
   ) {
-    deleteSong(input: $input, condition: $condition) {
+    deleteTest(input: $input, condition: $condition) {
       id
       title
       description
@@ -52,46 +52,109 @@ export const deleteSong = /* GraphQL */ `
     }
   }
 `;
-export const createActivities = /* GraphQL */ `
-  mutation CreateActivities(
-    $input: CreateActivitiesInput!
-    $condition: ModelActivitiesConditionInput
+export const createPendingActivities = /* GraphQL */ `
+  mutation CreatePendingActivities(
+    $input: CreatePendingActivitiesInput!
+    $condition: ModelPendingActivitiesConditionInput
   ) {
-    createActivities(input: $input, condition: $condition) {
+    createPendingActivities(input: $input, condition: $condition) {
       id
       title
       description
+      activityCount
+      dates
       owner
+      email
       createdAt
       updatedAt
     }
   }
 `;
-export const updateActivities = /* GraphQL */ `
-  mutation UpdateActivities(
-    $input: UpdateActivitiesInput!
-    $condition: ModelActivitiesConditionInput
+export const updatePendingActivities = /* GraphQL */ `
+  mutation UpdatePendingActivities(
+    $input: UpdatePendingActivitiesInput!
+    $condition: ModelPendingActivitiesConditionInput
   ) {
-    updateActivities(input: $input, condition: $condition) {
+    updatePendingActivities(input: $input, condition: $condition) {
       id
       title
       description
+      activityCount
+      dates
       owner
+      email
       createdAt
       updatedAt
     }
   }
 `;
-export const deleteActivities = /* GraphQL */ `
-  mutation DeleteActivities(
-    $input: DeleteActivitiesInput!
-    $condition: ModelActivitiesConditionInput
+export const deletePendingActivities = /* GraphQL */ `
+  mutation DeletePendingActivities(
+    $input: DeletePendingActivitiesInput!
+    $condition: ModelPendingActivitiesConditionInput
   ) {
-    deleteActivities(input: $input, condition: $condition) {
+    deletePendingActivities(input: $input, condition: $condition) {
       id
       title
       description
+      activityCount
+      dates
       owner
+      email
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createApprovedActivities = /* GraphQL */ `
+  mutation CreateApprovedActivities(
+    $input: CreateApprovedActivitiesInput!
+    $condition: ModelApprovedActivitiesConditionInput
+  ) {
+    createApprovedActivities(input: $input, condition: $condition) {
+      id
+      title
+      description
+      activityCount
+      dates
+      owner
+      email
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateApprovedActivities = /* GraphQL */ `
+  mutation UpdateApprovedActivities(
+    $input: UpdateApprovedActivitiesInput!
+    $condition: ModelApprovedActivitiesConditionInput
+  ) {
+    updateApprovedActivities(input: $input, condition: $condition) {
+      id
+      title
+      description
+      activityCount
+      dates
+      owner
+      email
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteApprovedActivities = /* GraphQL */ `
+  mutation DeleteApprovedActivities(
+    $input: DeleteApprovedActivitiesInput!
+    $condition: ModelApprovedActivitiesConditionInput
+  ) {
+    deleteApprovedActivities(input: $input, condition: $condition) {
+      id
+      title
+      description
+      activityCount
+      dates
+      owner
+      email
       createdAt
       updatedAt
     }

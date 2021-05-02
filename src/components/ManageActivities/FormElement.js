@@ -10,8 +10,8 @@ function createDateInputs(event) {
 class FormElement extends Component {
     render() {
         return (
-            <tr>
-                <TextField id="standard-basic" label={this.props.title} type={this.props.type} defaultValue={this.props.defaultValue}
+            <tr dir="rtl">
+                <TextField required name={this.props.name} id="standard-basic" label={this.props.title} type={this.props.type} defaultValue={this.props.defaultValue}
                     onChange={this.props.onChange} />
             </tr>
         );

@@ -11,8 +11,8 @@ import { red } from "@material-ui/core/colors";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
-
-import { listActivitiess } from "../../graphql/queries";
+import ResponsiveDialogManager from "./ResponsiveDialogManager";
+import { listPendingActivitiess } from "../../graphql/queries";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
 
@@ -58,19 +58,19 @@ export default function ManagePanel(props) {
     const [activitiess, setActivitiess] = useState([]);
 
     useEffect(() => {
-        fetchActivities();
+        fetchPendingActivities();
     }, []);
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
 
-    const fetchActivities = async () => {
+    const fetchPendingActivities = async () => {
         try {
-            const activitiesData = await API.graphql(graphqlOperation(listActivitiess));
-            const activitiesList = activitiesData.data.listActivitiess.items;
-            setActivitiess(activitiesList);
+            const PendingActivitiesData = await API.graphql(graphqlOperation(listPendingActivitiess));
+            const PendingActivitiesList = PendingActivitiesData.data.listPendingActivitiess.items;
+            setActivitiess(PendingActivitiesList);
         } catch (error) {
-            console.log("error on fetching songs", error);
+            console.log("error on fetching Pending Activities", error);
         }
     };
 
@@ -98,15 +98,17 @@ export default function ManagePanel(props) {
                         <div style={{ display: "flex", justifyContent: "center" }}>
                             <table>
                                 <th style={{ minWidth: "70px" }}>?אשר</th>
+                                <th style={{ minWidth: "120px", paddingLeft: "10px" }}>תארכי מפגשים</th>
+                                <th style={{ minWidth: "120px", paddingLeft: "10px" }}>מספר מפגשים</th>
                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>תיאור הפעילות</th>
                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>אימייל ספק התוכן</th>
                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>שם הפעילות</th>
                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>שם ספק התוכן</th>
-                                {activitiess.map((activity, idx) => {
+                                {activitiess.map((activity) => {
                                     return (
                                         <tr>
                                             <td minWidth="100px">
-                                                <Button
+                                                {/* <Button
                                                     size="small"
                                                     variant="contained"
                                                     color="primary"
@@ -114,16 +116,27 @@ export default function ManagePanel(props) {
                                                     startIcon={<SaveIcon></SaveIcon>}
                                                 >
                                                     אשר
-                                                </Button>
+                                                </Button> */}
+                                                <ResponsiveDialogManager email={props.email} givenName={props.givenName} familyName={props.familyName} />
+
+                                            </td>
+                                            <td>
+                                                <div className="ActivityDates">{activity.dates.map((date, index) => (<tr style={{ display: "flex", justifyContent: "center" }}>{date}  :{index + 1} מפגש</tr>))}</div>
+                                            </td>
+                                            <td>
+                                                <div className="ActivityCount">{activity.activityCount}</div>
                                             </td>
                                             <td>
                                                 <div className="ActivityDescription">{activity.description}</div>
                                             </td>
                                             <td>
-                                                <div className="ActivityOwner">{activity.owner}</div>
+                                                <div className="ActivityEmail">{activity.email}</div>
                                             </td>
                                             <td>
                                                 <div className="ActivityTitle">{activity.title}</div>
+                                            </td>
+                                            <td>
+                                                <div className="ActivityOwner">{activity.owner}</div>
                                             </td>
                                         </tr>
                                     );
