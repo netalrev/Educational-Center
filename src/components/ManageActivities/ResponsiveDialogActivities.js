@@ -85,7 +85,7 @@ export default function ResponsiveDialog(props) {
 
     const handleClose = async () => {
         setOpen(false);
-        await createActivity();
+        await createActivity().then(window.location.reload(false)).then(alert("בקשתך התקבלה בהצלחה, אנא המתן לאישור מנהל"));
 
     };
     const handleCancel = () => {
@@ -100,7 +100,7 @@ export default function ResponsiveDialog(props) {
             <Dialog
                 fullScreen={fullScreen}
                 open={open}
-                onClose={handleClose}
+                onClose={handleCancel}
                 aria-labelledby="responsive-dialog-title"
             >
                 <DialogTitle id="responsive-dialog-title">{"אישור העלאת תוכן"}</DialogTitle>

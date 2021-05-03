@@ -12,8 +12,9 @@ import { createPendingActivities } from "../../graphql/mutations";
 import { listPendingActivitiess } from "../../graphql/queries";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
+import FormElement from "./FormElement"
 
-export default function ResponsiveDialogManager(props) {
+export default function ResponsiveDialog(props) {
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -99,7 +100,7 @@ export default function ResponsiveDialogManager(props) {
             <Dialog
                 fullScreen={fullScreen}
                 open={open}
-                onClose={handleClose}
+                onClose={handleCancel}
                 aria-labelledby="responsive-dialog-title"
             >
                 <DialogTitle id="responsive-dialog-title">{"אישור העלאת תוכן"}</DialogTitle>

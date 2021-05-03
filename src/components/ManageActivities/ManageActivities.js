@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import ManageActivitiesCard from "./ManageActivitiesCard";
+import DeletePending from "./DeletePending";
+import DeleteApproved from "./DeleteApproved";
+
 import ManageActivitiesForm from "./ManageActivitiesForm";
 
 class ManageActivities extends Component {
@@ -8,8 +10,8 @@ class ManageActivities extends Component {
     return (
       <div>
         <ManageActivitiesForm email={this.props.email} givenName={this.props.givenName} familyName={this.props.familyName} id="1" title="העלאת תוכן" />
-        <ManageActivitiesCard id="1" title="מחיקת תוכן" />
-        <ManageActivitiesCard id="2" title="עריכת תוכן" />
+        <DeletePending type="pending" email={this.props.email} title="מחיקת פעילות שטרם שאושרה" />
+        <DeleteApproved type="approved" email={this.props.email} title="מחיקת פעילות שאושרה" />
       </div>
     );
   }

@@ -9,9 +9,8 @@ import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
 import { red } from "@material-ui/core/colors";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Button from '@material-ui/core/Button';
-import SaveIcon from '@material-ui/icons/Save';
-import ResponsiveDialogManager from "./ResponsiveDialogManager";
+import ApproveResponsiveDialogManager from "./ApproveResponsiveDialogManager";
+import DenyResponsiveDialogManager from "./DenyResponsiveDialogManager";
 import { listPendingActivitiess } from "../../graphql/queries";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
@@ -117,7 +116,8 @@ export default function ManagePanel(props) {
                                                 >
                                                     אשר
                                                 </Button> */}
-                                                <ResponsiveDialogManager email={props.email} givenName={props.givenName} familyName={props.familyName} />
+                                                <ApproveResponsiveDialogManager id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
+                                                <DenyResponsiveDialogManager id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
 
                                             </td>
                                             <td>
