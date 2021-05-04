@@ -85,7 +85,8 @@ export default function ResponsiveDialog(props) {
 
     const handleClose = async () => {
         setOpen(false);
-        await createActivity().then(window.location.reload(false)).then(alert("בקשתך התקבלה בהצלחה, אנא המתן לאישור מנהל"));
+        await createActivity().then(alert("בקשתך התקבלה בהצלחה, אנא המתן לאישור מנהל"));
+        window.location.reload(false);
 
     };
     const handleCancel = () => {
