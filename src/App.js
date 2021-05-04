@@ -8,32 +8,18 @@ import Clock from "./components/Clock";
 import contactUs from "./components/contactUs";
 import ContactForm from "./components/ContactForm";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useParams,
-  withRouter,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, useParams, withRouter } from "react-router-dom";
 import ActivitiesPage from "./components/Activities/ActivitiesPage";
 import ClassesPage from "./components/Classes/ClassesPage";
 import Amplify, { Auth, API, graphqlOperation } from "aws-amplify";
 import awsconfig from "./aws-exports";
-import {
-  AmplifyAuthenticator,
-  AmplifySignUp,
-  AmplifySignIn,
-  AmplifySignOut,
-} from "@aws-amplify/ui-react";
+import { AmplifyAuthenticator, AmplifySignUp, AmplifySignIn, AmplifySignOut } from "@aws-amplify/ui-react";
 import { I18n } from "aws-amplify";
 import { Translations } from "@aws-amplify/ui-components";
-
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { onAuthUIStateChange } from "@aws-amplify/ui-components";
 import { Hub, Logger } from "aws-amplify";
-import { listSongs } from "./graphql/queries";
-import { updateSong } from "./graphql/mutations";
 
 Amplify.configure(awsconfig); //AWS CONFIGORE
 var fname = "null";
@@ -44,7 +30,6 @@ var groups = new Array(3);
 
 Auth.currentAuthenticatedUser().then(
   (user) =>
-    // console.log(user.attributes.email) &&
     (gname = user.attributes.given_name) &&
     (fname = user.attributes.family_name) &&
     (emailAddress = user.attributes.email) &&
@@ -229,22 +214,7 @@ function App() {
   const classes = useStyles();
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
-  // const [songs, setSongs] = useState([]);
 
-  // useEffect(() => {
-  //   fetchSongs();
-  // }, []);
-
-  // const fetchSongs = async () => {
-  //   try {
-  //     const songData = await API.graphql(graphqlOperation(listSongs));
-  //     const songList = songData.data.listSongs.items;
-  //     console.log("song list", songList);
-  //     setSongs(songList);
-  //   } catch (error) {
-  //     console.log("error on fetching songs", error);
-  //   }
-  // };
   async function onLoad() {
     try {
       await Auth.currentSession();
@@ -308,7 +278,7 @@ function App() {
 
             {groupName === "admins" || groupName === "contentSuppliers" ? (
               <Route exact path="/manageActivities">
-                <ManageActivities givenName={gname} familyName={fname} email={emailAddress} />
+                <ManageActivities groupName={groupName} givenName={gname} familyName={fname} email={emailAddress} />
               </Route>
             ) : (
               <Route exact path="/manageActivities">

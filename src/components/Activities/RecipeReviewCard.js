@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RecipeReviewCard() {
+export default function RecipeReviewCard(props) {
   const classes = useStyles();
   const classes1 = useStyles1();
   const [expanded, setExpanded] = React.useState(false);
@@ -80,20 +80,15 @@ export default function RecipeReviewCard() {
   return (
     <Card className={classes.root}>
       <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
-          </Avatar>
-        }
         action={
           <IconButton aria-label="settings">
             <MoreVertIcon />
           </IconButton>
         }
-        title="Learn how to kill"
+        title={props.title}
         subheader={
           <Typography className={classes.subColor}>
-            September 14, 2021
+            ע"י: {props.owner}
           </Typography>
         }
       />
@@ -103,12 +98,6 @@ export default function RecipeReviewCard() {
         title="image by hahaha"
       />
       <CardContent>
-        <Typography variant="body2" color="white" component="p">
-          If it's up, then it's up, then it's up, then it's stuck If it's up,
-          then it's up, then it's up, then it's stuck huh Up then it's up, if
-          it's up, then it's stuck If it's up, then it's up, then it's up, then
-          it's stuck huh
-        </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
@@ -132,11 +121,17 @@ export default function RecipeReviewCard() {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Method:</Typography>
           <Typography paragraph>
-            Give me little something to remember (Cardi!) Tryna make love in a
-            Sprinter (yeah) Quick to drop a nigga like Kemba (go) Lookin' like a
-            right swipe on Tinder (woo) Shit on these hoes (shit)
+            <Typography variant="body2" color="white" component="p">
+              <p>מספר מפגשים: {props.activityCount}</p>
+              <p>:תאריכים</p>
+              {props.dates.map((date) => {
+                return (
+                  <p>{date}</p>
+                )
+              })}
+            </Typography>
+            {props.description}
           </Typography>
         </CardContent>
       </Collapse>

@@ -11,7 +11,7 @@ import { deletePendingActivities, createApprovedActivities } from "../../graphql
 import { getPendingActivities, listApprovedActivitiess, listPendingActivitiess } from "../../graphql/queries";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
-import SaveIcon from '@material-ui/icons/Save';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 export default function ApproveResponsiveDialogManager(props) {
     const [open, setOpen] = React.useState(false);
@@ -87,7 +87,7 @@ export default function ApproveResponsiveDialogManager(props) {
 
     return (
         <div>
-            <Button startIcon={<SaveIcon></SaveIcon>} variant="outlined" color="primary" onClick={handleClickOpen}>
+            <Button startIcon={<CheckCircleIcon></CheckCircleIcon>} variant="outlined" color="primary" onClick={handleClickOpen}>
                 אשר
       </Button>
             <Dialog

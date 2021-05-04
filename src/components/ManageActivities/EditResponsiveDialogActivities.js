@@ -9,9 +9,9 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import { deletePendingActivities, deleteApprovedActivities } from "../../graphql/mutations";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
-import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
-export default function DenyResponsiveDialogManager(props) {
+export default function EditResponsiveDialogActivities(props) {
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -54,8 +54,8 @@ export default function DenyResponsiveDialogManager(props) {
 
     return (
         <div>
-            <Button startIcon={<DeleteIcon></DeleteIcon>} variant="outlined" color="primary" onClick={handleClickOpen}>
-                מחק
+            <Button startIcon={<EditIcon></EditIcon>} variant="outlined" color="primary" onClick={handleClickOpen}>
+                ערוך
       </Button>
             <Dialog
                 fullScreen={fullScreen}
@@ -66,7 +66,7 @@ export default function DenyResponsiveDialogManager(props) {
                 <DialogTitle id="responsive-dialog-title">{"דחיית פעילות"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        האם את\אתה בטוחים שברצונך למחוק את הפעילות.
+                        האם את\אתה בטוחים שברצונך לערוך את הפעילות.
           </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -74,7 +74,7 @@ export default function DenyResponsiveDialogManager(props) {
                         בטל
           </Button>
                     <Button onClick={handleClose} color="primary" autoFocus>
-                        מחק
+                        אשר
           </Button>
                 </DialogActions>
             </Dialog>

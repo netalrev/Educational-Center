@@ -1,10 +1,13 @@
-import React from "react";
+import React, { Component } from "react";
+import ActivityTable from "./ActivityTable";
 
-const ActivitiesPage = () => {
+
+class ActivitiesPage extends Component {
+  render() {
     return (
-      <div>
-      </div>
-  );
+      <ActivityTable />
+    );
+  }
 };
 
 export default ActivitiesPage;

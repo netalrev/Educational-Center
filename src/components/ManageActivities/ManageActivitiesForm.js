@@ -12,9 +12,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import FormElement from "./FormElement";
 import TextField from '@material-ui/core/TextField';
 import { useState } from "react";
-import ResponsiveDialogActivities from "./ResponsiveDialogActivities";
-
-
+import UploadResponsiveDialogActivities from "./UploadResponsiveDialogActivities";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,6 +48,16 @@ const useStyles = makeStyles((theme) => ({
     subColor: {
         color: "red",
     },
+    // textField: {
+    //     width: '90%',
+    //     marginLeft: 'auto',
+    //     marginRight: 'auto',
+    //     textAlign: 'right',
+    //     theme: "createMuiTheme({ direction: \"rtl\" }",
+    //     paddingBottom: 0,
+    //     marginTop: "0",
+    //     fontWeight: 500
+    // },
 }));
 
 export default function ManageActivitiesForm(props) {
@@ -108,26 +116,16 @@ export default function ManageActivitiesForm(props) {
                                 <TextField
                                     id="outlined-multiline-static"
                                     label=": תיאור הפעילויות"
+                                    className={classes.textField}
+
                                     multiline
                                     rows={4}
                                     variant="outlined"
                                 />
 
                             </tr>
-                            {/* <td minWidth="100px">
-                                <Button
-                                    size="small"
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.button}
-                                    startIcon={<CloudUploadIcon></CloudUploadIcon>}
-                                    onClick={createActivity}
-                                >
-                                    עלה
-                                </Button>
-                            </td> */}
                             <tr>
-                                <ResponsiveDialogActivities email={props.email} givenName={props.givenName} familyName={props.familyName} />
+                                <UploadResponsiveDialogActivities email={props.email} givenName={props.givenName} familyName={props.familyName} />
                             </tr>
                         </table>
                     </div>

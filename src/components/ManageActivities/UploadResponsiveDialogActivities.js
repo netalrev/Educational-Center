@@ -12,9 +12,8 @@ import { createPendingActivities } from "../../graphql/mutations";
 import { listPendingActivitiess } from "../../graphql/queries";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
-import FormElement from "./FormElement"
 
-export default function ResponsiveDialog(props) {
+export default function UploadResponsiveDialog(props) {
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -24,22 +23,6 @@ export default function ResponsiveDialog(props) {
         fetchPendingActivities();
     }, []);
 
-    // const [dates, setDates] = useState([]);
-    // function createDateInputs(event) {
-    //     var toReturn = [];
-    //     if (document.getElementsByName("activityCount")[0].value > 10) {
-    //         document.getElementsByName("activityCount")[0].value = 10
-    //     }
-    //     else if (document.getElementsByName("activityCount")[0].value < 1) {
-    //         document.getElementsByName("activityCount")[0].value = 1
-    //     }
-    //     for (var i = 0; i < document.getElementsByName("activityCount")[0].value; i++) {
-    //         var temp = ":תאריך פעילות מספר" + " " + (i + 1)
-    //         toReturn.push(<tr><FormElement name="dates" title={temp} type="date" defaultValue={new Date().toLocaleDateString('en-CA')} /></tr>);
-    //     }
-    //     console.log(document.getElementsByName("activityCount")[0].value)
-    //     setDates(toReturn);
-    // }
     const fetchPendingActivities = async () => {
         try {
             const activitiesData = await API.graphql(graphqlOperation(listPendingActivitiess));
@@ -55,7 +38,6 @@ export default function ResponsiveDialog(props) {
             IDs.sort(function compareNumbers(a, b) {
                 return a - b;
             });
-            // console.log(IDs)
             const activity = {
                 description: document.getElementById("outlined-multiline-static").value,
                 id: IDs.length == 0 ? 0 : IDs[IDs.length - 1] + 1,
