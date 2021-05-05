@@ -4,7 +4,7 @@ import { listApprovedActivitiess } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import RecipeReviewCard from "./RecipeReviewCard";
 
-export default function ActivityTable(props) {
+export default function ActivityTable() {
     const [allApprovedActivitiess, setAllApprovedActivitiess] = useState([]);
 
     useEffect(() => {

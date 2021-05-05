@@ -10,7 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 import { red } from "@material-ui/core/colors";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { useState, useEffect } from "react";
-import { listApprovedActivitiess, listPendingActivitiess } from "../../graphql/queries";
+import { listApprovedActivitiess } from "../../graphql/queries";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import EditResponsiveDialogActivities from "./EditResponsiveDialogActivities";
 

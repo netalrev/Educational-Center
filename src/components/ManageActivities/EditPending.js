@@ -101,11 +101,11 @@ export default function EditPending(props) {
                             <th style={{ minWidth: "120px", paddingLeft: "10px" }}>מספר מפגשים</th>
                             <th style={{ minWidth: "120px", paddingLeft: "10px" }}>תיאור הפעילות</th>
                             <th style={{ minWidth: "120px", paddingLeft: "10px" }}>שם הפעילות</th>
-                            {pendingActivitiess.map((activity) => {
+                            {pendingActivitiess.map((activity, index) => {
                                 return (
                                     <tr>
                                         <td minWidth="100px">
-                                            <EditResponsiveDialogActivities id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
+                                            <EditResponsiveDialogActivities idx={index} id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
 
                                         </td>
                                         <td>

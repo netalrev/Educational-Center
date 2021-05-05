@@ -7,32 +7,27 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
-import { deletePendingActivities, deleteApprovedActivities } from "../../graphql/mutations";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import EditIcon from '@material-ui/icons/Edit';
 
+import ManageActivitiesFormEdit from './ManageActivitiesFormEdit';
+
 export default function EditResponsiveDialogActivities(props) {
     const [open, setOpen] = React.useState(false);
+
+
+
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const deleteSinglePending = async (id_to_delete) => {
-        try {
-            const del = { id: id_to_delete };
-            await API.graphql(graphqlOperation(deletePendingActivities, { input: del }));
-        } catch (error) {
-            console.log("Error on delete single pending activity ", error);
-        }
-    };
-
-    const deleteSingleApproved = async (id_to_delete) => {
-        try {
-            const del = { id: id_to_delete };
-            await API.graphql(graphqlOperation(deleteApprovedActivities, { input: del }));
-        } catch (error) {
-            console.log("Error on delete single Approved Activity ", error);
-        }
-    };
+    // const deleteSingleApproved = async (id_to_delete) => {
+    //     try {
+    //         const del = { id: id_to_delete };
+    //         await API.graphql(graphqlOperation(deleteApprovedActivities, { input: del }));
+    //     } catch (error) {
+    //         console.log("Error on delete single Approved Activity ", error);
+    //     }
+    // };
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -40,13 +35,13 @@ export default function EditResponsiveDialogActivities(props) {
 
     const handleClose = async () => {
         setOpen(false);
-        if (props.type === "pending") {
-            await deleteSinglePending(props.id).then(alert("התוכן נמחק בהצלחה"))
-        }
-        else {
-            await deleteSingleApproved(props.id).then(alert("התוכן נמחק בהצלחה"))
-        }
-        window.location.reload(false);
+        // if (props.type === "pending") {
+        //     await deleteSinglePending(props.id).then(alert("התוכן נמחק בהצלחה"))
+        // }
+        // else {
+        //     await deleteSingleApproved(props.id).then(alert("התוכן נמחק בהצלחה"))
+        // }
+        // window.location.reload(false);
     };
     const handleCancel = () => {
         setOpen(false);
@@ -63,19 +58,17 @@ export default function EditResponsiveDialogActivities(props) {
                 onClose={handleClose}
                 aria-labelledby="responsive-dialog-title"
             >
-                <DialogTitle id="responsive-dialog-title">{"דחיית פעילות"}</DialogTitle>
+                <DialogTitle id="responsive-dialog-title">{"עריכת פעילות"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        האם את\אתה בטוחים שברצונך לערוך את הפעילות.
-          </DialogContentText>
+                        ?אילו שינויים ברצונך לערוך
+                        <ManageActivitiesFormEdit idx={props.idx} email={props.email} />
+                    </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={handleCancel} color="primary">
                         בטל
-          </Button>
-                    <Button onClick={handleClose} color="primary" autoFocus>
-                        אשר
-          </Button>
+                    </Button>
                 </DialogActions>
             </Dialog>
         </div>

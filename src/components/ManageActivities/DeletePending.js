@@ -13,7 +13,7 @@ import { useState, useEffect } from "react";
 import { listPendingActivitiess } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import DenyResponsiveDialogActivities from "./DenyResponsiveDialogActivities";
-
+import EditResponsiveDialogActivities from "./EditResponsiveDialogActivities";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,8 +27,6 @@ const useStyles = makeStyles((theme) => ({
         transition: "transform 0.15s ease-in-out",
         "&:hover": { transform: "scale3d(1.05, 1.05, 1)" },
     },
-
-
     expand: {
         transform: "rotate(0deg)",
         marginLeft: "auto",
@@ -57,11 +55,11 @@ export default function DeletePending(props) {
     const [pendingActivitiess, setPendingActivitiess] = useState([]);
     const [allPendingActivitiess, setAllPendingActivitiess] = useState([]);
 
-    useEffect(() => {
+    useEffect(() => { // Fetch for content suppliers
         fetchPendingActivities();
     }, []);
 
-    useEffect(() => {
+    useEffect(() => { // Fetch for admins
         fetchAllPendingActivities();
     }, []);
 
@@ -120,12 +118,13 @@ export default function DeletePending(props) {
                                     <th style={{ minWidth: "120px", paddingLeft: "10px" }}>אימייל ספק התוכן</th>
                                     <th style={{ minWidth: "120px", paddingLeft: "10px" }}>שם הפעילות</th>
                                     <th style={{ minWidth: "120px", paddingLeft: "10px" }}>שם ספק התוכן</th>
-                                    {allPendingActivitiess.map((activity) => {
+                                    {allPendingActivitiess.map((activity, index) => {
                                         return (
                                             <tr>
                                                 <td minWidth="100px">
+                                                    {/* {console.log(activity.activityCount, activity.id, index)} */}
                                                     <DenyResponsiveDialogActivities id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
-
+                                                    <EditResponsiveDialogActivities activityCount={activity.activityCount} dates={activity.dates} idx={index} id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
                                                 </td>
                                                 <td>
                                                     <div className="ActivityDates">{activity.dates.map((date, index) => (<tr style={{ display: "flex", justifyContent: "center" }}>{date}  :{index + 1} מפגש</tr>))}</div>
