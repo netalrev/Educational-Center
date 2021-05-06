@@ -1,23 +1,27 @@
 import React, { Component } from "react";
-import DeletePending from "./DeletePending";
-import DeleteApproved from "./DeleteApproved";
-import EditPending from "./EditPending";
-import EditApproved from "./EditApproved";
+import DeleteEditPendingForAdmin from "./DeleteEditPendingForAdmin";
+import DeleteEditPendingForContectSupplier from "./DeleteEditPendingForContectSupplier";
+import DeleteEditApprovedForContectSupplier from "./DeleteEditApprovedForContectSupplier";
+import DeleteEditApprovedForAdmin from "./DeleteEditApprovedForAdmin";
 import ManageActivitiesForm from "./ManageActivitiesForm";
 
-class ManageActivities extends Component {
-
-  render() {
-    return (
-      <div>
-        {console.log(this.props.groupName)}
-        <ManageActivitiesForm email={this.props.email} givenName={this.props.givenName} familyName={this.props.familyName} id="1" title="העלאת תוכן" />
-        <DeletePending groupName={this.props.groupName} type="pending" email={this.props.email} title="מחיקת פעיליות שטרם שאושרו" />
-        <DeleteApproved groupName={this.props.groupName} type="approved" email={this.props.email} title="מחיקת פעיליות שאושרו" />
-        <EditPending groupName={this.props.groupName} type="pending" email={this.props.email} title="עריכת פעיליות שטרם שאושרו" />
-        <EditApproved groupName={this.props.groupName} type="approved" email={this.props.email} title="עריכת פעיליות שאושרו" />
-      </div>
-    );
-  }
+// class ManageActivities extends Component {
+export default function ManageActivities(props) {
+  return (
+    <div>
+      {console.log(props.groupName)}
+      <ManageActivitiesForm email={props.email} givenName={props.givenName} familyName={props.familyName} id="1" title="העלאת תוכן" />
+      {props.groupName === "admins" ?
+        <DeleteEditPendingForAdmin groupName={props.groupName} type="pending" email={props.email} title="מחיקת/עריכת פעיליות שטרם שאושרו" />
+        :
+        <DeleteEditPendingForContectSupplier groupName={props.groupName} type="pending" email={props.email} title="מחיקת/עריכת פעיליות שטרם שאושרו" />
+      }
+      {props.groupName === "admins" ?
+        <DeleteEditApprovedForAdmin groupName={props.groupName} type="pending" email={props.email} title="מחיקת/עריכת פעיליות שטרם שאושרו" />
+        :
+        <DeleteEditApprovedForContectSupplier groupName={props.groupName} type="pending" email={props.email} title="מחיקת/עריכת פעיליות שאושרו" />
+      }
+    </div>
+  );
 }
-export default ManageActivities;
+

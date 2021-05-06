@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function DeleteApproved(props) {
+export default function DeleteEditApproved(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
     const [approvedActivitiess, setApprovedActivitiess] = useState([]);

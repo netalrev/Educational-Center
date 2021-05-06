@@ -14,12 +14,9 @@ import ManageActivitiesFormEdit from './ManageActivitiesFormEdit';
 
 export default function EditResponsiveDialogActivities(props) {
     const [open, setOpen] = React.useState(false);
-
-
-
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
+    console.log(props.activityCount);
     // const deleteSingleApproved = async (id_to_delete) => {
     //     try {
     //         const del = { id: id_to_delete };
@@ -46,7 +43,6 @@ export default function EditResponsiveDialogActivities(props) {
     const handleCancel = () => {
         setOpen(false);
     };
-
     return (
         <div>
             <Button startIcon={<EditIcon></EditIcon>} variant="outlined" color="primary" onClick={handleClickOpen}>
@@ -62,7 +58,7 @@ export default function EditResponsiveDialogActivities(props) {
                 <DialogContent>
                     <DialogContentText>
                         ?אילו שינויים ברצונך לערוך
-                        <ManageActivitiesFormEdit idx={props.idx} email={props.email} />
+                        <ManageActivitiesFormEdit dates={props.dates} activityCount={props.activityCount} idx={props.idx} email={props.email} />
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

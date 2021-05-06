@@ -66,8 +66,8 @@ const useStyles = makeStyles((theme) => ({
 export default function ManageActivitiesForm(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
-    const [dates, setDates] = useState(fillDateInputs, []);
     const [pendingActivitiess, setPendingActivitiess] = useState([]);
+    const [dates, setDates] = useState(fillDateInputs, []);
     // const [allPendingActivitiess, setAllPendingActivitiess] = useState([]);
 
     useEffect(() => { // Fetch for content suppliers
@@ -82,8 +82,6 @@ export default function ManageActivitiesForm(props) {
             const PendingActivitiesData = await API.graphql(graphqlOperation(listPendingActivitiess, { filter: { email: { eq: props.email } } }));
             const PendingActivitiesList = PendingActivitiesData.data.listPendingActivitiess.items;
             setPendingActivitiess(PendingActivitiesList);
-
-
         } catch (error) {
             console.log("error on fetching Pending Activities", error);
         }
@@ -120,13 +118,13 @@ export default function ManageActivitiesForm(props) {
     }
     function fillDateInputs() {
         var toReturn = [];
-        // console.log(props.id)
-        for (var i = 0; i < 3; i++) {
+        for (var i = 0; i < props.activityCount; i++) {
             var temp = ":תאריך פעילות מספר" + " " + (i + 1)
-            toReturn.push(<tr><FormElement name="dates" title={temp} type="date" defaultValue={new Date().toLocaleDateString('en-CA')} /></tr>);
+            toReturn.push(<tr><FormElement name="dates" title={temp} type="date" defaultValue={props.dates[i]} /></tr>);
         }
         return toReturn;
     }
+
     // console.log("hey", pendingActivitiess);
     // console.log("hey2", pendingActivitiess[0], props.idx);
     //const listActivitiess = [...pendingActivitiess]
@@ -178,7 +176,8 @@ export default function ManageActivitiesForm(props) {
 
                                         </tr>
                                         <tr>
-                                            <UpdateResponsiveDialogActivities email={props.email} givenName={props.givenName} familyName={props.familyName} />
+                                            {/* {console.log(Array.from(document.getElementsByName('activityCount'))[0].value)}; */}
+                                            <UpdateResponsiveDialogActivities idx={props.idx} dates={dates} />
                                         </tr>
                                     </table>
                                 </div>

@@ -7,7 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
-import { createPendingActivities } from "../../graphql/mutations";
+import { createPendingActivities, updatePendingActivities } from "../../graphql/mutations";
 import { listPendingActivitiess } from "../../graphql/queries";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
@@ -17,7 +17,7 @@ export default function UploadResponsiveDialog(props) {
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-    const [pendingActivities, setPendingActivitiess] = useState([]);
+    const [pendingActivitiess, setPendingActivitiess] = useState([]);
 
     useEffect(() => {
         fetchPendingActivities();
@@ -32,42 +32,31 @@ export default function UploadResponsiveDialog(props) {
             console.log("error on fetching songs", error);
         }
     };
-    const createActivity = async () => {
+    const editPendingActivities = async (idx) => {
         try {
-            var IDs = pendingActivities.map(element => parseInt(element.id));
-            IDs.sort(function compareNumbers(a, b) {
-                return a - b;
-            });
-            const activity = {
-                description: document.getElementById("outlined-multiline-static").value,
-                id: IDs.length == 0 ? 0 : IDs[IDs.length - 1] + 1,
-                owner: props.givenName + " " + props.familyName,
-                title: document.getElementById("standard-basic").value,
-                email: props.email,
-                activityCount: document.getElementsByName("activityCount")[0].value,
-                dates: Array.from(document.getElementsByName("dates")).map(element => element.value),
-            };
-            console.log(activity);
-            await API.graphql(graphqlOperation(createPendingActivities, { input: activity }));
-            await fetchPendingActivities();
-            document.getElementById("outlined-multiline-static").value = "";
-            document.getElementById("standard-basic").value = "";
-            document.getElementsByName("activityCount")[0].value = "1";
-            // var temp = ":תאריך פעילות מספר" + " " + 1;
-            // dates = [<tr><FormElement name="dates" title={temp} type="date" defaultValue={new Date().toLocaleDateString('en-CA')} /></tr>]
-            // document.getElementById("dates_tr").innerHTML = [];
-            // document.getElementById("dates_tr").append(<tr><FormElement name="dates" title={temp} type="date" defaultValue={new Date().toLocaleDateString('en-CA')} /></tr>)
+            const to_edit = pendingActivitiess[idx];
+            to_edit.title = document.getElementById("standard-basic").value;
+            to_edit.description = document.getElementById("outlined-multiline-static").value;
+            to_edit.activityCount = document.getElementsByName("activityCount")[0].value;
+            to_edit.dates = Array.from(document.getElementsByName("dates")).map(element => element.value);
+            delete to_edit.createdAt;
+            delete to_edit.updatedAt;
+            const activityData = await API.graphql(graphqlOperation(updatePendingActivities, { input: to_edit }));
+            console.log(activityData);
+            const pendingActivityList = [...pendingActivitiess];
+            pendingActivityList[idx] = activityData.data.updatePendingActivities;
+            setPendingActivitiess(pendingActivityList);
         } catch (error) {
-            console.log("error creating activity: ", error);
+            console.log("Error in updating pending activity", error);
         }
-    }
+    };
     const handleClickOpen = () => {
         setOpen(true);
     };
 
     const handleClose = async () => {
         setOpen(false);
-        await createActivity().then(alert("בקשתך התקבלה בהצלחה, אנא המתן לאישור מנהל"));
+        await editPendingActivities(props.idx).then(alert("בקשתך לעריכת התוכן המבוקש התקבלה בהצלחה."));
         window.location.reload(false);
 
     };
