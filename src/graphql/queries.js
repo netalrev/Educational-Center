@@ -45,6 +45,9 @@ export const getPendingActivities = /* GraphQL */ `
       activityCount
       dates
       owner
+      img
+      zoom
+      phone_number
       email
       createdAt
       updatedAt
@@ -69,6 +72,9 @@ export const listPendingActivitiess = /* GraphQL */ `
         activityCount
         dates
         owner
+        img
+        zoom
+        phone_number
         email
         createdAt
         updatedAt
@@ -86,6 +92,9 @@ export const getApprovedActivities = /* GraphQL */ `
       activityCount
       dates
       owner
+      img
+      zoom
+      phone_number
       email
       createdAt
       updatedAt
@@ -110,6 +119,9 @@ export const listApprovedActivitiess = /* GraphQL */ `
         activityCount
         dates
         owner
+        img
+        zoom
+        phone_number
         email
         createdAt
         updatedAt

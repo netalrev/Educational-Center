@@ -13,6 +13,7 @@ import FormElement from "./FormElement";
 import TextField from '@material-ui/core/TextField';
 import { useState } from "react";
 import UploadResponsiveDialogActivities from "./UploadResponsiveDialogActivities";
+import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -60,13 +61,28 @@ const useStyles = makeStyles((theme) => ({
     // },
 }));
 
-export default function ManageActivitiesForm(props) {
+export default function ManageActivitiesFormPending(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
     const [dates, setDates] = useState([]);
+    const [checked, setChecked] = React.useState(true);
+    const [zoomLink, setZoomLink] = useState(<tr><FormElement name="activity_zoom" title=": קישור לזום" type="text" /></tr>);
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+
+    var handleChange = (event) => {
+        var toReturn;
+        setChecked(event.target.checked);
+        if (event.target.checked == true) {
+            toReturn = <tr><FormElement name="activity_zoom" title=": קישור לזום" type="text" /></tr>;
+        }
+        else {
+            toReturn = null;
+        }
+        setZoomLink(toReturn);
+    };
+
     function createDateInputs(event) {
         var toReturn = [];
         if (document.getElementsByName("activityCount")[0].value > 10) {
@@ -76,8 +92,20 @@ export default function ManageActivitiesForm(props) {
             document.getElementsByName("activityCount")[0].value = 1
         }
         for (var i = 0; i < document.getElementsByName("activityCount")[0].value; i++) {
-            var temp = ":תאריך פעילות מספר" + " " + (i + 1)
-            toReturn.push(<tr><FormElement name="dates" title={temp} type="date" defaultValue={new Date().toLocaleDateString('en-CA')} /></tr>);
+            var temp = ":תאריך פעילות מספר" + " " + (i + 1);
+            var tzoffset = (new Date()).getTimezoneOffset() * 60000;
+            toReturn.push(
+                <tr><TextField
+                    id="datetime-local"
+                    name="dates"
+                    label={temp}
+                    type="datetime-local"
+                    defaultValue={new Date(Date.now() - tzoffset).toISOString().substring(0, 16)}
+                    className={classes.textField}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                /></tr>);
         }
         setDates(toReturn);
     }
@@ -107,6 +135,22 @@ export default function ManageActivitiesForm(props) {
                                 <FormElement name="name" title=": שם הפעילות" type="text" />
                             </tr>
                             <tr>
+                                <FormElement name="activity_img" title=": קישור לתמונה" type="text" />
+                            </tr>
+                            <tr>
+                                מפגש בזום
+                                <Checkbox
+                                    id="zoomCheckBox"
+                                    checked={checked}
+                                    onChange={handleChange}
+                                    color="primary"
+                                    inputProps={{ 'aria-label': 'primary checkbox' }}
+                                />
+                            </tr>
+                            <tr>
+                                {zoomLink}
+                            </tr>
+                            <tr>
                                 <FormElement name="activityCount" title=": מספר פעילויות" type="number" onChange={createDateInputs} />
                             </tr>
                             <tr id="dates_tr">
@@ -117,7 +161,7 @@ export default function ManageActivitiesForm(props) {
                                     id="outlined-multiline-static"
                                     label=": תיאור הפעילויות"
                                     className={classes.textField}
-
+                                    name="activity_description"
                                     multiline
                                     rows={4}
                                     variant="outlined"
@@ -125,7 +169,7 @@ export default function ManageActivitiesForm(props) {
 
                             </tr>
                             <tr>
-                                <UploadResponsiveDialogActivities email={props.email} givenName={props.givenName} familyName={props.familyName} />
+                                <UploadResponsiveDialogActivities isZoom={checked == false ? false : true} phoneNumber={props.phoneNumber} email={props.email} givenName={props.givenName} familyName={props.familyName} />
                             </tr>
                         </table>
                     </div>

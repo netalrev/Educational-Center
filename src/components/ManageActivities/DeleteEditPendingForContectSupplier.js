@@ -7,7 +7,6 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
-import { red } from "@material-ui/core/colors";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { useState, useEffect } from "react";
 import { listPendingActivitiess } from "../../graphql/queries";
@@ -61,22 +60,23 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function DeleteEditPendingForAdmin(props) {
+export default function DeleteEditPendingForContectSupplier(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
     const [pendingActivitiess, setPendingActivitiess] = useState([]);
-    // const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [checked, setChecked] = React.useState(true);
     const rows = pendingActivitiess.map((activity, index) => {
+        // console.log("ACTIVITY ZOOM:", activity.zoom, activity.title);
         return (createDataContectSupplier(activity.owner, activity.title, activity.email,
             <Typography>{activity.description}</Typography>,
             activity.dates.map((date, index) => <p>{date} : {(index + 1)} מפגש</p>),
-            <DenyResponsiveDialogActivities id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />,
-            <EditResponsiveDialogActivities description={activity.description} activityCount={activity.activityCount} dates={activity.dates} idx={index} id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
-
+            <DenyResponsiveDialogActivities groupName={props.groupName} type="pending" id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />,
+            <EditResponsiveDialogActivities isZoom={activity.zoom === "" ? false : true} zoom={activity.zoom} groupName={props.groupName} type="pending" description={activity.description} activityCount={activity.activityCount} dates={activity.dates} idx={index} id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
         ))
     });
+
 
     useEffect(() => { // Fetch for content suppliers
         fetchPendingActivities();
@@ -180,104 +180,3 @@ export default function DeleteEditPendingForAdmin(props) {
         </Card >
     );
 }
-
-
-// (
-    // <Card className={classes.root}>
-    //     <CardHeader
-    //         title={text}
-    //     />
-    //     <CardActions disableSpacing>
-    //         <IconButton
-    //             className={clsx(classes.expand, {
-    //                 [classes.expandOpen]: expanded,
-    //             })}
-    //             onClick={handleExpandClick}
-    //             aria-expanded={expanded}
-    //             aria-label="show more"
-    //         >
-    //             <ExpandMoreIcon />
-    //         </IconButton>
-    //     </CardActions>
-    //     <Collapse in={expanded} timeout="auto" unmountOnExit>
-    //         <CardContent>
-    //             {
-    //                 props.groupName === "admins" ?
-    //                     <div style={{ display: "flex", justifyContent: "center" }}>
-//                             <table>
-//                                 <th style={{ minWidth: "70px" }}>?אשר</th>
-//                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>תארכי מפגשים</th>
-//                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>מספר מפגשים</th>
-//                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>תיאור הפעילות</th>
-//                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>אימייל ספק התוכן</th>
-//                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>שם הפעילות</th>
-//                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>שם ספק התוכן</th>
-//                                 {allPendingActivitiess.map((activity, index) => {
-//                                     return (
-//                                         <tr>
-//                                             <td minWidth="100px">
-//                                                 <DenyResponsiveDialogActivities id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
-//                                                 <EditResponsiveDialogActivities description={activity.description} activityCount={actvitiesCountArray[index]} dates={activity.dates} idx={index} id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
-//                                             </td>
-//                                             <td >
-//                                                 <div minWidth="200px" className="ActivityDates">{activity.dates.map((date, index) => (<p style={{ justifyContent: "center" }}>{date}  :{index + 1} מפגש</p>))}</div>
-//                                             </td>
-//                                             <td>
-//                                                 <div className="ActivityCount">{activity.activityCount}</div>
-//                                             </td>
-//                                             <td>
-//                                                 <div className="ActivityDescription">{activity.description}</div>
-//                                             </td>
-//                                             <td>
-//                                                 <div className="ActivityEmail">{activity.email}</div>
-//                                             </td>
-//                                             <td>
-//                                                 <div className="ActivityTitle">{activity.title}</div>
-//                                             </td>
-//                                             <td>
-//                                                 <div className="ActivityOwner">{activity.owner}</div>
-//                                             </td>
-//                                         </tr>
-//                                     );
-//                                 })}
-
-//                             </table>
-//                         </div>
-//                         :
-//                         <div style={{ display: "flex", justifyContent: "center" }}>
-//                             <table>
-//                                 <th style={{ minWidth: "70px" }}>?אשר</th>
-//                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>תארכי מפגשים</th>
-//                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>מספר מפגשים</th>
-//                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>תיאור הפעילות</th>
-//                                 <th style={{ minWidth: "120px", paddingLeft: "10px" }}>שם הפעילות</th>
-//                                 {pendingActivitiess.map((activity) => {
-//                                     return (
-//                                         <tr>
-//                                             <td minWidth="100px">
-//                                                 <DenyResponsiveDialogActivities id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
-
-//                                             </td>
-//                                             <td>
-//                                                 <div className="ActivityDates">{activity.dates.map((date, index) => (<tr style={{ display: "flex", justifyContent: "center" }}>{date}  :{index + 1} מפגש</tr>))}</div>
-//                                             </td>
-//                                             <td>
-//                                                 <div className="ActivityCount">{activity.activityCount}</div>
-//                                             </td>
-//                                             <td>
-//                                                 <div className="ActivityDescription">{activity.description}</div>
-//                                             </td>
-//                                             <td>
-//                                                 <div className="ActivityTitle">{activity.title}</div>
-//                                             </td>
-//                                         </tr>
-//                                     );
-//                                 })}
-
-//                             </table>
-    //                     </div>
-    //             }
-    //         </CardContent>
-    //     </Collapse>
-    // </Card >
-// );

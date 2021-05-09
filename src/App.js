@@ -26,6 +26,7 @@ var fname = "null";
 var gname = "null";
 var emailAddress = "null"
 var groupName = "null";
+var phoneNumber = "null";
 var groups = new Array(3);
 
 Auth.currentAuthenticatedUser().then(
@@ -33,6 +34,7 @@ Auth.currentAuthenticatedUser().then(
     (gname = user.attributes.given_name) &&
     (fname = user.attributes.family_name) &&
     (emailAddress = user.attributes.email) &&
+    (phoneNumber = user.attributes.phone_number) &&
     (groups = user.signInUserSession.accessToken.payload["cognito:groups"]) &&
     (groupName = groups[0])
 );
@@ -278,7 +280,7 @@ function App() {
 
             {groupName === "admins" || groupName === "contentSuppliers" ? (
               <Route exact path="/manageActivities">
-                <ManageActivities groupName={groupName} givenName={gname} familyName={fname} email={emailAddress} />
+                <ManageActivities phoneNumber={phoneNumber} groupName={groupName} givenName={gname} familyName={fname} email={emailAddress} />
               </Route>
             ) : (
               <Route exact path="/manageActivities">
@@ -287,7 +289,7 @@ function App() {
             )}
             {groupName === "admins" ? (
               <Route exact path="/ManagerPanel">
-                <ManagePanel />
+                <ManagePanel groupName={groupName} />
               </Route>
             ) : (
               <Route exact path="/ManagerPanel">

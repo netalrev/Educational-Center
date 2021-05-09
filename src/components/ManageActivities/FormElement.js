@@ -1,11 +1,7 @@
-
 import { TextField } from "@material-ui/core";
 import React, { Component } from "react";
 import "./FormElement.css"
 
-function createDateInputs(event) {
-    console.log('Horray! Someone wrote "' + event.target.value + '"!');
-}
 
 class FormElement extends Component {
     render() {

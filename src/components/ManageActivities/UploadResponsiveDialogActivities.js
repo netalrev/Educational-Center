@@ -32,22 +32,113 @@ export default function UploadResponsiveDialog(props) {
             console.log("error on fetching songs", error);
         }
     };
+    function contains_heb(str) {
+        return (/[\u0590-\u05FF]/).test(str);
+    }
+    function validURL(str) {
+        var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+            '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+            '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+            '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+        return !!pattern.test(str);
+    }
+    function validateEmail(email) {
+        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+    function validation() {
+        var dates = {
+            convert: function (d) {
+                // Converts the date in d to a date-object. The input can be:
+                //   a date object: returned without modification
+                //  an array      : Interpreted as [year,month,day]. NOTE: month is 0-11.
+                //   a number     : Interpreted as number of milliseconds
+                //                  since 1 Jan 1970 (a timestamp) 
+                //   a string     : Any format supported by the javascript engine, like
+                //                  "YYYY/MM/DD", "MM/DD/YYYY", "Jan 31 2009" etc.
+                //  an object     : Interpreted as an object with year, month and date
+                //                  attributes.  **NOTE** month is 0-11.
+                return (
+                    d.constructor === Date ? d :
+                        d.constructor === Array ? new Date(d[0], d[1], d[2]) :
+                            d.constructor === Number ? new Date(d) :
+                                d.constructor === String ? new Date(d) :
+                                    typeof d === "object" ? new Date(d.year, d.month, d.date) :
+                                        NaN
+                );
+            },
+            compare: function (a, b) {
+                // Compare two dates (could be of any type supported by the convert
+                // function above) and returns:
+                //  -1 : if a < b
+                //   0 : if a = b
+                //   1 : if a > b
+                // NaN : if a or b is an illegal date
+                // NOTE: The code inside isFinite does an assignment (=).
+                return (
+                    isFinite(a = this.convert(a).valueOf()) &&
+                        isFinite(b = this.convert(b).valueOf()) ?
+                        (a > b) - (a < b) :
+                        NaN
+                );
+            },
+            inRange: function (d, start, end) {
+                // Checks if date in d is between dates in start and end.
+                // Returns a boolean or NaN:
+                //    true  : if d is between start and end (inclusive)
+                //    false : if d is before start or after end
+                //    NaN   : if one or more of the dates is illegal.
+                // NOTE: The code inside isFinite does an assignment (=).
+                return (
+                    isFinite(d = this.convert(d).valueOf()) &&
+                        isFinite(start = this.convert(start).valueOf()) &&
+                        isFinite(end = this.convert(end).valueOf()) ?
+                        start <= d && d <= end :
+                        NaN
+                );
+            }
+        };
+        var tzoffset = (new Date()).getTimezoneOffset() * 60000;
+        if (document.getElementById("zoomCheckBox").checked) {
+            if (!validURL(document.getElementsByName("activity_zoom")[0].value) || document.getElementsByName("activity_zoom")[0].value === "") return "Invalid zoom url.";
+        }
+        if (document.getElementsByName("name")[0].value > 100 || document.getElementsByName("name")[0].value === "") return "Invalid activity title";
+        else if (!validURL(document.getElementsByName("activity_img")[0].value) && document.getElementsByName("activity_img")[0].value !== "") return "Invalid image url.";
+        else if (!document.getElementsByName("activityCount")[0].value || document.getElementsByName("activityCount")[0].value < 1 || document.getElementsByName("activityCount")[0].value === "") return "Invalid activityCount";
+        var date_map = Array.from(document.getElementsByName("dates")).map(date => date.value);
+        var current_time = dates.convert(new Date(Date.now() - tzoffset).toISOString().substring(0, 16));
+        var temp;
+        for (var i = 0; i < date_map.length; i++) {
+            temp = dates.convert(date_map[i]);
+            if (dates.compare(current_time, temp) == 1) return "Invalid dates input."
+        }
+        if (document.getElementsByName("activity_description")[0].value.length < 10 || document.getElementsByName("activity_description")[0].value === "") return "Invalid description";
+        return "true";
+    }
     const createActivity = async () => {
         try {
             var IDs = pendingActivities.map(element => parseInt(element.id));
             IDs.sort(function compareNumbers(a, b) {
                 return a - b;
             });
+            var zoomLink = '';
+            if (props.isZoom)
+                zoomLink = document.getElementsByName("activity_zoom")[0].value;
+            console.log(Array.from(document.getElementsByName("dates")).map(element => element.value));
             const activity = {
                 description: document.getElementById("outlined-multiline-static").value,
                 id: IDs.length == 0 ? 0 : IDs[IDs.length - 1] + 1,
                 owner: props.givenName + " " + props.familyName,
                 title: document.getElementById("standard-basic").value,
                 email: props.email,
+                zoom: zoomLink,
+                img: document.getElementsByName("activity_img")[0].value,
                 activityCount: document.getElementsByName("activityCount")[0].value,
                 dates: Array.from(document.getElementsByName("dates")).map(element => element.value),
+                phone_number: props.phoneNumber,
             };
-            console.log(activity);
             await API.graphql(graphqlOperation(createPendingActivities, { input: activity }));
             await fetchPendingActivities();
             document.getElementById("outlined-multiline-static").value = "";
@@ -62,7 +153,13 @@ export default function UploadResponsiveDialog(props) {
         }
     }
     const handleClickOpen = () => {
-        setOpen(true);
+        var validate = validation();
+        if (validate === "true")
+            setOpen(true);
+        else {
+            alert(validate);
+            setOpen(false);
+        }
     };
 
     const handleClose = async () => {

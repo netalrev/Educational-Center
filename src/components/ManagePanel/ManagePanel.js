@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import ManageCard from "./ManageCard";
+import ManageCardActivities from "./ManageCardActivities";
+import DeleteEditApprovedForAdmin from "../ManageActivities/DeleteEditApprovedForAdmin";
 
-class ManagePanel extends Component {
-
-  render() {
-    return (
-      <div>
-        <ManageCard temp="daniel" id="1" title="אישור פעילויות" />
-        <ManageCard id="2" title="אישור הרשמה לפעילויות" />
-      </div>
-    );
-  }
+export default function ManagePanel(props) {
+  return (
+    <div>
+      <ManageCardActivities groupName={props.groupName} id="1" title="פעילויות שטרם אושרו" />
+      <DeleteEditApprovedForAdmin groupName={props.groupName} type="pending" email={props.email} title="פעיליות שאושרו" />
+      <ManageCard id="2" title="אישור הרשמה לפעילויות" />
+    </div>
+  );
 }
-export default ManagePanel;

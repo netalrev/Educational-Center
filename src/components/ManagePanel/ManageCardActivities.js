@@ -9,10 +9,11 @@ import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { useState, useEffect } from "react";
-import { listApprovedActivitiess } from "../../graphql/queries";
+import { listPendingActivitiess } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
-import DenyResponsiveDialogActivities from "./DenyResponsiveDialogActivities";
-import EditResponsiveDialogActivities from "./EditResponsiveDialogActivities";
+import DenyResponsiveDialogActivities from "../ManageActivities/DenyResponsiveDialogActivities";
+import EditResponsiveDialogActivities from "../ManageActivities/EditResponsiveDialogActivities";
+import ApproveResponsiveDialogManager from "./ApproveResponsiveDialogManager";
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -24,11 +25,15 @@ import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 
 const columns = [
-    { id: 'buttons2', label: '', minWidth: 140, maxWidth: 140, align: 'center' },
-    { id: 'buttons', label: '', minWidth: 140, maxWidth: 140, align: 'center' },
+    { id: 'buttons3', label: '', minWidth: 110, maxWidth: 110, align: 'center' },
+    { id: 'buttons2', label: '', minWidth: 110, maxWidth: 110, align: 'center' },
+    { id: 'buttons', label: '', minWidth: 110, maxWidth: 110, align: 'center' },
     { id: 'dates', label: "תארכי מפגשים", minWidth: 170, maxWidth: 170, align: 'center' },
     { id: 'description', label: 'תיאור הפעילות', minWidth: 170, maxWidth: 170, align: 'center' },
-    { id: 'activityName', label: 'שם הפעילות', minWidth: 170, maxWidth: 170, align: 'center' },
+    { id: 'email', label: 'אימייל ספק התוכן', minWidth: 130, maxWidth: 130, align: 'center' },
+    { id: 'activityName', label: 'שם הפעילות', minWidth: 120, maxWidth: 170, align: 'center' },
+    { id: 'phoneNumber', label: 'פלאפון ספק התוכן', minWidth: 120, maxWidth: 120, align: 'center' },
+    { id: 'name', label: 'שם ספק התוכן', minWidth: 120, maxWidth: 130, align: 'center' }
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -60,41 +65,27 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function DeleteEditPendingForAdmin(props) {
+
+
+
+export default function ManageCardActivities(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
-
-    const [approvedActivitiess, setApprovedActivitiess] = useState([]);
-
-    useEffect(() => {
-        fetchApprovedActivities();
-    }, []);
-
-    const fetchApprovedActivities = async () => {
-        try {
-            const approvedActivitiesData = await API.graphql(graphqlOperation(listApprovedActivitiess, { filter: { email: { eq: props.email } } }));
-            const approvedActivitiesList = approvedActivitiesData.data.listApprovedActivitiess.items;
-            setApprovedActivitiess(approvedActivitiesList);
-        } catch (error) {
-            console.log("error on fetching Approved Activities", error);
-        }
-    };
-
-    // const classes = useStyles();
+    const [allPendingActivitiess, setAllPendingActivitiess] = useState([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const rows = approvedActivitiess.map((activity, index) => {
-        return (createDataContectSupplier(activity.owner, activity.title, props.email,
+    const [activitiess, setActivitiess] = useState([]);
+    const rows = activitiess.map((activity, index) => {
+        return (createDataAdmin(activity.owner, activity.phone_number, activity.title, activity.email,
             <Typography>{activity.description}</Typography>,
             activity.dates.map((date, index) => <p>{date} : {(index + 1)} מפגש</p>),
-            <DenyResponsiveDialogActivities groupName={props.groupName} type="approved" id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />,
-            <EditResponsiveDialogActivities zoom={activity.zoom} isZoom={activity.zoom === null ? false : true} groupName={props.groupName} type="approved" description={activity.description} activityCount={activity.activityCount} dates={activity.dates} idx={index} id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
-
+            <ApproveResponsiveDialogManager id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />,
+            <DenyResponsiveDialogActivities groupName={props.groupName} type="pending" id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />,
+            <EditResponsiveDialogActivities groupName={props.groupName} type="pending" description={activity.description} activityCount={activity.activityCount} dates={activity.dates} idx={index} id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} groupName={props.groupName} />,
         ))
     });
-
-    function createDataContectSupplier(name, activityName, email, description, dates, buttons, buttons2) {
-        return { name, activityName, email, description, dates, buttons, buttons2 };
+    function createDataAdmin(name, phoneNumber, activityName, email, description, dates, buttons, buttons2, buttons3) {
+        return { name, phoneNumber, activityName, email, description, dates, buttons, buttons2, buttons3 };
     }
 
     const handleChangePage = (event, newPage) => {
@@ -105,12 +96,27 @@ export default function DeleteEditPendingForAdmin(props) {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
-
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+    useEffect(() => {
+        fetchPendingActivities();
+    }, []);
+    // const handleExpandClick = () => {
+    //     setExpanded(!expanded);
+    // };
 
-    var text = props.title
+    const fetchPendingActivities = async () => {
+        try {
+            const PendingActivitiesData = await API.graphql(graphqlOperation(listPendingActivitiess));
+            const PendingActivitiesList = PendingActivitiesData.data.listPendingActivitiess.items;
+            setActivitiess(PendingActivitiesList);
+        } catch (error) {
+            console.log("error on fetching Pending Activities", error);
+        }
+    };
+
+    var text = props.title;
     return (
         <Card className={classes.root}>
             <CardHeader
@@ -181,3 +187,57 @@ export default function DeleteEditPendingForAdmin(props) {
         </Card >
     );
 }
+
+
+
+
+{/* <div style={{ display: "flex", justifyContent: "center" }}>
+<table>
+    <th style={{ minWidth: "70px" }}>?אשר</th>
+    <th style={{ minWidth: "120px", paddingLeft: "10px" }}>תארכי מפגשים</th>
+    <th style={{ minWidth: "120px", paddingLeft: "10px" }}>מספר מפגשים</th>
+    <th style={{ minWidth: "120px", paddingLeft: "10px" }}>תיאור הפעילות</th>
+    <th style={{ minWidth: "120px", paddingLeft: "10px" }}>אימייל ספק התוכן</th>
+    <th style={{ minWidth: "120px", paddingLeft: "10px" }}>שם הפעילות</th>
+    <th style={{ minWidth: "120px", paddingLeft: "10px" }}>שם ספק התוכן</th>
+    {activitiess.map((activity) => {
+        return (
+            <tr>
+                <td minWidth="100px">
+                    {/* <Button
+                        size="small"
+                        variant="contained"
+                        color="primary"
+                        className={classes.button}
+                        startIcon={<SaveIcon></SaveIcon>}
+                    >
+                        אשר
+                    </Button> */}
+//                     <ApproveResponsiveDialogManager id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
+//                     <DenyResponsiveDialogManager id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
+
+//                 </td >
+//                 <td>
+//                     <div className="ActivityDates">{activity.dates.map((date, index) => (<tr style={{ display: "flex", justifyContent: "center" }}>{date}  :{index + 1} מפגש</tr>))}</div>
+//                 </td>
+//                 <td>
+//                     <div className="ActivityCount">{activity.activityCount}</div>
+//                 </td>
+//                 <td>
+//                     <div className="ActivityDescription">{activity.description}</div>
+//                 </td>
+//                 <td>
+//                     <div className="ActivityEmail">{activity.email}</div>
+//                 </td>
+//                 <td>
+//                     <div className="ActivityTitle">{activity.title}</div>
+//                 </td>
+//                 <td>
+//                     <div className="ActivityOwner">{activity.owner}</div>
+//                 </td>
+//             </tr >
+//         );
+//     })}
+
+// </table >
+// </div > * /}
