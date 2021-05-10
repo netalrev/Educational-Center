@@ -1,0 +1,10 @@
+[
+  {
+    "groupName": "newPool",
+    "precedence": 1
+  },
+  {
+    "groupName": "another",
+    "precedence": 2
+  }
+]
