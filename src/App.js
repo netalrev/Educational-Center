@@ -122,7 +122,7 @@ function Content() {
   }, []);
   const [authState, setAuthState] = useState("");
 
-  function handleAuthStateChange(styate) {
+  function handleAuthStateChange(state) {
     if (state === "signedin" || state === "signedout") {
       setAuthState(state);
       //alert(state);
