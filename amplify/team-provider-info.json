@@ -13,7 +13,8 @@
     },
     "categories": {
       "auth": {
-        "Education": {}
+        "Education": {},
+        "userPoolGroups": {}
       }
     }
   }

@@ -8,12 +8,23 @@ import Clock from "./components/Clock";
 import contactUs from "./components/contactUs";
 import ContactForm from "./components/ContactForm";
 import { makeStyles } from "@material-ui/core/styles";
-import { BrowserRouter as Router, Switch, Route, useParams, withRouter } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useParams,
+  withRouter,
+} from "react-router-dom";
 import ActivitiesPage from "./components/Activities/ActivitiesPage";
 import ClassesPage from "./components/Classes/ClassesPage";
 import Amplify, { Auth, API, graphqlOperation } from "aws-amplify";
 import awsconfig from "./aws-exports";
-import { AmplifyAuthenticator, AmplifySignUp, AmplifySignIn, AmplifySignOut } from "@aws-amplify/ui-react";
+import {
+  AmplifyAuthenticator,
+  AmplifySignUp,
+  AmplifySignIn,
+  AmplifySignOut,
+} from "@aws-amplify/ui-react";
 import { I18n } from "aws-amplify";
 import { Translations } from "@aws-amplify/ui-components";
 import { useState, useEffect } from "react";
@@ -24,7 +35,7 @@ import { Hub, Logger } from "aws-amplify";
 Amplify.configure(awsconfig); //AWS CONFIGORE
 var fname = "null";
 var gname = "null";
-var emailAddress = "null"
+var emailAddress = "null";
 var groupName = "null";
 var phoneNumber = "null";
 var groups = new Array(3);
@@ -70,27 +81,6 @@ const listener = (data) => {
   }
 };
 
-const signUpConfig = {
-  hideAllDefaults: true,
-  signUpFields: [
-    {
-      label: "Email",
-      key: "username",
-      required: true,
-      placeholder: "Email",
-      type: "email",
-      displayOrder: 1,
-    },
-    {
-      label: "Password",
-      key: "password",
-      required: true,
-      placeholder: "Password",
-      type: "password",
-      displayOrder: 2,
-    },
-  ],
-};
 function refreshPage() {
   window.location.reload();
 }
@@ -132,7 +122,7 @@ function Content() {
   }, []);
   const [authState, setAuthState] = useState("");
 
-  function handleAuthStateChange(state) {
+  function handleAuthStateChange(styate) {
     if (state === "signedin" || state === "signedout") {
       setAuthState(state);
       //alert(state);
@@ -243,8 +233,8 @@ function App() {
               <img className="logoMain" src="/logo.png" />
             </Route>
             {groupName === "admins" ||
-              groupName === "contentSuppliers" ||
-              groupName === "approvedUsers" ? (
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
               <Route exact path="/profile">
                 <h1>עמוד פרופיל</h1>
               </Route>
@@ -254,8 +244,8 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-              groupName === "contentSuppliers" ||
-              groupName === "approvedUsers" ? (
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
               <Route exact path="/activitiespage">
                 <ActivitiesPage />
               </Route>
@@ -267,8 +257,8 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-              groupName === "contentSuppliers" ||
-              groupName === "approvedUsers" ? (
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
               <Route exact path="/classespage">
                 <ClassesPage />
               </Route>
@@ -280,7 +270,13 @@ function App() {
 
             {groupName === "admins" || groupName === "contentSuppliers" ? (
               <Route exact path="/manageActivities">
-                <ManageActivities phoneNumber={phoneNumber} groupName={groupName} givenName={gname} familyName={fname} email={emailAddress} />
+                <ManageActivities
+                  phoneNumber={phoneNumber}
+                  groupName={groupName}
+                  givenName={gname}
+                  familyName={fname}
+                  email={emailAddress}
+                />
               </Route>
             ) : (
               <Route exact path="/manageActivities">
