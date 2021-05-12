@@ -262,6 +262,9 @@ export default function ManageActivitiesFormEditPending(props) {
                                                 <FormElement name="name" title=": שם הפעילות" type="text" defaultValue={activity.title} />
                                             </tr>
                                             <tr>
+                                                <FormElement name="activity_img" title=": קישור לתמונה" type="text" />
+                                            </tr>
+                                            <tr>
                                                 מפגש בזום
                                                 <Checkbox
                                                     id="zoomCheckBox"

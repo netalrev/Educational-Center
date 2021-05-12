@@ -175,11 +175,13 @@ function Content() {
           {
             type: "given_name",
             label: "שם פרטי",
+            id: 'given_name',
             placeholder: "שם פרטי",
             required: true,
           },
           {
             type: "family_name",
+            id: 'family_name',
             label: "שם משפחה",
             placeholder: "שם משפחה",
             required: true,

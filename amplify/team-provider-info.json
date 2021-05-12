@@ -1,19 +1,19 @@
 {
-  "staging": {
+  "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-education-staging-204209-authRole",
-      "UnauthRoleArn": "arn:aws:iam::722642337815:role/amplify-education-staging-204209-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::722642337815:role/amplify-education-staging-204209-authRole",
+      "AuthRoleName": "amplify-educationalcenter-dev-171718-authRole",
+      "UnauthRoleArn": "arn:aws:iam::722642337815:role/amplify-educationalcenter-dev-171718-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::722642337815:role/amplify-educationalcenter-dev-171718-authRole",
       "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-education-staging-204209-deployment",
-      "UnauthRoleName": "amplify-education-staging-204209-unauthRole",
-      "StackName": "amplify-education-staging-204209",
-      "StackId": "arn:aws:cloudformation:us-east-2:722642337815:stack/amplify-education-staging-204209/b7ef08b0-9c98-11eb-9106-0694293a01d6",
-      "AmplifyAppId": "d3mxalefrunyho"
+      "DeploymentBucketName": "amplify-educationalcenter-dev-171718-deployment",
+      "UnauthRoleName": "amplify-educationalcenter-dev-171718-unauthRole",
+      "StackName": "amplify-educationalcenter-dev-171718",
+      "StackId": "arn:aws:cloudformation:us-east-2:722642337815:stack/amplify-educationalcenter-dev-171718/c72f4970-b32c-11eb-b37b-029f7de2bf9c",
+      "AmplifyAppId": "dej3ghbdntd0k"
     },
     "categories": {
       "auth": {
-        "Education": {}
+        "educationalcenter496797e3": {}
       }
     }
   }

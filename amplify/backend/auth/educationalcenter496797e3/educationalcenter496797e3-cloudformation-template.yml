@@ -109,7 +109,7 @@ Parameters:
             
             
             
-  serviceName:
+  useDefault:
     Type: String
   
             
@@ -117,21 +117,42 @@ Parameters:
   usernameAttributes:
     Type: CommaDelimitedList
       
-  useDefault:
+  triggers:
     Type: String
   
-            
-  
-  userPoolGroups:
-    Type: String
             
         
   userPoolGroupList:
     Type: CommaDelimitedList
       
+  serviceName:
+    Type: String
+  
+            
+  
+  usernameCaseSensitive:
+    Type: String
+            
+      
+  parentStack:
+    Type: String
+        
+        
+  permissions:
+    Type: CommaDelimitedList
+      
+        
+  dependsOn:
+    Type: CommaDelimitedList
+      
+  
+  userPoolGroups:
+    Type: String
+            
   
   adminQueries:
     Type: String
+            
             
   
   thirdPartyAuth:
@@ -141,15 +162,6 @@ Parameters:
   authProviders:
     Type: CommaDelimitedList
       
-  
-  usernameCaseSensitive:
-    Type: String
-            
-        
-  dependsOn:
-    Type: CommaDelimitedList
-      
-            
   
   hostedUI:
     Type: String
@@ -168,7 +180,7 @@ Resources:
   # Created to allow the UserPool SMS Config to publish via the Simple Notification Service during MFA Process
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !If [ShouldNotCreateEnvResources, 'educat505a0651_sns-role', !Join ['',[ 'sns', '505a0651', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
+      RoleName: !If [ShouldNotCreateEnvResources, 'educat496797e3_sns-role', !Join ['',[ 'sns', '496797e3', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -180,10 +192,10 @@ Resources:
               - "sts:AssumeRole"
             Condition:
               StringEquals:
-                sts:ExternalId: educat505a0651_role_external_id
+                sts:ExternalId: educat496797e3_role_external_id
       Policies:
         -
-          PolicyName: educat505a0651-sns-policy
+          PolicyName: educat496797e3-sns-policy
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
@@ -208,17 +220,22 @@ Resources:
       Schema:
         
         -
+          Name: birthdate
+          Required: true
+          Mutable: true
+        
+        -
           Name: email
           Required: true
           Mutable: true
         
         -
-          Name: given_name
+          Name: family_name
           Required: true
           Mutable: true
         
         -
-          Name: family_name
+          Name: given_name
           Required: true
           Mutable: true
         
@@ -233,13 +250,16 @@ Resources:
       AutoVerifiedAttributes: !Ref autoVerifiedAttributes
       
       
+      EmailVerificationMessage: !Ref emailVerificationMessage
+      EmailVerificationSubject: !Ref emailVerificationSubject
+      
       Policies:
         PasswordPolicy:
           MinimumLength: !Ref passwordPolicyMinLength
-          RequireLowercase: true
-          RequireNumbers: true
+          RequireLowercase: false
+          RequireNumbers: false
           RequireSymbols: false
-          RequireUppercase: true
+          RequireUppercase: false
       
       UsernameAttributes: !Ref usernameAttributes
       
@@ -248,15 +268,27 @@ Resources:
       SmsAuthenticationMessage: !Ref smsAuthenticationMessage
       SmsConfiguration:
         SnsCallerArn: !GetAtt SNSRole.Arn
-        ExternalId: educat505a0651_role_external_id
+        ExternalId: educat496797e3_role_external_id
     
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  # Updating lambda role with permissions to Cognito
+  
   
   UserPoolClientWeb:
   # Created provide application access to user pool
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: educat505a0651_app_clientWeb
+      ClientName: educat496797e3_app_clientWeb
       
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
       UserPoolId: !Ref UserPool
@@ -266,7 +298,7 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: educat505a0651_app_client
+      ClientName: educat496797e3_app_client
       
       GenerateSecret: !Ref userpoolClientGenerateSecret
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
@@ -277,7 +309,7 @@ Resources:
   # Created to execute Lambda which gets userpool app client config values
     Type: 'AWS::IAM::Role'
     Properties:
-      RoleName: !If [ShouldNotCreateEnvResources, !Ref userpoolClientLambdaRole, !Join ['',['upClientLambdaRole', '505a0651', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
+      RoleName: !If [ShouldNotCreateEnvResources, !Ref userpoolClientLambdaRole, !Join ['',['upClientLambdaRole', '496797e3', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -331,7 +363,7 @@ Resources:
   # Marked as depending on UserPoolClientRole for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: educat505a0651_userpoolclient_lambda_iam_policy
+      PolicyName: educat496797e3_userpoolclient_lambda_iam_policy
       Roles:
         - !Ref UserPoolClientRole
       PolicyDocument:
@@ -348,7 +380,7 @@ Resources:
   # Marked as depending on UserPoolClientLambdaPolicy for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: educat505a0651_userpoolclient_lambda_log_policy
+      PolicyName: educat496797e3_userpoolclient_lambda_log_policy
       Roles:
         - !Ref UserPoolClientRole
       PolicyDocument:
@@ -388,7 +420,7 @@ Resources:
   # Always created
     Type: AWS::Cognito::IdentityPool
     Properties:
-      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'testAuthIdentityPool', !Join ['',['testAuthIdentityPool', '__', !Ref env]]]
+      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'educationalcenter496797e3_identitypool_496797e3', !Join ['',['educationalcenter496797e3_identitypool_496797e3', '__', !Ref env]]]
       
       CognitoIdentityProviders:
         - ClientId:  !Ref UserPoolClient

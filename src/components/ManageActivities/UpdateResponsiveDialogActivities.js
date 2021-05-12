@@ -51,15 +51,16 @@ export default function UpdateResponsiveDialog(props) {
         try {
             var list = allPendingActivitiess.filter(activity => activity.id === id);
             const to_edit = list[0];
+            to_edit.title = document.getElementById("standard-basic").value;
+            to_edit.img = document.getElementsByName("activity_img")[0].value;
             if (props.isZoom) {
                 if (document.getElementsByName("activity_zoom")[0].value != "") {
                     to_edit.zoom = document.getElementsByName("activity_zoom")[0].value
                 }
             }
-            to_edit.title = document.getElementById("standard-basic").value;
-            to_edit.description = document.getElementById("outlined-multiline-static").value;
             to_edit.activityCount = document.getElementsByName("activityCount")[0].value;
             to_edit.dates = Array.from(document.getElementsByName("dates")).map(element => element.value);
+            to_edit.description = document.getElementById("outlined-multiline-static").value;
             delete to_edit.createdAt;
             delete to_edit.updatedAt;
             const activityData = await API.graphql(graphqlOperation(updatePendingActivities, { input: to_edit }));
@@ -77,8 +78,16 @@ export default function UpdateResponsiveDialog(props) {
         try {
             var list = allApprovedActivitiess.filter(activity => activity.id === id);
             const to_edit = list[0];
-            to_edit.title = document.getElementById("standard-basic").value;
-            to_edit.description = document.getElementById("outlined-multiline-static").value;
+            if (props.groupName === "admins") {
+                to_edit.title = document.getElementById("standard-basic").value;
+                to_edit.img = document.getElementsByName("activity_img")[0].value;
+                to_edit.description = document.getElementById("outlined-multiline-static").value;
+            }
+            if (props.isZoom) {
+                if (document.getElementsByName("activity_zoom")[0].value != "") {
+                    to_edit.zoom = document.getElementsByName("activity_zoom")[0].value
+                }
+            }
             to_edit.activityCount = document.getElementsByName("activityCount")[0].value;
             to_edit.dates = Array.from(document.getElementsByName("dates")).map(element => element.value);
             delete to_edit.createdAt;
@@ -168,7 +177,6 @@ export default function UpdateResponsiveDialog(props) {
         if (document.getElementById("zoomCheckBox").checked) {
             if (!validURL(document.getElementsByName("activity_zoom")[0].value) || document.getElementsByName("activity_zoom")[0].value === "") return "Invalid zoom url.";
         }
-        if (document.getElementsByName("name")[0].value.length > 100 || document.getElementsByName("name")[0].value === "") return "Invalid activity title";
         // else if (!validURL(document.getElementsByName("activity_img")[0].value)) return "Invalid image url.";
         else if (!document.getElementsByName("activityCount")[0].value || document.getElementsByName("activityCount")[0].value < 1 || document.getElementsByName("activityCount")[0].value === "") return "Invalid activityCount";
         var date_map = Array.from(document.getElementsByName("dates")).map(date => date.value);
@@ -178,7 +186,13 @@ export default function UpdateResponsiveDialog(props) {
             temp = dates.convert(date_map[i]);
             if (dates.compare(current_time, temp) == 1) return "Invalid dates input."
         }
-        if (document.getElementsByName("activity_description")[0].value.length < 10 || document.getElementsByName("activity_description")[0].value === "") return "Invalid description";
+        if (props.groupName === "admins" || (props.type == "pending" && props.groupName === "contentSuppliers")) {
+            if (document.getElementsByName("activity_description")[0].value.length < 10 || document.getElementsByName("activity_description")[0].value === "") return "Invalid description";
+            if (document.getElementsByName("name")[0].value.length > 100 || document.getElementsByName("name")[0].value === "") return "Invalid activity title";
+            if (!validURL(document.getElementsByName("activity_img")[0].value) || document.getElementsByName("activity_img")[0].value === "") return "Invalid img url.";
+
+        }
+
         return "true";
     }
     const handleClickOpen = () => {
@@ -193,7 +207,7 @@ export default function UpdateResponsiveDialog(props) {
                 await editPendingActivities(props.id).then(alert("בקשתך לעריכת התוכן המבוקש התקבלה בהצלחה."));
             }
             else {
-                alert(props.id);
+                console.log("this is props id", props.id);
                 await editApprovedActivities(props.id).then(alert("בקשתך לעריכת התוכן המבוקש התקבלה בהצלחה."));
             }
             window.location.reload(false);

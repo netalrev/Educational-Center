@@ -184,7 +184,6 @@ export default function ManageActivitiesFormEditApproved(props) {
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
-                    {console.log(props.groupName)};
                     {props.groupName === "admins" ?
                         allApprovedActivitiess.map((activity, idx) => {
                             if (props.idx === idx) {
@@ -221,6 +220,7 @@ export default function ManageActivitiesFormEditApproved(props) {
                                                     id="outlined-multiline-static"
                                                     label=": תיאור הפעילויות"
                                                     className={classes.textField}
+                                                    name="activity_description"
                                                     defaultValue={activity.description}
                                                     multiline
                                                     rows={4}
@@ -242,9 +242,6 @@ export default function ManageActivitiesFormEditApproved(props) {
                                 return (
                                     <div style={{ display: "flex", justifyContent: "center" }}>
                                         <table>
-                                            {/* <tr>
-                                                <FormElement name="name" title=": שם הפעילות" type="text" defaultValue={activity.title} />
-                                            </tr> */}
                                             <tr>
                                                 מפגש בזום
                                                 <Checkbox
@@ -264,18 +261,6 @@ export default function ManageActivitiesFormEditApproved(props) {
                                             <tr id="dates_tr">
                                                 {dates}
                                             </tr>
-                                            {/* <tr>
-                                                <TextField
-                                                    id="outlined-multiline-static"
-                                                    label=": תיאור הפעילויות"
-                                                    className={classes.textField}
-                                                    defaultValue={activity.description}
-                                                    multiline
-                                                    rows={4}
-                                                    variant="outlined"
-                                                />
-
-                                            </tr> */}
                                             <tr>
                                                 <UpdateResponsiveDialogActivities groupName={props.groupName} id={activity.id} type={props.type} idx={props.idx} dates={dates} />
                                             </tr>
