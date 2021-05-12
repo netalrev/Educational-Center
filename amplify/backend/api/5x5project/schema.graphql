@@ -1,0 +1,34 @@
+  type Test @model {
+    id: ID!
+    title: String!
+    description: String!
+    filePath: String!
+    like: Int!
+    owner: String!
+}
+
+  type PendingActivities @model {
+    id: ID!
+    title: String!
+    description: String!
+    activityCount: String!
+    dates: [String!]
+    owner: String!
+    img: String
+    zoom: String
+    phone_number: String!
+    email: String!
+}
+
+type ApprovedActivities @model {
+    id: ID!
+    title: String!
+    description: String!
+    activityCount: String!
+    dates: [String!]
+    owner: String!
+    img: String
+    zoom: String
+    phone_number: String!
+    email: String!
+}

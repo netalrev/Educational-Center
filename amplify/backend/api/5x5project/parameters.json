@@ -1,0 +1,5 @@
+{
+  "AppSyncApiName": "5x5project",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false
+}
