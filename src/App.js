@@ -208,6 +208,9 @@ function App() {
 
   return (
     <div className="App">
+      <div class="bg"></div>
+      <div class="bg bg2"></div>
+      <div class="bg bg3"></div>
       <Navbar givenName={gname} familyName={fname} groupName={groupName} />
       <div className="main">
         <div className="clock"></div>
