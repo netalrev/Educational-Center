@@ -69,6 +69,9 @@ function refreshPage() {
 function Content() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
+  if (isAuthenticating) console.log("isAuthenticating: " + isAuthenticating);
+  if (isAuthenticated) console.log("isAuthenticated " + isAuthenticated);
+
   I18n.putVocabulariesForLanguage("he", {
     [Translations.SIGN_IN_HEADER_TEXT]: "Custom Sign In Header Text",
     [Translations.SIGN_IN_ACTION]: "התחבר/י",
@@ -186,7 +189,7 @@ Hub.listen("auth", listener);
 function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
-
+  if (isAuthenticating) console.log("isAuthenticating: " + isAuthenticating);
   async function onLoad() {
     try {
       await Auth.currentSession();
