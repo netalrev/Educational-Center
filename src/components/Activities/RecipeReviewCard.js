@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
+import "./RecipeReviewCard.css";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -80,12 +81,12 @@ export default function RecipeReviewCard(props) {
   return (
     <Card className={classes.root}>
       <CardHeader
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={props.title}
+        // action={
+        //   <IconButton aria-label="settings">
+        //     <MoreVertIcon />
+        //   </IconButton>
+        // }
+        title={<h1 className="title__h1">{props.title}</h1>}
         subheader={
           <Typography className={classes.subColor}>
             ע"י: {props.owner}
@@ -94,11 +95,10 @@ export default function RecipeReviewCard(props) {
       />
       <CardMedia
         className={classes.media}
-        image="https://scontent.ftlv5-1.fna.fbcdn.net/v/t31.18172-8/12244234_10205990480504628_5471790634131424414_o.jpg?_nc_cat=102&ccb=1-3&_nc_sid=8bfeb9&_nc_ohc=P6WE9u9VlEYAX9W9S0R&_nc_ht=scontent.ftlv5-1.fna&oh=5d0dac16a13d826c5f15661e68cedfc9&oe=60983382"
+        image="https://www.gallosconflow.com/wp-content/uploads/2020/06/donde-ver-batalla-de-gallos-sara-socas-vs-rapder.jpg"
         title="image by hahaha"
       />
-      <CardContent>
-      </CardContent>
+      <CardContent></CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
@@ -126,9 +126,7 @@ export default function RecipeReviewCard(props) {
               <p>מספר מפגשים: {props.activityCount}</p>
               <p>:תאריכים</p>
               {props.dates.map((date) => {
-                return (
-                  <p>{date}</p>
-                )
+                return <p>{date}</p>;
               })}
             </Typography>
             {props.description}

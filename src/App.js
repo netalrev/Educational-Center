@@ -4,8 +4,6 @@ import Navbar from "./components/Navbar/Navbar";
 import ManagePanel from "./components/ManagePanel/ManagePanel";
 import ManageActivities from "./components/ManageActivities/ManageActivities";
 import Footer from "./components/Footer";
-import ContactForm from "./components/ContactForm";
-import { makeStyles } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ActivitiesPage from "./components/Activities/ActivitiesPage";
 import ClassesPage from "./components/Classes/ClassesPage";
@@ -40,12 +38,6 @@ Auth.currentAuthenticatedUser().then(
     (groups = user.signInUserSession.accessToken.payload["cognito:groups"]) &&
     (groupName = groups[0])
 );
-const useStyles = makeStyles({
-  gridContainer: {
-    paddingLeft: "10px",
-    paddingRight: "10px",
-  },
-});
 const logger = new Logger("Logger", "INFO");
 const listener = (data) => {
   switch (data.payload.event) {
@@ -109,16 +101,6 @@ function Content() {
   useEffect(() => {
     onLoad();
   }, []);
-  const [authState, setAuthState] = useState("");
-  /*
-  function handleAuthStateChange(state) {
-    if (state === "signedin" || state === "signedout") {
-      setAuthState(state);
-      console.log("AMPLIFY STATUS: " + state);
-      //alert(state);
-    }
-  }
-  */
   return (
     <AmplifyAuthenticator>
       <AmplifySignUp
@@ -193,7 +175,6 @@ function Content() {
             placeholder: "סיסמה",
             required: true,
           },
-          ,
         ]}
       />
       <AmplifySignOut />
@@ -203,7 +184,6 @@ function Content() {
 Hub.listen("auth", listener);
 
 function App() {
-  const classes = useStyles();
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
 
@@ -304,9 +284,7 @@ function App() {
                 <Content />
               )}
             </Route>
-            <Route exact path="/contactus">
-              <ContactForm />
-            </Route>
+            <Route exact path="/contactus"></Route>
           </Switch>
         </Router>
       </div>

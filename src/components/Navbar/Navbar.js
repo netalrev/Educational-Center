@@ -49,7 +49,7 @@ class Navbar extends Component {
             return (
               <li
                 key={index}
-                toHide={item.title}
+                tohide={item.title}
                 style={{
                   display:
                     (this.props.groupName !== "admins" &&
