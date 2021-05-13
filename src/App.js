@@ -18,7 +18,6 @@ import {
 import { I18n } from "aws-amplify";
 import { Translations } from "@aws-amplify/ui-components";
 import { useState, useEffect } from "react";
-//import { onAuthUIStateChange } from "@aws-amplify/ui-components";
 import { Hub, Logger } from "aws-amplify";
 
 Amplify.configure(awsconfig); //AWS CONFIGORE
@@ -70,7 +69,7 @@ function Content() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   if (isAuthenticating) console.log("isAuthenticating: " + isAuthenticating);
-  if (isAuthenticated) console.log("isAuthenticated " + isAuthenticated);
+  if (isAuthenticated) console.log("isAuthenticated: " + isAuthenticated);
 
   I18n.putVocabulariesForLanguage("he", {
     [Translations.SIGN_IN_HEADER_TEXT]: "Custom Sign In Header Text",
@@ -185,11 +184,13 @@ function Content() {
   );
 }
 Hub.listen("auth", listener);
+const loader = document.querySelector(".loader");
 
 function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   if (isAuthenticating) console.log("isAuthenticating: " + isAuthenticating);
+
   async function onLoad() {
     try {
       await Auth.currentSession();
