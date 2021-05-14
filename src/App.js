@@ -4,27 +4,26 @@ import Navbar from "./components/Navbar/Navbar";
 import ManagePanel from "./components/ManagePanel/ManagePanel";
 import ManageActivities from "./components/ManageActivities/ManageActivities";
 import Footer from "./components/Footer";
-import Clock from "./components/Clock";
-import contactUs from "./components/contactUs";
-import ContactForm from "./components/ContactForm";
-import { makeStyles } from "@material-ui/core/styles";
-import { BrowserRouter as Router, Switch, Route, useParams, withRouter } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ActivitiesPage from "./components/Activities/ActivitiesPage";
 import ClassesPage from "./components/Classes/ClassesPage";
-import Amplify, { Auth, API, graphqlOperation } from "aws-amplify";
+import Amplify, { Auth } from "aws-amplify";
 import awsconfig from "./aws-exports";
-import { AmplifyAuthenticator, AmplifySignUp, AmplifySignIn, AmplifySignOut } from "@aws-amplify/ui-react";
+import {
+  AmplifyAuthenticator,
+  AmplifySignUp,
+  AmplifySignIn,
+  AmplifySignOut,
+} from "@aws-amplify/ui-react";
 import { I18n } from "aws-amplify";
 import { Translations } from "@aws-amplify/ui-components";
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { onAuthUIStateChange } from "@aws-amplify/ui-components";
 import { Hub, Logger } from "aws-amplify";
 
 Amplify.configure(awsconfig); //AWS CONFIGORE
 var fname = "null";
 var gname = "null";
-var emailAddress = "null"
+var emailAddress = "null";
 var groupName = "null";
 var phoneNumber = "null";
 var groups = new Array(3);
@@ -38,14 +37,6 @@ Auth.currentAuthenticatedUser().then(
     (groups = user.signInUserSession.accessToken.payload["cognito:groups"]) &&
     (groupName = groups[0])
 );
-
-var count = 0;
-const useStyles = makeStyles({
-  gridContainer: {
-    paddingLeft: "10px",
-    paddingRight: "10px",
-  },
-});
 const logger = new Logger("Logger", "INFO");
 const listener = (data) => {
   switch (data.payload.event) {
@@ -70,35 +61,16 @@ const listener = (data) => {
   }
 };
 
-const signUpConfig = {
-  hideAllDefaults: true,
-  signUpFields: [
-    {
-      label: "Email",
-      key: "username",
-      required: true,
-      placeholder: "Email",
-      type: "email",
-      displayOrder: 1,
-    },
-    {
-      label: "Password",
-      key: "password",
-      required: true,
-      placeholder: "Password",
-      type: "password",
-      displayOrder: 2,
-    },
-  ],
-};
 function refreshPage() {
   window.location.reload();
 }
 
 function Content() {
-  let history = useHistory();
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
+  if (isAuthenticating) console.log("isAuthenticating: " + isAuthenticating);
+  if (isAuthenticated) console.log("isAuthenticated: " + isAuthenticated);
+
   I18n.putVocabulariesForLanguage("he", {
     [Translations.SIGN_IN_HEADER_TEXT]: "Custom Sign In Header Text",
     [Translations.SIGN_IN_ACTION]: "התחבר/י",
@@ -120,6 +92,7 @@ function Content() {
     try {
       await Auth.currentSession();
       userHasAuthenticated(true);
+      console.log("User Logged In");
     } catch (e) {
       if (e !== "No current user") {
         alert(e);
@@ -130,14 +103,6 @@ function Content() {
   useEffect(() => {
     onLoad();
   }, []);
-  const [authState, setAuthState] = useState("");
-
-  function handleAuthStateChange(state) {
-    if (state === "signedin" || state === "signedout") {
-      setAuthState(state);
-      //alert(state);
-    }
-  }
   return (
     <AmplifyAuthenticator>
       <AmplifySignUp
@@ -175,15 +140,22 @@ function Content() {
           {
             type: "given_name",
             label: "שם פרטי",
-            id: 'given_name',
+            id: "given_name",
             placeholder: "שם פרטי",
             required: true,
           },
           {
             type: "family_name",
-            id: 'family_name',
+            id: "family_name",
             label: "שם משפחה",
             placeholder: "שם משפחה",
+            required: true,
+          },
+          {
+            type: "birthdate",
+            id: "birthdate",
+            label: "תאריך לידה",
+            placeholder: "03/08/1994",
             required: true,
           },
         ]}
@@ -205,7 +177,6 @@ function Content() {
             placeholder: "סיסמה",
             required: true,
           },
-          ,
         ]}
       />
       <AmplifySignOut />
@@ -213,11 +184,12 @@ function Content() {
   );
 }
 Hub.listen("auth", listener);
+const loader = document.querySelector(".loader");
 
 function App() {
-  const classes = useStyles();
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
+  if (isAuthenticating) console.log("isAuthenticating: " + isAuthenticating);
 
   async function onLoad() {
     try {
@@ -236,17 +208,20 @@ function App() {
 
   return (
     <div className="App">
+      <div class="bg"></div>
+      <div class="bg bg2"></div>
+      <div class="bg bg3"></div>
       <Navbar givenName={gname} familyName={fname} groupName={groupName} />
       <div className="main">
         <div className="clock"></div>
         <Router>
           <Switch>
             <Route exact path="/">
-              <img className="logoMain" src="/logo.png" />
+              <img className="logoMain" src="/logo.png" alt="logo" />
             </Route>
             {groupName === "admins" ||
-              groupName === "contentSuppliers" ||
-              groupName === "approvedUsers" ? (
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
               <Route exact path="/profile">
                 <h1>עמוד פרופיל</h1>
               </Route>
@@ -256,8 +231,8 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-              groupName === "contentSuppliers" ||
-              groupName === "approvedUsers" ? (
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
               <Route exact path="/activitiespage">
                 <ActivitiesPage />
               </Route>
@@ -269,8 +244,8 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-              groupName === "contentSuppliers" ||
-              groupName === "approvedUsers" ? (
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
               <Route exact path="/classespage">
                 <ClassesPage />
               </Route>
@@ -282,7 +257,13 @@ function App() {
 
             {groupName === "admins" || groupName === "contentSuppliers" ? (
               <Route exact path="/manageActivities">
-                <ManageActivities phoneNumber={phoneNumber} groupName={groupName} givenName={gname} familyName={fname} email={emailAddress} />
+                <ManageActivities
+                  phoneNumber={phoneNumber}
+                  groupName={groupName}
+                  givenName={gname}
+                  familyName={fname}
+                  email={emailAddress}
+                />
               </Route>
             ) : (
               <Route exact path="/manageActivities">
@@ -310,9 +291,7 @@ function App() {
                 <Content />
               )}
             </Route>
-            <Route exact path="/contactus">
-              <ContactForm />
-            </Route>
+            <Route exact path="/contactus"></Route>
           </Switch>
         </Router>
       </div>
