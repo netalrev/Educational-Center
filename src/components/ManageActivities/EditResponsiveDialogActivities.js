@@ -15,7 +15,6 @@ export default function EditResponsiveDialogActivities(props) {
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -23,7 +22,7 @@ export default function EditResponsiveDialogActivities(props) {
     const handleCancel = () => {
         setOpen(false);
     };
-
+    console.log(props.email);
     return (
         <div>
             <Button startIcon={<EditIcon></EditIcon>} variant="outlined" color="primary" onClick={handleClickOpen}>
@@ -43,7 +42,7 @@ export default function EditResponsiveDialogActivities(props) {
                         {props.type === "pending" ?
                             <ManageActivitiesFormEditPending type="pending" zoom={props.zoom} isZoom={props.isZoom} groupName={props.groupName} dates={props.dates} activityCount={props.activityCount} idx={props.idx} email={props.email} />
                             :
-                            < ManageActivitiesFormEditApproved zoom={props.zoom} isZoom={props.isZoom} type="approved" groupName={props.groupName} dates={props.dates} activityCount={props.activityCount} idx={props.idx} email={props.email} />
+                            <ManageActivitiesFormEditApproved type="approved" zoom={props.zoom} isZoom={props.isZoom} groupName={props.groupName} dates={props.dates} activityCount={props.activityCount} idx={props.idx} email={props.email} />
                         }
                     </DialogContentText>
                 </DialogContent>

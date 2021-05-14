@@ -45,7 +45,7 @@
             "Arn"
         ]
     },
-    "useDefault": "manual",
+    "useDefault": "default",
     "usernameAttributes": [
         "email"
     ],
@@ -60,7 +60,6 @@
     "dependsOn": [],
     "userPoolGroups": false,
     "adminQueries": false,
-    "thirdPartyAuth": false,
-    "authProviders": [],
-    "hostedUI": false
+    "hostedUI": false,
+    "authProviders": []
 }

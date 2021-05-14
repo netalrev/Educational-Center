@@ -14,7 +14,7 @@ import TextField from '@material-ui/core/TextField';
 import UpdateResponsiveDialogActivities from "./UpdateResponsiveDialogActivities";
 import { useState, useEffect } from "react";
 import { listApprovedActivitiess } from "../../graphql/queries";
-import { API, graphqlOperation } from "aws-amplify";
+import { Amplify, Auth, API, graphqlOperation } from "aws-amplify";
 import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles((theme) => ({
@@ -69,8 +69,8 @@ export default function ManageActivitiesFormEditApproved(props) {
     const [approvedActivitiess, setApprovedActivitiess] = useState([]);
     const [allApprovedActivitiess, setAllApprovedActivitiess] = useState([]);
     const [dates, setDates] = useState(fillDateInputs, []);
-    const [checked, setChecked] = React.useState(true);
-    const [zoomLink, setZoomLink] = useState(<tr><FormElement name="activity_zoom" title=": קישור לזום" type="text" /></tr>);
+    const [zoomLink, setZoomLink] = useState(fillZoomInput, "");
+    const [checked, setChecked] = useState(fillCheckInput, "");
 
     var handleChange = (event) => {
         var toReturn;
@@ -93,6 +93,7 @@ export default function ManageActivitiesFormEditApproved(props) {
     }, []);
     const fetchApprovedActivities = async () => {
         try {
+
             const ApprovedActivitiesData = await API.graphql(graphqlOperation(listApprovedActivitiess, { filter: { email: { eq: props.email } } }));
             const ApprovedActivitiesList = ApprovedActivitiesData.data.listApprovedActivitiess.items;
             setApprovedActivitiess(ApprovedActivitiesList);
@@ -162,6 +163,20 @@ export default function ManageActivitiesFormEditApproved(props) {
                 /></tr>)
         }
         return toReturn;
+    }
+
+    function fillZoomInput() {
+        console.log(props.isZoom);
+        if (props.isZoom) {
+            return <tr><FormElement name="activity_zoom" title=": קישור לזום" type="text" defaultValue={props.zoom} /></tr>;
+        }
+        return null;
+    }
+    function fillCheckInput() {
+        if (props.isZoom) {
+            return true;
+        }
+        return false;
     }
 
     var text = props.title;

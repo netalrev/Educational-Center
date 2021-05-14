@@ -80,7 +80,6 @@ export default function ManageActivitiesFormEditPending(props) {
         var toReturn;
         setChecked(event.target.checked);
         if (event.target.checked == true) {
-
             toReturn = <tr><FormElement name="activity_zoom" title=": קישור לזום" type="text" defaultValue={props.zoom} /></tr>;
         }
         else {
@@ -167,13 +166,13 @@ export default function ManageActivitiesFormEditPending(props) {
         return toReturn;
     }
     function fillZoomInput() {
-        if (props.zoom !== "") {
+        if (props.isZoom) {
             return <tr><FormElement name="activity_zoom" title=": קישור לזום" type="text" defaultValue={props.zoom} /></tr>;
         }
         return null;
     }
     function fillCheckInput() {
-        if (props.zoom !== "") {
+        if (props.isZoom) {
             return true;
         }
         return false;
@@ -256,7 +255,6 @@ export default function ManageActivitiesFormEditPending(props) {
                             if (props.idx === idx) {
                                 return (
                                     <div style={{ display: "flex", justifyContent: "center" }}>
-                                        {console.log("HEY", props.zoom, props.isZoom)}
                                         <table>
                                             <tr>
                                                 <FormElement name="name" title=": שם הפעילות" type="text" defaultValue={activity.title} />

@@ -7,6 +7,7 @@ import ManageActivitiesForm from "./ManageActivitiesForm";
 
 // class ManageActivities extends Component {
 export default function ManageActivities(props) {
+  console.log("BBB", props.email)
   return (
     <div>
       <ManageActivitiesForm phoneNumber={props.phoneNumber} email={props.email} givenName={props.givenName} familyName={props.familyName} id="1" title="העלאת תוכן" />
@@ -16,9 +17,9 @@ export default function ManageActivities(props) {
         <DeleteEditPendingForContectSupplier groupName={props.groupName} type="pending" email={props.email} title="פעיליות שטרם שאושרו" />
       }
       {props.groupName === "admins" ?
-        <DeleteEditApprovedForAdmin groupName={props.groupName} type="pending" email={props.email} title="פעיליות שאושרו" />
+        <DeleteEditApprovedForAdmin groupName={props.groupName} type="approved" email={props.email} title="פעיליות שאושרו" />
         :
-        <DeleteEditApprovedForContectSupplier groupName={props.groupName} type="pending" email={props.email} title="פעיליות שאושרו" />
+        <DeleteEditApprovedForContectSupplier groupName={props.groupName} type="approved" email={props.email} title="פעיליות שאושרו" />
       }
     </div>
   );

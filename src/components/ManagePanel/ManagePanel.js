@@ -4,6 +4,7 @@ import ManageCardActivities from "./ManageCardActivities";
 import DeleteEditApprovedForAdmin from "../ManageActivities/DeleteEditApprovedForAdmin";
 
 export default function ManagePanel(props) {
+  console.log("CCC", props.email)
   return (
     <div>
       <ManageCardActivities groupName={props.groupName} id="1" title="פעילויות שטרם אושרו" />

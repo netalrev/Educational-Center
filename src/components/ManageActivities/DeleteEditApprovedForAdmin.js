@@ -70,12 +70,13 @@ export default function DeleteEditPendingForAdmin(props) {
     // const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    console.log("AAA", props.email)
     const rows = allApprovedActivitiess.map((activity, index) => {
         return (createDataAdmin(activity.owner, activity.phone_number, activity.title, activity.email,
             <Typography>{activity.description}</Typography>,
             activity.dates.map((date, index) => <p>{date} : {(index + 1)} מפגש</p>),
             <DenyResponsiveDialogActivities groupName={props.groupName} type="approved" id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />,
-            <EditResponsiveDialogActivities zoom={activity.zoom} isZoom={activity.zoom === null ? false : true} groupName={props.groupName} type="approved" description={activity.description} activityCount={activity.activityCount} dates={activity.dates} idx={index} id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} groupName={props.groupName} />
+            <EditResponsiveDialogActivities zoom={activity.zoom} isZoom={activity.zoom === null ? false : true} groupName={props.groupName} type="approved" description={activity.description} activityCount={activity.activityCount} dates={activity.dates} idx={index} id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} groupName={props.groupName} />,
         ))
     });
 
