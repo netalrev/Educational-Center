@@ -92,7 +92,6 @@ export default function UpdateResponsiveDialog(props) {
             to_edit.dates = Array.from(document.getElementsByName("dates")).map(element => element.value);
             delete to_edit.createdAt;
             delete to_edit.updatedAt;
-            console.log(to_edit);
             const activityData = await API.graphql(graphqlOperation(updateApprovedActivities, { input: to_edit }));
             const approvedActivityList = [...allApprovedActivitiess];
             var idx = allApprovedActivitiess.filter((activity, idx) => {
@@ -189,7 +188,6 @@ export default function UpdateResponsiveDialog(props) {
         if (props.groupName === "admins" || (props.type == "pending" && props.groupName === "contentSuppliers")) {
             if (document.getElementsByName("activity_description")[0].value.length < 10 || document.getElementsByName("activity_description")[0].value === "") return "Invalid description";
             if (document.getElementsByName("name")[0].value.length > 100 || document.getElementsByName("name")[0].value === "") return "Invalid activity title";
-            if (!validURL(document.getElementsByName("activity_img")[0].value) || document.getElementsByName("activity_img")[0].value === "") return "Invalid img url.";
 
         }
 
@@ -207,7 +205,6 @@ export default function UpdateResponsiveDialog(props) {
                 await editPendingActivities(props.id).then(alert("בקשתך לעריכת התוכן המבוקש התקבלה בהצלחה."));
             }
             else {
-                console.log("this is props id", props.id);
                 await editApprovedActivities(props.id).then(alert("בקשתך לעריכת התוכן המבוקש התקבלה בהצלחה."));
             }
             window.location.reload(false);

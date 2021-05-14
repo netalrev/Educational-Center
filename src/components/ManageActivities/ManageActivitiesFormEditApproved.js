@@ -166,7 +166,6 @@ export default function ManageActivitiesFormEditApproved(props) {
     }
 
     function fillZoomInput() {
-        console.log(props.isZoom);
         if (props.isZoom) {
             return <tr><FormElement name="activity_zoom" title=": קישור לזום" type="text" defaultValue={props.zoom} /></tr>;
         }
@@ -178,7 +177,6 @@ export default function ManageActivitiesFormEditApproved(props) {
         }
         return false;
     }
-
     var text = props.title;
     return (
         <Card className={classes.root}>
@@ -203,13 +201,14 @@ export default function ManageActivitiesFormEditApproved(props) {
                         allApprovedActivitiess.map((activity, idx) => {
                             if (props.idx === idx) {
                                 return (
+
                                     <div style={{ display: "flex", justifyContent: "center" }}>
                                         <table>
                                             <tr>
                                                 <FormElement name="name" title=": שם הפעילות" type="text" defaultValue={activity.title} />
                                             </tr>
                                             <tr>
-                                                <FormElement name="activity_img" title=": קישור לתמונה" type="text" />
+                                                <FormElement name="activity_img" title=": קישור לתמונה" type="text" defaultValue={activity.img} />
                                             </tr>
                                             <tr>
                                                 מפגש בזום

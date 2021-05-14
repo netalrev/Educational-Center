@@ -22,7 +22,6 @@ export default function EditResponsiveDialogActivities(props) {
     const handleCancel = () => {
         setOpen(false);
     };
-    console.log(props.email);
     return (
         <div>
             <Button startIcon={<EditIcon></EditIcon>} variant="outlined" color="primary" onClick={handleClickOpen}>
@@ -38,7 +37,6 @@ export default function EditResponsiveDialogActivities(props) {
                 <DialogContent>
                     <DialogContentText>
                         ?אילו שינויים ברצונך לערוך
-                        {/* {console.log("ZOOM and isZoom", props.zoom, props.isZoom)} */}
                         {props.type === "pending" ?
                             <ManageActivitiesFormEditPending type="pending" zoom={props.zoom} isZoom={props.isZoom} groupName={props.groupName} dates={props.dates} activityCount={props.activityCount} idx={props.idx} email={props.email} />
                             :

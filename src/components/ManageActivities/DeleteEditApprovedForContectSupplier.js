@@ -88,7 +88,7 @@ export default function DeleteEditPendingForAdmin(props) {
             <Typography>{activity.description}</Typography>,
             activity.dates.map((date, index) => <p>{date} : {(index + 1)} מפגש</p>),
             <DenyResponsiveDialogActivities groupName={props.groupName} type="approved" id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />,
-            <EditResponsiveDialogActivities zoom={activity.zoom} isZoom={activity.zoom === null ? false : true} groupName={props.groupName} type="approved" description={activity.description} activityCount={activity.activityCount} dates={activity.dates} idx={index} id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
+            <EditResponsiveDialogActivities zoom={activity.zoom} isZoom={activity.zoom === "" ? false : true} groupName={props.groupName} type="approved" description={activity.description} activityCount={activity.activityCount} dates={activity.dates} idx={index} id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
 
         ))
     });

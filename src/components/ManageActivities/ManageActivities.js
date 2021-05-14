@@ -7,7 +7,6 @@ import ManageActivitiesForm from "./ManageActivitiesForm";
 
 // class ManageActivities extends Component {
 export default function ManageActivities(props) {
-  console.log("BBB", props.email)
   return (
     <div>
       <ManageActivitiesForm phoneNumber={props.phoneNumber} email={props.email} givenName={props.givenName} familyName={props.familyName} id="1" title="העלאת תוכן" />

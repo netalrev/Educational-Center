@@ -126,7 +126,6 @@ export default function UploadResponsiveDialog(props) {
             var zoomLink = '';
             if (props.isZoom)
                 zoomLink = document.getElementsByName("activity_zoom")[0].value;
-            console.log(Array.from(document.getElementsByName("dates")).map(element => element.value));
             const activity = {
                 description: document.getElementById("outlined-multiline-static").value,
                 id: IDs.length == 0 ? 0 : IDs[IDs.length - 1] + 1,

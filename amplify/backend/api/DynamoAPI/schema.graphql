@@ -1,10 +1,17 @@
-  type Test @model {
+  type PendingUser @model {
     id: ID!
-    title: String!
-    description: String!
-    filePath: String!
-    like: Int!
-    owner: String!
+    name: String!
+    email: String!
+    phone_number: String!
+    activity_id: String!
+}
+
+  type ApprovedUser @model {
+    id: ID!
+    name: String!
+    email: String!
+    phone_number: String!
+    activity_id: String!
 }
 
   type PendingActivities @model {

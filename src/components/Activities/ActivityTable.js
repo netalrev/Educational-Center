@@ -4,7 +4,7 @@ import { listApprovedActivitiess } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import RecipeReviewCard from "./RecipeReviewCard";
 
-export default function ActivityTable() {
+export default function ActivityTable(props) {
     const [allApprovedActivitiess, setAllApprovedActivitiess] = useState([]);
 
     useEffect(() => {
@@ -27,8 +27,18 @@ export default function ActivityTable() {
             if (index + i >= allApprovedActivitiess.length) {
                 break;
             }
-            console.log(allApprovedActivitiess);
-            toReturn.push(<td><RecipeReviewCard dates={allApprovedActivitiess[index + i].dates} activityCount={allApprovedActivitiess[index + i].activityCount} owner={allApprovedActivitiess[index + i].owner} title={allApprovedActivitiess[index + i].title} description={allApprovedActivitiess[index + i].description} /></td>)
+            toReturn.push(<td><RecipeReviewCard
+                id={allApprovedActivitiess[index + i].id}
+                img={allApprovedActivitiess[index + i].img}
+                dates={allApprovedActivitiess[index + i].dates}
+                activityCount={allApprovedActivitiess[index + i].activityCount}
+                owner={allApprovedActivitiess[index + i].owner}
+                title={allApprovedActivitiess[index + i].title}
+                description={allApprovedActivitiess[index + i].description}
+                email={props.email}
+                givenName={props.givenName}
+                familyName={props.familyName}
+                phoneNumber={props.phoneNumber} /></td>)
         }
         return toReturn;
     }
@@ -50,19 +60,3 @@ export default function ActivityTable() {
         </tbody>
     );
 }
-
-
-{/* <td>
-                {allApprovedActivitiess.map((activity, index) => {
-                    if (index % 3 === 0 && opentd === true) {
-                        opentd = false;
-                        return (
-                            <tr>
-                                <td>
-                                    <RecipeReviewCard dates={activity.dates} activityCount={activity.activityCount} owner={activity.owner} title={activity.title} description={activity.description} />
-                                </td>
-                            </tr>
-                        )
-                    }
-                })}
-            </td> */}

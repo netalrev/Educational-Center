@@ -1,43 +1,79 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateTest = /* GraphQL */ `
-  subscription OnCreateTest {
-    onCreateTest {
+export const onCreatePendingUser = /* GraphQL */ `
+  subscription OnCreatePendingUser {
+    onCreatePendingUser {
       id
-      title
-      description
-      filePath
-      like
-      owner
+      name
+      email
+      phone_number
+      activity_id
       createdAt
       updatedAt
     }
   }
 `;
-export const onUpdateTest = /* GraphQL */ `
-  subscription OnUpdateTest {
-    onUpdateTest {
+export const onUpdatePendingUser = /* GraphQL */ `
+  subscription OnUpdatePendingUser {
+    onUpdatePendingUser {
       id
-      title
-      description
-      filePath
-      like
-      owner
+      name
+      email
+      phone_number
+      activity_id
       createdAt
       updatedAt
     }
   }
 `;
-export const onDeleteTest = /* GraphQL */ `
-  subscription OnDeleteTest {
-    onDeleteTest {
+export const onDeletePendingUser = /* GraphQL */ `
+  subscription OnDeletePendingUser {
+    onDeletePendingUser {
       id
-      title
-      description
-      filePath
-      like
-      owner
+      name
+      email
+      phone_number
+      activity_id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateApprovedUser = /* GraphQL */ `
+  subscription OnCreateApprovedUser {
+    onCreateApprovedUser {
+      id
+      name
+      email
+      phone_number
+      activity_id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateApprovedUser = /* GraphQL */ `
+  subscription OnUpdateApprovedUser {
+    onUpdateApprovedUser {
+      id
+      name
+      email
+      phone_number
+      activity_id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteApprovedUser = /* GraphQL */ `
+  subscription OnDeleteApprovedUser {
+    onDeleteApprovedUser {
+      id
+      name
+      email
+      phone_number
+      activity_id
       createdAt
       updatedAt
     }

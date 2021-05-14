@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import ActivityTable from "./ActivityTable";
 
 
-class ActivitiesPage extends Component {
-  render() {
-    return (
-      <ActivityTable />
-    );
-  }
-};
+export default function ActivitiesPage(props) {
+  return (
+    <ActivityTable
+      email={props.email}
+      givenName={props.givenName}
+      familyName={props.familyName}
+      phoneNumber={props.phoneNumber} />
+  );
+}
 
-export default ActivitiesPage;

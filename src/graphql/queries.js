@@ -1,34 +1,65 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getTest = /* GraphQL */ `
-  query GetTest($id: ID!) {
-    getTest(id: $id) {
+export const getPendingUser = /* GraphQL */ `
+  query GetPendingUser($id: ID!) {
+    getPendingUser(id: $id) {
       id
-      title
-      description
-      filePath
-      like
-      owner
+      name
+      email
+      phone_number
+      activity_id
       createdAt
       updatedAt
     }
   }
 `;
-export const listTests = /* GraphQL */ `
-  query ListTests(
-    $filter: ModelTestFilterInput
+export const listPendingUsers = /* GraphQL */ `
+  query ListPendingUsers(
+    $filter: ModelPendingUserFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listTests(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listPendingUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        title
-        description
-        filePath
-        like
-        owner
+        name
+        email
+        phone_number
+        activity_id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getApprovedUser = /* GraphQL */ `
+  query GetApprovedUser($id: ID!) {
+    getApprovedUser(id: $id) {
+      id
+      name
+      email
+      phone_number
+      activity_id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listApprovedUsers = /* GraphQL */ `
+  query ListApprovedUsers(
+    $filter: ModelApprovedUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listApprovedUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        email
+        phone_number
+        activity_id
         createdAt
         updatedAt
       }

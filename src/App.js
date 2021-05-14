@@ -68,8 +68,8 @@ function refreshPage() {
 function Content() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
-  if (isAuthenticating) console.log("isAuthenticating: " + isAuthenticating);
-  if (isAuthenticated) console.log("isAuthenticated: " + isAuthenticated);
+  if (isAuthenticating) void (0);
+  if (isAuthenticated) void (0);
 
   I18n.putVocabulariesForLanguage("he", {
     [Translations.SIGN_IN_HEADER_TEXT]: "Custom Sign In Header Text",
@@ -92,7 +92,6 @@ function Content() {
     try {
       await Auth.currentSession();
       userHasAuthenticated(true);
-      console.log("User Logged In");
     } catch (e) {
       if (e !== "No current user") {
         alert(e);
@@ -189,7 +188,7 @@ const loader = document.querySelector(".loader");
 function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
-  if (isAuthenticating) console.log("isAuthenticating: " + isAuthenticating);
+  if (isAuthenticating) void (0);
 
   async function onLoad() {
     try {
@@ -208,20 +207,19 @@ function App() {
 
   return (
     <div className="App">
-      <div class="bg"></div>
-      <div class="bg bg2"></div>
-      <div class="bg bg3"></div>
+      <div className="bg"></div>
+      <div className="bg bg2"></div>
+      <div className="bg bg3"></div>
       <Navbar givenName={gname} familyName={fname} groupName={groupName} />
       <div className="main">
-        <div className="clock"></div>
         <Router>
           <Switch>
             <Route exact path="/">
               <img className="logoMain" src="/logo.png" alt="logo" />
             </Route>
             {groupName === "admins" ||
-            groupName === "contentSuppliers" ||
-            groupName === "approvedUsers" ? (
+              groupName === "contentSuppliers" ||
+              groupName === "approvedUsers" ? (
               <Route exact path="/profile">
                 <h1>עמוד פרופיל</h1>
               </Route>
@@ -231,10 +229,14 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-            groupName === "contentSuppliers" ||
-            groupName === "approvedUsers" ? (
+              groupName === "contentSuppliers" ||
+              groupName === "approvedUsers" ? (
               <Route exact path="/activitiespage">
-                <ActivitiesPage />
+                <ActivitiesPage
+                  email={emailAddress}
+                  givenName={gname}
+                  familyName={fname}
+                  phoneNumber={phoneNumber} />
               </Route>
             ) : (
               <Route exact path="/activitiespage">
@@ -244,8 +246,8 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-            groupName === "contentSuppliers" ||
-            groupName === "approvedUsers" ? (
+              groupName === "contentSuppliers" ||
+              groupName === "approvedUsers" ? (
               <Route exact path="/classespage">
                 <ClassesPage />
               </Route>
@@ -272,7 +274,12 @@ function App() {
             )}
             {groupName === "admins" ? (
               <Route exact path="/ManagerPanel">
-                <ManagePanel groupName={groupName} />
+                <ManagePanel
+                  phoneNumber={phoneNumber}
+                  groupName={groupName}
+                  givenName={gname}
+                  familyName={fname}
+                  email={emailAddress} />
               </Route>
             ) : (
               <Route exact path="/ManagerPanel">

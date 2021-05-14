@@ -68,7 +68,6 @@ export default function DeleteEditPendingForContectSupplier(props) {
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [checked, setChecked] = React.useState(true);
     const rows = pendingActivitiess.map((activity, index) => {
-        // console.log("ACTIVITY ZOOM:", activity.zoom, activity.title);
         return (createDataContectSupplier(activity.owner, activity.title, activity.email,
             <Typography>{activity.description}</Typography>,
             activity.dates.map((date, index) => <p>{date} : {(index + 1)} מפגש</p>),

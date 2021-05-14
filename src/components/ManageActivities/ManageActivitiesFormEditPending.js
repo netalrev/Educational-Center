@@ -208,7 +208,7 @@ export default function ManageActivitiesFormEditPending(props) {
                                                 <FormElement name="name" title=": שם הפעילות" type="text" defaultValue={activity.title} />
                                             </tr>
                                             <tr>
-                                                <FormElement name="activity_img" title=": קישור לתמונה" type="text" />
+                                                <FormElement name="activity_img" title=": קישור לתמונה" type="text" defaultValue={activity.img} />
                                             </tr>
                                             <tr>
                                                 מפגש בזום
@@ -260,7 +260,7 @@ export default function ManageActivitiesFormEditPending(props) {
                                                 <FormElement name="name" title=": שם הפעילות" type="text" defaultValue={activity.title} />
                                             </tr>
                                             <tr>
-                                                <FormElement name="activity_img" title=": קישור לתמונה" type="text" />
+                                                <FormElement name="activity_img" title=": קישור לתמונה" type="text" defaultValue={activity.img} />
                                             </tr>
                                             <tr>
                                                 מפגש בזום

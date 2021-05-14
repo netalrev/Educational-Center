@@ -9,7 +9,7 @@ import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { useState, useEffect } from "react";
-import { listPendingActivitiess } from "../../graphql/queries";
+import { listApprovedActivitiess, listPendingUsers } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import DenyResponsiveDialogActivities from "../ManageActivities/DenyResponsiveDialogActivities";
 import EditResponsiveDialogActivities from "../ManageActivities/EditResponsiveDialogActivities";
@@ -28,12 +28,10 @@ const columns = [
     { id: 'buttons3', label: '', minWidth: 110, maxWidth: 110, align: 'center' },
     { id: 'buttons2', label: '', minWidth: 110, maxWidth: 110, align: 'center' },
     { id: 'buttons', label: '', minWidth: 110, maxWidth: 110, align: 'center' },
-    { id: 'dates', label: "תארכי מפגשים", minWidth: 170, maxWidth: 170, align: 'center' },
-    { id: 'description', label: 'תיאור הפעילות', minWidth: 170, maxWidth: 170, align: 'center' },
-    { id: 'email', label: 'אימייל ספק התוכן', minWidth: 130, maxWidth: 130, align: 'center' },
-    { id: 'activityName', label: 'שם הפעילות', minWidth: 120, maxWidth: 170, align: 'center' },
-    { id: 'phoneNumber', label: 'פלאפון ספק התוכן', minWidth: 120, maxWidth: 120, align: 'center' },
-    { id: 'name', label: 'שם ספק התוכן', minWidth: 120, maxWidth: 130, align: 'center' }
+    { id: 'ActivityName', label: 'שם הפעילות', minWidth: 130, maxWidth: 130, align: 'center' },
+    { id: 'email', label: 'אימייל משתתף', minWidth: 120, maxWidth: 170, align: 'center' },
+    { id: 'phoneNumber', label: 'פלאפון משתתף', minWidth: 120, maxWidth: 120, align: 'center' },
+    { id: 'name', label: 'שם המשתתף', minWidth: 120, maxWidth: 130, align: 'center' }
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -68,25 +66,14 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function ManageCardActivities(props) {
+export default function ManageCardUsers(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
-    const [allPendingActivitiess, setAllPendingActivitiess] = useState([]);
+    const [allApprovedActivitiess, setAllApprovedActivitiess] = useState([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [activitiess, setActivitiess] = useState([]);
-    const rows = activitiess.map((activity, index) => {
-        return (createDataAdmin(activity.owner, activity.phone_number, activity.title, activity.email,
-            <Typography>{activity.description}</Typography>,
-            activity.dates.map((date, index) => <p>{date} : {(index + 1)} מפגש</p>),
-            <ApproveResponsiveDialogManager id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />,
-            <DenyResponsiveDialogActivities groupName={props.groupName} type="pending" id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />,
-            <EditResponsiveDialogActivities groupName={props.groupName} type="pending" description={activity.description} activityCount={activity.activityCount} dates={activity.dates} idx={index} id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} groupName={props.groupName} />,
-        ))
-    });
-    function createDataAdmin(name, phoneNumber, activityName, email, description, dates, buttons, buttons2, buttons3) {
-        return { name, phoneNumber, activityName, email, description, dates, buttons, buttons2, buttons3 };
-    }
+    const [users, setPendingUsers] = useState([]);
+    const [rows, setRows] = useState([]);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -100,21 +87,59 @@ export default function ManageCardActivities(props) {
         setExpanded(!expanded);
     };
     useEffect(() => {
-        fetchPendingActivities();
+        fetchPendingUsers();
     }, []);
-    // const handleExpandClick = () => {
-    //     setExpanded(!expanded);
-    // };
+    useEffect(() => {
+        fetchAllApprovedActivities();
+    }, []);
+    useEffect(() => {
+        createRow();
+    }, [users, allApprovedActivitiess]);
 
-    const fetchPendingActivities = async () => {
+    function createRow() {
+        const row = users.map((user, index) => {
+            return (createDataUser(user.name, user.phone_number, user.email, allApprovedActivitiess.filter(activity => activity.id === user.activity_id).length === 0 ? null : allApprovedActivitiess.filter(activity => activity.id === user.activity_id)[0].title,
+                // <ApproveResponsiveDialogManager id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />,
+                // <DenyResponsiveDialogActivities groupName={props.groupName} type="pending" id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />,
+                // <EditResponsiveDialogActivities groupName={props.groupName} type="pending" description={activity.description} activityCount={activity.activityCount} dates={activity.dates} idx={index} id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} groupName={props.groupName} />,
+            ))
+        });
+        setRows(row);
+    }
+    // const createDataUser = async (name, phoneNumber, email, ActivityName) => {
+    function createDataUser(name, phoneNumber, email, ActivityName) {
+        return { name, phoneNumber, email, ActivityName };
+    }
+    const fetchAllApprovedActivities = async () => {
         try {
-            const PendingActivitiesData = await API.graphql(graphqlOperation(listPendingActivitiess));
-            const PendingActivitiesList = PendingActivitiesData.data.listPendingActivitiess.items;
-            setActivitiess(PendingActivitiesList);
+            const approvedActivitiesData = await API.graphql(graphqlOperation(listApprovedActivitiess));
+            const approvedActivitiesList = approvedActivitiesData.data.listApprovedActivitiess.items;
+            setAllApprovedActivitiess(approvedActivitiesList);
         } catch (error) {
-            console.log("error on fetching Pending Activities", error);
+            console.log("error on fetching Approved Activities", error);
         }
-    };
+    }
+    // var getActivity = async (activity_id) => {
+    //     try {
+    //         const activityData = await API.graphql(graphqlOperation(getApprovedActivities, { id: activity_id }));
+    //         return activityData.data.getApprovedActivities;
+    //     } catch (err) {
+    //         console.log("error on get activity");
+    //     }
+
+    // }
+    // var activity = Promise.resolve(getActivity(1));
+    // var cast = Promise.resolve(activity);
+    // console.log(cast);
+    const fetchPendingUsers = async () => {
+        try {
+            const usersData = await API.graphql(graphqlOperation(listPendingUsers));
+            const usersList = usersData.data.listPendingUsers.items;
+            setPendingUsers(usersList);
+        } catch (error) {
+            console.log("error on fetching pending users", error);
+        }
+    }
 
     var text = props.title;
     return (

@@ -8,16 +8,13 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
-import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import Icon from "@material-ui/core/Icon";
 import Button from "@material-ui/core/Button";
+import RegisterResponsiveDialogActivities from "./RegisterResponsiveDialogActivities"
 const useStyles1 = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
@@ -95,19 +92,21 @@ export default function RecipeReviewCard(props) {
       />
       <CardMedia
         className={classes.media}
-        image="https://www.gallosconflow.com/wp-content/uploads/2020/06/donde-ver-batalla-de-gallos-sara-socas-vs-rapder.jpg"
+        image={props.img === "" ? "https://www.gallosconflow.com/wp-content/uploads/2020/06/donde-ver-batalla-de-gallos-sara-socas-vs-rapder.jpg" : props.img}
         title="image by hahaha"
       />
+      {console.log(props.img)}
       <CardContent></CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        {/* <IconButton aria-label="add to favorites">
           <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="register">
-          <Button variant="contained" className={classes1.button}>
-            הרשמה
-          </Button>
-        </IconButton>
+        </IconButton> */}
+        <RegisterResponsiveDialogActivities
+          email={props.email}
+          givenName={props.givenName}
+          familyName={props.familyName}
+          phoneNumber={props.phoneNumber}
+          id={props.id} />
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,

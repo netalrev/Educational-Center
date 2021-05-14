@@ -21,13 +21,6 @@ class Navbar extends Component {
   render() {
     return (
       <nav className="NavbarItems">
-        {console.log(
-          this.props.givenName +
-            " " +
-            this.props.familyName +
-            " group: " +
-            this.props.groupName
-        )}
         <img
           className="logo"
           src={logo}
@@ -55,8 +48,8 @@ class Navbar extends Component {
                     (this.props.groupName !== "admins" &&
                       this.props.groupName !== "contentSuppliers" &&
                       index === 2) ||
-                    (this.props.groupName !== "admins" && index === 3) ||
-                    (this.props.groupName === "null" && index !== 4)
+                      (this.props.groupName !== "admins" && index === 3) ||
+                      (this.props.groupName === "null" && index !== 4)
                       ? "none"
                       : "block",
                 }}

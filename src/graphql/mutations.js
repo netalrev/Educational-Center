@@ -1,52 +1,97 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createTest = /* GraphQL */ `
-  mutation CreateTest(
-    $input: CreateTestInput!
-    $condition: ModelTestConditionInput
+export const createPendingUser = /* GraphQL */ `
+  mutation CreatePendingUser(
+    $input: CreatePendingUserInput!
+    $condition: ModelPendingUserConditionInput
   ) {
-    createTest(input: $input, condition: $condition) {
+    createPendingUser(input: $input, condition: $condition) {
       id
-      title
-      description
-      filePath
-      like
-      owner
+      name
+      email
+      phone_number
+      activity_id
       createdAt
       updatedAt
     }
   }
 `;
-export const updateTest = /* GraphQL */ `
-  mutation UpdateTest(
-    $input: UpdateTestInput!
-    $condition: ModelTestConditionInput
+export const updatePendingUser = /* GraphQL */ `
+  mutation UpdatePendingUser(
+    $input: UpdatePendingUserInput!
+    $condition: ModelPendingUserConditionInput
   ) {
-    updateTest(input: $input, condition: $condition) {
+    updatePendingUser(input: $input, condition: $condition) {
       id
-      title
-      description
-      filePath
-      like
-      owner
+      name
+      email
+      phone_number
+      activity_id
       createdAt
       updatedAt
     }
   }
 `;
-export const deleteTest = /* GraphQL */ `
-  mutation DeleteTest(
-    $input: DeleteTestInput!
-    $condition: ModelTestConditionInput
+export const deletePendingUser = /* GraphQL */ `
+  mutation DeletePendingUser(
+    $input: DeletePendingUserInput!
+    $condition: ModelPendingUserConditionInput
   ) {
-    deleteTest(input: $input, condition: $condition) {
+    deletePendingUser(input: $input, condition: $condition) {
       id
-      title
-      description
-      filePath
-      like
-      owner
+      name
+      email
+      phone_number
+      activity_id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createApprovedUser = /* GraphQL */ `
+  mutation CreateApprovedUser(
+    $input: CreateApprovedUserInput!
+    $condition: ModelApprovedUserConditionInput
+  ) {
+    createApprovedUser(input: $input, condition: $condition) {
+      id
+      name
+      email
+      phone_number
+      activity_id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateApprovedUser = /* GraphQL */ `
+  mutation UpdateApprovedUser(
+    $input: UpdateApprovedUserInput!
+    $condition: ModelApprovedUserConditionInput
+  ) {
+    updateApprovedUser(input: $input, condition: $condition) {
+      id
+      name
+      email
+      phone_number
+      activity_id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteApprovedUser = /* GraphQL */ `
+  mutation DeleteApprovedUser(
+    $input: DeleteApprovedUserInput!
+    $condition: ModelApprovedUserConditionInput
+  ) {
+    deleteApprovedUser(input: $input, condition: $condition) {
+      id
+      name
+      email
+      phone_number
+      activity_id
       createdAt
       updatedAt
     }
