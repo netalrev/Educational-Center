@@ -23,6 +23,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import VideocamIcon from '@material-ui/icons/Videocam';
 import VideocamOffIcon from '@material-ui/icons/VideocamOff';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
+import OpenZoomLink from "./OpenZoomLink";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -97,8 +98,64 @@ export default function RecipeReviewCard(props) {
       console.log("error on fetching pending users", error);
     }
   };
-
+  var dates_class = {
+    convert: function (d) {
+      // Converts the date in d to a date-object. The input can be:
+      //   a date object: returned without modification
+      //  an array      : Interpreted as [year,month,day]. NOTE: month is 0-11.
+      //   a number     : Interpreted as number of milliseconds
+      //                  since 1 Jan 1970 (a timestamp) 
+      //   a string     : Any format supported by the javascript engine, like
+      //                  "YYYY/MM/DD", "MM/DD/YYYY", "Jan 31 2009" etc.
+      //  an object     : Interpreted as an object with year, month and date
+      //                  attributes.  **NOTE** month is 0-11.
+      return (
+        d.constructor === Date ? d :
+          d.constructor === Array ? new Date(d[0], d[1], d[2]) :
+            d.constructor === Number ? new Date(d) :
+              d.constructor === String ? new Date(d) :
+                typeof d === "object" ? new Date(d.year, d.month, d.date) :
+                  NaN
+      );
+    },
+    compare: function (a, b) {
+      // Compare two dates (could be of any type supported by the convert
+      // function above) and returns:
+      //  -1 : if a < b
+      //   0 : if a = b
+      //   1 : if a > b
+      // NaN : if a or b is an illegal date
+      // NOTE: The code inside isFinite does an assignment (=).
+      return (
+        isFinite(a = this.convert(a).valueOf()) &&
+          isFinite(b = this.convert(b).valueOf()) ?
+          (a > b) - (a < b) :
+          NaN
+      );
+    },
+    inRange: function (d, start, end) {
+      // Checks if date in d is between dates in start and end.
+      // Returns a boolean or NaN:
+      //    true  : if d is between start and end (inclusive)
+      //    false : if d is before start or after end
+      //    NaN   : if one or more of the dates is illegal.
+      // NOTE: The code inside isFinite does an assignment (=).
+      return (
+        isFinite(d = this.convert(d).valueOf()) &&
+          isFinite(start = this.convert(start).valueOf()) &&
+          isFinite(end = this.convert(end).valueOf()) ?
+          start <= d && d <= end :
+          NaN
+      );
+    }
+  };
+  var tzoffset_start = (new Date()).getTimezoneOffset() * 60000;
+  var tzoffset_end = (new Date()).getTimezoneOffset() * 60000 - 20 * 60000;
+  var current_time = dates_class.convert(new Date(Date.now() - tzoffset_start).toISOString().substring(0, 16));
+  var current_time_20 = dates_class.convert(new Date(Date.now() - tzoffset_end).toISOString().substring(0, 16));
+  // console.log(current_time_20);
   function whichButton() {
+    var start = Array.from(props.dates).filter(date => (dates_class.compare(dates_class.convert(date), current_time) <= 0) && (dates_class.compare(dates_class.convert(date), current_time_20) === -1)).length !== 0 ? true : false;
     if (pendingUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
       return (<CancelRegisterResponsiveDialogActivities
         email={props.email}
@@ -106,6 +163,10 @@ export default function RecipeReviewCard(props) {
         familyName={props.familyName}
         phoneNumber={props.phoneNumber}
         id={pendingUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName)[0].id} />);
+    }
+    else if (start === true && approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
+      return (<OpenZoomLink
+        zoom={props.zoom} />);
     }
     else if (approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
       return (<CancelParticipationResponsiveDialogActivities
