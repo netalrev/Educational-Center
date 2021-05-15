@@ -24,10 +24,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 
 const columns = [
-    { id: 'buttons2', label: '', minWidth: 140, maxWidth: 140, align: 'center' },
     { id: 'buttons', label: '', minWidth: 140, maxWidth: 140, align: 'center' },
     { id: 'dates', label: "תארכי מפגשים", minWidth: 170, maxWidth: 170, align: 'center' },
-    { id: 'description', label: 'תיאור הפעילות', minWidth: 170, maxWidth: 170, align: 'center' },
+    { id: 'description', label: 'תיאור הפעילות', minWidth: 170, maxWidth: 200, align: 'center' },
     { id: 'activityName', label: 'שם הפעילות', minWidth: 170, maxWidth: 170, align: 'center' },
 ];
 
@@ -70,9 +69,11 @@ export default function DeleteEditPendingForContectSupplier(props) {
     const rows = pendingActivitiess.map((activity, index) => {
         return (createDataContectSupplier(activity.owner, activity.title, activity.email,
             <Typography>{activity.description}</Typography>,
-            activity.dates.map((date, index) => <p>{date} : {(index + 1)} מפגש</p>),
-            <DenyResponsiveDialogActivities groupName={props.groupName} type="pending" id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />,
-            <EditResponsiveDialogActivities isZoom={activity.zoom === "" ? false : true} zoom={activity.zoom} groupName={props.groupName} type="pending" description={activity.description} activityCount={activity.activityCount} dates={activity.dates} idx={index} id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
+            activity.dates.map((date, index) => <div><p>:מפגש {index + 1}</p><p>תאריך - {date.substring(0, 10).split("-").reverse().join("-")} שעה - {date.substring(11)}</p><br></br></div>),
+            <div>
+                <DenyResponsiveDialogActivities groupName={props.groupName} type="pending" id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
+                <EditResponsiveDialogActivities isZoom={activity.zoom === "" ? false : true} zoom={activity.zoom} groupName={props.groupName} type="pending" description={activity.description} activityCount={activity.activityCount} dates={activity.dates} idx={index} id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
+            </div>
         ))
     });
 
@@ -91,8 +92,8 @@ export default function DeleteEditPendingForContectSupplier(props) {
         }
     };
 
-    function createDataContectSupplier(name, activityName, email, description, dates, buttons, buttons2) {
-        return { name, activityName, email, description, dates, buttons, buttons2 };
+    function createDataContectSupplier(name, activityName, email, description, dates, buttons) {
+        return { name, activityName, email, description, dates, buttons };
     }
 
     const handleChangePage = (event, newPage) => {

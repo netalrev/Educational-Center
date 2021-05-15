@@ -24,10 +24,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 
 const columns = [
-    { id: 'buttons2', label: '', minWidth: 110, maxWidth: 110, align: 'center' },
     { id: 'buttons', label: '', minWidth: 110, maxWidth: 110, align: 'center' },
     { id: 'dates', label: "תארכי מפגשים", minWidth: 170, maxWidth: 170, align: 'center' },
-    { id: 'description', label: 'תיאור הפעילות', minWidth: 170, maxWidth: 170, align: 'center' },
+    { id: 'description', label: 'תיאור הפעילות', minWidth: 170, maxWidth: 200, align: 'center' },
     { id: 'email', label: 'אימייל ספק התוכן', minWidth: 130, maxWidth: 130, align: 'center' },
     { id: 'activityName', label: 'שם הפעילות', minWidth: 120, maxWidth: 170, align: 'center' },
     { id: 'phoneNumber', label: 'פלאפון ספק התוכן', minWidth: 120, maxWidth: 120, align: 'center' },
@@ -73,9 +72,11 @@ export default function DeleteEditPendingForAdmin(props) {
     const rows = allApprovedActivitiess.map((activity, index) => {
         return (createDataAdmin(activity.owner, activity.phone_number, activity.title, activity.email,
             <Typography>{activity.description}</Typography>,
-            activity.dates.map((date, index) => <p>{date} : {(index + 1)} מפגש</p>),
-            <DenyResponsiveDialogActivities groupName={props.groupName} type="approved" id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />,
-            <EditResponsiveDialogActivities zoom={activity.zoom} isZoom={activity.zoom === "" ? false : true} groupName={props.groupName} type="approved" description={activity.description} activityCount={activity.activityCount} dates={activity.dates} idx={index} id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} groupName={props.groupName} />,
+            activity.dates.map((date, index) => <div><p>:מפגש {index + 1}</p><p>תאריך - {date.substring(0, 10).split("-").reverse().join("-")} שעה - {date.substring(11)}</p><br></br></div>),
+            <div>
+                <DenyResponsiveDialogActivities groupName={props.groupName} type="approved" id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
+                <EditResponsiveDialogActivities zoom={activity.zoom} isZoom={activity.zoom === "" ? false : true} groupName={props.groupName} type="approved" description={activity.description} activityCount={activity.activityCount} dates={activity.dates} idx={index} id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} groupName={props.groupName} />
+            </div>
         ))
     });
 
@@ -94,8 +95,8 @@ export default function DeleteEditPendingForAdmin(props) {
     };
 
 
-    function createDataAdmin(name, phoneNumber, activityName, email, description, dates, buttons, buttons2) {
-        return { name, phoneNumber, activityName, email, description, dates, buttons, buttons2 };
+    function createDataAdmin(name, phoneNumber, activityName, email, description, dates, buttons) {
+        return { name, phoneNumber, activityName, email, description, dates, buttons };
     }
 
     const handleChangePage = (event, newPage) => {

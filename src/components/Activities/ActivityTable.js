@@ -23,7 +23,7 @@ export default function ActivityTable(props) {
 
     function createRow(index) {
         var toReturn = [];
-        for (var i = 0; i < 3; i++) {
+        for (var i = 0; i < 4; i++) {
             if (index + i >= allApprovedActivitiess.length) {
                 break;
             }
@@ -47,7 +47,7 @@ export default function ActivityTable(props) {
     return (
         <tbody>
             {allApprovedActivitiess.map((activity, index) => {
-                if (index % 3 === 0) {
+                if (index % 4 === 0) {
                     return (
                         <tr>
                             {createRow(index)}

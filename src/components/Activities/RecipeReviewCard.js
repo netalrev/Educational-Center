@@ -166,7 +166,7 @@ export default function RecipeReviewCard(props) {
               <p>-</p>
               <h3>:תאריכים</h3>
               {props.dates.map((date, index) => {
-                return <p> מפגש {index + 1} : תאריך - {date.substring(0, 10).split("-").reverse().join("-")} שעה - {date.substring(12)}</p>
+                return <p> מפגש {index + 1} : תאריך - {date.substring(0, 10).split("-").reverse().join("-")} שעה - {date.substring(11)}</p>
               })}
               <p>-</p>
               <h3>:תיאור הפעילות</h3>

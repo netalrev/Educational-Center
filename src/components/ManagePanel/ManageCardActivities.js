@@ -1,6 +1,14 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
+import { useState, useEffect } from "react";
+import { listPendingActivitiess } from "../../graphql/queries";
+import { API, graphqlOperation } from "aws-amplify";
+
+import DenyResponsiveDialogActivities from "../ManageActivities/DenyResponsiveDialogActivities";
+import EditResponsiveDialogActivities from "../ManageActivities/EditResponsiveDialogActivities";
+import ApproveResponsiveDialogActivity from "./ApproveResponsiveDialogActivity";
+
+import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -8,12 +16,6 @@ import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { useState, useEffect } from "react";
-import { listPendingActivitiess } from "../../graphql/queries";
-import { API, graphqlOperation } from "aws-amplify";
-import DenyResponsiveDialogActivities from "../ManageActivities/DenyResponsiveDialogActivities";
-import EditResponsiveDialogActivities from "../ManageActivities/EditResponsiveDialogActivities";
-import ApproveResponsiveDialogActivity from "./ApproveResponsiveDialogActivity";
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -25,11 +27,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 
 const columns = [
-    { id: 'buttons3', label: '', minWidth: 110, maxWidth: 110, align: 'center' },
-    { id: 'buttons2', label: '', minWidth: 110, maxWidth: 110, align: 'center' },
     { id: 'buttons', label: '', minWidth: 110, maxWidth: 110, align: 'center' },
     { id: 'dates', label: "תארכי מפגשים", minWidth: 170, maxWidth: 170, align: 'center' },
-    { id: 'description', label: 'תיאור הפעילות', minWidth: 170, maxWidth: 170, align: 'center' },
+    { id: 'description', label: 'תיאור הפעילות', minWidth: 170, maxWidth: 200, align: 'center' },
     { id: 'email', label: 'אימייל ספק התוכן', minWidth: 130, maxWidth: 130, align: 'center' },
     { id: 'activityName', label: 'שם הפעילות', minWidth: 120, maxWidth: 170, align: 'center' },
     { id: 'phoneNumber', label: 'פלאפון ספק התוכן', minWidth: 120, maxWidth: 120, align: 'center' },
@@ -65,9 +65,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
-
-
 export default function ManageCardActivities(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
@@ -78,14 +75,17 @@ export default function ManageCardActivities(props) {
     const rows = activitiess.map((activity, index) => {
         return (createDataAdmin(activity.owner, activity.phone_number, activity.title, activity.email,
             <Typography>{activity.description}</Typography>,
-            activity.dates.map((date, index) => <p>{date} : {(index + 1)} מפגש</p>),
-            <ApproveResponsiveDialogActivity id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />,
-            <DenyResponsiveDialogActivities groupName={props.groupName} type="pending" id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />,
-            <EditResponsiveDialogActivities groupName={props.groupName} type="pending" description={activity.description} activityCount={activity.activityCount} dates={activity.dates} idx={index} id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} groupName={props.groupName} />,
+            activity.dates.map((date, index) => <div><p>:מפגש {index + 1}</p><p>תאריך - {date.substring(0, 10).split("-").reverse().join("-")} שעה - {date.substring(11)}</p><br></br></div>),
+            <div>
+                <ApproveResponsiveDialogActivity id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
+                <DenyResponsiveDialogActivities groupName={props.groupName} type="pending" id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
+                <EditResponsiveDialogActivities groupName={props.groupName} type="pending" description={activity.description} activityCount={activity.activityCount} dates={activity.dates} idx={index} id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} groupName={props.groupName} />
+            </div>,
+
         ))
     });
-    function createDataAdmin(name, phoneNumber, activityName, email, description, dates, buttons, buttons2, buttons3) {
-        return { name, phoneNumber, activityName, email, description, dates, buttons, buttons2, buttons3 };
+    function createDataAdmin(name, phoneNumber, activityName, email, description, dates, buttons) {
+        return { name, phoneNumber, activityName, email, description, dates, buttons };
     }
 
     const handleChangePage = (event, newPage) => {
