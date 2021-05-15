@@ -243,7 +243,7 @@ export default function ManageActivitiesFormEditPending(props) {
 
                                             </tr>
                                             <tr>
-                                                <UpdateResponsiveDialogActivities type={props.type} id={activity.id} dates={dates} />
+                                                <UpdateResponsiveDialogActivities isZoom={checked} type={props.type} id={activity.id} dates={dates} />
                                             </tr>
                                         </table>
                                     </div>
@@ -295,7 +295,7 @@ export default function ManageActivitiesFormEditPending(props) {
 
                                             </tr>
                                             <tr>
-                                                <UpdateResponsiveDialogActivities groupName={props.groupName} type={props.type} id={activity.id} dates={dates} />
+                                                <UpdateResponsiveDialogActivities isZoom={checked} groupName={props.groupName} type={props.type} id={activity.id} dates={dates} />
                                             </tr>
                                         </table>
                                     </div>

@@ -38,7 +38,8 @@ export default function ActivityTable(props) {
                 email={props.email}
                 givenName={props.givenName}
                 familyName={props.familyName}
-                phoneNumber={props.phoneNumber} /></td>)
+                phoneNumber={props.phoneNumber}
+                zoom={allApprovedActivitiess[index + i].zoom} /></td>)
         }
         return toReturn;
     }

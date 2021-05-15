@@ -1,4 +1,7 @@
 import React from 'react';
+import { deleteApprovedUser } from "../../graphql/mutations";
+import { API, graphqlOperation } from "aws-amplify";
+
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -7,21 +10,19 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
-import { deletePendingActivities } from "../../graphql/mutations";
-import Amplify, { API, graphqlOperation } from "aws-amplify";
-import DeleteIcon from '@material-ui/icons/Delete';
+import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 
-export default function DenyResponsiveDialogManager(props) {
+export default function CancelParticipationResponsiveDialog(props) {
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const deleteSinglePending = async (id_to_delete) => {
+    const deleteSingleUser = async (id_to_delete) => {
         try {
             const del = { id: id_to_delete };
-            await API.graphql(graphqlOperation(deletePendingActivities, { input: del }));
+            await API.graphql(graphqlOperation(deleteApprovedUser, { input: del }));
         } catch (error) {
-            console.log("Error on delete single pending activity ", error);
+            console.log("Error on delete single approved user ", error);
         }
     };
 
@@ -31,8 +32,9 @@ export default function DenyResponsiveDialogManager(props) {
 
     const handleClose = async () => {
         setOpen(false);
-        await deleteSinglePending(props.id).then(alert("התוכן נמחק בהצלחה"))
+        await deleteSingleUser(props.id).then(alert("הסרתך התקבלה בהצלחה"));
         window.location.reload(false);
+
     };
     const handleCancel = () => {
         setOpen(false);
@@ -40,19 +42,19 @@ export default function DenyResponsiveDialogManager(props) {
 
     return (
         <div>
-            <Button startIcon={<DeleteIcon></DeleteIcon>} variant="outlined" color="primary" onClick={handleClickOpen}>
-                דחה
-      </Button>
+            <Button startIcon={<PersonAddDisabledIcon></PersonAddDisabledIcon>} variant="outlined" color="primary" onClick={handleClickOpen}>
+                בטל השתתפות
+            </Button>
             <Dialog
                 fullScreen={fullScreen}
                 open={open}
-                onClose={handleClose}
+                onClose={handleCancel}
                 aria-labelledby="responsive-dialog-title"
             >
-                <DialogTitle id="responsive-dialog-title">{"דחיית פעילות"}</DialogTitle>
+                <DialogTitle id="responsive-dialog-title">{"ביטול השתתפות בפעילות"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        האם את\אתה בטוחים שברצונך למחוק את הפעילות.
+                        ?האם את\ה בטוח את\ה רוצה לבטל השתתפות
           </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -60,7 +62,7 @@ export default function DenyResponsiveDialogManager(props) {
                         בטל
           </Button>
                     <Button onClick={handleClose} color="primary" autoFocus>
-                        מחק
+                        אשר
           </Button>
                 </DialogActions>
             </Dialog>

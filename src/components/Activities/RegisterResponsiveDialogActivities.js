@@ -12,6 +12,7 @@ import { createPendingUser } from "../../graphql/mutations";
 import { listPendingUsers } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 export default function RegisterResponsiveDialog(props) {
     const [open, setOpen] = React.useState(false);
@@ -47,7 +48,6 @@ export default function RegisterResponsiveDialog(props) {
                 phone_number: props.phoneNumber,
                 activity_id: props.id,
             };
-            console.log(user);
             await API.graphql(graphqlOperation(createPendingUser, { input: user }));
             await fetchPendingUsers();
         } catch (error) {
@@ -61,7 +61,7 @@ export default function RegisterResponsiveDialog(props) {
     const handleClose = async () => {
         setOpen(false);
         await registerPendingUser().then(alert("בקשתך התקבלה בהצלחה, אנא המתן לאישור מנהל"));
-        // window.location.reload(false);
+        window.location.reload(false);
 
     };
     const handleCancel = () => {
@@ -70,9 +70,9 @@ export default function RegisterResponsiveDialog(props) {
 
     return (
         <div>
-            <Button startIcon={<EventAvailableIcon></EventAvailableIcon>} variant="outlined" color="primary" onClick={handleClickOpen}>
-                הרשם
-      </Button>
+            <Button startIcon={<PersonAddIcon></PersonAddIcon>} variant="outlined" color="primary" onClick={handleClickOpen}>
+                הרשמה
+            </Button>
             <Dialog
                 fullScreen={fullScreen}
                 open={open}

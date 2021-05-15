@@ -243,7 +243,7 @@ export default function ManageActivitiesFormEditApproved(props) {
 
                                             </tr>
                                             <tr>
-                                                <UpdateResponsiveDialogActivities groupName={props.groupName} type={props.type} id={activity.id} dates={dates} />
+                                                <UpdateResponsiveDialogActivities isZoom={checked} groupName={props.groupName} type={props.type} id={activity.id} dates={dates} />
                                             </tr>
                                         </table>
                                     </div>
@@ -276,7 +276,7 @@ export default function ManageActivitiesFormEditApproved(props) {
                                                 {dates}
                                             </tr>
                                             <tr>
-                                                <UpdateResponsiveDialogActivities groupName={props.groupName} id={activity.id} type={props.type} idx={props.idx} dates={dates} />
+                                                <UpdateResponsiveDialogActivities isZoom={checked} groupName={props.groupName} id={activity.id} type={props.type} idx={props.idx} dates={dates} />
                                             </tr>
                                         </table>
                                     </div>

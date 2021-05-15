@@ -1,6 +1,13 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { useState, useEffect } from "react";
+import { listApprovedActivitiess, listPendingUsers } from "../../graphql/queries";
+import { API, graphqlOperation } from "aws-amplify";
 import clsx from "clsx";
+
+import DenyResponsiveDialogUser from "./DenyResponsiveDialogUser";
+import ApproveResponsiveDialogUser from "./ApproveResponsiveDialogUser";
+
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -8,12 +15,6 @@ import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { useState, useEffect } from "react";
-import { listApprovedActivitiess, listPendingUsers } from "../../graphql/queries";
-import { API, graphqlOperation } from "aws-amplify";
-import DenyResponsiveDialogActivities from "../ManageActivities/DenyResponsiveDialogActivities";
-import EditResponsiveDialogActivities from "../ManageActivities/EditResponsiveDialogActivities";
-import ApproveResponsiveDialogManager from "./ApproveResponsiveDialogManager";
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -22,10 +23,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import Typography from '@material-ui/core/Typography';
 
 const columns = [
-    { id: 'buttons3', label: '', minWidth: 110, maxWidth: 110, align: 'center' },
     { id: 'buttons2', label: '', minWidth: 110, maxWidth: 110, align: 'center' },
     { id: 'buttons', label: '', minWidth: 110, maxWidth: 110, align: 'center' },
     { id: 'ActivityName', label: 'שם הפעילות', minWidth: 130, maxWidth: 130, align: 'center' },
@@ -99,17 +98,17 @@ export default function ManageCardUsers(props) {
     function createRow() {
         const row = users.map((user, index) => {
             return (createDataUser(user.name, user.phone_number, user.email, allApprovedActivitiess.filter(activity => activity.id === user.activity_id).length === 0 ? null : allApprovedActivitiess.filter(activity => activity.id === user.activity_id)[0].title,
-                // <ApproveResponsiveDialogManager id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />,
-                // <DenyResponsiveDialogActivities groupName={props.groupName} type="pending" id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />,
-                // <EditResponsiveDialogActivities groupName={props.groupName} type="pending" description={activity.description} activityCount={activity.activityCount} dates={activity.dates} idx={index} id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} groupName={props.groupName} />,
+                <ApproveResponsiveDialogUser id={user.id} />,
+                <DenyResponsiveDialogUser id={user.id} />,
             ))
         });
         setRows(row);
     }
-    // const createDataUser = async (name, phoneNumber, email, ActivityName) => {
-    function createDataUser(name, phoneNumber, email, ActivityName) {
-        return { name, phoneNumber, email, ActivityName };
+
+    function createDataUser(name, phoneNumber, email, ActivityName, buttons, buttons2) {
+        return { name, phoneNumber, email, ActivityName, buttons, buttons2 };
     }
+
     const fetchAllApprovedActivities = async () => {
         try {
             const approvedActivitiesData = await API.graphql(graphqlOperation(listApprovedActivitiess));
@@ -119,18 +118,7 @@ export default function ManageCardUsers(props) {
             console.log("error on fetching Approved Activities", error);
         }
     }
-    // var getActivity = async (activity_id) => {
-    //     try {
-    //         const activityData = await API.graphql(graphqlOperation(getApprovedActivities, { id: activity_id }));
-    //         return activityData.data.getApprovedActivities;
-    //     } catch (err) {
-    //         console.log("error on get activity");
-    //     }
 
-    // }
-    // var activity = Promise.resolve(getActivity(1));
-    // var cast = Promise.resolve(activity);
-    // console.log(cast);
     const fetchPendingUsers = async () => {
         try {
             const usersData = await API.graphql(graphqlOperation(listPendingUsers));

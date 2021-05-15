@@ -1,7 +1,15 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
+import { useState, useEffect } from "react";
+import { listPendingUsers, listApprovedUsers } from "../../graphql/queries";
+import { API, graphqlOperation } from "aws-amplify";
+
+import RegisterResponsiveDialogActivities from "./RegisterResponsiveDialogActivities"
+import CancelRegisterResponsiveDialogActivities from "./CancelRegisterResponsiveDialogActivities"
+import CancelParticipationResponsiveDialogActivities from "./CancelParticipationResponsiveDialogActivities"
 import "./RecipeReviewCard.css";
+
+import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -11,21 +19,11 @@ import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Button from "@material-ui/core/Button";
-import RegisterResponsiveDialogActivities from "./RegisterResponsiveDialogActivities"
-const useStyles1 = makeStyles((theme) => ({
-  button: {
-    margin: theme.spacing(1),
-    color: "white",
-    backgroundColor: "red",
-    "&:hover": {
-      backgroundColor: "#4d0000",
-      color: "white",
-    },
-  },
-}));
+import VideocamIcon from '@material-ui/icons/Videocam';
+import VideocamOffIcon from '@material-ui/icons/VideocamOff';
+import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
@@ -68,22 +66,73 @@ const useStyles = makeStyles((theme) => ({
 
 export default function RecipeReviewCard(props) {
   const classes = useStyles();
-  const classes1 = useStyles1();
   const [expanded, setExpanded] = React.useState(false);
+  const [pendingUsers, setPendingUsers] = useState([]);
+  const [approvedUsers, setApprovedUsers] = useState([]);
+
+  useEffect(() => {
+    fetchPendingUsers();
+  }, []);
+
+  useEffect(() => {
+    fetchApprovedUsers();
+  }, []);
+
+  const fetchApprovedUsers = async () => {
+    try {
+      const usersData = await API.graphql(graphqlOperation(listApprovedUsers));
+      const usersList = usersData.data.listApprovedUsers.items;
+      setApprovedUsers(usersList);
+    } catch (error) {
+      console.log("error on fetching approved users", error);
+    }
+  };
+
+  const fetchPendingUsers = async () => {
+    try {
+      const usersData = await API.graphql(graphqlOperation(listPendingUsers));
+      const usersList = usersData.data.listPendingUsers.items;
+      setPendingUsers(usersList);
+    } catch (error) {
+      console.log("error on fetching pending users", error);
+    }
+  };
+
+  function whichButton() {
+    if (pendingUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
+      return (<CancelRegisterResponsiveDialogActivities
+        email={props.email}
+        givenName={props.givenName}
+        familyName={props.familyName}
+        phoneNumber={props.phoneNumber}
+        id={pendingUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName)[0].id} />);
+    }
+    else if (approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
+      return (<CancelParticipationResponsiveDialogActivities
+        email={props.email}
+        givenName={props.givenName}
+        familyName={props.familyName}
+        phoneNumber={props.phoneNumber}
+        id={approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName)[0].id} />);
+    }
+    else {
+      return (<RegisterResponsiveDialogActivities
+        email={props.email}
+        givenName={props.givenName}
+        familyName={props.familyName}
+        phoneNumber={props.phoneNumber}
+        id={props.id} />)
+    }
+
+  }
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
   return (
     <Card className={classes.root}>
       <CardHeader
-        // action={
-        //   <IconButton aria-label="settings">
-        //     <MoreVertIcon />
-        //   </IconButton>
-        // }
-        title={<h1 className="title__h1">{props.title}</h1>}
+        title={<h1 className="title__h1">{props.title} {approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0 ? <VerifiedUserIcon color="primary"></VerifiedUserIcon> : ""}</h1>}
         subheader={
           <Typography className={classes.subColor}>
             ע"י: {props.owner}
@@ -92,21 +141,12 @@ export default function RecipeReviewCard(props) {
       />
       <CardMedia
         className={classes.media}
-        image={props.img === "" ? "https://www.gallosconflow.com/wp-content/uploads/2020/06/donde-ver-batalla-de-gallos-sara-socas-vs-rapder.jpg" : props.img}
-        title="image by hahaha"
+        image={props.img === "" ? "https://vcunited.club/wp-content/uploads/2020/01/No-image-available-2.jpg" : props.img}
       />
-      {console.log(props.img)}
       <CardContent></CardContent>
-      <CardActions disableSpacing>
-        {/* <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton> */}
-        <RegisterResponsiveDialogActivities
-          email={props.email}
-          givenName={props.givenName}
-          familyName={props.familyName}
-          phoneNumber={props.phoneNumber}
-          id={props.id} />
+      <CardActions style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        {props.zoom === "" ? <VideocamOffIcon color="primary"></VideocamOffIcon> : <VideocamIcon color="primary"></VideocamIcon>}
+        {whichButton()}
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
@@ -122,16 +162,19 @@ export default function RecipeReviewCard(props) {
         <CardContent>
           <Typography paragraph>
             <Typography variant="body2" color="white" component="p">
-              <p>מספר מפגשים: {props.activityCount}</p>
-              <p>:תאריכים</p>
-              {props.dates.map((date) => {
-                return <p>{date}</p>;
+              <h3>מספר מפגשים: {props.activityCount}</h3>
+              <p>-</p>
+              <h3>:תאריכים</h3>
+              {props.dates.map((date, index) => {
+                return <p> מפגש {index + 1} : תאריך - {date.substring(0, 10).split("-").reverse().join("-")} שעה - {date.substring(12)}</p>
               })}
+              <p>-</p>
+              <h3>:תיאור הפעילות</h3>
             </Typography>
             {props.description}
           </Typography>
         </CardContent>
       </Collapse>
-    </Card>
+    </Card >
   );
 }

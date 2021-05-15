@@ -13,7 +13,7 @@ import Amplify, { API, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
-export default function ApproveResponsiveDialogManager(props) {
+export default function ApproveResponsiveDialogActivity(props) {
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -77,7 +77,7 @@ export default function ApproveResponsiveDialogManager(props) {
 
     const handleClose = async () => {
         setOpen(false);
-        await approveActivity(props.id)
+        await approveActivity(props.id);
         await deleteSinglePending(props.id).then(alert("התוכן אושר בהצלחה"));
         window.location.reload(false);
     };
