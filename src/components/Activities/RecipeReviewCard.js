@@ -155,18 +155,28 @@ export default function RecipeReviewCard(props) {
   var current_time_20 = dates_class.convert(new Date(Date.now() - tzoffset_end).toISOString().substring(0, 16));
   // console.log(current_time_20);
   function whichButton() {
-    var start = Array.from(props.dates).filter(date => (dates_class.compare(dates_class.convert(date), current_time) <= 0) && (dates_class.compare(dates_class.convert(date), current_time_20) === -1)).length !== 0 ? true : false;
-    if (pendingUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
+    var start = Array.from(props.dates).filter(date => (dates_class.compare(dates_class.convert(date), current_time) <= 0) && (dates_class.compare(dates_class.convert(date + 20 * 60000), current_time) === -1)).length !== 0 ? true : false;
+    console.log(start);
+    if (dates_class.compare(dates_class.convert(props.dates[props.dates.length - 1]), current_time) <= 0) {
+      return (<h3 style={{ color: "red" }}>הפעילות הסתיימה</h3>);
+    }
+    else if (approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length === 0 && dates_class.compare(dates_class.convert(props.dates[0]), current_time) <= 0) {
+      return (<h3 style={{ color: "red" }}>מועד הרשמה אחרון עבר</h3>);
+    }
+    else if (start === true && approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
+      return (<OpenZoomLink
+        zoom={props.zoom} />);
+    }
+    else if (approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0 && dates_class.compare(dates_class.convert(props.dates[0]), current_time) <= 0) {
+      return (<h3 style={{ color: "green" }}>הקישור יפתח במפגש הבא</h3>);
+    }
+    else if (pendingUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
       return (<CancelRegisterResponsiveDialogActivities
         email={props.email}
         givenName={props.givenName}
         familyName={props.familyName}
         phoneNumber={props.phoneNumber}
         id={pendingUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName)[0].id} />);
-    }
-    else if (start === true && approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
-      return (<OpenZoomLink
-        zoom={props.zoom} />);
     }
     else if (approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
       return (<CancelParticipationResponsiveDialogActivities

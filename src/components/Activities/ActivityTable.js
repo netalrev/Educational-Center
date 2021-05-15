@@ -62,7 +62,7 @@ export default function ActivityTable(props) {
         }
     };
     var tzoffset_end = (new Date()).getTimezoneOffset() * 60000 - 60 * 60000;
-    var tzoffset_59 = (new Date()).getTimezoneOffset() * 60000 - 59 * 60000;
+    var tzoffset_59 = (new Date()).getTimezoneOffset() * 60000 + 59 * 60000;
     var current_time_2 = dates_class.convert(new Date(Date.now() - tzoffset_59).toISOString().substring(0, 16));
 
     var current_time = dates_class.convert(new Date(Date.now() - tzoffset_end).toISOString().substring(0, 16));
@@ -91,7 +91,7 @@ export default function ActivityTable(props) {
             console.log("1", approvedActivitiesList);
             for (var i = 0; i < approvedActivitiesList.length; i++) {
                 if (dates_class.compare(dates_class.convert(approvedActivitiesList[i].dates[approvedActivitiesList[i].dates.length - 1]), current_time_2) === -1)
-                    approvedActivitiesList.splice(i, 1);
+                    console.log(approvedActivitiesList.splice(i, 1));
             }
             console.log("2", approvedActivitiesList);
 
