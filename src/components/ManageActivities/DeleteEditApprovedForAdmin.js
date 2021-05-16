@@ -1,6 +1,13 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { useState, useEffect } from "react";
+import { listApprovedActivitiess } from "../../graphql/queries";
+import { API, graphqlOperation } from "aws-amplify";
 import clsx from "clsx";
+
+import DenyResponsiveDialogActivities from "./DenyResponsiveDialogActivities";
+import EditResponsiveDialogActivities from "./EditResponsiveDialogActivities";
+
+import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -8,11 +15,6 @@ import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { useState, useEffect } from "react";
-import { listApprovedActivitiess } from "../../graphql/queries";
-import { API, graphqlOperation } from "aws-amplify";
-import DenyResponsiveDialogActivities from "./DenyResponsiveDialogActivities";
-import EditResponsiveDialogActivities from "./EditResponsiveDialogActivities";
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -36,6 +38,7 @@ const columns = [
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 1300,
+        minWidth: 1300,
         margin: "10px",
         backgroundColor: "light gray",
         color: "red",
