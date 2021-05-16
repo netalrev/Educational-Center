@@ -111,7 +111,7 @@ export default function ManageActivitiesFormPending(props) {
         }
         setDates(toReturn);
     }
-    var text = props.title;
+    var text = <b>{props.title}</b>
     return (
         <Card className={classes.root}>
             <CardHeader

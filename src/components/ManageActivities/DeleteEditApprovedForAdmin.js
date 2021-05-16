@@ -178,7 +178,7 @@ export default function DeleteEditPendingForAdmin(props) {
         setExpanded(!expanded);
     };
 
-    var text = props.title
+    var text = <b>{props.title}</b>
     return (
         <Card className={classes.root}>
             <CardHeader

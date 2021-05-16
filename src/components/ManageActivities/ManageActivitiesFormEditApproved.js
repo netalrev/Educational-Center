@@ -177,7 +177,7 @@ export default function ManageActivitiesFormEditApproved(props) {
         }
         return false;
     }
-    var text = props.title;
+    var text = <b>{props.title}</b>
     return (
         <Card className={classes.root}>
             <CardHeader

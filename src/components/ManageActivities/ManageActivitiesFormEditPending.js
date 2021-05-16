@@ -178,7 +178,7 @@ export default function ManageActivitiesFormEditPending(props) {
         return false;
     }
 
-    var text = props.title;
+    var text = <b>{props.title}</b>
     return (
         <Card className={classes.root}>
             <CardHeader
