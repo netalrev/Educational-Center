@@ -40,7 +40,7 @@ export default function ApproveResponsiveDialogActivity(props) {
             const activitiesList = activitiesData.data.listApprovedActivitiess.items;
             setApprovedActivitiess(activitiesList);
         } catch (error) {
-            console.log("error on fetching songs", error);
+            console.log("error on fetching Approved Activities", error);
         }
     };
 
@@ -58,7 +58,7 @@ export default function ApproveResponsiveDialogActivity(props) {
             await API.graphql(graphqlOperation(createApprovedActivities, { input: newActivity }));
 
         } catch (error) {
-            console.log("Error on fetching single pending activity ", error);
+            console.log("Error on fetching single approved activity ", error);
         }
     };
 
@@ -87,7 +87,7 @@ export default function ApproveResponsiveDialogActivity(props) {
 
     return (
         <div>
-            <Button startIcon={<CheckCircleIcon></CheckCircleIcon>} variant="outlined" color="primary" onClick={handleClickOpen}>
+            <Button startIcon={<CheckCircleIcon style={{ fill: "rgba(60,60,60)" }}></CheckCircleIcon>} variant="outlined" style={{ fill: "rgba(60,60,60)" }} onClick={handleClickOpen}>
                 אשר
       </Button>
             <Dialog
@@ -96,17 +96,17 @@ export default function ApproveResponsiveDialogActivity(props) {
                 onClose={handleClose}
                 aria-labelledby="responsive-dialog-title"
             >
-                <DialogTitle id="responsive-dialog-title">{"אישור העלאת תוכן"}</DialogTitle>
+                <DialogTitle id="responsive-dialog-title" style={{ color: "red" }}><b>אישור העלאת תוכן</b></DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        האם את\אתה בטוחים שפרטי הפעילות שהזנתם תואמים את הפעילות.
+                        ?האם את/ה בטוח/ה שפרטי הפעילות שהזנתם תואמים את הפעילות
           </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={handleCancel} color="primary">
+                    <Button autoFocus onClick={handleCancel} style={{ fill: "rgba(60,60,60)" }}>
                         בטל העלאה
           </Button>
-                    <Button onClick={handleClose} color="primary" autoFocus>
+                    <Button onClick={handleClose} style={{ fill: "rgba(60,60,60)" }} autoFocus>
                         אשר העלאה
           </Button>
                 </DialogActions>

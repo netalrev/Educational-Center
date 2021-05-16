@@ -1,4 +1,7 @@
 import React from 'react';
+import { deletePendingUser } from "../../graphql/mutations";
+import { API, graphqlOperation } from "aws-amplify";
+
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -7,8 +10,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
-import { deletePendingUser } from "../../graphql/mutations";
-import { API, graphqlOperation } from "aws-amplify";
 import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 
 export default function CancelRegisterResponsiveDialog(props) {
@@ -41,7 +42,7 @@ export default function CancelRegisterResponsiveDialog(props) {
 
     return (
         <div>
-            <Button startIcon={<PersonAddDisabledIcon></PersonAddDisabledIcon>} variant="outlined" color="primary" onClick={handleClickOpen}>
+            <Button startIcon={<PersonAddDisabledIcon style={{ fill: "rgba(60,60,60)" }}></PersonAddDisabledIcon>} variant="outlined" style={{ fill: "rgba(60,60,60)" }} onClick={handleClickOpen}>
                 בטל הרשמה
             </Button>
             <Dialog
@@ -50,17 +51,17 @@ export default function CancelRegisterResponsiveDialog(props) {
                 onClose={handleCancel}
                 aria-labelledby="responsive-dialog-title"
             >
-                <DialogTitle id="responsive-dialog-title">{"ביטול הרשמה לפעילות"}</DialogTitle>
+                <DialogTitle id="responsive-dialog-title" style={{ color: "red" }}><b>ביטול הרשמה לפעילות</b></DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        ?האם את\ה בטוח את\ה רוצה לבטל הרשמה
+                        ?האם את/ה בטוח/ה שברצונך לבטל את הרשמה לפעילות
           </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={handleCancel} color="primary">
+                    <Button autoFocus onClick={handleCancel} style={{ fill: "rgba(60,60,60)" }}>
                         בטל
           </Button>
-                    <Button onClick={handleClose} color="primary" autoFocus>
+                    <Button onClick={handleClose} style={{ fill: "rgba(60,60,60)" }} autoFocus>
                         אשר
           </Button>
                 </DialogActions>

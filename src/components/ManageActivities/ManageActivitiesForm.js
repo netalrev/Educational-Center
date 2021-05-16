@@ -17,7 +17,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        maxWidth: 1000,
+        maxWidth: 500,
+        minWidth: 500,
         margin: "10px",
         backgroundColor: "light gray",
         color: "red",
@@ -26,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
         right: 0,
         transition: "transform 0.15s ease-in-out",
         "&:hover": { transform: "scale3d(1.05, 1.05, 1)" },
+        marginInline: 400
     },
 
 
@@ -143,7 +145,7 @@ export default function ManageActivitiesFormPending(props) {
                                     id="zoomCheckBox"
                                     checked={checked}
                                     onChange={handleChange}
-                                    color="primary"
+                                    fill="red"
                                     inputProps={{ 'aria-label': 'primary checkbox' }}
                                 />
                             </tr>

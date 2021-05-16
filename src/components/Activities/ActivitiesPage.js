@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import ActivityTable from "./ActivityTable";
 
+import ActivityTable from "./ActivityTable";
 
 export default function ActivitiesPage(props) {
   return (

@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { useState, useEffect } from "react";
 import { listPendingUsers, listApprovedUsers } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
+import { Scrollbars } from 'rc-scrollbars';
 
 import RegisterResponsiveDialogActivities from "./RegisterResponsiveDialogActivities"
 import CancelRegisterResponsiveDialogActivities from "./CancelRegisterResponsiveDialogActivities"
@@ -27,11 +28,13 @@ import OpenZoomLink from "./OpenZoomLink";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: 320,
+    minWidth: 320,
+    // maxHeight: 700,
     margin: "10px",
-    backgroundColor: "rgba(0, 0, 0, 0.6)",
-    color: "white",
-    text: "white",
+    background: "rgba(255, 255, 255, 0.6)",
+    color: "black",
+    text: "black",
     borderRadius: "4%",
     right: 0,
     transition: "transform 0.15s ease-in-out",
@@ -40,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
   media: {
     height: 0,
-    color: "white",
+    color: "black",
     paddingTop: "56.25%", // 16:9
   },
   expand: {
@@ -51,14 +54,6 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
-  },
-  expandOpen: {
-    transform: "rotate(180deg)",
-    color: "red",
-  },
-  avatar: {
-    backgroundColor: red[500],
-    color: "white",
   },
   subColor: {
     color: "red",
@@ -153,10 +148,9 @@ export default function RecipeReviewCard(props) {
   var tzoffset_end = (new Date()).getTimezoneOffset() * 60000 - 20 * 60000;
   var current_time = dates_class.convert(new Date(Date.now() - tzoffset_start).toISOString().substring(0, 16));
   var current_time_20 = dates_class.convert(new Date(Date.now() - tzoffset_end).toISOString().substring(0, 16));
-  // console.log(current_time_20);
+
   function whichButton() {
     var start = Array.from(props.dates).filter(date => (dates_class.compare(dates_class.convert(date), current_time) <= 0) && (dates_class.compare(dates_class.convert(date + 20 * 60000), current_time) === -1)).length !== 0 ? true : false;
-    console.log(start);
     if (dates_class.compare(dates_class.convert(props.dates[props.dates.length - 1]), current_time) <= 0) {
       return (<h3 style={{ color: "red" }}>הפעילות הסתיימה</h3>);
     }
@@ -203,7 +197,7 @@ export default function RecipeReviewCard(props) {
   return (
     <Card className={classes.root}>
       <CardHeader
-        title={<h1 className="title__h1">{props.title} {approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0 ? <VerifiedUserIcon color="primary"></VerifiedUserIcon> : ""}</h1>}
+        title={<h1 className="title__h1" style={{ color: "black" }}><b>{props.title}</b> {approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0 ? <VerifiedUserIcon style={{ fill: "rgba(60,60,60)" }}></VerifiedUserIcon> : ""}</h1>}
         subheader={
           <Typography className={classes.subColor}>
             ע"י: {props.owner}
@@ -214,9 +208,8 @@ export default function RecipeReviewCard(props) {
         className={classes.media}
         image={props.img === "" ? "https://vcunited.club/wp-content/uploads/2020/01/No-image-available-2.jpg" : props.img}
       />
-      <CardContent></CardContent>
       <CardActions style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-        {props.zoom === "" ? <VideocamOffIcon color="primary"></VideocamOffIcon> : <VideocamIcon color="primary"></VideocamIcon>}
+        {props.zoom === "" ? <VideocamOffIcon style={{ fill: "rgba(60,60,60)" }}></VideocamOffIcon> : <VideocamIcon style={{ fill: "rgba(60,60,60)" }}></VideocamIcon>}
         {whichButton()}
         <IconButton
           className={clsx(classes.expand, {
@@ -231,19 +224,23 @@ export default function RecipeReviewCard(props) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>
-            <Typography variant="body2" color="white" component="p">
-              <h3>מספר מפגשים: {props.activityCount}</h3>
-              <p>-</p>
-              <h3>:תאריכים</h3>
-              {props.dates.map((date, index) => {
-                return <p> מפגש {index + 1} : תאריך - {date.substring(0, 10).split("-").reverse().join("-")} שעה - {date.substring(11)}</p>
-              })}
-              <p>-</p>
-              <h3>:תיאור הפעילות</h3>
+          <Scrollbars style={{ width: 320, height: 300, float: "right" }}>
+            <Typography paragraph>
+              <Typography variant="body2" color="white" component="p">
+                <h3>מספר מפגשים: {props.activityCount}</h3>
+                <br></br>
+                <h3>:תאריכים</h3>
+                <br></br>
+                {props.dates.map((date, index) => {
+                  return <p><b> מפגש {index + 1} :</b> תאריך - <b>{date.substring(0, 10).split("-").reverse().join("-")}</b> שעה - <b>{date.substring(11)}</b></p>
+                })}
+              </Typography></Typography>
+            <h3>:תיאור הפעילות</h3>
+            <br></br>
+            <Typography>
+              {props.description}
             </Typography>
-            {props.description}
-          </Typography>
+          </Scrollbars>
         </CardContent>
       </Collapse>
     </Card >

@@ -34,14 +34,16 @@ const columns = [
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        maxWidth: 1300,
+        maxWidth: 900,
+        minWidth: 900,
         margin: "10px",
         backgroundColor: "light gray",
         color: "red",
         text: "red",
         borderRadius: "4%",
         right: 0,
-        transition: "transform 0.15s ease-in-out"
+        transition: "transform 0.15s ease-in-out",
+        marginInline: 200
     },
     expand: {
         transform: "rotate(0deg)",
@@ -60,9 +62,6 @@ const useStyles = makeStyles((theme) => ({
         color: "red",
     },
 }));
-
-
-
 
 export default function ManageCardUsers(props) {
     const classes = useStyles();

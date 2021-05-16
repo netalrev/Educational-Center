@@ -36,6 +36,7 @@ const columns = [
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 1300,
+        minWidth: 1300,
         margin: "10px",
         backgroundColor: "light gray",
         color: "red",

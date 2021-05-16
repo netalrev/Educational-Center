@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { useState, useEffect } from "react";
 import { listApprovedActivitiess } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
+
 import RecipeReviewCard from "./RecipeReviewCard";
 
 export default function ActivityTable(props) {

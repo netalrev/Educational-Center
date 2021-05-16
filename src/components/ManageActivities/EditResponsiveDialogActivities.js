@@ -24,7 +24,7 @@ export default function EditResponsiveDialogActivities(props) {
     };
     return (
         <div>
-            <Button startIcon={<EditIcon></EditIcon>} variant="outlined" color="primary" onClick={handleClickOpen}>
+            <Button startIcon={<EditIcon style={{ fill: "rgba(60,60,60)" }}></EditIcon>} variant="outlined" style={{ fill: "rgba(60,60,60)" }} onClick={handleClickOpen}>
                 ערוך
       </Button>
             <Dialog
@@ -33,7 +33,7 @@ export default function EditResponsiveDialogActivities(props) {
                 onClose={handleCancel}
                 aria-labelledby="responsive-dialog-title"
             >
-                <DialogTitle id="responsive-dialog-title">{"עריכת פעילות"}</DialogTitle>
+                <DialogTitle id="responsive-dialog-title" style={{ color: "red" }}><b>עריכת פעילות</b></DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         ?אילו שינויים ברצונך לערוך
@@ -45,7 +45,7 @@ export default function EditResponsiveDialogActivities(props) {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={handleCancel} color="primary">
+                    <Button autoFocus onClick={handleCancel} style={{ fill: "rgba(60,60,60)" }}>
                         בטל
                     </Button>
                 </DialogActions>

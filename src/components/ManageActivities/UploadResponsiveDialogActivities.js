@@ -182,7 +182,7 @@ export default function UploadResponsiveDialog(props) {
 
     return (
         <div>
-            <Button startIcon={<CloudUploadIcon></CloudUploadIcon>} variant="outlined" color="primary" onClick={handleClickOpen}>
+            <Button startIcon={<CloudUploadIcon style={{ fill: "rgba(60,60,60)" }}></CloudUploadIcon>} variant="outlined" style={{ fill: "rgba(60,60,60)" }} onClick={handleClickOpen}>
                 העלה
       </Button>
             <Dialog
@@ -191,17 +191,17 @@ export default function UploadResponsiveDialog(props) {
                 onClose={handleCancel}
                 aria-labelledby="responsive-dialog-title"
             >
-                <DialogTitle id="responsive-dialog-title">{"אישור העלאת תוכן"}</DialogTitle>
+                <DialogTitle id="responsive-dialog-title" style={{ color: "red" }} > <b>אישור העלאת תוכן</b></DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        האם את\אתה בטוחים שפרטי הפעילות שהזנתם תואמים את הפעילות.
+                        ?האם את/ה בטוח/ה שפרטי הפעילות שהזנת תואמים את הפעילות
           </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={handleCancel} color="primary">
+                    <Button autoFocus onClick={handleCancel} style={{ fill: "rgba(60,60,60)" }}>
                         בטל העלאה
           </Button>
-                    <Button onClick={handleClose} color="primary" autoFocus>
+                    <Button onClick={handleClose} style={{ fill: "rgba(60,60,60)" }} autoFocus>
                         אשר העלאה
           </Button>
                 </DialogActions>
