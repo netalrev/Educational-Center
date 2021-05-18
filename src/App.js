@@ -236,7 +236,8 @@ function App() {
                   email={emailAddress}
                   givenName={gname}
                   familyName={fname}
-                  phoneNumber={phoneNumber} />
+                  phoneNumber={phoneNumber}
+                  groupName={groupName} />
               </Route>
             ) : (
               <Route exact path="/activitiespage">

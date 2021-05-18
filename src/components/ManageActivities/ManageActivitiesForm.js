@@ -20,13 +20,16 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: 500,
         minWidth: 500,
         margin: "10px",
-        backgroundColor: "light gray",
+        opacity: 0.85,
+        backgroundImage: 'url("https://secure.img1-fg.wfcdn.com/im/04778884/compr-r85/5380/53804891/elswick-lumber-wood-33-l-x-205-w-wallpaper-roll.jpg")',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
         color: "red",
         text: "red",
         borderRadius: "4%",
         right: 0,
         transition: "transform 0.15s ease-in-out",
-        "&:hover": { transform: "scale3d(1.05, 1.05, 1)" },
         marginInline: 400
     },
 

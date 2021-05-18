@@ -8,6 +8,8 @@ import { Scrollbars } from 'rc-scrollbars';
 import RegisterResponsiveDialogActivities from "./RegisterResponsiveDialogActivities"
 import CancelRegisterResponsiveDialogActivities from "./CancelRegisterResponsiveDialogActivities"
 import CancelParticipationResponsiveDialogActivities from "./CancelParticipationResponsiveDialogActivities"
+import CancelParticipationResponsiveDialogActivitiesManager from "./CancelParticipationResponsiveDialogActivitiesManager"
+
 import "./RecipeReviewCard.css";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -25,6 +27,8 @@ import VideocamIcon from '@material-ui/icons/Videocam';
 import VideocamOffIcon from '@material-ui/icons/VideocamOff';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import OpenZoomLink from "./OpenZoomLink";
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -154,30 +158,34 @@ export default function RecipeReviewCard(props) {
     if (dates_class.compare(dates_class.convert(props.dates[props.dates.length - 1]), current_time) <= 0) {
       return (<h3 style={{ color: "red" }}>הפעילות הסתיימה</h3>);
     }
+    else if (props.groupName !== "approvedUsers" && props.zoom !== "") {
+      return (<OpenZoomLink
+        zoom={props.zoom} />);
+    }
+    else if (props.groupName !== "approvedUsers") {
+      return (<h3 style={{ color: "green" }}>פעילות פרונטלית</h3>);
+    }
     else if (approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length === 0 && dates_class.compare(dates_class.convert(props.dates[0]), current_time) <= 0) {
       return (<h3 style={{ color: "red" }}>מועד הרשמה אחרון עבר</h3>);
     }
     else if (start === true && approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
-      return (<OpenZoomLink
-        zoom={props.zoom} />);
+      if (props.zoom !== "") {
+        return (<OpenZoomLink
+          zoom={props.zoom} />);
+      }
+      else {
+        return (<h3 style={{ color: "green" }}>הפעילות התחילה</h3>);
+      }
     }
     else if (approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0 && dates_class.compare(dates_class.convert(props.dates[0]), current_time) <= 0) {
       return (<h3 style={{ color: "green" }}>הקישור יפתח במפגש הבא</h3>);
     }
     else if (pendingUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
       return (<CancelRegisterResponsiveDialogActivities
-        email={props.email}
-        givenName={props.givenName}
-        familyName={props.familyName}
-        phoneNumber={props.phoneNumber}
         id={pendingUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName)[0].id} />);
     }
     else if (approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
       return (<CancelParticipationResponsiveDialogActivities
-        email={props.email}
-        givenName={props.givenName}
-        familyName={props.familyName}
-        phoneNumber={props.phoneNumber}
         id={approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName)[0].id} />);
     }
     else {
@@ -226,6 +234,39 @@ export default function RecipeReviewCard(props) {
         <CardContent>
           <Scrollbars style={{ width: 320, height: 300, float: "right" }}>
             <Typography paragraph>
+              {props.groupName !== "approvedUsers" ?
+                <div>
+                  <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    <PeopleAltIcon style={{ fill: "rgba(60,60,60)", marginInlineEnd: 10 }}></PeopleAltIcon>
+                    <h3>כמות משתתפים: {approvedUsers.filter(users => users.activity_id === props.id).length}</h3>
+                  </div>
+                  <br></br>
+                  {approvedUsers.filter(users => users.activity_id === props.id).length !== 0 ?
+                    <table style={{ margin: "0 auto" }}>
+                      <th> </th>
+                      <th>
+                        שם התלמיד/ה
+                  </th>
+                      {approvedUsers.filter(users => users.activity_id === props.id).map((user) =>
+                        <tr>
+                          <td style={{ width: 150 }}>
+                            <CancelParticipationResponsiveDialogActivitiesManager
+                              id={approvedUsers.filter(users2 => users2.activity_id === props.id).filter(users2 => users2.name === user.name)[0].id}
+                            />
+                          </td>
+                          <td style={{ width: 130 }}>
+                            {user.name}
+                          </td>
+                        </tr>
+                      )}
+                    </table>
+                    :
+                    ""
+                  }
+                </div>
+                :
+                ""
+              }
               <Typography variant="body2" color="white" component="p">
                 <h3>מספר מפגשים: {props.activityCount}</h3>
                 <br></br>
@@ -240,6 +281,8 @@ export default function RecipeReviewCard(props) {
             <Typography>
               {props.description}
             </Typography>
+            <br></br>
+            <br></br>
           </Scrollbars>
         </CardContent>
       </Collapse>

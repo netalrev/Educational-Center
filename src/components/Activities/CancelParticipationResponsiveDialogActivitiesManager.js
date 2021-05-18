@@ -51,10 +51,10 @@ export default function CancelParticipationResponsiveDialog(props) {
                 onClose={handleCancel}
                 aria-labelledby="responsive-dialog-title"
             >
-                <DialogTitle id="responsive-dialog-title" style={{ color: "red" }}><b>ביטול השתתפות בפעילות</b></DialogTitle>
+                <DialogTitle id="responsive-dialog-title" style={{ color: "red" }}><b>ביטול השתתפות של תלמיד/ה מפעילות</b></DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        ?האם את/ה בטוח/ה שברצונך לבטל השתתפות
+                        ?האם את/ה בטוח/ה שברצונך לבטל השתתפות של תלמיד/ה זה/ו מהפעילות
           </DialogContentText>
                 </DialogContent>
                 <DialogActions>

@@ -104,7 +104,7 @@ export default function UpdateResponsiveDialog(props) {
             const activitiesList = activitiesData.data.listPendingActivitiess.items;
             setPendingActivitiess(activitiesList);
         } catch (error) {
-            console.log("error on fetching songs", error);
+            console.log("error on fetching Pending Activities", error);
         }
     };
     const editPendingActivities = async (id) => {
@@ -145,8 +145,11 @@ export default function UpdateResponsiveDialog(props) {
             }
             if (props.isZoom) {
                 if (document.getElementsByName("activity_zoom")[0].value != "") {
-                    to_edit.zoom = document.getElementsByName("activity_zoom")[0].value
+                    to_edit.zoom = document.getElementsByName("activity_zoom")[0].value;
                 }
+            }
+            else if (!props.isZoom) {
+                to_edit.zoom = "";
             }
             to_edit.activityCount = document.getElementsByName("activityCount")[0].value;
             to_edit.dates = Array.from(document.getElementsByName("dates")).map(element => element.value).sort(compare_dates);
@@ -215,7 +218,7 @@ export default function UpdateResponsiveDialog(props) {
             else {
                 await editApprovedActivities(props.id).then(alert("בקשתך לעריכת התוכן המבוקש התקבלה בהצלחה."));
             }
-            window.location.reload(false);
+            // window.location.reload(false);
         }
         else {
             alert(validate);

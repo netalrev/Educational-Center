@@ -5,12 +5,18 @@ import { API, graphqlOperation } from "aws-amplify";
 
 import RecipeReviewCard from "./RecipeReviewCard";
 
+import SearchBar from "material-ui-search-bar";
+
 export default function ActivityTable(props) {
     const [allApprovedActivitiess, setAllApprovedActivitiess] = useState([]);
+    const [toShow, setToShow] = useState([]);
 
     useEffect(() => {
         fetchAllApprovedActivities();
     }, []);
+    useEffect(() => {
+        fillToShow();
+    }, [allApprovedActivitiess]);
     var dates_class = {
         convert: function (d) {
             // Converts the date in d to a date-object. The input can be:
@@ -89,56 +95,79 @@ export default function ActivityTable(props) {
             const approvedActivitiesData = await API.graphql(graphqlOperation(listApprovedActivitiess));
             const approvedActivitiesList = approvedActivitiesData.data.listApprovedActivitiess.items;
             approvedActivitiesList.sort(comparing);
-            console.log("1", approvedActivitiesList);
             for (var i = 0; i < approvedActivitiesList.length; i++) {
                 if (dates_class.compare(dates_class.convert(approvedActivitiesList[i].dates[approvedActivitiesList[i].dates.length - 1]), current_time_2) === -1)
-                    console.log(approvedActivitiesList.splice(i, 1));
+                    approvedActivitiesList.splice(i, 1);
             }
-            console.log("2", approvedActivitiesList);
-
             setAllApprovedActivitiess(approvedActivitiesList);
         } catch (error) {
             console.log("error on fetching Approved Activities", error);
         }
     };
 
-    function createRow(index) {
-        var toReturn = [];
-        for (var i = 0; i < 4; i++) {
-            if (index + i >= allApprovedActivitiess.length) {
-                break;
-            }
-            toReturn.push(<td><RecipeReviewCard
-                id={allApprovedActivitiess[index + i].id}
-                img={allApprovedActivitiess[index + i].img}
-                dates={allApprovedActivitiess[index + i].dates}
-                activityCount={allApprovedActivitiess[index + i].activityCount}
-                owner={allApprovedActivitiess[index + i].owner}
-                title={allApprovedActivitiess[index + i].title}
-                description={allApprovedActivitiess[index + i].description}
+    function fillToShow() {
+        var allActivity = [];
+        allActivity = allApprovedActivitiess.map(activity =>
+            <RecipeReviewCard
+                id={activity.id}
+                img={activity.img}
+                dates={activity.dates}
+                activityCount={activity.activityCount}
+                owner={activity.owner}
+                title={activity.title}
+                description={activity.description}
+                zoom={activity.zoom}
                 email={props.email}
                 givenName={props.givenName}
                 familyName={props.familyName}
                 phoneNumber={props.phoneNumber}
-                zoom={allApprovedActivitiess[index + i].zoom} /></td>)
-        }
-        return toReturn;
+                groupName={props.groupName} />)
+        setToShow(allActivity);
+    }
+
+    function search(key) {
+        var allActivity = [];
+        allActivity = allApprovedActivitiess.map(activity =>
+            <RecipeReviewCard
+                id={activity.id}
+                img={activity.img}
+                dates={activity.dates}
+                activityCount={activity.activityCount}
+                owner={activity.owner}
+                title={activity.title}
+                description={activity.description}
+                email={props.email}
+                givenName={props.givenName}
+                familyName={props.familyName}
+                phoneNumber={props.phoneNumber}
+                zoom={activity.zoom} />)
+        const filterdToShow = allActivity.filter(activity => {
+            if (activity.props.title.includes(key) || activity.props.owner.includes(key)) return activity;
+        });
+        setToShow(filterdToShow);
     }
 
     return (
-        <tbody>
-            {allApprovedActivitiess.map((activity, index) => {
-                if (index % 4 === 0) {
-                    return (
-                        <tr>
-                            {createRow(index)}
-                        </tr>
-                    )
-                }
-                else {
-                    return ("");
-                }
-            })}
-        </tbody>
+        <div style={{ width: '100%' }}>
+            <div>
+                <SearchBar
+                    onChange={(value) => search(value)}
+                    style={{
+                        maxWidth: 1350,
+                        marginInline: 85
+                    }}
+                />
+            </div>
+            <br></br>
+            <br></br>
+            <div style={{
+                display: "flex",
+                flexFlow: "row wrap",
+                justifyContent: "center",
+                alignItems: "center"
+            }}>
+                {toShow}
+            </div>
+        </div>
     );
 }
