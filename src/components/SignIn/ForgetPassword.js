@@ -52,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: "red",
     },
     Button: {
-
     },
     textField: {
         zIndex: "0",
@@ -60,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "9px",
 
         "& label.Mui-focused": {
-            color: "white",
+            color: "black",
         },
         "& input": {
             color: "white",
@@ -136,6 +135,10 @@ export default function ForgetPassword(props) {
                         id="email"
                         label="כתובת אימייל"
                         name="email"
+                        style={{
+                            backgroundColor: "black",
+                            color: "black",
+                        }}
                         autoComplete="email"
                     />
                     <Button
