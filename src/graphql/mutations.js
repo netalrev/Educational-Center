@@ -223,3 +223,177 @@ export const deleteApprovedActivities = /* GraphQL */ `
     }
   }
 `;
+export const createActivityFeedback = /* GraphQL */ `
+  mutation CreateActivityFeedback(
+    $input: CreateActivityFeedbackInput!
+    $condition: ModelActivityFeedbackConditionInput
+  ) {
+    createActivityFeedback(input: $input, condition: $condition) {
+      id
+      title
+      activityCount
+      date
+      owner
+      img
+      zoom
+      phone_number
+      email
+      form
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateActivityFeedback = /* GraphQL */ `
+  mutation UpdateActivityFeedback(
+    $input: UpdateActivityFeedbackInput!
+    $condition: ModelActivityFeedbackConditionInput
+  ) {
+    updateActivityFeedback(input: $input, condition: $condition) {
+      id
+      title
+      activityCount
+      date
+      owner
+      img
+      zoom
+      phone_number
+      email
+      form
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteActivityFeedback = /* GraphQL */ `
+  mutation DeleteActivityFeedback(
+    $input: DeleteActivityFeedbackInput!
+    $condition: ModelActivityFeedbackConditionInput
+  ) {
+    deleteActivityFeedback(input: $input, condition: $condition) {
+      id
+      title
+      activityCount
+      date
+      owner
+      img
+      zoom
+      phone_number
+      email
+      form
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createSubmitedActivityFeedback = /* GraphQL */ `
+  mutation CreateSubmitedActivityFeedback(
+    $input: CreateSubmitedActivityFeedbackInput!
+    $condition: ModelSubmitedActivityFeedbackConditionInput
+  ) {
+    createSubmitedActivityFeedback(input: $input, condition: $condition) {
+      id
+      title
+      activityCount
+      date
+      owner
+      img
+      zoom
+      phone_number
+      email
+      form
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateSubmitedActivityFeedback = /* GraphQL */ `
+  mutation UpdateSubmitedActivityFeedback(
+    $input: UpdateSubmitedActivityFeedbackInput!
+    $condition: ModelSubmitedActivityFeedbackConditionInput
+  ) {
+    updateSubmitedActivityFeedback(input: $input, condition: $condition) {
+      id
+      title
+      activityCount
+      date
+      owner
+      img
+      zoom
+      phone_number
+      email
+      form
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteSubmitedActivityFeedback = /* GraphQL */ `
+  mutation DeleteSubmitedActivityFeedback(
+    $input: DeleteSubmitedActivityFeedbackInput!
+    $condition: ModelSubmitedActivityFeedbackConditionInput
+  ) {
+    deleteSubmitedActivityFeedback(input: $input, condition: $condition) {
+      id
+      title
+      activityCount
+      date
+      owner
+      img
+      zoom
+      phone_number
+      email
+      form
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createUser = /* GraphQL */ `
+  mutation CreateUser(
+    $input: CreateUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    createUser(input: $input, condition: $condition) {
+      id
+      name
+      email
+      phone_number
+      score
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateUser = /* GraphQL */ `
+  mutation UpdateUser(
+    $input: UpdateUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    updateUser(input: $input, condition: $condition) {
+      id
+      name
+      email
+      phone_number
+      score
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteUser = /* GraphQL */ `
+  mutation DeleteUser(
+    $input: DeleteUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    deleteUser(input: $input, condition: $condition) {
+      id
+      name
+      email
+      phone_number
+      score
+      createdAt
+      updatedAt
+    }
+  }
+`;

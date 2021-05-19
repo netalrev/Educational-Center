@@ -3,6 +3,7 @@ import DeleteEditPendingForAdmin from "./DeleteEditPendingForAdmin";
 import DeleteEditPendingForContectSupplier from "./DeleteEditPendingForContectSupplier";
 import DeleteEditApprovedForContectSupplier from "./DeleteEditApprovedForContectSupplier";
 import DeleteEditApprovedForAdmin from "./DeleteEditApprovedForAdmin";
+import ActivityFeedbackForAdmin from "./ActivityFeedbackForAdmin";
 import ManageActivitiesForm from "./ManageActivitiesForm";
 
 // class ManageActivities extends Component {
@@ -20,6 +21,7 @@ export default function ManageActivities(props) {
         :
         <DeleteEditApprovedForContectSupplier groupName={props.groupName} type="approved" email={props.email} title="פעיליות שאושרו" />
       }
+      <ActivityFeedbackForAdmin groupName={props.groupName} type="approved" email={props.email} title="משוב פעלויות" />
     </div>
   );
 }

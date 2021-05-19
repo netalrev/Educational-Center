@@ -39,3 +39,37 @@ type ApprovedActivities @model {
     phone_number: String!
     email: String!
 }
+
+type ActivityFeedback @model {
+    id: ID!
+    title: String!
+    activityCount: String!
+    date: String!
+    owner: String!
+    img: String
+    zoom: String
+    phone_number: String!
+    email: String!
+    form: [[String!]]
+}
+
+type SubmitedActivityFeedback @model {
+    id: ID!
+    title: String!
+    activityCount: String!
+    date: String!
+    owner: String!
+    img: String
+    zoom: String
+    phone_number: String!
+    email: String!
+    form: [[String!]]
+}
+
+type User @model {
+    id: ID!
+    name: String!
+    email: String!
+    phone_number: String!
+    score: Int!
+}
