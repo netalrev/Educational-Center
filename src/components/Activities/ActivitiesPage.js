@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import ActivityTable from "./ActivityTable";
 
 
@@ -9,8 +8,7 @@ export default function ActivitiesPage(props) {
       email={props.email}
       givenName={props.givenName}
       familyName={props.familyName}
-      phoneNumber={props.phoneNumber}
-      groupName={props.groupName} />
+      phoneNumber={props.phoneNumber} />
   );
 }
 

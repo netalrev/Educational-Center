@@ -19,7 +19,6 @@ export default function CancelParticipationResponsiveDialog(props) {
 
     const deleteSingleUser = async (id_to_delete) => {
         try {
-            console.log(id_to_delete);
             const del = { id: id_to_delete };
             await API.graphql(graphqlOperation(deleteApprovedUser, { input: del }));
         } catch (error) {
@@ -34,7 +33,8 @@ export default function CancelParticipationResponsiveDialog(props) {
     const handleClose = async () => {
         setOpen(false);
         await deleteSingleUser(props.id).then(alert("הסרתך התקבלה בהצלחה"));
-        // window.location.reload(false);
+        window.location.reload(false);
+
     };
     const handleCancel = () => {
         setOpen(false);
@@ -42,7 +42,7 @@ export default function CancelParticipationResponsiveDialog(props) {
 
     return (
         <div>
-            <Button startIcon={<PersonAddDisabledIcon style={{ fill: "rgba(60,60,60)" }}></PersonAddDisabledIcon>} variant="outlined" style={{ fill: "rgba(60,60,60)" }} onClick={handleClickOpen}>
+            <Button startIcon={<PersonAddDisabledIcon></PersonAddDisabledIcon>} variant="outlined" color="primary" onClick={handleClickOpen}>
                 בטל השתתפות
             </Button>
             <Dialog
@@ -51,17 +51,17 @@ export default function CancelParticipationResponsiveDialog(props) {
                 onClose={handleCancel}
                 aria-labelledby="responsive-dialog-title"
             >
-                <DialogTitle id="responsive-dialog-title" style={{ color: "red" }}><b>ביטול השתתפות בפעילות</b></DialogTitle>
+                <DialogTitle id="responsive-dialog-title">{"ביטול השתתפות בפעילות"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        ?האם את/ה בטוח/ה שברצונך לבטל השתתפות
+                        ?האם את\ה בטוח את\ה רוצה לבטל השתתפות
           </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={handleCancel} style={{ fill: "rgba(60,60,60)" }}>
+                    <Button autoFocus onClick={handleCancel} color="primary">
                         בטל
           </Button>
-                    <Button onClick={handleClose} style={{ fill: "rgba(60,60,60)" }} autoFocus>
+                    <Button onClick={handleClose} color="primary" autoFocus>
                         אשר
           </Button>
                 </DialogActions>

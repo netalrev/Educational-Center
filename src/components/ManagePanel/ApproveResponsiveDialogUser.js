@@ -77,7 +77,7 @@ export default function ApproveResponsiveDialogActivity(props) {
 
     return (
         <div>
-            <Button startIcon={<PersonAddIcon style={{ fill: "rgba(60,60,60)" }}></PersonAddIcon>} variant="outlined" style={{ fill: "rgba(60,60,60)" }} onClick={handleClickOpen}>
+            <Button startIcon={<PersonAddIcon></PersonAddIcon>} variant="outlined" color="primary" onClick={handleClickOpen}>
                 אשר
       </Button>
             <Dialog
@@ -86,17 +86,17 @@ export default function ApproveResponsiveDialogActivity(props) {
                 onClose={handleClose}
                 aria-labelledby="responsive-dialog-title"
             >
-                <DialogTitle id="responsive-dialog-title" style={{ color: "red" }}><b>אישור משתתף</b></DialogTitle>
+                <DialogTitle id="responsive-dialog-title">{"אישור משתתף"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        ?האם את/ה בטוח/ה שברצונך לאשר את המשתתפ/ת
+                        האם את\אתה בטוחים שברצונך לאשר את המשתתפ/ת הנ"ל.
           </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={handleCancel} style={{ fill: "rgba(60,60,60)" }}>
+                    <Button autoFocus onClick={handleCancel} color="primary">
                         בטל
           </Button>
-                    <Button onClick={handleClose} style={{ fill: "rgba(60,60,60)" }} autoFocus>
+                    <Button onClick={handleClose} color="primary" autoFocus>
                         אשר
           </Button>
                 </DialogActions>

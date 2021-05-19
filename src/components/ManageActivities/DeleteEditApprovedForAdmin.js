@@ -1,13 +1,6 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { listApprovedActivitiess } from "../../graphql/queries";
-import { API, graphqlOperation } from "aws-amplify";
-import clsx from "clsx";
-
-import DenyResponsiveDialogActivities from "./DenyResponsiveDialogActivities";
-import EditResponsiveDialogActivities from "./EditResponsiveDialogActivities";
-
 import { makeStyles } from "@material-ui/core/styles";
+import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -15,6 +8,11 @@ import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { useState, useEffect } from "react";
+import { listApprovedActivitiess } from "../../graphql/queries";
+import { API, graphqlOperation } from "aws-amplify";
+import DenyResponsiveDialogActivities from "./DenyResponsiveDialogActivities";
+import EditResponsiveDialogActivities from "./EditResponsiveDialogActivities";
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -38,13 +36,9 @@ const columns = [
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 1300,
-        minWidth: 1300,
         margin: "10px",
-        opacity: 0.85,
-        backgroundImage: 'url("https://secure.img1-fg.wfcdn.com/im/04778884/compr-r85/5380/53804891/elswick-lumber-wood-33-l-x-205-w-wallpaper-roll.jpg")',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover', color: "red",
+        backgroundColor: "light gray",
+        color: "red",
         text: "red",
         borderRadius: "4%",
         right: 0,
@@ -81,7 +75,6 @@ export default function DeleteEditPendingForAdmin(props) {
             activity.dates.map((date, index) => <div><p>:מפגש {index + 1}</p><p>תאריך - {date.substring(0, 10).split("-").reverse().join("-")} שעה - {date.substring(11)}</p><br></br></div>),
             <div>
                 <DenyResponsiveDialogActivities groupName={props.groupName} type="approved" id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
-                <br></br>
                 <EditResponsiveDialogActivities zoom={activity.zoom} isZoom={activity.zoom === "" ? false : true} groupName={props.groupName} type="approved" description={activity.description} activityCount={activity.activityCount} dates={activity.dates} idx={index} id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} groupName={props.groupName} />
             </div>
         ))
@@ -90,74 +83,12 @@ export default function DeleteEditPendingForAdmin(props) {
     useEffect(() => {
         fetchAllApprovedActivities();
     }, []);
-    var dates_class = {
-        convert: function (d) {
-            // Converts the date in d to a date-object. The input can be:
-            //   a date object: returned without modification
-            //  an array      : Interpreted as [year,month,day]. NOTE: month is 0-11.
-            //   a number     : Interpreted as number of milliseconds
-            //                  since 1 Jan 1970 (a timestamp) 
-            //   a string     : Any format supported by the javascript engine, like
-            //                  "YYYY/MM/DD", "MM/DD/YYYY", "Jan 31 2009" etc.
-            //  an object     : Interpreted as an object with year, month and date
-            //                  attributes.  **NOTE** month is 0-11.
-            return (
-                d.constructor === Date ? d :
-                    d.constructor === Array ? new Date(d[0], d[1], d[2]) :
-                        d.constructor === Number ? new Date(d) :
-                            d.constructor === String ? new Date(d) :
-                                typeof d === "object" ? new Date(d.year, d.month, d.date) :
-                                    NaN
-            );
-        },
-        compare: function (a, b) {
-            // Compare two dates (could be of any type supported by the convert
-            // function above) and returns:
-            //  -1 : if a < b
-            //   0 : if a = b
-            //   1 : if a > b
-            // NaN : if a or b is an illegal date
-            // NOTE: The code inside isFinite does an assignment (=).
-            return (
-                isFinite(a = this.convert(a).valueOf()) &&
-                    isFinite(b = this.convert(b).valueOf()) ?
-                    (a > b) - (a < b) :
-                    NaN
-            );
-        },
-        inRange: function (d, start, end) {
-            // Checks if date in d is between dates in start and end.
-            // Returns a boolean or NaN:
-            //    true  : if d is between start and end (inclusive)
-            //    false : if d is before start or after end
-            //    NaN   : if one or more of the dates is illegal.
-            // NOTE: The code inside isFinite does an assignment (=).
-            return (
-                isFinite(d = this.convert(d).valueOf()) &&
-                    isFinite(start = this.convert(start).valueOf()) &&
-                    isFinite(end = this.convert(end).valueOf()) ?
-                    start <= d && d <= end :
-                    NaN
-            );
-        }
-    };
-    var tzoffset_start = (new Date()).getTimezoneOffset() * 60000;
-    var tzoffset_end = (new Date()).getTimezoneOffset() * 60000 - 60 * 60000;
-    var current_time = dates_class.convert(new Date(Date.now() - tzoffset_start).toISOString().substring(0, 16));
-    var current_time_20 = dates_class.convert(new Date(Date.now() - tzoffset_end).toISOString().substring(0, 16));
-    function compare_createdAt(a, b) {
-        var a_converted = dates_class.convert(a.createdAt);
-        var b_converted = dates_class.convert(b.createdAt);
-        if (dates_class.compare(a_converted, b_converted) == 1) return 1;
-        else if (dates_class.compare(a_converted, b_converted) == 0) return 0;
-        else return -1;
-    }
+
     const fetchAllApprovedActivities = async () => {
         try {
             const approvedActivitiesData = await API.graphql(graphqlOperation(listApprovedActivitiess));
             const approvedActivitiesList = approvedActivitiesData.data.listApprovedActivitiess.items;
-            setAllApprovedActivitiess(approvedActivitiesList.sort(compare_createdAt));
-            console.log(approvedActivitiesList);
+            setAllApprovedActivitiess(approvedActivitiesList);
         } catch (error) {
             console.log("error on fetching Approved Activities", error);
         }
@@ -181,7 +112,7 @@ export default function DeleteEditPendingForAdmin(props) {
         setExpanded(!expanded);
     };
 
-    var text = <b>{props.title}</b>
+    var text = props.title
     return (
         <Card className={classes.root}>
             <CardHeader

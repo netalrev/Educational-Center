@@ -12,6 +12,12 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { Auth } from 'aws-amplify';
+import { useHistory } from "react-router-dom";
+import ConfirmSignUp from "./ConfirmSignUp";
+
+var history;
+
 function Copyright() {
   return (
     <Typography
@@ -82,10 +88,49 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+var username, password, phone_number, given_name, family_name, birthdate;
+async function signUp() {
+  try {
+    const { user } = await Auth.signUp({
+      username,
+      password,
+      attributes: {
+        phone_number,   // optional - E.164 number convention
+        birthdate,
+        given_name,
+        family_name,
+        // other custom attributes 
+      }
+    });
+    alert(user);
+    window.$mail = username;
+    history.push("/ConfirmSignUp"/* , {state: username}*/);
+    //window.location.reload();
+
+
+  } catch (error) {
+    alert('error signing up:', error);
+  }
+}
+
 export default function SignUp() {
   const classes = useStyles();
+  history = useHistory();
+
+  function signClick(e) {
+    username = document.getElementById("email").value;
+    password = document.getElementById("password").value;
+    phone_number = "+972" + document.getElementById("tel").value;
+    birthdate = document.getElementById("birthdate").value;
+    given_name = document.getElementById("given_name").value;
+    family_name = document.getElementById("family_name").value;
+
+    signUp();
+    e.preventDefault();
+  }
+
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" id="allForm">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -100,19 +145,48 @@ export default function SignUp() {
         >
           הרשמה
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={signClick} validate  >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
                 className={classes.textField}
-                autoComplete="fname"
-                name="firstName"
                 variant="outlined"
                 required
                 fullWidth
-                id="firstName"
+                id="family_name"
+                label="שם משפחה"
+                name="family_name"
+                autoComplete="lname"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                className={classes.textField}
+                autoComplete="fname"
+                name="given_name"
+                variant="outlined"
+                required
+                fullWidth
+                id="given_name"
                 label="שם פרטי"
                 autoFocus
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                className={classes.textField}
+                //autoComplete="bdate"
+                name="birthdate"
+                variant="outlined"
+                required
+                fullWidth
+                type="date"
+                id="birthdate"
+                label="תאריך לידה"
+                defaultValue="1900-01-01"
+              //aria-placeholder="01/01/2000"
+              //autoFocus
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -121,10 +195,12 @@ export default function SignUp() {
                 variant="outlined"
                 required
                 fullWidth
-                id="lastName"
-                label="שם משפחה"
-                name="lastName"
-                autoComplete="lname"
+                id="tel"
+                label="טלפון"
+                name="tel"
+                autoComplete="tel"
+                type="number"
+
               />
             </Grid>
             <Grid item xs={12}>
@@ -186,7 +262,7 @@ export default function SignUp() {
           <Grid container justify="flex-end">
             <Grid item>
               <Link
-                href="/login"
+                href="/register"
                 variant="body2"
                 style={{
                   color: "#ffffff",

@@ -17,20 +17,15 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        maxWidth: 500,
-        minWidth: 500,
+        maxWidth: 1000,
         margin: "10px",
-        opacity: 0.85,
-        backgroundImage: 'url("https://secure.img1-fg.wfcdn.com/im/04778884/compr-r85/5380/53804891/elswick-lumber-wood-33-l-x-205-w-wallpaper-roll.jpg")',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
+        backgroundColor: "light gray",
         color: "red",
         text: "red",
         borderRadius: "4%",
         right: 0,
         transition: "transform 0.15s ease-in-out",
-        marginInline: 400
+        "&:hover": { transform: "scale3d(1.05, 1.05, 1)" },
     },
 
 
@@ -114,7 +109,7 @@ export default function ManageActivitiesFormPending(props) {
         }
         setDates(toReturn);
     }
-    var text = <b>{props.title}</b>
+    var text = props.title;
     return (
         <Card className={classes.root}>
             <CardHeader
@@ -148,7 +143,7 @@ export default function ManageActivitiesFormPending(props) {
                                     id="zoomCheckBox"
                                     checked={checked}
                                     onChange={handleChange}
-                                    fill="red"
+                                    color="primary"
                                     inputProps={{ 'aria-label': 'primary checkbox' }}
                                 />
                             </tr>

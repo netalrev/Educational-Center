@@ -70,7 +70,7 @@ export default function RegisterResponsiveDialog(props) {
 
     return (
         <div>
-            <Button startIcon={<PersonAddIcon style={{ fill: "rgba(60,60,60)" }}></PersonAddIcon>} variant="outlined" style={{ fill: "rgba(60,60,60)" }} onClick={handleClickOpen}>
+            <Button startIcon={<PersonAddIcon></PersonAddIcon>} variant="outlined" color="primary" onClick={handleClickOpen}>
                 הרשמה
             </Button>
             <Dialog
@@ -79,17 +79,17 @@ export default function RegisterResponsiveDialog(props) {
                 onClose={handleCancel}
                 aria-labelledby="responsive-dialog-title"
             >
-                <DialogTitle id="responsive-dialog-title" style={{ color: "red" }}><b>הרשמה לפעילות</b></DialogTitle>
+                <DialogTitle id="responsive-dialog-title">{"הרשמה לפעילות"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        ?האם את/ה בטוח/ה שברצונך להרשם
+                        ?האם את\ה בטוח את\ה רוצה להרשם
           </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={handleCancel} style={{ fill: "rgba(60,60,60)" }}>
+                    <Button autoFocus onClick={handleCancel} color="primary">
                         בטל
           </Button>
-                    <Button onClick={handleClose} style={{ fill: "rgba(60,60,60)" }} autoFocus>
+                    <Button onClick={handleClose} color="primary" autoFocus>
                         אשר
           </Button>
                 </DialogActions>

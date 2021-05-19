@@ -54,7 +54,7 @@ export default function DenyResponsiveDialogActivities(props) {
 
     return (
         <div>
-            <Button startIcon={<DeleteIcon style={{ fill: "rgba(60,60,60)" }}></DeleteIcon>} variant="outlined" style={{ fill: "rgba(60,60,60)" }} onClick={handleClickOpen}>
+            <Button startIcon={<DeleteIcon></DeleteIcon>} variant="outlined" color="primary" onClick={handleClickOpen}>
                 מחק
       </Button>
             <Dialog
@@ -63,17 +63,17 @@ export default function DenyResponsiveDialogActivities(props) {
                 onClose={handleClose}
                 aria-labelledby="responsive-dialog-title"
             >
-                <DialogTitle id="responsive-dialog-title" style={{ color: "red" }}><b>דחיית פעילות</b></DialogTitle>
+                <DialogTitle id="responsive-dialog-title">{"דחיית פעילות"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        ?האם את/ה בטוח/ה שברצונך למחוק את הפעילות
+                        האם את\אתה בטוחים שברצונך למחוק את הפעילות.
           </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={handleCancel} style={{ fill: "rgba(60,60,60)" }}>
+                    <Button autoFocus onClick={handleCancel} color="primary">
                         בטל
           </Button>
-                    <Button onClick={handleClose} style={{ fill: "rgba(60,60,60)" }} autoFocus>
+                    <Button onClick={handleClose} color="primary" autoFocus>
                         מחק
           </Button>
                 </DialogActions>

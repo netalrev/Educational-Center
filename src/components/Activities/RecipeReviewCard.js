@@ -3,13 +3,10 @@ import clsx from "clsx";
 import { useState, useEffect } from "react";
 import { listPendingUsers, listApprovedUsers } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
-import { Scrollbars } from 'rc-scrollbars';
 
 import RegisterResponsiveDialogActivities from "./RegisterResponsiveDialogActivities"
 import CancelRegisterResponsiveDialogActivities from "./CancelRegisterResponsiveDialogActivities"
 import CancelParticipationResponsiveDialogActivities from "./CancelParticipationResponsiveDialogActivities"
-import CancelParticipationResponsiveDialogActivitiesManager from "./CancelParticipationResponsiveDialogActivitiesManager"
-
 import "./RecipeReviewCard.css";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -26,19 +23,14 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import VideocamIcon from '@material-ui/icons/Videocam';
 import VideocamOffIcon from '@material-ui/icons/VideocamOff';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
-import OpenZoomLink from "./OpenZoomLink";
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 320,
-    minWidth: 320,
-    // maxHeight: 700,
+    maxWidth: 345,
     margin: "10px",
-    background: "rgba(255, 255, 255, 0.6)",
-    color: "black",
-    text: "black",
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
+    color: "white",
+    text: "white",
     borderRadius: "4%",
     right: 0,
     transition: "transform 0.15s ease-in-out",
@@ -47,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
   media: {
     height: 0,
-    color: "black",
+    color: "white",
     paddingTop: "56.25%", // 16:9
   },
   expand: {
@@ -58,6 +50,14 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
+  },
+  expandOpen: {
+    transform: "rotate(180deg)",
+    color: "red",
+  },
+  avatar: {
+    backgroundColor: red[500],
+    color: "white",
   },
   subColor: {
     color: "red",
@@ -97,95 +97,22 @@ export default function RecipeReviewCard(props) {
       console.log("error on fetching pending users", error);
     }
   };
-  var dates_class = {
-    convert: function (d) {
-      // Converts the date in d to a date-object. The input can be:
-      //   a date object: returned without modification
-      //  an array      : Interpreted as [year,month,day]. NOTE: month is 0-11.
-      //   a number     : Interpreted as number of milliseconds
-      //                  since 1 Jan 1970 (a timestamp) 
-      //   a string     : Any format supported by the javascript engine, like
-      //                  "YYYY/MM/DD", "MM/DD/YYYY", "Jan 31 2009" etc.
-      //  an object     : Interpreted as an object with year, month and date
-      //                  attributes.  **NOTE** month is 0-11.
-      return (
-        d.constructor === Date ? d :
-          d.constructor === Array ? new Date(d[0], d[1], d[2]) :
-            d.constructor === Number ? new Date(d) :
-              d.constructor === String ? new Date(d) :
-                typeof d === "object" ? new Date(d.year, d.month, d.date) :
-                  NaN
-      );
-    },
-    compare: function (a, b) {
-      // Compare two dates (could be of any type supported by the convert
-      // function above) and returns:
-      //  -1 : if a < b
-      //   0 : if a = b
-      //   1 : if a > b
-      // NaN : if a or b is an illegal date
-      // NOTE: The code inside isFinite does an assignment (=).
-      return (
-        isFinite(a = this.convert(a).valueOf()) &&
-          isFinite(b = this.convert(b).valueOf()) ?
-          (a > b) - (a < b) :
-          NaN
-      );
-    },
-    inRange: function (d, start, end) {
-      // Checks if date in d is between dates in start and end.
-      // Returns a boolean or NaN:
-      //    true  : if d is between start and end (inclusive)
-      //    false : if d is before start or after end
-      //    NaN   : if one or more of the dates is illegal.
-      // NOTE: The code inside isFinite does an assignment (=).
-      return (
-        isFinite(d = this.convert(d).valueOf()) &&
-          isFinite(start = this.convert(start).valueOf()) &&
-          isFinite(end = this.convert(end).valueOf()) ?
-          start <= d && d <= end :
-          NaN
-      );
-    }
-  };
-  var tzoffset_start = (new Date()).getTimezoneOffset() * 60000;
-  var tzoffset_end = (new Date()).getTimezoneOffset() * 60000 - 20 * 60000;
-  var current_time = dates_class.convert(new Date(Date.now() - tzoffset_start).toISOString().substring(0, 16));
-  var current_time_20 = dates_class.convert(new Date(Date.now() - tzoffset_end).toISOString().substring(0, 16));
 
   function whichButton() {
-    var start = Array.from(props.dates).filter(date => (dates_class.compare(dates_class.convert(date), current_time) <= 0) && (dates_class.compare(dates_class.convert(date + 20 * 60000), current_time) === -1)).length !== 0 ? true : false;
-    if (dates_class.compare(dates_class.convert(props.dates[props.dates.length - 1]), current_time) <= 0) {
-      return (<h3 style={{ color: "red" }}>הפעילות הסתיימה</h3>);
-    }
-    else if (props.groupName !== "approvedUsers" && props.zoom !== "") {
-      return (<OpenZoomLink
-        zoom={props.zoom} />);
-    }
-    else if (props.groupName !== "approvedUsers") {
-      return (<h3 style={{ color: "green" }}>פעילות פרונטלית</h3>);
-    }
-    else if (approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length === 0 && dates_class.compare(dates_class.convert(props.dates[0]), current_time) <= 0) {
-      return (<h3 style={{ color: "red" }}>מועד הרשמה אחרון עבר</h3>);
-    }
-    else if (start === true && approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
-      if (props.zoom !== "") {
-        return (<OpenZoomLink
-          zoom={props.zoom} />);
-      }
-      else {
-        return (<h3 style={{ color: "green" }}>הפעילות התחילה</h3>);
-      }
-    }
-    else if (approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0 && dates_class.compare(dates_class.convert(props.dates[0]), current_time) <= 0) {
-      return (<h3 style={{ color: "green" }}>הקישור יפתח במפגש הבא</h3>);
-    }
-    else if (pendingUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
+    if (pendingUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
       return (<CancelRegisterResponsiveDialogActivities
+        email={props.email}
+        givenName={props.givenName}
+        familyName={props.familyName}
+        phoneNumber={props.phoneNumber}
         id={pendingUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName)[0].id} />);
     }
     else if (approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
       return (<CancelParticipationResponsiveDialogActivities
+        email={props.email}
+        givenName={props.givenName}
+        familyName={props.familyName}
+        phoneNumber={props.phoneNumber}
         id={approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName)[0].id} />);
     }
     else {
@@ -205,7 +132,7 @@ export default function RecipeReviewCard(props) {
   return (
     <Card className={classes.root}>
       <CardHeader
-        title={<h1 className="title__h1" style={{ color: "black" }}><b>{props.title}</b> {approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0 ? <VerifiedUserIcon style={{ fill: "rgba(60,60,60)" }}></VerifiedUserIcon> : ""}</h1>}
+        title={<h1 className="title__h1">{props.title} {approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0 ? <VerifiedUserIcon color="primary"></VerifiedUserIcon> : ""}</h1>}
         subheader={
           <Typography className={classes.subColor}>
             ע"י: {props.owner}
@@ -216,8 +143,9 @@ export default function RecipeReviewCard(props) {
         className={classes.media}
         image={props.img === "" ? "https://vcunited.club/wp-content/uploads/2020/01/No-image-available-2.jpg" : props.img}
       />
+      <CardContent></CardContent>
       <CardActions style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-        {props.zoom === "" ? <VideocamOffIcon style={{ fill: "rgba(60,60,60)" }}></VideocamOffIcon> : <VideocamIcon style={{ fill: "rgba(60,60,60)" }}></VideocamIcon>}
+        {props.zoom === "" ? <VideocamOffIcon color="primary"></VideocamOffIcon> : <VideocamIcon color="primary"></VideocamIcon>}
         {whichButton()}
         <IconButton
           className={clsx(classes.expand, {
@@ -232,58 +160,19 @@ export default function RecipeReviewCard(props) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Scrollbars style={{ width: 320, height: 300, float: "right" }}>
-            <Typography paragraph>
-              {props.groupName !== "approvedUsers" ?
-                <div>
-                  <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                    <PeopleAltIcon style={{ fill: "rgba(60,60,60)", marginInlineEnd: 10 }}></PeopleAltIcon>
-                    <h3>כמות משתתפים: {approvedUsers.filter(users => users.activity_id === props.id).length}</h3>
-                  </div>
-                  <br></br>
-                  {approvedUsers.filter(users => users.activity_id === props.id).length !== 0 ?
-                    <table style={{ margin: "0 auto" }}>
-                      <th> </th>
-                      <th>
-                        שם התלמיד/ה
-                  </th>
-                      {approvedUsers.filter(users => users.activity_id === props.id).map((user) =>
-                        <tr>
-                          <td style={{ width: 150 }}>
-                            <CancelParticipationResponsiveDialogActivitiesManager
-                              id={approvedUsers.filter(users2 => users2.activity_id === props.id).filter(users2 => users2.name === user.name)[0].id}
-                            />
-                          </td>
-                          <td style={{ width: 130 }}>
-                            {user.name}
-                          </td>
-                        </tr>
-                      )}
-                    </table>
-                    :
-                    ""
-                  }
-                </div>
-                :
-                ""
-              }
-              <Typography variant="body2" color="white" component="p">
-                <h3>מספר מפגשים: {props.activityCount}</h3>
-                <br></br>
-                <h3>:תאריכים</h3>
-                <br></br>
-                {props.dates.map((date, index) => {
-                  return <p><b> מפגש {index + 1} :</b> תאריך - <b>{date.substring(0, 10).split("-").reverse().join("-")}</b> שעה - <b>{date.substring(11)}</b></p>
-                })}
-              </Typography></Typography>
-            <h3>:תיאור הפעילות</h3>
-            <br></br>
-            <Typography>
-              {props.description}
+          <Typography paragraph>
+            <Typography variant="body2" color="white" component="p">
+              <h3>מספר מפגשים: {props.activityCount}</h3>
+              <p>-</p>
+              <h3>:תאריכים</h3>
+              {props.dates.map((date, index) => {
+                return <p> מפגש {index + 1} : תאריך - {date.substring(0, 10).split("-").reverse().join("-")} שעה - {date.substring(11)}</p>
+              })}
+              <p>-</p>
+              <h3>:תיאור הפעילות</h3>
             </Typography>
-            <br></br>
-            <br></br>
-          </Scrollbars>
+            {props.description}
+          </Typography>
         </CardContent>
       </Collapse>
     </Card >

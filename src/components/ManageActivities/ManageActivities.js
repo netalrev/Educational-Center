@@ -8,7 +8,7 @@ import ManageActivitiesForm from "./ManageActivitiesForm";
 // class ManageActivities extends Component {
 export default function ManageActivities(props) {
   return (
-    <div style={{ align: "justify", align: "center" }}>
+    <div>
       <ManageActivitiesForm phoneNumber={props.phoneNumber} email={props.email} givenName={props.givenName} familyName={props.familyName} id="1" title="העלאת תוכן" />
       {props.groupName === "admins" ?
         <DeleteEditPendingForAdmin groupName={props.groupName} type="pending" email={props.email} title="פעיליות שטרם שאושרו" />

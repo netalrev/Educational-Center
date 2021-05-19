@@ -41,7 +41,7 @@ export default function DenyResponsiveDialogUser(props) {
 
     return (
         <div>
-            <Button startIcon={<PersonAddDisabledIcon style={{ fill: "rgba(60,60,60)" }}></PersonAddDisabledIcon>} variant="outlined" style={{ fill: "rgba(60,60,60)" }} onClick={handleClickOpen}>
+            <Button startIcon={<PersonAddDisabledIcon></PersonAddDisabledIcon>} variant="outlined" color="primary" onClick={handleClickOpen}>
                 דחה
             </Button>
             <Dialog
@@ -50,17 +50,17 @@ export default function DenyResponsiveDialogUser(props) {
                 onClose={handleCancel}
                 aria-labelledby="responsive-dialog-title"
             >
-                <DialogTitle id="responsive-dialog-title" style={{ color: "red" }}><b>ביטול הרשמה לפעילות</b></DialogTitle>
+                <DialogTitle id="responsive-dialog-title">{"ביטול הרשמה לפעילות"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        ?האם את/ה בטוח/ה שברצונך לדחות הרשמה של משתתפ/ת זה
+                        ?האם את/ה בטוח את/ה רוצה לדחות הרשמה של משתתפ/ת זה
           </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={handleCancel} style={{ fill: "rgba(60,60,60)" }}>
+                    <Button autoFocus onClick={handleCancel} color="primary">
                         בטל
           </Button>
-                    <Button onClick={handleClose} style={{ fill: "rgba(60,60,60)" }} autoFocus>
+                    <Button onClick={handleClose} color="primary" autoFocus>
                         אשר
           </Button>
                 </DialogActions>
