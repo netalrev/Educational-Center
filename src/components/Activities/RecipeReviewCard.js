@@ -155,7 +155,8 @@ export default function RecipeReviewCard(props) {
 
   function whichButton() {
     var start = Array.from(props.dates).filter(date => (dates_class.compare(dates_class.convert(date), current_time) <= 0) && (dates_class.compare(dates_class.convert(date + 20 * 60000), current_time) === -1)).length !== 0 ? true : false;
-    if (dates_class.compare(dates_class.convert(props.dates[props.dates.length - 1]), current_time) <= 0) {
+    // console.log(props.title, dates_class.compare(dates_class.convert(props.dates[props.dates.length - 1]), current_time_20), dates_class.convert(props.dates[props.dates.length - 1]), current_time_20);
+    if (dates_class.compare(dates_class.convert(props.dates[props.dates.length - 1]), current_time_20) === 0) {
       return (<h3 style={{ color: "red" }}>הפעילות הסתיימה</h3>);
     }
     else if (props.groupName !== "approvedUsers" && props.zoom !== "") {
@@ -177,7 +178,7 @@ export default function RecipeReviewCard(props) {
         return (<h3 style={{ color: "green" }}>הפעילות התחילה</h3>);
       }
     }
-    else if (approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0 && dates_class.compare(dates_class.convert(props.dates[0]), current_time) <= 0) {
+    else if (approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0 && dates_class.compare(dates_class.convert(props.dates[0]), current_time_20) <= 0) {
       return (<h3 style={{ color: "green" }}>הקישור יפתח במפגש הבא</h3>);
     }
     else if (pendingUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {

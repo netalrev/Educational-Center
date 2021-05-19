@@ -184,23 +184,11 @@ export default function ManageActivitiesFormEditPending(props) {
             <CardHeader
                 title={text}
             />
-            {/* <CardActions disableSpacing>
-                <IconButton
-                    className={clsx(classes.expand, {
-                        [classes.expandOpen]: expanded,
-                    })}
-                    onClick={handleExpandClick}
-                    aria-expanded={expanded}
-                    aria-label="show more"
-                >
-                    <ExpandMoreIcon />
-                </IconButton>
-            </CardActions> */}
-            {/* <Collapse in={expanded} timeout="auto" unmountOnExit> */}
             <CardContent>
+                {console.log(props.email)}
                 {props.groupName === "admins" ?
-                    allPendingActivitiess.map((activity, idx) => {
-                        if (props.idx === idx) {
+                    allPendingActivitiess.map(activity => {
+                        if (props.id === activity.id) {
                             return (
                                 <div style={{ display: "flex", justifyContent: "center" }}>
                                     <table>
@@ -251,8 +239,8 @@ export default function ManageActivitiesFormEditPending(props) {
                         }
                     })
                     :
-                    pendingActivitiess.map((activity, idx) => {
-                        if (props.idx === idx) {
+                    pendingActivitiess.map(activity => {
+                        if (props.id === activity.id) {
                             return (
                                 <div style={{ display: "flex", justifyContent: "center" }}>
                                     <table>

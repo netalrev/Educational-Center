@@ -38,9 +38,25 @@ export default function EditResponsiveDialogActivities(props) {
                     <DialogContentText>
                         ?אילו שינויים ברצונך לערוך
                         {props.type === "pending" ?
-                            <ManageActivitiesFormEditPending type="pending" zoom={props.zoom} isZoom={props.isZoom} groupName={props.groupName} dates={props.dates} activityCount={props.activityCount} idx={props.idx} email={props.email} />
+                            <ManageActivitiesFormEditPending
+                                type="pending"
+                                zoom={props.zoom}
+                                isZoom={props.isZoom}
+                                groupName={props.groupName}
+                                dates={props.dates}
+                                activityCount={props.activityCount}
+                                id={props.id}
+                                email={props.email} />
                             :
-                            <ManageActivitiesFormEditApproved type="approved" zoom={props.zoom} isZoom={props.isZoom} groupName={props.groupName} dates={props.dates} activityCount={props.activityCount} idx={props.idx} email={props.email} />
+                            <ManageActivitiesFormEditApproved
+                                type="approved"
+                                zoom={props.zoom}
+                                isZoom={props.isZoom}
+                                groupName={props.groupName}
+                                dates={props.dates}
+                                activityCount={props.activityCount}
+                                id={props.id}
+                                email={props.email} />
                         }
                     </DialogContentText>
                 </DialogContent>

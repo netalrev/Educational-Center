@@ -142,9 +142,28 @@ export default function DeleteEditPendingForAdmin(props) {
             <Typography>{activity.description}</Typography>,
             activity.dates.map((date, index) => <div><p>:מפגש {index + 1}</p><p>תאריך - {date.substring(0, 10).split("-").reverse().join("-")} שעה - {date.substring(11)}</p><br></br></div>),
             <div>
-                <DenyResponsiveDialogActivities groupName={props.groupName} type="pending" id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} />
+                <DenyResponsiveDialogActivities
+                    groupName={props.groupName}
+                    type="pending"
+                    id={activity.id}
+                    email={props.email}
+                    givenName={props.givenName}
+                    familyName={props.familyName} />
                 <br></br>
-                <EditResponsiveDialogActivities zoom={activity.zoom} isZoom={activity.zoom === "" ? false : true} groupName={props.groupName} type="pending" description={activity.description} activityCount={activity.activityCount} dates={activity.dates} idx={index} id={activity.id} email={props.email} givenName={props.givenName} familyName={props.familyName} groupName={props.groupName} />
+                <EditResponsiveDialogActivities
+                    zoom={activity.zoom}
+                    isZoom={activity.zoom === "" ? false : true}
+                    groupName={props.groupName}
+                    type="pending"
+                    description={activity.description}
+                    activityCount={activity.activityCount}
+                    dates={activity.dates}
+                    idx={index}
+                    id={activity.id}
+                    email={props.email}
+                    givenName={props.givenName}
+                    familyName={props.familyName}
+                    groupName={props.groupName} />
             </div>
         ))
     });

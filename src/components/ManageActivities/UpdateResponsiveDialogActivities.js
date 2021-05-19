@@ -155,6 +155,7 @@ export default function UpdateResponsiveDialog(props) {
             to_edit.dates = Array.from(document.getElementsByName("dates")).map(element => element.value).sort(compare_dates);
             delete to_edit.createdAt;
             delete to_edit.updatedAt;
+            console.log(to_edit);
             const activityData = await API.graphql(graphqlOperation(updateApprovedActivities, { input: to_edit }));
             const approvedActivityList = [...allApprovedActivitiess];
             var idx = allApprovedActivitiess.filter((activity, idx) => {

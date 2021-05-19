@@ -1,20 +1,15 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
-import IconButton from "@material-ui/core/IconButton";
 import { red } from "@material-ui/core/colors";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import FormElement from "./FormElement";
 import TextField from '@material-ui/core/TextField';
 import UpdateResponsiveDialogActivities from "./UpdateResponsiveDialogActivities";
 import { useState, useEffect } from "react";
 import { listApprovedActivitiess } from "../../graphql/queries";
-import { Amplify, Auth, API, graphqlOperation } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
 import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles((theme) => ({
@@ -147,6 +142,7 @@ export default function ManageActivitiesFormEditApproved(props) {
     function fillDateInputs() {
         var toReturn = [];
         var tzoffset = (new Date()).getTimezoneOffset() * 60000;
+        console.log(props.activityCount, props.dates)
         for (var i = 0; i < props.activityCount; i++) {
             var temp = ":תאריך פעילות מספר" + " " + (i + 1)
             toReturn.push(
@@ -183,23 +179,10 @@ export default function ManageActivitiesFormEditApproved(props) {
             <CardHeader
                 title={text}
             />
-            {/* <CardActions disableSpacing>
-                <IconButton
-                    className={clsx(classes.expand, {
-                        [classes.expandOpen]: expanded,
-                    })}
-                    onClick={handleExpandClick}
-                    aria-expanded={expanded}
-                    aria-label="show more"
-                >
-                    <ExpandMoreIcon />
-                </IconButton>
-            </CardActions>
-            <Collapse in={expanded} timeout="auto" unmountOnExit> */}
             <CardContent>
                 {props.groupName === "admins" ?
-                    allApprovedActivitiess.map((activity, idx) => {
-                        if (props.idx === idx) {
+                    allApprovedActivitiess.map(activity => {
+                        if (props.id === activity.id) {
                             return (
 
                                 <div style={{ display: "flex", justifyContent: "center" }}>
@@ -251,8 +234,8 @@ export default function ManageActivitiesFormEditApproved(props) {
                         }
                     })
                     :
-                    approvedActivitiess.map((activity, idx) => {
-                        if (props.idx === idx) {
+                    approvedActivitiess.map(activity => {
+                        if (props.id === activity.id) {
                             return (
                                 <div style={{ display: "flex", justifyContent: "center" }}>
                                     <table>

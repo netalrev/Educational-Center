@@ -71,7 +71,7 @@ export default function ActivityTable(props) {
     var tzoffset_end = (new Date()).getTimezoneOffset() * 60000 - 60 * 60000;
     var tzoffset_59 = (new Date()).getTimezoneOffset() * 60000 + 59 * 60000;
     var current_time_2 = dates_class.convert(new Date(Date.now() - tzoffset_59).toISOString().substring(0, 16));
-
+    console.log(dates_class.convert(new Date(Date.now() + 60 * 60000).toString('he-il')), current_time_2);
     var current_time = dates_class.convert(new Date(Date.now() - tzoffset_end).toISOString().substring(0, 16));
     function comparing(a, b) {
         var i = 0, j = 0;
