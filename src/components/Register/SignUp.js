@@ -15,6 +15,8 @@ import Container from "@material-ui/core/Container";
 import { a, Auth } from 'aws-amplify';
 import { useHistory } from "react-router-dom";
 import ConfirmSignUp from "./ConfirmSignUp";
+import { red } from "@material-ui/core/colors";
+import "./SignUp.css";
 
 var history;
 
@@ -67,13 +69,15 @@ const useStyles = makeStyles((theme) => ({
     border: "3px solid red",
     borderRadius: "9px",
 
+
     "& label.Mui-focused": {
-      color: "white",
+      color: "red",
+
     },
     "& input": {
       color: "white",
-    },
 
+    },
     "& label": {
       color: "white",
     },
@@ -93,13 +97,17 @@ async function signUp() {
   try {
 
     if (isNaN(phone_number.substring(1)) || phone_number.length !== 14) {
+      alert("מספר פלאפון לא חוקי");
       throw Error;
     }
     else if (/\d/.test(given_name) || /\d/.test(family_name)) {
+      alert("שם פרטי/משפחה לא חוקי");
       throw Error;
     }
-    else if (birthdate.toString() == "1900-01-01") throw Error;
-
+    else if (birthdate.toString() == "1900-01-01" || parseInt(birthdate.toString().split("-")[0]) <= 1901) {
+      alert("תאריך לידה לא חוקי");
+      throw Error;
+    }
     const { user } = await Auth.signUp({
       username,
       password,
@@ -194,6 +202,10 @@ export default function SignUp() {
                 id="birthdate"
                 label="תאריך לידה"
                 defaultValue="1900-01-01"
+                style={
+                  {
+                    color: "red",
+                  }}
               //value="1900-01-01"
               //aria-placeholder="01/01/2000"
               //autoFocus
