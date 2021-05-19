@@ -187,3 +187,150 @@ export const onDeleteApprovedActivities = /* GraphQL */ `
     }
   }
 `;
+export const onCreateActivityFeedback = /* GraphQL */ `
+  subscription OnCreateActivityFeedback {
+    onCreateActivityFeedback {
+      id
+      title
+      activityCount
+      date
+      owner
+      img
+      zoom
+      phone_number
+      email
+      form
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateActivityFeedback = /* GraphQL */ `
+  subscription OnUpdateActivityFeedback {
+    onUpdateActivityFeedback {
+      id
+      title
+      activityCount
+      date
+      owner
+      img
+      zoom
+      phone_number
+      email
+      form
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteActivityFeedback = /* GraphQL */ `
+  subscription OnDeleteActivityFeedback {
+    onDeleteActivityFeedback {
+      id
+      title
+      activityCount
+      date
+      owner
+      img
+      zoom
+      phone_number
+      email
+      form
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateSubmitedActivityFeedback = /* GraphQL */ `
+  subscription OnCreateSubmitedActivityFeedback {
+    onCreateSubmitedActivityFeedback {
+      id
+      title
+      activityCount
+      date
+      owner
+      img
+      zoom
+      phone_number
+      email
+      form
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateSubmitedActivityFeedback = /* GraphQL */ `
+  subscription OnUpdateSubmitedActivityFeedback {
+    onUpdateSubmitedActivityFeedback {
+      id
+      title
+      activityCount
+      date
+      owner
+      img
+      zoom
+      phone_number
+      email
+      form
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteSubmitedActivityFeedback = /* GraphQL */ `
+  subscription OnDeleteSubmitedActivityFeedback {
+    onDeleteSubmitedActivityFeedback {
+      id
+      title
+      activityCount
+      date
+      owner
+      img
+      zoom
+      phone_number
+      email
+      form
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateUser = /* GraphQL */ `
+  subscription OnCreateUser {
+    onCreateUser {
+      id
+      name
+      email
+      phone_number
+      score
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateUser = /* GraphQL */ `
+  subscription OnUpdateUser {
+    onUpdateUser {
+      id
+      name
+      email
+      phone_number
+      score
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteUser = /* GraphQL */ `
+  subscription OnDeleteUser {
+    onDeleteUser {
+      id
+      name
+      email
+      phone_number
+      score
+      createdAt
+      updatedAt
+    }
+  }
+`;

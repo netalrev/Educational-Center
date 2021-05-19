@@ -161,3 +161,130 @@ export const listApprovedActivitiess = /* GraphQL */ `
     }
   }
 `;
+export const getActivityFeedback = /* GraphQL */ `
+  query GetActivityFeedback($id: ID!) {
+    getActivityFeedback(id: $id) {
+      id
+      title
+      activityCount
+      date
+      owner
+      img
+      zoom
+      phone_number
+      email
+      form
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listActivityFeedbacks = /* GraphQL */ `
+  query ListActivityFeedbacks(
+    $filter: ModelActivityFeedbackFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listActivityFeedbacks(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        title
+        activityCount
+        date
+        owner
+        img
+        zoom
+        phone_number
+        email
+        form
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getSubmitedActivityFeedback = /* GraphQL */ `
+  query GetSubmitedActivityFeedback($id: ID!) {
+    getSubmitedActivityFeedback(id: $id) {
+      id
+      title
+      activityCount
+      date
+      owner
+      img
+      zoom
+      phone_number
+      email
+      form
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listSubmitedActivityFeedbacks = /* GraphQL */ `
+  query ListSubmitedActivityFeedbacks(
+    $filter: ModelSubmitedActivityFeedbackFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listSubmitedActivityFeedbacks(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        title
+        activityCount
+        date
+        owner
+        img
+        zoom
+        phone_number
+        email
+        form
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getUser = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      id
+      name
+      email
+      phone_number
+      score
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listUsers = /* GraphQL */ `
+  query ListUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        email
+        phone_number
+        score
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
