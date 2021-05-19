@@ -12,7 +12,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { Auth } from 'aws-amplify';
+import { a, Auth } from 'aws-amplify';
 import { useHistory } from "react-router-dom";
 import ConfirmSignUp from "./ConfirmSignUp";
 
@@ -91,6 +91,15 @@ const useStyles = makeStyles((theme) => ({
 var username, password, phone_number, given_name, family_name, birthdate;
 async function signUp() {
   try {
+
+    if (isNaN(phone_number.substring(1)) || phone_number.length !== 14) {
+      throw Error;
+    }
+    else if (/\d/.test(given_name) || /\d/.test(family_name)) {
+      throw Error;
+    }
+    else if (birthdate.toString() == "1900-01-01") throw Error;
+
     const { user } = await Auth.signUp({
       username,
       password,
@@ -109,7 +118,7 @@ async function signUp() {
 
 
   } catch (error) {
-    alert('error signing up:', error);
+    alert('אנא וודא שהפרטים נכונים', error);
   }
 }
 
@@ -118,7 +127,6 @@ export default function SignUp() {
   history = useHistory();
 
   function signClick(e) {
-    alert("kaki");
     username = document.getElementById("email").value;
     password = document.getElementById("password").value;
     phone_number = "+972" + document.getElementById("tel").value;
@@ -185,6 +193,8 @@ export default function SignUp() {
                 type="date"
                 id="birthdate"
                 label="תאריך לידה"
+                defaultValue="1900-01-01"
+              //value="1900-01-01"
               //aria-placeholder="01/01/2000"
               //autoFocus
               />
