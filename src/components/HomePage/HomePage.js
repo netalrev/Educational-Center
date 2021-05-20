@@ -20,6 +20,7 @@ export default function HomePage() {
             color: "white",
           }}
           className="glow-on-hover"
+          href="/activitiesPage"
         >
           לחץ כאן לכל הפעילויות
         </Button>
