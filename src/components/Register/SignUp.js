@@ -108,6 +108,10 @@ async function signUp() {
       alert("תאריך לידה לא חוקי");
       throw Error;
     }
+    else if (password.length < 8) {
+      alert("אנא הכנס סיסמה באורך לפחות 8 תווים");
+      throw Error;
+    }
     const { user } = await Auth.signUp({
       username,
       password,
@@ -119,14 +123,14 @@ async function signUp() {
         // other custom attributes 
       }
     });
-    alert(user);
+    alert("קוד לאישור הרשמה נשלח אל כתובת המייל שלך");
     window.$mail = username;
     history.push("/ConfirmSignUp"/* , {state: username}*/);
     //window.location.reload();
 
 
   } catch (error) {
-    alert('אנא וודא שהפרטים נכונים', error);
+    console.log('שגיאת הרשמה', error);
   }
 }
 
@@ -206,9 +210,6 @@ export default function SignUp() {
                   {
                     color: "red",
                   }}
-              //value="1900-01-01"
-              //aria-placeholder="01/01/2000"
-              //autoFocus
               />
             </Grid>
             <Grid item xs={12} sm={6}>
