@@ -60,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "9px",
 
     "& label.Mui-focused": {
+      padding: "10px",
       color: "white",
     },
     "& input": {
@@ -67,6 +68,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     "& label": {
+      padding: "10px",
       color: "white",
     },
     "& .MuiInput-underline:after": {
@@ -74,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
     },
     "& .MuiOutlinedInput-root": {
       "&.Mui-focused fieldset": {
-        borderColor: "white",
+        borderColor: "black",
       },
     },
   },
@@ -87,13 +89,14 @@ async function confirmSignUp() {
     history.push("/register");
     return;
   } catch (error) {
-    alert('error confirming sign up', error);
+    alert('הקוד שהוזן אינו תקין', error);
   }
 }
 async function resendConfirmationCode() {
+  const mail = window.$mail;
   try {
     await Auth.resendSignUp(window.$mail);
-    console.log('code resent successfully');
+    alert('קוד נשלח לכתובת המייל ' + mail);
   } catch (err) {
     console.log('error resending code: ', err);
   }
@@ -106,11 +109,9 @@ export default function ConfirmSignUp(props) {
 
   function confirmClick(e) {
     username = mail;
-    alert(mail);
     code = document.getElementById("code").value;
     confirmSignUp();
     e.preventDefault();
-
   }
   return (
     <Container component="main" maxWidth="xs" id="allForm">
@@ -164,7 +165,13 @@ export default function ConfirmSignUp(props) {
         <button
           onClick={resendConfirmationCode}
           style={{
+            backgroundColor: "red",
+            padding: "18px 18px",
+            fontSize: "18px",
             color: "#ffffff",
+            marginTop: "20px",
+            borderRadius: "9px",
+            borderColor: "red",
           }}
         >
           לא קיבלתי קוד, שלח מחדש

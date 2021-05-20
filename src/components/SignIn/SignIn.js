@@ -76,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "9px",
     color: "white",
     "& label.Mui-focused": {
+      padding: "10px",
       color: "white",
     },
     "& input": {
@@ -83,6 +84,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     "& label": {
+      padding: "10px",
       color: "white",
     },
     "& .MuiInput-underline:after": {
@@ -91,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiOutlinedInput-root": {
       "& fieldset": {},
       "&.Mui-focused fieldset": {
-        borderColor: "white",
+        borderColor: "black",
       },
     },
   },
@@ -106,7 +108,7 @@ async function signIn() {
     history.push("/register");
     document.getElementById("allForm").style.display = "none";
     window.location.reload();
-    
+
   } catch (error) {
     alert("אנא וודא כי הפרטים נכונים");
     history.push("/register");

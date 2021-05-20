@@ -18,6 +18,7 @@ import ConfirmSignUp from "./ConfirmSignUp";
 import { red } from "@material-ui/core/colors";
 import "./SignUp.css";
 
+
 var history;
 
 function Copyright() {
@@ -71,7 +72,8 @@ const useStyles = makeStyles((theme) => ({
 
 
     "& label.Mui-focused": {
-      color: "red",
+      padding: "10px",
+      color: "white",
 
     },
     "& input": {
@@ -79,6 +81,7 @@ const useStyles = makeStyles((theme) => ({
 
     },
     "& label": {
+      padding: "10px",
       color: "white",
     },
     "& .MuiInput-underline:after": {
@@ -86,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
     },
     "& .MuiOutlinedInput-root": {
       "&.Mui-focused fieldset": {
-        borderColor: "white",
+        borderColor: "black",
       },
     },
   },
