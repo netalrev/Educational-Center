@@ -96,12 +96,12 @@ var username, password, phone_number, given_name, family_name, birthdate;
 async function signUp() {
   try {
 
-    if (isNaN(phone_number.substring(1)) || phone_number.length !== 14) {
-      alert("מספר פלאפון לא חוקי");
+    if (/[^א-תa-zA-Z]/.test(given_name) || /[^א-תa-zA-Z]/.test(family_name)) {
+      alert("שם פרטי/משפחה לא חוקי");
       throw Error;
     }
-    else if (/\d/.test(given_name) || /\d/.test(family_name)) {
-      alert("שם פרטי/משפחה לא חוקי");
+    else if (phone_number[4] != '0' || isNaN(phone_number.substring(1)) || phone_number.length !== 14) {
+      alert("מספר פלאפון לא חוקי");
       throw Error;
     }
     else if (birthdate.toString() == "1900-01-01" || parseInt(birthdate.toString().split("-")[0]) <= 1901) {
