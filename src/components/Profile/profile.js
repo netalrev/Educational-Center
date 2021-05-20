@@ -26,7 +26,7 @@ class profile extends Component {
           </a>
           <h6 title="Level">
             <i className="fas fa-user-graduate"></i>{" "}
-            <span className="Level">{" "} {level} {" "} </span>
+            <span className="Level"> {level} </span>
           </h6>
         </div>
 
@@ -35,22 +35,19 @@ class profile extends Component {
             <h6 title="Number of pens created by the user">
               רישום לפעילויות <i className="fas fa-edit"></i>
             </h6>
-<<<<<<< HEAD
-=======
-            <p>{" "} {registeredActivities} {" "}</p>
->>>>>>> 102050345146989bd659eecd90f2d3bab2b808ad
+            <p> {registeredActivities} </p>
           </div>
           <div className="ds projects">
             <h6 title="Number of projects created by the user">
               התקדמות בפעילויות <i className="fas fa-project-diagram"></i>
             </h6>
-            <p>{" "} {procces} {" "}</p>
+            <p> {procces} </p>
           </div>
           <div className="ds posts">
             <h6 title="Number of posts">
               דרגה הבאה <i className="fas fa-comments"></i>
             </h6>
-            <p>{" "} {nextLevel} {" "}</p>
+            <p> {nextLevel} </p>
           </div>
         </div>
         <div className="ds-skill">
