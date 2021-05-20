@@ -7,8 +7,8 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
-import { listSubmitedActivityFeedbacks, listActivityFeedbacks } from "../../graphql/queries";
-import { deleteActivityFeedback, createSubmitedActivityFeedback, updateActivityFeedback } from "../../graphql/mutations";
+import { listUsers, listSubmitedActivityFeedbacks, listActivityFeedbacks } from "../../graphql/queries";
+import { updateUser, deleteActivityFeedback, createSubmitedActivityFeedback, updateActivityFeedback } from "../../graphql/mutations";
 
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
@@ -21,6 +21,41 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
     const [activitiesFeedback, setActivitiesFeedback] = useState([]);
     const [allActivitiesFeedback, setAllActivitiesFeedback] = useState([]);
     const [allSubmittedActivitiesFeedback, setSubmittedActivitiesFeedback] = useState([]);
+    const [users, setUsers] = useState([]);
+    const fetchUsers = async () => {
+        try {
+            const usersData = await API.graphql(graphqlOperation(listUsers));
+            const usersList = usersData.data.listUsers.items;
+            setUsers(usersList);
+        } catch (error) {
+            console.log("error on fetching Pending Activities", error);
+        }
+    };
+    const updateScore = async (to_update, to_add) => {
+        try {
+            var list = users.filter(user => user.id === to_update);
+            const to_edit = list[0];
+            to_edit.score = to_edit.score + to_add;
+            delete to_edit.createdAt;
+            delete to_edit.updatedAt;
+            const userData = await API.graphql(graphqlOperation(updateUser, { input: to_edit }));
+            const userActivityList = [...users];
+            var idx = users.filter((user, idx) => {
+                if (user.id === to_update) return idx
+            });
+            userActivityList[idx[0]] = userData.data.updateUser;
+            setUsers(userActivityList);
+        } catch (error) {
+            console.log("Error in updating pending activity", error);
+        }
+    }
+    // id: ID!
+    //     name: String!
+    //     email: String!
+    //     phone_number: String!
+    //     score: Int!
+
+
     // useEffect(() => { // Fetch for content suppliers
     //     fetchActivitiesFeedbacks();
     // }, []);
@@ -82,7 +117,9 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
     useEffect(() => { // Fetch for admins
         fetchSubmittedActivitiesFeedbacks();
     }, []);
-
+    useEffect(() => {
+        fetchUsers();
+    }, []);
     const fetchSubmittedActivitiesFeedbacks = async () => {
         try {
             const submitteActivitiesFeedbackData = await API.graphql(graphqlOperation(listSubmitedActivityFeedbacks));
@@ -192,11 +229,25 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
     const handleClickOpen = () => {
         setOpen(true);
     };
-
+    const update_S = async (to_update, score) => {
+        await updateScore(to_update, score);
+    }
     const handleClose = async () => {
         setOpen(false);
         var to_del = allActivitiesFeedback.filter(feedback => feedback.activity_id === props.id)[0].id;
-        await editActivityFeedback(props.id).then(alert("בקשתך לעריכת התוכן המבוקש התקבלה בהצלחה.")).then(await createNewSubmittedFeedback()).then(await delete_ActivityFeedback(to_del));
+        await editActivityFeedback(props.id).then(
+            ((allActivitiesFeedback.filter(feedback => feedback.activity_id === props.id)[0].form).map(elm => {
+                var toReturn = [];
+                toReturn.push(users.filter(user => user.email === elm[1])[0].id);
+                toReturn.push(parseInt(elm[3]) + parseInt(elm[4]) + parseInt(elm[5]));
+                console.log("toReturn", toReturn);
+                return toReturn;
+            })).forEach(user => {
+                update_S(user[0], user[1]);
+            })
+
+        ).then(alert("משוב הוזן בהצלחה.")).then(await createNewSubmittedFeedback()).then(await delete_ActivityFeedback(to_del));
+
         window.location.reload(false);
     };
     const handleCancel = () => {

@@ -4,6 +4,9 @@ import Navbar from "./components/Navbar/Navbar";
 import Loading from "./components/Loading/Loading";
 import Profile from "./components/Profile/profile";
 import SignUp from "./components/Register/SignUp";
+import { useState, useEffect } from "react";
+import { createUser } from "./graphql/mutations";
+import { listUsers } from "./graphql/queries";
 import SignIn from "./components/SignIn/SignIn";
 import ForgetPassword from "./components/SignIn/ForgetPassword";
 import ManagePanel from "./components/ManagePanel/ManagePanel";
@@ -12,12 +15,11 @@ import Footer from "./components/Footer";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ActivitiesPage from "./components/Activities/ActivitiesPage";
 import ClassesPage from "./components/Classes/ClassesPage";
-import Amplify, { Auth } from "aws-amplify";
+import Amplify, { API, graphqlOperation, Auth } from "aws-amplify";
 import awsconfig from "./aws-exports";
 import ConfirmSignUp from "./components/Register/ConfirmSignUp";
 import { I18n } from "aws-amplify";
 import { Translations } from "@aws-amplify/ui-components";
-import { useState, useEffect } from "react";
 import { Hub, Logger } from "aws-amplify";
 
 
@@ -31,7 +33,6 @@ var groups = new Array(3);
 
 const confirmEmail = React.createContext('confirmEmail');
 
-
 Auth.currentAuthenticatedUser().then(
   (user) =>
     (gname = user.attributes.given_name) &&
@@ -41,6 +42,8 @@ Auth.currentAuthenticatedUser().then(
     (groups = user.signInUserSession.accessToken.payload["cognito:groups"]) &&
     (groupName = groups[0])
 );
+
+
 const logger = new Logger("Logger", "INFO");
 const listener = (data) => {
   switch (data.payload.event) {
@@ -72,8 +75,44 @@ function refreshPage() {
 Hub.listen("auth", listener);
 const loader = document.querySelector(".loader");
 function App() {
+
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
+  const [users, setUsers] = useState([]);
+  const fetchUsers = async () => {
+    try {
+      const usersData = await API.graphql(graphqlOperation(listUsers));
+      const usersList = usersData.data.listUsers.items;
+      setUsers(usersList);
+    } catch (error) {
+      console.log("error on fetching Pending Activities", error);
+    }
+  };
+  const create_User = async () => {
+    try {
+      var IDs = users.map(element => parseInt(element.id));
+      IDs.sort(function compareNumbers(a, b) {
+        return a - b;
+      });
+      const user = {
+        name: gname + ' ' + fname,
+        id: IDs.length == 0 ? 0 : IDs[IDs.length - 1] + 1,
+        email: emailAddress,
+        phone_number: phoneNumber,
+        score: 0
+      };
+      console.log(user);
+      await API.graphql(graphqlOperation(createUser, { input: user }));
+      await fetchUsers();
+
+    } catch (error) {
+      console.log("error creating user: ", error);
+    }
+  }
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
   if (isAuthenticating) void 0;
   async function onLoad() {
     try {
@@ -89,6 +128,12 @@ function App() {
   useEffect(() => {
     onLoad();
   }, []);
+  const createU = async () => {
+    await create_User();
+  }
+  if (users.filter(user => user.email === emailAddress).length === 0 && groupName === "approvedUsers") {
+    createU();
+  }
   return (
     <div className="App">
       <Navbar givenName={gname} familyName={fname} groupName={groupName} />
