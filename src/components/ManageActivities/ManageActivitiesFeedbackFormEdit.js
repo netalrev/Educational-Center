@@ -109,10 +109,9 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                 title={text}
             />
             <CardContent>
-                {console.log(props.email)}
                 {props.groupName === "admins" ?
                     allActivitiesFeedback.map(activity => {
-                        if (props.id === activity.id) {
+                        if (props.id === activity.activity_id) {
                             return (
                                 <div style={{ display: "flex", justifyContent: "center" }}>
                                     <table>
@@ -126,7 +125,6 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                                                                 <br></br>
                                                                 <FormControl component="fieldset">
                                                                     <FormLabel component="legend">נוכחות במפגש</FormLabel>
-                                                                    {console.log(student[0] + " 1")}
                                                                     <RadioGroup row aria-label="position" name={student[0] + " 1"} style={{ display: "flex", justifyContent: "center" }}>
                                                                         <FormControlLabel
                                                                             value="10"
@@ -228,7 +226,7 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                                         </tr>
                                         <tr>
                                             <SubmitResponsiveDialogActivityFeedback
-                                                id={activity.id}
+                                                id={props.id}
                                                 date={activity.date}
                                                 student={activity.form} />
                                         </tr>

@@ -1,7 +1,10 @@
 import React from "react";
 import clsx from "clsx";
 import { useState, useEffect } from "react";
-import { listPendingUsers, listApprovedUsers } from "../../graphql/queries";
+import { listActivityFeedbacks, listPendingUsers, listApprovedUsers } from "../../graphql/queries";
+
+import { createActivityFeedback } from "../../graphql/mutations";
+
 import { API, graphqlOperation } from "aws-amplify";
 import { Scrollbars } from 'rc-scrollbars';
 
@@ -69,7 +72,7 @@ export default function RecipeReviewCard(props) {
   const [expanded, setExpanded] = React.useState(false);
   const [pendingUsers, setPendingUsers] = useState([]);
   const [approvedUsers, setApprovedUsers] = useState([]);
-
+  const [activityFeedbacks, setActivityFeedbacks] = useState([]);
   useEffect(() => {
     fetchPendingUsers();
   }, []);
@@ -77,7 +80,18 @@ export default function RecipeReviewCard(props) {
   useEffect(() => {
     fetchApprovedUsers();
   }, []);
-
+  useEffect(() => {
+    fetchActivityFeedbacks();
+  }, []);
+  const fetchActivityFeedbacks = async () => {
+    try {
+      const feedbacksData = await API.graphql(graphqlOperation(listActivityFeedbacks));
+      const feedbackList = feedbacksData.data.listActivityFeedbacks.items;
+      setActivityFeedbacks(feedbackList);
+    } catch (error) {
+      console.log("error on fetching activity feedbacks", error);
+    }
+  };
   const fetchApprovedUsers = async () => {
     try {
       const usersData = await API.graphql(graphqlOperation(listApprovedUsers));
@@ -97,6 +111,56 @@ export default function RecipeReviewCard(props) {
       console.log("error on fetching pending users", error);
     }
   };
+  const createNewActivityFeedback = async () => {
+    try {
+      //     id: ID!
+      // title: String!
+      // activityCount: String!
+      // date: String!
+      // owner: String!
+      // img: String
+      // zoom: String
+      // phone_number: String!
+      // email: String!
+      // form: [[String!]]
+      var new_form = [];
+      var filteredUsers = approvedUsers.filter(user => user.activity_id === props.id);
+      filteredUsers.map(element => {
+        var student = [];
+        student.push(element.name);
+        student.push(element.email);
+        student.push(element.phone_number);
+        new_form.push(student);
+      })
+      console.log(filteredUsers, new_form);
+      var IDs = activityFeedbacks.map(element => parseInt(element.id));
+      IDs.sort(function compareNumbers(a, b) {
+        return a - b;
+      });
+      var zoomLink = '';
+      if (props.zoom.length > 0)
+        zoomLink = props.zoom;
+      const activityFeedback = {
+        id: IDs.length == 0 ? 0 : IDs[IDs.length - 1] + 1,
+        owner: props.owner,
+        title: props.title,
+        email: props.email,
+        activity_id: props.id,
+        zoom: zoomLink,
+        img: props.img,
+        activityCount: props.activityCount,
+        date: props.dates.filter(date => (dates_class.compare(dates_class.convert(props.currentTime), dates_class.convert(date)) >= 0 && dates_class.compare(dates_class.convert(props.currentTime), dates_class.convert(dates_class.convert(date).setMinutes(dates_class.convert(date).getMinutes() + 20))) <= 0))[0],
+        phone_number: props.phoneNumber,
+        form: new_form
+
+      };
+      console.log(activityFeedback);
+      await API.graphql(graphqlOperation(createActivityFeedback, { input: activityFeedback }));
+      await fetchActivityFeedbacks();
+    } catch (error) {
+      console.log("error creating activity feedback: ", error);
+    }
+  }
   var dates_class = {
     convert: function (d) {
       // Converts the date in d to a date-object. The input can be:
@@ -148,38 +212,48 @@ export default function RecipeReviewCard(props) {
       );
     }
   };
-  var tzoffset_start = (new Date()).getTimezoneOffset() * 60000;
-  var tzoffset_end = (new Date()).getTimezoneOffset() * 60000 - 20 * 60000;
-  var current_time = dates_class.convert(new Date(Date.now() - tzoffset_start).toISOString().substring(0, 16));
-  var current_time_20 = dates_class.convert(new Date(Date.now() - tzoffset_end).toISOString().substring(0, 16));
-
+  const createActivityF = async () => {
+    await createNewActivityFeedback();
+  };
   function whichButton() {
-    var start = Array.from(props.dates).filter(date => (dates_class.compare(dates_class.convert(date), current_time) <= 0) && (dates_class.compare(dates_class.convert(date + 20 * 60000), current_time) === -1)).length !== 0 ? true : false;
-    // console.log(props.title, dates_class.compare(dates_class.convert(props.dates[props.dates.length - 1]), current_time_20), dates_class.convert(props.dates[props.dates.length - 1]), current_time_20);
-    if (dates_class.compare(dates_class.convert(props.dates[props.dates.length - 1]), current_time_20) === 0) {
+    var start = props.dates.filter(date => (dates_class.compare(dates_class.convert(props.currentTime), dates_class.convert(date)) >= 0 && dates_class.compare(dates_class.convert(props.currentTime), dates_class.convert(dates_class.convert(date).setMinutes(dates_class.convert(date).getMinutes() + 20))) <= 0));
+    if (start.length !== 0 && approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
+      if (props.zoom !== "") {
+        if (activityFeedbacks.filter(activity => activity.activity_id === props.id).length === 0)
+          createActivityF();
+        return (<OpenZoomLink
+          zoom={props.zoom} />);
+      }
+      else {
+        if (activityFeedbacks.filter(activity => activity.activity_id === props.id).length === 0)
+          createActivityF();
+        return (<h3 style={{ color: "green" }}>הפעילות התחילה</h3>);
+      }
+    }
+    else if (dates_class.compare(dates_class.convert(props.currentTime), dates_class.convert(props.dates[props.dates.length - 1])) >= 0) {
       return (<h3 style={{ color: "red" }}>הפעילות הסתיימה</h3>);
     }
     else if (props.groupName !== "approvedUsers" && props.zoom !== "") {
+
+
+
+
       return (<OpenZoomLink
         zoom={props.zoom} />);
     }
     else if (props.groupName !== "approvedUsers") {
       return (<h3 style={{ color: "green" }}>פעילות פרונטלית</h3>);
     }
-    else if (approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length === 0 && dates_class.compare(dates_class.convert(props.dates[0]), current_time) <= 0) {
+    else if (approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length === 0 && dates_class.compare(dates_class.convert(props.dates[0]), dates_class.convert(props.currentTime)) <= 0) {
       return (<h3 style={{ color: "red" }}>מועד הרשמה אחרון עבר</h3>);
     }
-    else if (start === true && approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
+    else if (approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0 && dates_class.compare(dates_class.convert(props.dates[0]), dates_class.convert(props.currentTime)) <= 0) {
       if (props.zoom !== "") {
-        return (<OpenZoomLink
-          zoom={props.zoom} />);
+        return (<h3 style={{ color: "green" }}>הקישור יפתח במפגש הבא</h3>);
       }
       else {
-        return (<h3 style={{ color: "green" }}>הפעילות התחילה</h3>);
+        return (<h3 style={{ color: "green" }}>אנא המתן למפגש הבא</h3>);
       }
-    }
-    else if (approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0 && dates_class.compare(dates_class.convert(props.dates[0]), current_time_20) <= 0) {
-      return (<h3 style={{ color: "green" }}>הקישור יפתח במפגש הבא</h3>);
     }
     else if (pendingUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
       return (<CancelRegisterResponsiveDialogActivities

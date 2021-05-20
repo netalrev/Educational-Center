@@ -85,7 +85,7 @@ export default function ActivityFeedbackForAdmin(props) {
                     date={activity.date}
                     students={activity.form}
                     idx={index}
-                    id={activity.id}
+                    id={activity.activity_id}
                     email={props.email}
                     givenName={props.givenName}
                     familyName={props.familyName}

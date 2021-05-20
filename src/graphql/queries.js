@@ -174,6 +174,7 @@ export const getActivityFeedback = /* GraphQL */ `
       phone_number
       email
       form
+      activity_id
       createdAt
       updatedAt
     }
@@ -201,6 +202,7 @@ export const listActivityFeedbacks = /* GraphQL */ `
         phone_number
         email
         form
+        activity_id
         createdAt
         updatedAt
       }
@@ -221,6 +223,7 @@ export const getSubmitedActivityFeedback = /* GraphQL */ `
       phone_number
       email
       form
+      activity_id
       createdAt
       updatedAt
     }
@@ -248,6 +251,7 @@ export const listSubmitedActivityFeedbacks = /* GraphQL */ `
         phone_number
         email
         form
+        activity_id
         createdAt
         updatedAt
       }

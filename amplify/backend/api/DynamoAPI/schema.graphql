@@ -51,6 +51,7 @@ type ActivityFeedback @model {
     phone_number: String!
     email: String!
     form: [[String!]]
+    activity_id: String!
 }
 
 type SubmitedActivityFeedback @model {
@@ -64,6 +65,7 @@ type SubmitedActivityFeedback @model {
     phone_number: String!
     email: String!
     form: [[String!]]
+    activity_id: String!
 }
 
 type User @model {

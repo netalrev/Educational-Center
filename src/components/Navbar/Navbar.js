@@ -5,6 +5,8 @@ import { Button } from "../Button";
 import { Auth } from "aws-amplify";
 import logo from "./logo.png"; // Tell webpack this JS file uses this image
 
+
+
 var loggedIn = false;
 Auth.currentAuthenticatedUser().then((user) => (loggedIn = true));
 
@@ -30,6 +32,8 @@ class Navbar extends Component {
             window.location.href = "/"; //Url to icon button.
           }}
         />
+
+
 
         <div className="menu-icon" onClick={this.handleClick}>
           <i

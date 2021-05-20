@@ -13,7 +13,7 @@ export default function ActivityTable(props) {
 
     useEffect(() => {
         fetchAllApprovedActivities();
-    }, []);
+    }, [props.currentTime]);
     useEffect(() => {
         fillToShow();
     }, [allApprovedActivitiess]);
@@ -68,19 +68,15 @@ export default function ActivityTable(props) {
             );
         }
     };
-    var tzoffset_end = (new Date()).getTimezoneOffset() * 60000 - 60 * 60000;
-    var tzoffset_59 = (new Date()).getTimezoneOffset() * 60000 + 59 * 60000;
-    var current_time_2 = dates_class.convert(new Date(Date.now() - tzoffset_59).toISOString().substring(0, 16));
-    console.log(dates_class.convert(new Date(Date.now() + 60 * 60000).toString('he-il')), current_time_2);
-    var current_time = dates_class.convert(new Date(Date.now() - tzoffset_end).toISOString().substring(0, 16));
+
     function comparing(a, b) {
         var i = 0, j = 0;
         while (i < a.activityCount && j < b.activityCount) {
-            if (dates_class.compare(dates_class.convert(a.dates[i]), current_time) === -1) {
+            if (dates_class.compare(dates_class.convert(a.dates[i]), props.currentTime) === -1) {
                 i++;
                 continue;
             }
-            else if (dates_class.compare(dates_class.convert(b.dates[j]), current_time) === -1) {
+            else if (dates_class.compare(dates_class.convert(b.dates[j]), props.currentTime) === -1) {
                 j++;
                 continue;
             }
@@ -96,8 +92,12 @@ export default function ActivityTable(props) {
             const approvedActivitiesList = approvedActivitiesData.data.listApprovedActivitiess.items;
             approvedActivitiesList.sort(comparing);
             for (var i = 0; i < approvedActivitiesList.length; i++) {
-                if (dates_class.compare(dates_class.convert(approvedActivitiesList[i].dates[approvedActivitiesList[i].dates.length - 1]), current_time_2) === -1)
+                // console.log("HEHEYYYYYYYYYYY", dates_class.compare((props.currentTime), dates_class.convert(dates_class.convert(approvedActivitiesList[i].dates[approvedActivitiesList[i].dates.length - 1]).setMinutes(dates_class.convert(approvedActivitiesList[i].dates[approvedActivitiesList[i].dates.length - 1]).getMinutes() + 60))))
+                // console.log(dates_class.compare(dates_class.convert(props.currentTime), dates_class.convert(dates_class.convert(approvedActivitiesList[i].dates[approvedActivitiesList[i].dates.length - 1]).setHours(dates_class.convert(approvedActivitiesList[i].dates[approvedActivitiesList[i].dates.length - 1]).getHours() + 1))));
+                if (dates_class.compare((props.currentTime), dates_class.convert(dates_class.convert(approvedActivitiesList[i].dates[approvedActivitiesList[i].dates.length - 1]).setMinutes(dates_class.convert(approvedActivitiesList[i].dates[approvedActivitiesList[i].dates.length - 1]).getMinutes() + 60))) === 1) {
+                    console.log(approvedActivitiesList[i].title);
                     approvedActivitiesList.splice(i, 1);
+                }
             }
             setAllApprovedActivitiess(approvedActivitiesList);
         } catch (error) {
@@ -121,7 +121,8 @@ export default function ActivityTable(props) {
                 givenName={props.givenName}
                 familyName={props.familyName}
                 phoneNumber={props.phoneNumber}
-                groupName={props.groupName} />)
+                groupName={props.groupName}
+                currentTime={props.currentTime} />)
         setToShow(allActivity);
     }
 
@@ -140,7 +141,8 @@ export default function ActivityTable(props) {
                 givenName={props.givenName}
                 familyName={props.familyName}
                 phoneNumber={props.phoneNumber}
-                zoom={activity.zoom} />)
+                zoom={activity.zoom}
+                currentTime={props.currentTime} />)
         const filterdToShow = allActivity.filter(activity => {
             if (activity.props.title.includes(key) || activity.props.owner.includes(key)) return activity;
         });

@@ -239,6 +239,7 @@ export const createActivityFeedback = /* GraphQL */ `
       phone_number
       email
       form
+      activity_id
       createdAt
       updatedAt
     }
@@ -260,6 +261,7 @@ export const updateActivityFeedback = /* GraphQL */ `
       phone_number
       email
       form
+      activity_id
       createdAt
       updatedAt
     }
@@ -281,6 +283,7 @@ export const deleteActivityFeedback = /* GraphQL */ `
       phone_number
       email
       form
+      activity_id
       createdAt
       updatedAt
     }
@@ -302,6 +305,7 @@ export const createSubmitedActivityFeedback = /* GraphQL */ `
       phone_number
       email
       form
+      activity_id
       createdAt
       updatedAt
     }
@@ -323,6 +327,7 @@ export const updateSubmitedActivityFeedback = /* GraphQL */ `
       phone_number
       email
       form
+      activity_id
       createdAt
       updatedAt
     }
@@ -344,6 +349,7 @@ export const deleteSubmitedActivityFeedback = /* GraphQL */ `
       phone_number
       email
       form
+      activity_id
       createdAt
       updatedAt
     }

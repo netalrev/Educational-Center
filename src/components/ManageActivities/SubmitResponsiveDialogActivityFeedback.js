@@ -7,8 +7,8 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
-import { listActivityFeedbacks } from "../../graphql/queries";
-import { updateActivityFeedback } from "../../graphql/mutations";
+import { listSubmitedActivityFeedbacks, listActivityFeedbacks } from "../../graphql/queries";
+import { deleteActivityFeedback, createSubmitedActivityFeedback, updateActivityFeedback } from "../../graphql/mutations";
 
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
@@ -20,15 +20,78 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const [activitiesFeedback, setActivitiesFeedback] = useState([]);
     const [allActivitiesFeedback, setAllActivitiesFeedback] = useState([]);
-
+    const [allSubmittedActivitiesFeedback, setSubmittedActivitiesFeedback] = useState([]);
     // useEffect(() => { // Fetch for content suppliers
     //     fetchActivitiesFeedbacks();
     // }, []);
-
+    var dates_class = {
+        convert: function (d) {
+            // Converts the date in d to a date-object. The input can be:
+            //   a date object: returned without modification
+            //  an array      : Interpreted as [year,month,day]. NOTE: month is 0-11.
+            //   a number     : Interpreted as number of milliseconds
+            //                  since 1 Jan 1970 (a timestamp) 
+            //   a string     : Any format supported by the javascript engine, like
+            //                  "YYYY/MM/DD", "MM/DD/YYYY", "Jan 31 2009" etc.
+            //  an object     : Interpreted as an object with year, month and date
+            //                  attributes.  **NOTE** month is 0-11.
+            return (
+                d.constructor === Date ? d :
+                    d.constructor === Array ? new Date(d[0], d[1], d[2]) :
+                        d.constructor === Number ? new Date(d) :
+                            d.constructor === String ? new Date(d) :
+                                typeof d === "object" ? new Date(d.year, d.month, d.date) :
+                                    NaN
+            );
+        },
+        compare: function (a, b) {
+            // Compare two dates (could be of any type supported by the convert
+            // function above) and returns:
+            //  -1 : if a < b
+            //   0 : if a = b
+            //   1 : if a > b
+            // NaN : if a or b is an illegal date
+            // NOTE: The code inside isFinite does an assignment (=).
+            return (
+                isFinite(a = this.convert(a).valueOf()) &&
+                    isFinite(b = this.convert(b).valueOf()) ?
+                    (a > b) - (a < b) :
+                    NaN
+            );
+        },
+        inRange: function (d, start, end) {
+            // Checks if date in d is between dates in start and end.
+            // Returns a boolean or NaN:
+            //    true  : if d is between start and end (inclusive)
+            //    false : if d is before start or after end
+            //    NaN   : if one or more of the dates is illegal.
+            // NOTE: The code inside isFinite does an assignment (=).
+            return (
+                isFinite(d = this.convert(d).valueOf()) &&
+                    isFinite(start = this.convert(start).valueOf()) &&
+                    isFinite(end = this.convert(end).valueOf()) ?
+                    start <= d && d <= end :
+                    NaN
+            );
+        }
+    };
     useEffect(() => { // Fetch for admins
         fetchAllActivitiesFeedbacks();
     }, []);
 
+    useEffect(() => { // Fetch for admins
+        fetchSubmittedActivitiesFeedbacks();
+    }, []);
+
+    const fetchSubmittedActivitiesFeedbacks = async () => {
+        try {
+            const submitteActivitiesFeedbackData = await API.graphql(graphqlOperation(listSubmitedActivityFeedbacks));
+            const submittedActivitiesFeedbackList = submitteActivitiesFeedbackData.data.listSubmitedActivityFeedbacks.items;
+            setSubmittedActivitiesFeedback(submittedActivitiesFeedbackList);
+        } catch (error) {
+            console.log("error on fetching submitted activites feedback", error);
+        }
+    };
     const fetchActivitiesFeedbacks = async () => {
         try {
             const activitiesFeedbackData = await API.graphql(graphqlOperation(listActivityFeedbacks, { filter: { email: { eq: props.email } } }));
@@ -48,26 +111,72 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
             console.log("error on fetching Pending Activities", error);
         }
     };
-
+    const delete_ActivityFeedback = async (id_to_delete) => {
+        try {
+            const del = { id: id_to_delete };
+            await API.graphql(graphqlOperation(deleteActivityFeedback, { input: del }));
+        } catch (error) {
+            console.log("Error on delete single Approved Activity ", error);
+        }
+    };
+    const createNewSubmittedFeedback = async () => {
+        try {
+            var toCreate = allActivitiesFeedback.filter(feedback => feedback.activity_id === props.id)[0];
+            console.log(toCreate);
+            var IDs = allSubmittedActivitiesFeedback.map(element => parseInt(element.id));
+            console.log("IDS", IDs);
+            IDs.sort(function compareNumbers(a, b) {
+                return a - b;
+            });
+            var zoomLink = '';
+            if (toCreate.zoom.length > 0)
+                zoomLink = toCreate.zoom;
+            const activityFeedback = {
+                id: IDs.length == 0 ? 0 : IDs[IDs.length - 1] + 1,
+                owner: toCreate.owner,
+                title: toCreate.title,
+                email: toCreate.email,
+                activity_id: toCreate.activity_id,
+                zoom: zoomLink,
+                img: toCreate.img,
+                activityCount: toCreate.activityCount,
+                date: toCreate.date,
+                phone_number: toCreate.phone_number,
+                form: toCreate.form
+            };
+            console.log(activityFeedback);
+            await API.graphql(graphqlOperation(createSubmitedActivityFeedback, { input: activityFeedback }));
+            await fetchSubmittedActivitiesFeedbacks();
+        } catch (err) {
+            console.log("Error while creating new submitted feedback.", err)
+        }
+    }
     const editActivityFeedback = async (id) => {
         try {
-            var list = allActivitiesFeedback.filter(activity => activity.id === id);
+            var list = allActivitiesFeedback.filter(activity => activity.activity_id === id);
             const to_edit = list[0];
             var form = [];
+            console.log("edit", to_edit);
             to_edit.form.map(student => {
+                var grade1 = student[0] + " 1";
+                var grade2 = student[0] + " 2";
+                var grade3 = student[0] + " 3";
                 var studentWithGrade = [];
                 studentWithGrade.push(student[0]);
                 studentWithGrade.push(student[1]);
                 studentWithGrade.push(student[2]);
-                studentWithGrade.push(document.getElementsByName(student[0] + " 1")[0].value);
-                studentWithGrade.push(document.getElementsByName(student[0] + " 2")[0].value);
-                studentWithGrade.push(document.getElementsByName(student[0] + " 3")[0].value);
+                var attendance = Array.from(document.getElementsByName(grade1)).filter(button => button.checked)[0];
+                studentWithGrade.push(attendance.value);
+                var participation = Array.from(document.getElementsByName(grade2)).filter(button => button.checked)[0];
+                studentWithGrade.push(participation.value);
+                var contribution = Array.from(document.getElementsByName(grade3)).filter(button => button.checked)[0];
+                studentWithGrade.push(contribution.value);
                 form.push(studentWithGrade);
             })
             delete to_edit.createdAt;
             delete to_edit.updatedAt;
             to_edit.form = form;
-            console.log(to_edit);
+            console.log("edit", to_edit);
             const activityFeedbackData = await API.graphql(graphqlOperation(updateActivityFeedback, { input: to_edit }));
             const activityFeedbackList = [...allActivitiesFeedback];
             var idx = allActivitiesFeedback.filter((activity, idx) => {
@@ -86,8 +195,9 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
 
     const handleClose = async () => {
         setOpen(false);
-        await editActivityFeedback(props.id).then(alert("בקשתך לעריכת התוכן המבוקש התקבלה בהצלחה."));
-        // window.location.reload(false);
+        var to_del = allActivitiesFeedback.filter(feedback => feedback.activity_id === props.id)[0].id;
+        await editActivityFeedback(props.id).then(alert("בקשתך לעריכת התוכן המבוקש התקבלה בהצלחה.")).then(await createNewSubmittedFeedback()).then(await delete_ActivityFeedback(to_del));
+        window.location.reload(false);
     };
     const handleCancel = () => {
         setOpen(false);
