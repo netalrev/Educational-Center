@@ -106,7 +106,6 @@ async function signIn() {
     history.push("/register");
     document.getElementById("allForm").style.display = "none";
     window.location.reload();
-    
   } catch (error) {
     alert("אנא וודא כי הפרטים נכונים");
     history.push("/register");
@@ -174,18 +173,6 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                style={{
-                  color: "#ffffff",
-                }}
-                value="remember"
-                color="black"
-              />
-            }
-            label="השאר אותי מחובר"
           />
           <Button
             style={{

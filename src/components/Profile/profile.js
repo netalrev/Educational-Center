@@ -28,7 +28,6 @@ class profile extends Component {
             <h6 title="Number of pens created by the user">
               פעילויות <i className="fas fa-edit"></i>
             </h6>
-            <p>29</p>
           </div>
           <div className="ds projects">
             <h6 title="Number of projects created by the user">
