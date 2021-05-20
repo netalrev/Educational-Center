@@ -12,7 +12,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { Auth } from 'aws-amplify';
+import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 var history;
 function Copyright() {
@@ -51,9 +51,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     backgroundColor: "red",
   },
-  Button: {
-
-  },
+  Button: {},
   textField: {
     zIndex: "0",
     border: "3px solid red",
@@ -87,15 +85,15 @@ async function confirmSignUp() {
     history.push("/register");
     return;
   } catch (error) {
-    alert('error confirming sign up', error);
+    alert("error confirming sign up", error);
   }
 }
 async function resendConfirmationCode() {
   try {
     await Auth.resendSignUp(window.$mail);
-    console.log('code resent successfully');
+    console.log("code resent successfully");
   } catch (err) {
-    console.log('error resending code: ', err);
+    console.log("error resending code: ", err);
   }
 }
 
@@ -110,7 +108,6 @@ export default function ConfirmSignUp(props) {
     code = document.getElementById("code").value;
     confirmSignUp();
     e.preventDefault();
-
   }
   return (
     <Container component="main" maxWidth="xs" id="allForm">
@@ -128,8 +125,7 @@ export default function ConfirmSignUp(props) {
         >
           אנא הזן את קוד האישור שקיבלת במייל
         </Typography>
-        <form className={classes.form} validate  >
-
+        <form className={classes.form} validate>
           <TextField
             className={classes.textField}
             autoComplete="code"
@@ -161,14 +157,18 @@ export default function ConfirmSignUp(props) {
             אישור
           </Button>
         </form>
-        <button
+        <Button
           onClick={resendConfirmationCode}
           style={{
+            backgroundColor: "red",
+            padding: "18px 18px",
+            fontSize: "18px",
             color: "#ffffff",
+            marginTop: "20px",
           }}
         >
           לא קיבלתי קוד, שלח מחדש
-              </button>
+        </Button>
       </div>
       <Box mt={5}>
         <Copyright />
