@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import ActivityTable from "./ActivityTable";
 import { useState, useEffect } from "react";
 
@@ -6,6 +7,16 @@ export default function ActivitiesPage(props) {
   const [dateAndTime, setDateAndTime] = useState([]);
   const [url, setUrl] = useState([]);
 
+  // const fetchUrl = async () => {
+  //   try {
+  //     const res = await fetch(url);
+  //     setUrl(res);
+  //     // console.log(res)
+  //   } catch (err) {
+  //     console.log("Error fetching url", err);
+  //     alert("url");
+  //   }
+  // }
   const fetchTimeAndDate = async () => {
     try {
       var url =
