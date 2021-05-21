@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 
 import ActivityTable from "./ActivityTable";
-import Clock from 'react-live-clock';
 import { useState, useEffect } from "react";
 
-
 export default function ActivitiesPage(props) {
-  const [dateAndTime, setDateAndTime] = useState([],);
-  const [url, setUrl] = useState([],);
+  const [dateAndTime, setDateAndTime] = useState([]);
+  const [url, setUrl] = useState([]);
 
   // const fetchUrl = async () => {
   //   try {
@@ -21,7 +19,8 @@ export default function ActivitiesPage(props) {
   // }
   const fetchTimeAndDate = async () => {
     try {
-      var url = "http://api.timezonedb.com/v2.1/get-time-zone?key=7IOGNZDWONQE&format=json&by=zone&zone=Asia/Jerusalem";
+      var url =
+        "http://api.timezonedb.com/v2.1/get-time-zone?key=7IOGNZDWONQE&format=json&by=zone&zone=Asia/Jerusalem";
       if (url.length !== 0) {
         const res = await fetch(url);
         const data = await res.json();
@@ -30,7 +29,7 @@ export default function ActivitiesPage(props) {
     } catch (err) {
       console.log("Error fetching date and time.", err);
     }
-  }
+  };
   useEffect(() => {
     fetchTimeAndDate();
   }, [url]);
@@ -48,8 +47,8 @@ export default function ActivitiesPage(props) {
         givenName={props.givenName}
         familyName={props.familyName}
         phoneNumber={props.phoneNumber}
-        groupName={props.groupName} />
+        groupName={props.groupName}
+      />
     </div>
   );
 }
-
