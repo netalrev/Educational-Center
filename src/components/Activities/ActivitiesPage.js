@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 import ActivityTable from "./ActivityTable";
 
-
 export default function ActivitiesPage(props) {
   return (
     <ActivityTable
@@ -10,7 +9,7 @@ export default function ActivitiesPage(props) {
       givenName={props.givenName}
       familyName={props.familyName}
       phoneNumber={props.phoneNumber}
-      groupName={props.groupName} />
+      groupName={props.groupName}
+    />
   );
 }
-

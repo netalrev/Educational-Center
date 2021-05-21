@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import Loading from "./components/Loading/Loading";
+import HomePage from "./components/HomePage/HomePage";
 import Profile from "./components/Profile/profile";
 import SignUp from "./components/Register/SignUp";
 import SignIn from "./components/SignIn/SignIn";
@@ -20,7 +21,6 @@ import { Translations } from "@aws-amplify/ui-components";
 import { useState, useEffect } from "react";
 import { Hub, Logger } from "aws-amplify";
 
-
 Amplify.configure(awsconfig); //AWS CONFIGORE
 var fname = "null";
 var gname = "null";
@@ -28,9 +28,7 @@ var emailAddress = "null";
 var groupName = "null";
 var phoneNumber = "null";
 var groups = new Array(3);
-
-const confirmEmail = React.createContext('confirmEmail');
-
+const confirmEmail = React.createContext("confirmEmail");
 
 Auth.currentAuthenticatedUser().then(
   (user) =>
@@ -46,7 +44,6 @@ const listener = (data) => {
   switch (data.payload.event) {
     case "signIn":
       logger.info("user signed in");
-
 
       break;
     case "signUp":
@@ -99,11 +96,11 @@ function App() {
               <Loading />
             </Route>
             <Route exact path="/">
-              דף בית
+              <HomePage />
             </Route>
             {groupName === "admins" ||
-              groupName === "contentSuppliers" ||
-              groupName === "approvedUsers" ? (
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
               <Route exact path="/profile">
                 <h1>עמוד פרופיל</h1>
               </Route>
@@ -113,8 +110,8 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-              groupName === "contentSuppliers" ||
-              groupName === "approvedUsers" ? (
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
               <Route exact path="/activitiespage">
                 <ActivitiesPage
                   groupName={groupName}
@@ -132,8 +129,8 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-              groupName === "contentSuppliers" ||
-              groupName === "approvedUsers" ? (
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
               <Route exact path="/classespage">
                 <ClassesPage />
               </Route>
