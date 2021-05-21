@@ -9,7 +9,6 @@ function goToAc() {
 }
 export default function HomePage() {
   history = useHistory();
-
   return (
     <div className="hero">
       <div className="snow">
