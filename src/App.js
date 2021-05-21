@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
+import HomePage from "./components/HomePage/HomePage";
 import Loading from "./components/Loading/Loading";
 import Profile from "./components/Profile/profile";
 import SignUp from "./components/Register/SignUp";
@@ -22,7 +23,6 @@ import { I18n } from "aws-amplify";
 import { Translations } from "@aws-amplify/ui-components";
 import { Hub, Logger } from "aws-amplify";
 
-
 Amplify.configure(awsconfig); //AWS CONFIGORE
 var fname = "null";
 var gname = "null";
@@ -31,7 +31,7 @@ var groupName = "null";
 var phoneNumber = "null";
 var groups = new Array(3);
 
-const confirmEmail = React.createContext('confirmEmail');
+const confirmEmail = React.createContext("confirmEmail");
 
 Auth.currentAuthenticatedUser().then(
   (user) =>
@@ -43,13 +43,11 @@ Auth.currentAuthenticatedUser().then(
     (groupName = groups[0])
 );
 
-
 const logger = new Logger("Logger", "INFO");
 const listener = (data) => {
   switch (data.payload.event) {
     case "signIn":
       logger.info("user signed in");
-
 
       break;
     case "signUp":
@@ -75,7 +73,6 @@ function refreshPage() {
 Hub.listen("auth", listener);
 const loader = document.querySelector(".loader");
 function App() {
-
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [users, setUsers] = useState([]);
@@ -90,25 +87,24 @@ function App() {
   };
   const create_User = async () => {
     try {
-      var IDs = users.map(element => parseInt(element.id));
+      var IDs = users.map((element) => parseInt(element.id));
       IDs.sort(function compareNumbers(a, b) {
         return a - b;
       });
       const user = {
-        name: gname + ' ' + fname,
+        name: gname + " " + fname,
         id: IDs.length == 0 ? 0 : IDs[IDs.length - 1] + 1,
         email: emailAddress,
         phone_number: phoneNumber,
-        score: 0
+        score: 0,
       };
       console.log(user);
       await API.graphql(graphqlOperation(createUser, { input: user }));
       await fetchUsers();
-
     } catch (error) {
       console.log("error creating user: ", error);
     }
-  }
+  };
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -130,8 +126,11 @@ function App() {
   }, []);
   const createU = async () => {
     await create_User();
-  }
-  if (users.filter(user => user.email === emailAddress).length === 0 && groupName === "approvedUsers") {
+  };
+  if (
+    users.filter((user) => user.email === emailAddress).length === 0 &&
+    groupName === "approvedUsers"
+  ) {
     createU();
   }
   return (
@@ -144,11 +143,11 @@ function App() {
               <Loading />
             </Route>
             <Route exact path="/">
-              דף בית
+              <HomePage />
             </Route>
             {groupName === "admins" ||
-              groupName === "contentSuppliers" ||
-              groupName === "approvedUsers" ? (
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
               <Route exact path="/profile">
                 <h1>עמוד פרופיל</h1>
               </Route>
@@ -158,8 +157,8 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-              groupName === "contentSuppliers" ||
-              groupName === "approvedUsers" ? (
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
               <Route exact path="/activitiespage">
                 <ActivitiesPage
                   groupName={groupName}
@@ -177,8 +176,8 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-              groupName === "contentSuppliers" ||
-              groupName === "approvedUsers" ? (
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
               <Route exact path="/classespage">
                 <ClassesPage />
               </Route>
