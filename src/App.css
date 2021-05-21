@@ -5,7 +5,6 @@
     text-align: center;
     font-family: "Montserrat", sans-serif;
     max-width: 100%;
-
     --amplify-primary-color: #ff2600;
     --amplify-primary-tint: #000000;
     --amplify-primary-shade: #e0573e;
@@ -28,7 +27,6 @@
     min-height: 600px;
     justify-content: center;
     justify-self: center;
-    padding-top: 20px;
     padding-bottom: 0;
     margin-bottom: 0px;
     background-color: #2b2b2b;
@@ -79,15 +77,13 @@ body {
 }
 
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active
-{
- -webkit-box-shadow: 0 0 0 30px rgb(0, 0, 0) inset !important;
- color: white;
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px rgb(0, 0, 0) inset !important;
+    color: white;
 }
 
-input:-webkit-autofill
-{
- -webkit-text-fill-color: rgb(255, 255, 255) !important;
+input:-webkit-autofill {
+    -webkit-text-fill-color: rgb(255, 255, 255) !important;
 }

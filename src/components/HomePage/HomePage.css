@@ -1,221 +1,116 @@
-.contHome {
-    height: 600px;
+@import url("https://fonts.googleapis.com/css?family=Corben:700");
+h1 {
+    font-size: 5rem;
+    color: white;
+    letter-spacing: 0.1rem;
+    text-shadow: 0px 3px 3px rgba(0, 0, 0, 0.66);
 }
 
-.ternary-system {
-    position: absolute;
-    bottom: 0;
-    left: 82vw;
-    transform: translateX(-100%);
+h2 {
+    font-size: 2rem;
+    color: white;
+    letter-spacing: 0.1rem;
+    text-shadow: 0px 3px 3px rgba(0, 0, 0, 0.66);
+}
+.homeTitle2 {
+    margin-top: 20px;
+    margin-left: 200px;
+    margin-right: 200px;
 }
 
-.sun {
-    position: relative;
-    border-radius: 50%;
-    background: #00000052;
+* {
+    font-family: "Montserrat", sans-serif;
 }
 
-.sun.primary {
-    position: absolute;
-    top: 15vw;
-    left: 5vw;
-    width: 1rem;
-    height: 1rem;
+.btnText {
+    color: red;
+    font-size: large;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 25px;
+    width: 500px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
-
-.sun.secondary {
-    position: absolute;
-    top: 5vw;
-    left: 11vw;
-    width: 16vw;
-    max-width: 6rem;
-    height: 16vw;
-    max-height: 6rem;
-}
-
-.sun.ternary {
-    right: 0;
-    transform: translateX(10.8rem);
-    width: 80vw;
-    max-width: 800px;
-    height: 80vw;
-    max-height: 800px;
-}
-
-.pendulums {
-    position: absolute;
-    width: 50px;
-    height: 200px;
-    right: 35vw;
-    top: -120px;
-    perspective: 400px;
-}
-
-.pendulum {
-    position: absolute;
-    width: 50px;
-    height: 200px;
-    right: 44%;
-    top: 0;
-    left: 50%;
-    transform: translateZ(-300px) translateX(-50%);
-}
-
-.pendulum.shadow {
-    top: 263%;
-    left: -65%;
-    bottom: 0;
-    transform-origin: 50% 0;
-    transform: translateX(-50%) scaleY(-1) scaleZ(2) rotateY(-30deg) rotateX(-75deg) translateZ(300px);
-}
-
-.pendulum .bar {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 0;
-    display: block;
-    width: 20px;
-    height: 200px;
-    background: #333;
-}
-
-.pendulum .string {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 150px;
-    background: #333;
-}
-
-.pendulum .weight {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 10px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: #333;
-}
-
-.pendulum .motion {
-    position: absolute;
-    height: 200px;
-    width: 50px;
-    transform-origin: 50% 10px;
-    animation: swing 1600ms infinite ease-in-out;
-}
-
-.text1 {
-    position: absolute;
-    width: auto;
-    right: 18vw;
-    bottom: calc(63vh);
-    transform: translateY(50%);
-    font-size: 2.6rem;
-}
-
-.title1 {
-    text-align: center;
-    font-size: 1em;
-    font-weight: 300;
-    text-transform: uppercase;
-    line-height: 1.3em;
-    margin: 0;
-    color: rgb(255, 255, 255);
-}
-
-.title1 strong {
-    display: block;
-    font-weight: 700;
-    font-size: 2em;
-    line-height: 1em;
-}
-
-.title1 em {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 1.899em;
-    line-height: 1em;
-    letter-spacing: 0.29em;
-    margin-left: 0.25em;
-}
-
-p1 {
-    position: absolute;
-    left: 50%;
-    transform: translateX(3.2em);
-    font-size: 0.6em;
-    color: rgb(255, 255, 255);
-    margin: 0 17px;
-    padding: 0;
-    text-align: right;
-}
-
-.glow-on-hover {
-    width: 220px;
-    height: 50px;
-    border: none;
-    outline: none;
-    color: #fff;
-    background: #111;
+.btnText:hover {
+    background-color: #fff6f68f;
     cursor: pointer;
+}
+
+.hero {
+    background-image: radial-gradient(50% 176%, #fc1d1d 70%, #000000 100%);
+    min-height: 600px;
+    min-width: 100%;
     position: relative;
-    z-index: 0;
-    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.hero__content {
+    position: relative;
+    align-self: center;
+    padding: 3rem 1rem;
+    margin-bottom: 30px;
+}
+.btnDiv {
+    margin-top: 30px;
 }
 
-.glow-on-hover:before {
-    content: "";
-    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+.snow {
     position: absolute;
-    top: -2px;
-    left: -2px;
-    background-size: 400%;
-    z-index: -1;
-    filter: blur(5px);
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    animation: glowing 20s linear infinite;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    border-radius: 10px;
+    min-width: 100vw;
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
 }
 
-.glow-on-hover:active {
-    color: #000;
-}
-
-.glow-on-hover:active:after {
-    background: transparent;
-}
-
-.glow-on-hover:hover:before {
-    opacity: 1;
-}
-
-.glow-on-hover:after {
-    z-index: -1;
-    content: "";
+.snow .svg {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: #111;
-    left: 0;
-    top: 0;
-    border-radius: 10px;
 }
 
-@keyframes glowing {
-    0% {
-        background-position: 0 0;
-    }
-    50% {
-        background-position: 400% 0;
-    }
+#snow-top-layer {
+    will-change: transform;
+    transform: translateY(-768px);
+    -webkit-animation: fall 22.5s infinite linear;
+    animation: fall 22.5s infinite linear;
+}
+
+#snow-bottom-layer {
+    will-change: transform;
+    transform: translateY(-768px);
+    -webkit-animation: fall 45s infinite linear;
+    animation: fall 45s infinite linear;
+}
+
+@-webkit-keyframes fall {
     100% {
-        background-position: 0 0;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fall {
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .homeTitle2 {
+        margin-top: 20px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .homeTitle1 {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .btnText {
+        max-width: 400px;
     }
 }
