@@ -4,8 +4,9 @@
   "private": true,
   "dependencies": {
     "@aws-amplify/ui-react": "^1.0.7",
-    "@material-ui/core": "^4.11.3",
+    "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.58",
     "@material/rtl": "^11.0.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -31,8 +32,10 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "react-user-profile": "^1.0.3",
+    "reactjs-popup": "^2.0.4",
     "simple-react-footer": "^1.0.2",
     "styled-components": "^5.2.3",
+    "sweetalert": "^2.1.2",
     "typescript": "^4.2.4",
     "web-vitals": "^0.2.4"
   },

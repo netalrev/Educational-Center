@@ -17,10 +17,11 @@ import { useHistory } from "react-router-dom";
 import ConfirmSignUp from "./ConfirmSignUp";
 import { red } from "@material-ui/core/colors";
 import "./SignUp.css";
+import swal from 'sweetalert';
+
 
 
 var history;
-
 function Copyright() {
   return (
     <Typography
@@ -100,19 +101,19 @@ async function signUp() {
   try {
 
     if (/[^א-תa-zA-Z]/.test(given_name) || /[^א-תa-zA-Z]/.test(family_name)) {
-      alert("שם פרטי/משפחה לא חוקי");
+      swal("", "שם פרטי/משפחה לא חוקי", "error");
       throw Error;
     }
     else if (phone_number[4] != '0' || isNaN(phone_number.substring(1)) || phone_number.length !== 14) {
-      alert("מספר פלאפון לא חוקי");
+      swal("", "מספר פלאפון לא חוקי", "error");
       throw Error;
     }
     else if (birthdate.toString() == "1900-01-01" || parseInt(birthdate.toString().split("-")[0]) <= 1901) {
-      alert("תאריך לידה לא חוקי");
+      swal("", "תאריך לידה לא חוקי", "error");
       throw Error;
     }
     else if (password.length < 8) {
-      alert("אנא הכנס סיסמה באורך לפחות 8 תווים");
+      swal("", "אנא הכנס סיסמה באורך לפחות 8 תווים", "error");
       throw Error;
     }
     const { user } = await Auth.signUp({
@@ -126,7 +127,7 @@ async function signUp() {
         // other custom attributes 
       }
     });
-    alert("קוד לאישור הרשמה נשלח אל כתובת המייל שלך");
+    swal("", "קוד לאישור הרשמה נשלח אל כתובת המייל שלך", "success");
     window.$mail = username;
     history.push("/ConfirmSignUp"/* , {state: username}*/);
     //window.location.reload();

@@ -1,4 +1,10 @@
 ::-webkit-calendar-picker-indicator {
     filter: invert(1);
 }
+.swal-modal{
+   /* background-color: black;*/
+  }
 
+.swal-text{
+    /*color: white;*/
+  }
