@@ -1,20 +1,19 @@
 import React from "react";
 import clsx from "clsx";
 import { useState, useEffect } from "react";
-import { listActivityFeedbacks, listPendingUsers, listApprovedUsers } from "../../graphql/queries";
-
+import {
+  listActivityFeedbacks,
+  listPendingUsers,
+  listApprovedUsers,
+} from "../../graphql/queries";
 import { createActivityFeedback } from "../../graphql/mutations";
-
 import { API, graphqlOperation } from "aws-amplify";
-import { Scrollbars } from 'rc-scrollbars';
-
-import RegisterResponsiveDialogActivities from "./RegisterResponsiveDialogActivities"
-import CancelRegisterResponsiveDialogActivities from "./CancelRegisterResponsiveDialogActivities"
-import CancelParticipationResponsiveDialogActivities from "./CancelParticipationResponsiveDialogActivities"
-import CancelParticipationResponsiveDialogActivitiesManager from "./CancelParticipationResponsiveDialogActivitiesManager"
-
+import { Scrollbars } from "rc-scrollbars";
+import RegisterResponsiveDialogActivities from "./RegisterResponsiveDialogActivities";
+import CancelRegisterResponsiveDialogActivities from "./CancelRegisterResponsiveDialogActivities";
+import CancelParticipationResponsiveDialogActivities from "./CancelParticipationResponsiveDialogActivities";
+import CancelParticipationResponsiveDialogActivitiesManager from "./CancelParticipationResponsiveDialogActivitiesManager";
 import "./RecipeReviewCard.css";
-
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -26,12 +25,11 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import VideocamIcon from '@material-ui/icons/Videocam';
-import VideocamOffIcon from '@material-ui/icons/VideocamOff';
-import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
+import VideocamIcon from "@material-ui/icons/Videocam";
+import VideocamOffIcon from "@material-ui/icons/VideocamOff";
+import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import OpenZoomLink from "./OpenZoomLink";
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-
+import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 320,
     // maxHeight: 700,
     margin: "10px",
-    background: "rgba(255, 255, 255, 0.6)",
+    background: "rgba(0, 0, 0, 0.5)",
     color: "black",
     text: "black",
     borderRadius: "4%",
@@ -85,7 +83,9 @@ export default function RecipeReviewCard(props) {
   }, []);
   const fetchActivityFeedbacks = async () => {
     try {
-      const feedbacksData = await API.graphql(graphqlOperation(listActivityFeedbacks));
+      const feedbacksData = await API.graphql(
+        graphqlOperation(listActivityFeedbacks)
+      );
       const feedbackList = feedbacksData.data.listActivityFeedbacks.items;
       setActivityFeedbacks(feedbackList);
     } catch (error) {
@@ -124,22 +124,23 @@ export default function RecipeReviewCard(props) {
       // email: String!
       // form: [[String!]]
       var new_form = [];
-      var filteredUsers = approvedUsers.filter(user => user.activity_id === props.id);
-      filteredUsers.map(element => {
+      var filteredUsers = approvedUsers.filter(
+        (user) => user.activity_id === props.id
+      );
+      filteredUsers.map((element) => {
         var student = [];
         student.push(element.name);
         student.push(element.email);
         student.push(element.phone_number);
         new_form.push(student);
-      })
+      });
       console.log(filteredUsers, new_form);
-      var IDs = activityFeedbacks.map(element => parseInt(element.id));
+      var IDs = activityFeedbacks.map((element) => parseInt(element.id));
       IDs.sort(function compareNumbers(a, b) {
         return a - b;
       });
-      var zoomLink = '';
-      if (props.zoom.length > 0)
-        zoomLink = props.zoom;
+      var zoomLink = "";
+      if (props.zoom.length > 0) zoomLink = props.zoom;
       const activityFeedback = {
         id: IDs.length == 0 ? 0 : IDs[IDs.length - 1] + 1,
         owner: props.owner,
@@ -149,37 +150,55 @@ export default function RecipeReviewCard(props) {
         zoom: zoomLink,
         img: props.img,
         activityCount: props.activityCount,
-        date: props.dates.filter(date => (dates_class.compare(dates_class.convert(props.currentTime), dates_class.convert(date)) >= 0 && dates_class.compare(dates_class.convert(props.currentTime), dates_class.convert(dates_class.convert(date).setMinutes(dates_class.convert(date).getMinutes() + 20))) <= 0))[0],
+        date: props.dates.filter(
+          (date) =>
+            dates_class.compare(
+              dates_class.convert(props.currentTime),
+              dates_class.convert(date)
+            ) >= 0 &&
+            dates_class.compare(
+              dates_class.convert(props.currentTime),
+              dates_class.convert(
+                dates_class
+                  .convert(date)
+                  .setMinutes(dates_class.convert(date).getMinutes() + 20)
+              )
+            ) <= 0
+        )[0],
         phone_number: props.phoneNumber,
-        form: new_form
-
+        form: new_form,
       };
       console.log(activityFeedback);
-      await API.graphql(graphqlOperation(createActivityFeedback, { input: activityFeedback }));
+      await API.graphql(
+        graphqlOperation(createActivityFeedback, { input: activityFeedback })
+      );
       await fetchActivityFeedbacks();
     } catch (error) {
       console.log("error creating activity feedback: ", error);
     }
-  }
+  };
   var dates_class = {
     convert: function (d) {
       // Converts the date in d to a date-object. The input can be:
       //   a date object: returned without modification
       //  an array      : Interpreted as [year,month,day]. NOTE: month is 0-11.
       //   a number     : Interpreted as number of milliseconds
-      //                  since 1 Jan 1970 (a timestamp) 
+      //                  since 1 Jan 1970 (a timestamp)
       //   a string     : Any format supported by the javascript engine, like
       //                  "YYYY/MM/DD", "MM/DD/YYYY", "Jan 31 2009" etc.
       //  an object     : Interpreted as an object with year, month and date
       //                  attributes.  **NOTE** month is 0-11.
-      return (
-        d.constructor === Date ? d :
-          d.constructor === Array ? new Date(d[0], d[1], d[2]) :
-            d.constructor === Number ? new Date(d) :
-              d.constructor === String ? new Date(d) :
-                typeof d === "object" ? new Date(d.year, d.month, d.date) :
-                  NaN
-      );
+      return d.constructor === Date
+        ? d
+        : d.constructor === Array
+        ? new Date(d[0], d[1], d[2])
+        : d.constructor === Number
+        ? new Date(d)
+        : d.constructor === String
+        ? new Date(d)
+        : typeof d === "object"
+        ? new Date(d.year, d.month, d.date)
+        : NaN;
     },
     compare: function (a, b) {
       // Compare two dates (could be of any type supported by the convert
@@ -189,12 +208,10 @@ export default function RecipeReviewCard(props) {
       //   1 : if a > b
       // NaN : if a or b is an illegal date
       // NOTE: The code inside isFinite does an assignment (=).
-      return (
-        isFinite(a = this.convert(a).valueOf()) &&
-          isFinite(b = this.convert(b).valueOf()) ?
-          (a > b) - (a < b) :
-          NaN
-      );
+      return isFinite((a = this.convert(a).valueOf())) &&
+        isFinite((b = this.convert(b).valueOf()))
+        ? (a > b) - (a < b)
+        : NaN;
     },
     inRange: function (d, start, end) {
       // Checks if date in d is between dates in start and end.
@@ -203,75 +220,145 @@ export default function RecipeReviewCard(props) {
       //    false : if d is before start or after end
       //    NaN   : if one or more of the dates is illegal.
       // NOTE: The code inside isFinite does an assignment (=).
-      return (
-        isFinite(d = this.convert(d).valueOf()) &&
-          isFinite(start = this.convert(start).valueOf()) &&
-          isFinite(end = this.convert(end).valueOf()) ?
-          start <= d && d <= end :
-          NaN
-      );
-    }
+      return isFinite((d = this.convert(d).valueOf())) &&
+        isFinite((start = this.convert(start).valueOf())) &&
+        isFinite((end = this.convert(end).valueOf()))
+        ? start <= d && d <= end
+        : NaN;
+    },
   };
   const createActivityF = async () => {
     await createNewActivityFeedback();
   };
   function whichButton() {
-    var start = props.dates.filter(date => (dates_class.compare(dates_class.convert(props.currentTime), dates_class.convert(date)) >= 0 && dates_class.compare(dates_class.convert(props.currentTime), dates_class.convert(dates_class.convert(date).setMinutes(dates_class.convert(date).getMinutes() + 20))) <= 0));
-    if (start.length !== 0 && approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
+    var start = props.dates.filter(
+      (date) =>
+        dates_class.compare(
+          dates_class.convert(props.currentTime),
+          dates_class.convert(date)
+        ) >= 0 &&
+        dates_class.compare(
+          dates_class.convert(props.currentTime),
+          dates_class.convert(
+            dates_class
+              .convert(date)
+              .setMinutes(dates_class.convert(date).getMinutes() + 20)
+          )
+        ) <= 0
+    );
+    if (
+      start.length !== 0 &&
+      approvedUsers
+        .filter((users) => users.activity_id === props.id)
+        .filter(
+          (users) => users.name === props.givenName + " " + props.familyName
+        ).length !== 0
+    ) {
       if (props.zoom !== "") {
-        if (activityFeedbacks.filter(activity => activity.activity_id === props.id).length === 0)
+        if (
+          activityFeedbacks.filter(
+            (activity) => activity.activity_id === props.id
+          ).length === 0
+        )
           createActivityF();
-        return (<OpenZoomLink
-          zoom={props.zoom} />);
-      }
-      else {
-        if (activityFeedbacks.filter(activity => activity.activity_id === props.id).length === 0)
+        return <OpenZoomLink zoom={props.zoom} />;
+      } else {
+        if (
+          activityFeedbacks.filter(
+            (activity) => activity.activity_id === props.id
+          ).length === 0
+        )
           createActivityF();
-        return (<h3 style={{ color: "green" }}>הפעילות התחילה</h3>);
+        return <h3 style={{ color: "green" }}>הפעילות התחילה</h3>;
       }
-    }
-    else if (dates_class.compare(dates_class.convert(props.currentTime), dates_class.convert(props.dates[props.dates.length - 1])) >= 0) {
-      return (<h3 style={{ color: "red" }}>הפעילות הסתיימה</h3>);
-    }
-    else if (props.groupName !== "approvedUsers" && props.zoom !== "") {
-
-
-
-
-      return (<OpenZoomLink
-        zoom={props.zoom} />);
-    }
-    else if (props.groupName !== "approvedUsers") {
-      return (<h3 style={{ color: "green" }}>פעילות פרונטלית</h3>);
-    }
-    else if (approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length === 0 && dates_class.compare(dates_class.convert(props.dates[0]), dates_class.convert(props.currentTime)) <= 0) {
-      return (<h3 style={{ color: "red" }}>מועד הרשמה אחרון עבר</h3>);
-    }
-    else if (approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0 && dates_class.compare(dates_class.convert(props.dates[0]), dates_class.convert(props.currentTime)) <= 0) {
+    } else if (
+      dates_class.compare(
+        dates_class.convert(props.currentTime),
+        dates_class.convert(props.dates[props.dates.length - 1])
+      ) >= 0
+    ) {
+      return <h3 style={{ color: "red" }}>הפעילות הסתיימה</h3>;
+    } else if (props.groupName !== "approvedUsers" && props.zoom !== "") {
+      return <OpenZoomLink zoom={props.zoom} />;
+    } else if (props.groupName !== "approvedUsers") {
+      return <h3 style={{ color: "white" }}>פעילות פרונטלית</h3>;
+    } else if (
+      approvedUsers
+        .filter((users) => users.activity_id === props.id)
+        .filter(
+          (users) => users.name === props.givenName + " " + props.familyName
+        ).length === 0 &&
+      dates_class.compare(
+        dates_class.convert(props.dates[0]),
+        dates_class.convert(props.currentTime)
+      ) <= 0
+    ) {
+      return <h3 style={{ color: "red" }}>מועד הרשמה אחרון עבר</h3>;
+    } else if (
+      approvedUsers
+        .filter((users) => users.activity_id === props.id)
+        .filter(
+          (users) => users.name === props.givenName + " " + props.familyName
+        ).length !== 0 &&
+      dates_class.compare(
+        dates_class.convert(props.dates[0]),
+        dates_class.convert(props.currentTime)
+      ) <= 0
+    ) {
       if (props.zoom !== "") {
-        return (<h3 style={{ color: "green" }}>הקישור יפתח במפגש הבא</h3>);
+        return <h3 style={{ color: "green" }}>הקישור יפתח במפגש הבא</h3>;
+      } else {
+        return <h3 style={{ color: "green" }}>אנא המתן למפגש הבא</h3>;
       }
-      else {
-        return (<h3 style={{ color: "green" }}>אנא המתן למפגש הבא</h3>);
-      }
+    } else if (
+      pendingUsers
+        .filter((users) => users.activity_id === props.id)
+        .filter(
+          (users) => users.name === props.givenName + " " + props.familyName
+        ).length !== 0
+    ) {
+      return (
+        <CancelRegisterResponsiveDialogActivities
+          id={
+            pendingUsers
+              .filter((users) => users.activity_id === props.id)
+              .filter(
+                (users) =>
+                  users.name === props.givenName + " " + props.familyName
+              )[0].id
+          }
+        />
+      );
+    } else if (
+      approvedUsers
+        .filter((users) => users.activity_id === props.id)
+        .filter(
+          (users) => users.name === props.givenName + " " + props.familyName
+        ).length !== 0
+    ) {
+      return (
+        <CancelParticipationResponsiveDialogActivities
+          id={
+            approvedUsers
+              .filter((users) => users.activity_id === props.id)
+              .filter(
+                (users) =>
+                  users.name === props.givenName + " " + props.familyName
+              )[0].id
+          }
+        />
+      );
+    } else {
+      return (
+        <RegisterResponsiveDialogActivities
+          email={props.email}
+          givenName={props.givenName}
+          familyName={props.familyName}
+          phoneNumber={props.phoneNumber}
+          id={props.id}
+        />
+      );
     }
-    else if (pendingUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
-      return (<CancelRegisterResponsiveDialogActivities
-        id={pendingUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName)[0].id} />);
-    }
-    else if (approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0) {
-      return (<CancelParticipationResponsiveDialogActivities
-        id={approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName)[0].id} />);
-    }
-    else {
-      return (<RegisterResponsiveDialogActivities
-        email={props.email}
-        givenName={props.givenName}
-        familyName={props.familyName}
-        phoneNumber={props.phoneNumber}
-        id={props.id} />)
-    }
-
   }
 
   const handleExpandClick = () => {
@@ -280,7 +367,23 @@ export default function RecipeReviewCard(props) {
   return (
     <Card className={classes.root}>
       <CardHeader
-        title={<h1 className="title__h1" style={{ color: "black" }}><b>{props.title}</b> {approvedUsers.filter(users => users.activity_id === props.id).filter(users => users.name === props.givenName + " " + props.familyName).length !== 0 ? <VerifiedUserIcon style={{ fill: "rgba(60,60,60)" }}></VerifiedUserIcon> : ""}</h1>}
+        title={
+          <h1 className="title__h1" style={{ color: "white" }}>
+            <b>{props.title}</b>{" "}
+            {approvedUsers
+              .filter((users) => users.activity_id === props.id)
+              .filter(
+                (users) =>
+                  users.name === props.givenName + " " + props.familyName
+              ).length !== 0 ? (
+              <VerifiedUserIcon
+                style={{ fill: "rgba(60,60,60)" }}
+              ></VerifiedUserIcon>
+            ) : (
+              ""
+            )}
+          </h1>
+        }
         subheader={
           <Typography className={classes.subColor}>
             ע"י: {props.owner}
@@ -289,10 +392,24 @@ export default function RecipeReviewCard(props) {
       />
       <CardMedia
         className={classes.media}
-        image={props.img === "" ? "https://vcunited.club/wp-content/uploads/2020/01/No-image-available-2.jpg" : props.img}
+        image={
+          props.img === ""
+            ? "https://vcunited.club/wp-content/uploads/2020/01/No-image-available-2.jpg"
+            : props.img
+        }
       />
-      <CardActions style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-        {props.zoom === "" ? <VideocamOffIcon style={{ fill: "rgba(60,60,60)" }}></VideocamOffIcon> : <VideocamIcon style={{ fill: "rgba(60,60,60)" }}></VideocamIcon>}
+      <CardActions
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {props.zoom === "" ? (
+          <VideocamOffIcon style={{ fill: "red" }}></VideocamOffIcon>
+        ) : (
+          <VideocamIcon style={{ fill: "green" }}></VideocamIcon>
+        )}
         {whichButton()}
         <IconButton
           className={clsx(classes.expand, {
@@ -309,58 +426,89 @@ export default function RecipeReviewCard(props) {
         <CardContent>
           <Scrollbars style={{ width: 320, height: 300, float: "right" }}>
             <Typography paragraph>
-              {props.groupName !== "approvedUsers" ?
+              {props.groupName !== "approvedUsers" ? (
                 <div>
-                  <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                    <PeopleAltIcon style={{ fill: "rgba(60,60,60)", marginInlineEnd: 10 }}></PeopleAltIcon>
-                    <h3>כמות משתתפים: {approvedUsers.filter(users => users.activity_id === props.id).length}</h3>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <PeopleAltIcon
+                      style={{ fill: "rgba(60,60,60)", marginInlineEnd: 10 }}
+                    ></PeopleAltIcon>
+                    <h3>
+                      כמות משתתפים:{" "}
+                      {
+                        approvedUsers.filter(
+                          (users) => users.activity_id === props.id
+                        ).length
+                      }
+                    </h3>
                   </div>
                   <br></br>
-                  {approvedUsers.filter(users => users.activity_id === props.id).length !== 0 ?
+                  {approvedUsers.filter(
+                    (users) => users.activity_id === props.id
+                  ).length !== 0 ? (
                     <table style={{ margin: "0 auto" }}>
                       <th> </th>
-                      <th>
-                        שם התלמיד/ה
-                  </th>
-                      {approvedUsers.filter(users => users.activity_id === props.id).map((user) =>
-                        <tr>
-                          <td style={{ width: 150 }}>
-                            <CancelParticipationResponsiveDialogActivitiesManager
-                              id={approvedUsers.filter(users2 => users2.activity_id === props.id).filter(users2 => users2.name === user.name)[0].id}
-                            />
-                          </td>
-                          <td style={{ width: 130 }}>
-                            {user.name}
-                          </td>
-                        </tr>
-                      )}
+                      <th className="nameOfStudent">:שם התלמיד/ה</th>
+                      {approvedUsers
+                        .filter((users) => users.activity_id === props.id)
+                        .map((user) => (
+                          <tr className="nameOfStudent">
+                            <td style={{ width: 150 }}>
+                              <CancelParticipationResponsiveDialogActivitiesManager
+                                id={
+                                  approvedUsers
+                                    .filter(
+                                      (users2) =>
+                                        users2.activity_id === props.id
+                                    )
+                                    .filter(
+                                      (users2) => users2.name === user.name
+                                    )[0].id
+                                }
+                              />
+                            </td>
+                            <td style={{ width: 130 }}>{user.name}</td>
+                          </tr>
+                        ))}
                     </table>
-                    :
+                  ) : (
                     ""
-                  }
+                  )}
                 </div>
-                :
+              ) : (
                 ""
-              }
+              )}
               <Typography variant="body2" color="white" component="p">
                 <h3>מספר מפגשים: {props.activityCount}</h3>
                 <br></br>
                 <h3>:תאריכים</h3>
                 <br></br>
                 {props.dates.map((date, index) => {
-                  return <p><b> מפגש {index + 1} :</b> תאריך - <b>{date.substring(0, 10).split("-").reverse().join("-")}</b> שעה - <b>{date.substring(11)}</b></p>
+                  return (
+                    <p className="actDesc">
+                      <b> מפגש {index + 1} :</b> תאריך -{" "}
+                      <b>
+                        {date.substring(0, 10).split("-").reverse().join("-")}
+                      </b>{" "}
+                      שעה - <b>{date.substring(11)}</b>
+                    </p>
+                  );
                 })}
-              </Typography></Typography>
+              </Typography>
+            </Typography>
             <h3>:תיאור הפעילות</h3>
             <br></br>
-            <Typography>
-              {props.description}
-            </Typography>
+            <Typography className="actDesc">{props.description}</Typography>
             <br></br>
             <br></br>
           </Scrollbars>
         </CardContent>
       </Collapse>
-    </Card >
+    </Card>
   );
 }

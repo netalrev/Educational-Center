@@ -2,3 +2,12 @@
     color: white;
     font-size: x-large;
 }
+
+h3 {
+    color: red;
+}
+.actDesc,
+.nameOfStudent,
+act_desc {
+    color: white;
+}

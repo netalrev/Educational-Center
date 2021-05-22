@@ -7,16 +7,6 @@ export default function ActivitiesPage(props) {
   const [dateAndTime, setDateAndTime] = useState([]);
   const [url, setUrl] = useState([]);
 
-  // const fetchUrl = async () => {
-  //   try {
-  //     const res = await fetch(url);
-  //     setUrl(res);
-  //     // console.log(res)
-  //   } catch (err) {
-  //     console.log("Error fetching url", err);
-  //     alert("url");
-  //   }
-  // }
   const fetchTimeAndDate = async () => {
     try {
       var url =
@@ -33,9 +23,6 @@ export default function ActivitiesPage(props) {
   useEffect(() => {
     fetchTimeAndDate();
   }, [url]);
-  // useEffect(() => {
-  //   fetchUrl();
-  // }, []);
 
   return (
     <div>

@@ -12,7 +12,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { Auth } from 'aws-amplify';
+import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 var history;
 function Copyright() {
@@ -51,15 +51,14 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     backgroundColor: "red",
   },
-  Button: {
-
-  },
+  Button: {},
   textField: {
     zIndex: "0",
     border: "3px solid red",
     borderRadius: "9px",
 
     "& label.Mui-focused": {
+      padding: "10px",
       color: "white",
     },
     "& input": {
@@ -67,6 +66,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     "& label": {
+      padding: "10px",
       color: "white",
     },
     "& .MuiInput-underline:after": {
@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
     },
     "& .MuiOutlinedInput-root": {
       "&.Mui-focused fieldset": {
-        borderColor: "white",
+        borderColor: "black",
       },
     },
   },
@@ -87,15 +87,16 @@ async function confirmSignUp() {
     history.push("/register");
     return;
   } catch (error) {
-    alert('error confirming sign up', error);
+    alert('הקוד שהוזן אינו תקין', error);
   }
 }
 async function resendConfirmationCode() {
+  const mail = window.$mail;
   try {
     await Auth.resendSignUp(window.$mail);
-    console.log('code resent successfully');
+    alert('קוד נשלח לכתובת המייל ' + mail);
   } catch (err) {
-    console.log('error resending code: ', err);
+    console.log("error resending code: ", err);
   }
 }
 
@@ -106,11 +107,9 @@ export default function ConfirmSignUp(props) {
 
   function confirmClick(e) {
     username = mail;
-    alert(mail);
     code = document.getElementById("code").value;
     confirmSignUp();
     e.preventDefault();
-
   }
   return (
     <Container component="main" maxWidth="xs" id="allForm">
@@ -128,8 +127,7 @@ export default function ConfirmSignUp(props) {
         >
           אנא הזן את קוד האישור שקיבלת במייל
         </Typography>
-        <form className={classes.form} validate  >
-
+        <form className={classes.form} validate>
           <TextField
             className={classes.textField}
             autoComplete="code"
@@ -161,14 +159,20 @@ export default function ConfirmSignUp(props) {
             אישור
           </Button>
         </form>
-        <button
+        <Button
           onClick={resendConfirmationCode}
           style={{
+            backgroundColor: "red",
+            padding: "18px 18px",
+            fontSize: "18px",
             color: "#ffffff",
+            marginTop: "20px",
+            borderRadius: "9px",
+            borderColor: "red",
           }}
         >
           לא קיבלתי קוד, שלח מחדש
-              </button>
+        </Button>
       </div>
       <Box mt={5}>
         <Copyright />

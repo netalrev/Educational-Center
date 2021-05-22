@@ -39,6 +39,7 @@
     "react-user-profile": "^1.0.3",
     "simple-react-footer": "^1.0.2",
     "styled-components": "^5.2.3",
+    "sweetalert": "^2.1.2",
     "typescript": "^4.2.4",
     "web-vitals": "^0.2.4"
   },

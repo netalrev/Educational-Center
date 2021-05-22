@@ -12,14 +12,18 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { a, Auth } from 'aws-amplify';
+import { a, Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 import ConfirmSignUp from "./ConfirmSignUp";
 import { red } from "@material-ui/core/colors";
 import "./SignUp.css";
-
+import swal from "sweetalert";
+swal({
+  showCancelButton: true,
+  cancelButtonColor: "e1980c",
+  confirmButtonColor: "e1980c",
+});
 var history;
-
 function Copyright() {
   return (
     <Typography
@@ -69,16 +73,15 @@ const useStyles = makeStyles((theme) => ({
     border: "3px solid red",
     borderRadius: "9px",
 
-
     "& label.Mui-focused": {
-      color: "red",
-
+      padding: "10px",
+      color: "white",
     },
     "& input": {
       color: "white",
-
     },
     "& label": {
+      padding: "10px",
       color: "white",
     },
     "& .MuiInput-underline:after": {
@@ -86,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
     },
     "& .MuiOutlinedInput-root": {
       "&.Mui-focused fieldset": {
-        borderColor: "white",
+        borderColor: "black",
       },
     },
   },
@@ -95,38 +98,43 @@ const useStyles = makeStyles((theme) => ({
 var username, password, phone_number, given_name, family_name, birthdate;
 async function signUp() {
   try {
-
-    if (isNaN(phone_number.substring(1)) || phone_number.length !== 14) {
-      alert("מספר פלאפון לא חוקי");
+    if (/[^א-תa-zA-Z]/.test(given_name) || /[^א-תa-zA-Z]/.test(family_name)) {
+      swal("", "שם פרטי/משפחה לא חוקי", "error");
       throw Error;
-    }
-    else if (/\d/.test(given_name) || /\d/.test(family_name)) {
-      alert("שם פרטי/משפחה לא חוקי");
+    } else if (
+      phone_number[4] != "0" ||
+      isNaN(phone_number.substring(1)) ||
+      phone_number.length !== 14
+    ) {
+      swal("", "מספר פלאפון לא חוקי", "error");
       throw Error;
-    }
-    else if (birthdate.toString() == "1900-01-01" || parseInt(birthdate.toString().split("-")[0]) <= 1901) {
-      alert("תאריך לידה לא חוקי");
+    } else if (
+      birthdate.toString() == "1900-01-01" ||
+      parseInt(birthdate.toString().split("-")[0]) <= 1901
+    ) {
+      swal("", "תאריך לידה לא חוקי", "error");
+      throw Error;
+    } else if (password.length < 8) {
+      swal("", "אנא הכנס סיסמה באורך לפחות 8 תווים", "error");
       throw Error;
     }
     const { user } = await Auth.signUp({
       username,
       password,
       attributes: {
-        phone_number,   // optional - E.164 number convention
+        phone_number, // optional - E.164 number convention
         birthdate,
         given_name,
         family_name,
-        // other custom attributes 
-      }
+        // other custom attributes
+      },
     });
-    alert(user);
+    swal("", "קוד לאישור הרשמה נשלח אל כתובת המייל שלך", "success");
     window.$mail = username;
-    history.push("/ConfirmSignUp"/* , {state: username}*/);
+    history.push("/ConfirmSignUp" /* , {state: username}*/);
     //window.location.reload();
-
-
   } catch (error) {
-    alert('אנא וודא שהפרטים נכונים', error);
+    console.log("שגיאת הרשמה", error);
   }
 }
 
@@ -162,7 +170,7 @@ export default function SignUp() {
         >
           הרשמה
         </Typography>
-        <form className={classes.form} onSubmit={signClick} validate  >
+        <form className={classes.form} onSubmit={signClick} validate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -202,13 +210,9 @@ export default function SignUp() {
                 id="birthdate"
                 label="תאריך לידה"
                 defaultValue="1900-01-01"
-                style={
-                  {
-                    color: "red",
-                  }}
-              //value="1900-01-01"
-              //aria-placeholder="01/01/2000"
-              //autoFocus
+                style={{
+                  color: "red",
+                }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>

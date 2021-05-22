@@ -59,13 +59,15 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "9px",
 
         "& label.Mui-focused": {
-            color: "black",
+            padding: "10px",
+            color: "white",
         },
         "& input": {
             color: "white",
         },
 
         "& label": {
+            padding: "10px",
             color: "white",
         },
         "& .MuiInput-underline:after": {
@@ -73,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
         },
         "& .MuiOutlinedInput-root": {
             "&.Mui-focused fieldset": {
-                borderColor: "white",
+                borderColor: "black",
             },
         },
     },
@@ -111,7 +113,7 @@ export default function ForgetPassword(props) {
     }
 
     return (
-        <Container component="main" maxWidth="xs" id="allForm">
+        <Container component="main" maxWidth="xs" id="allForm" >
             <CssBaseline />
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
@@ -134,11 +136,8 @@ export default function ForgetPassword(props) {
                         fullWidth
                         id="email"
                         label="כתובת אימייל"
+                        lang="he"
                         name="email"
-                        style={{
-                            backgroundColor: "black",
-                            color: "black",
-                        }}
                         autoComplete="email"
                     />
                     <Button
