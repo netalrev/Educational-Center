@@ -118,24 +118,24 @@ export default function UploadResponsiveDialog(props) {
         !validURL(document.getElementsByName("activity_zoom")[0].value) ||
         document.getElementsByName("activity_zoom")[0].value === ""
       )
-        return "Invalid zoom url.";
+        return "קישור לזום אינו תקין";
     }
     if (
       document.getElementsByName("name")[0].value > 100 ||
       document.getElementsByName("name")[0].value === ""
     )
-      return "Invalid activity title";
+      return "כותרת לא חוקית";
     else if (
       !validURL(document.getElementsByName("activity_img")[0].value) &&
       document.getElementsByName("activity_img")[0].value !== ""
     )
-      return "Invalid image url.";
+      return "קישור לתמונה אינו תקין";
     else if (
       !document.getElementsByName("activityCount")[0].value ||
       document.getElementsByName("activityCount")[0].value < 1 ||
       document.getElementsByName("activityCount")[0].value === ""
     )
-      return "Invalid activityCount";
+      return "כמות פעילויות לא חוקית";
     var date_map = Array.from(document.getElementsByName("dates")).map(
       (date) => date.value
     );
@@ -146,13 +146,13 @@ export default function UploadResponsiveDialog(props) {
     for (var i = 0; i < date_map.length; i++) {
       temp = dates_class.convert(date_map[i]);
       if (dates_class.compare(current_time, temp) == 1)
-        return "Invalid dates input.";
+        return "תאריך לא חוקי";
     }
     if (
       document.getElementsByName("activity_description")[0].value.length < 10 ||
       document.getElementsByName("activity_description")[0].value === ""
     )
-      return "Invalid description";
+      return "תיאור לא חוקי";
     return "true";
   }
   function compare_dates(a, b) {
@@ -204,7 +204,9 @@ export default function UploadResponsiveDialog(props) {
     var validate = validation();
     if (validate === "true") setOpen(true);
     else {
-      swal("", validate, "error");
+      swal("", validate, "error", {
+        button: "אישור",
+      });
       setOpen(false);
     }
   };
@@ -212,7 +214,9 @@ export default function UploadResponsiveDialog(props) {
   const handleClose = async () => {
     setOpen(false);
     await createActivity().then(
-      swal("", "בקשתך התקבלה בהצלחה, אנא המתן לאישור מנהל", "success")
+      swal("", "בקשתך התקבלה בהצלחה, אנא המתן לאישור מנהל", "success", {
+        button: "אישור",
+      })
     );
     window.location.reload(false);
   };

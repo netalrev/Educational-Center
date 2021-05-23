@@ -225,7 +225,7 @@ export default function UpdateResponsiveDialog(props) {
         !validURL(document.getElementsByName("activity_zoom")[0].value) ||
         document.getElementsByName("activity_zoom")[0].value === ""
       )
-        return "Invalid zoom url.";
+        return "קישור לזום אינו תקין";
     }
     // else if (!validURL(document.getElementsByName("activity_img")[0].value)) return "Invalid image url.";
     else if (
@@ -233,7 +233,7 @@ export default function UpdateResponsiveDialog(props) {
       document.getElementsByName("activityCount")[0].value < 1 ||
       document.getElementsByName("activityCount")[0].value === ""
     )
-      return "Invalid activityCount";
+      return "כמות פעילויות אינה חוקית";
     var date_map = Array.from(document.getElementsByName("dates")).map(
       (date) => date.value
     );
@@ -244,7 +244,7 @@ export default function UpdateResponsiveDialog(props) {
     for (var i = 0; i < date_map.length; i++) {
       temp = dates_class.convert(date_map[i]);
       if (dates_class.compare(current_time, temp) == 1)
-        return "Invalid dates input.";
+        return "תאריך לא חוקי";
     }
     if (
       props.groupName === "admins" ||
@@ -255,12 +255,12 @@ export default function UpdateResponsiveDialog(props) {
         10 ||
         document.getElementsByName("activity_description")[0].value === ""
       )
-        return "Invalid description";
+        return "תיאור לא חוקי";
       if (
         document.getElementsByName("name")[0].value.length > 100 ||
         document.getElementsByName("name")[0].value === ""
       )
-        return "Invalid activity title";
+        return "כותרת לא חוקית";
     }
 
     return "true";
@@ -275,16 +275,22 @@ export default function UpdateResponsiveDialog(props) {
     if (validate == "true") {
       if (props.type === "pending") {
         await editPendingActivities(props.id).then(
-          swal("", "בקשתך לעריכת התוכן המבוקש התקבלה בהצלחה.", "success")
+          swal("", "בקשתך לעריכת התוכן המבוקש התקבלה בהצלחה.", "success", {
+            button: "אישור",
+          })
         );
       } else {
         await editApprovedActivities(props.id).then(
-          swal("", "בקשתך לעריכת התוכן המבוקש התקבלה בהצלחה.", "success")
+          swal("", "בקשתך לעריכת התוכן המבוקש התקבלה בהצלחה.", "success", {
+            button: "אישור",
+          })
         );
       }
       // window.location.reload(false);
     } else {
-      swal("", validate, "error");
+      swal("", validate, "error", {
+        button: "אישור",
+      });
       setOpen(false);
     }
   };

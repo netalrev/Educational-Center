@@ -34,7 +34,9 @@ export default function CancelParticipationResponsiveDialog(props) {
 
   const handleClose = async () => {
     setOpen(false);
-    await deleteSingleUser(props.id).then(swal("", "הסרתך התקבלה בהצלחה", "success"));
+    await deleteSingleUser(props.id).then(swal("", "הסרתך התקבלה בהצלחה", "success", {
+      button: "אישור",
+    }));
     // window.location.reload(false);
   };
   const handleCancel = () => {

@@ -90,14 +90,18 @@ async function confirmSignUp() {
     history.push("/register");
     return;
   } catch (error) {
-    swal("", "הקוד שהוזן אינו תקין", "error");
+    swal("", "הקוד שהוזן אינו תקין", "error", {
+      button: "אישור",
+    });
   }
 }
 async function resendConfirmationCode() {
   const mail = window.$mail;
   try {
     await Auth.resendSignUp(window.$mail);
-    swal("", mail + ' - קוד נשלח לכתובת המייל ', "success");
+    swal("", mail + ' - קוד נשלח לכתובת המייל ', "success", {
+      button: "אישור",
+    });
   } catch (err) {
     console.log("error resending code: ", err);
   }

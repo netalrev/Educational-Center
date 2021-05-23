@@ -61,7 +61,9 @@ export default function RegisterResponsiveDialog(props) {
   const handleClose = async () => {
     setOpen(false);
     await registerPendingUser().then(
-      swal("", "בקשתך התקבלה בהצלחה, אנא המתן לאישור מנהל", "info")
+      swal("", "בקשתך התקבלה בהצלחה, אנא המתן לאישור מנהל", "success", {
+        button: "אישור",
+      })
     );
     window.location.reload(false);
   };

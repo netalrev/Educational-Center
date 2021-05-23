@@ -88,18 +88,26 @@ async function forgetPassword() {
     try {
         // Send confirmation code to user's email
         await Auth.forgotPasswordSubmit(username, code, new_password);
-        swal("", 'סיסמה שונתה בהצלחה ', "success");
+        swal("", 'סיסמה שונתה בהצלחה ', "success", {
+            button: "אישור",
+        });
         history.push("/register");
         return;
     } catch (error) {
         if (error.name == "CodeMismatchException") {
-            swal("", 'קוד אימות שגוי', "error");
+            swal("", 'קוד אימות שגוי', "error", {
+                button: "אישור",
+            });
         }
         else if (error.name == "InvalidParameterException") {
-            swal("", "סיסמה קצרה מ-8 תווים", "error");
+            swal("", "סיסמה קצרה מ-8 תווים", "error", {
+                button: "אישור",
+            });
         }
         else
-            swal("", ' אנא וודא שהפרטים נכונים ', "error");
+            swal("", ' אנא וודא שהפרטים נכונים ', "error", {
+                button: "אישור",
+            });
     }
 }
 export default function ForgetPassword(props) {
@@ -109,8 +117,12 @@ export default function ForgetPassword(props) {
     function sendCode(e) {
         username = document.getElementById("email").value;
         Auth.forgotPassword(username)
-            .then(data => swal("", username + ' - קוד נשלח לכתובת המייל ', "success"))
-            .catch(err => swal("", "אימייל זה אינו רשום", "error"));
+            .then(data => swal("", username + ' - קוד נשלח לכתובת המייל ', "success", {
+                button: "אישור",
+            }))
+            .catch(err => swal("", "אימייל זה אינו רשום", "error", {
+                button: "אישור",
+            }));
         e.preventDefault();
     }
     function resendConfirmationCode(e) {
