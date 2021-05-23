@@ -46,11 +46,15 @@ export default function CancelParticipationResponsiveDialog(props) {
       <Button
         startIcon={
           <PersonAddDisabledIcon
-            style={{ fill: "'rgba(60,60,60)'" }}
+            style={{ fill: "red" }}
           ></PersonAddDisabledIcon>
         }
         variant="outlined"
-        style={{ fill: "rgba(60,60,60)" }}
+        style={{
+          fill: "rgba(60,60,60)",
+          border: "2px solid white",
+          borderRadius: "6%",
+        }}
         onClick={handleClickOpen}
       >
         בטל השתתפות

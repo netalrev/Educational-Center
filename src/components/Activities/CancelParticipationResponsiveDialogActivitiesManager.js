@@ -45,7 +45,7 @@ export default function CancelParticipationResponsiveDialog(props) {
       <Button
         startIcon={
           <PersonAddDisabledIcon
-            style={{ fill: "white" }}
+            style={{ fill: "red", color: "red" }}
           ></PersonAddDisabledIcon>
         }
         variant="outlined"
@@ -64,15 +64,20 @@ export default function CancelParticipationResponsiveDialog(props) {
         onClose={handleCancel}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title" style={{ color: "red" }}>
+        <DialogTitle
+          id="responsive-dialog-title"
+          style={{ color: "white", backgroundColor: "black" }}
+        >
           <b>ביטול השתתפות של תלמיד/ה מפעילות</b>
         </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
+        <DialogContent style={{ color: "white", backgroundColor: "black" }}>
+          <DialogContentText
+            style={{ color: "white", backgroundColor: "black" }}
+          >
             ?האם את/ה בטוח/ה שברצונך לבטל השתתפות של תלמיד/ה זה/ו מהפעילות
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
+        <DialogActions style={{ color: "white", backgroundColor: "black" }}>
           <Button
             autoFocus
             onClick={handleCancel}

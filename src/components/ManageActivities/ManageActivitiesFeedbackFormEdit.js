@@ -116,14 +116,27 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
 
   var text = <b>{props.title}</b>;
   return (
-    <Card className={classes.root}>
+    <Card
+      className={classes.root}
+      style={{
+        color: "white",
+        backgroundColor: "black",
+      }}
+    >
       <CardHeader title={text} />
       <CardContent>
         {props.groupName === "admins"
           ? allActivitiesFeedback.map((activity) => {
               if (props.id === activity.activity_id) {
                 return (
-                  <div style={{ display: "flex", justifyContent: "center" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      backgroundColor: "black",
+                      color: "white",
+                    }}
+                  >
                     <table>
                       <tr>
                         <div>
@@ -133,11 +146,19 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                                 style={{
                                   borderStyle: "solid",
                                   borderRadius: "15px",
+                                  color: "white",
+                                  backgroundColor: "black",
                                 }}
                               >
                                 <h4>:{student[0]}</h4>
                                 <br></br>
-                                <FormControl component="fieldset">
+                                <FormControl
+                                  component="fieldset"
+                                  style={{
+                                    color: "white",
+                                    backgroundColor: "black",
+                                  }}
+                                >
                                   <FormLabel component="legend">
                                     נוכחות במפגש
                                   </FormLabel>

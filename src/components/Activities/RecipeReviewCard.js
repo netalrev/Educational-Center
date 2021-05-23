@@ -374,9 +374,7 @@ export default function RecipeReviewCard(props) {
                 (users) =>
                   users.name === props.givenName + " " + props.familyName
               ).length !== 0 ? (
-              <VerifiedUserIcon
-                style={{ fill: "rgba(60,60,60)" }}
-              ></VerifiedUserIcon>
+              <VerifiedUserIcon style={{ fill: "green" }}></VerifiedUserIcon>
             ) : (
               ""
             )}
