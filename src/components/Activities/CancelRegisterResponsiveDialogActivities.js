@@ -11,6 +11,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import PersonAddDisabledIcon from "@material-ui/icons/PersonAddDisabled";
+import swal from "sweetalert";
 
 export default function CancelRegisterResponsiveDialog(props) {
   const [open, setOpen] = React.useState(false);
@@ -32,7 +33,9 @@ export default function CancelRegisterResponsiveDialog(props) {
 
   const handleClose = async () => {
     setOpen(false);
-    await deleteSingleUser(props.id).then(swal("", "הסרתך התקבלה בהצלחה", "success"));
+    await deleteSingleUser(props.id).then(
+      swal("", "הסרתך התקבלה בהצלחה", "success")
+    );
     window.location.reload(false);
   };
   const handleCancel = () => {
