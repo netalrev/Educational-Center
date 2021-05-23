@@ -322,12 +322,18 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
         open={open}
         onClose={handleCancel}
         aria-labelledby="responsive-dialog-title"
+        style={{ color: "white", backgroundColor: "black" }}
       >
-        <DialogTitle id="responsive-dialog-title" style={{ color: "red" }}>
+        <DialogTitle
+          id="responsive-dialog-title"
+          style={{ color: "red", backgroundColor: "black" }}
+        >
           <b>אישור העלאת תוכן</b>
         </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
+        <DialogContent style={{ color: "white", backgroundColor: "black" }}>
+          <DialogContentText
+            style={{ color: "white", backgroundColor: "black" }}
+          >
             ?האם את/ה בטוח/ה שפרטי הפעילות שהזנת תואמים את הפעילות
           </DialogContentText>
         </DialogContent>
