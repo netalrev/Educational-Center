@@ -32,7 +32,7 @@ export default function CancelRegisterResponsiveDialog(props) {
 
   const handleClose = async () => {
     setOpen(false);
-    await deleteSingleUser(props.id).then(alert("הסרתך התקבלה בהצלחה"));
+    await deleteSingleUser(props.id).then(swal("", "הסרתך התקבלה בהצלחה", "success"));
     window.location.reload(false);
   };
   const handleCancel = () => {

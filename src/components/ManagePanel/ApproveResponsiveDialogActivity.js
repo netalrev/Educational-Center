@@ -19,6 +19,7 @@ import {
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import swal from "sweetalert";
 
 export default function ApproveResponsiveDialogActivity(props) {
   const [open, setOpen] = React.useState(false);
@@ -95,7 +96,7 @@ export default function ApproveResponsiveDialogActivity(props) {
   const handleClose = async () => {
     setOpen(false);
     await approveActivity(props.id);
-    await deleteSinglePending(props.id).then(alert("התוכן אושר בהצלחה"));
+    await deleteSinglePending(props.id).then(swal("", "התוכן אושר בהצלחה", "success"));
     window.location.reload(false);
   };
   const handleCancel = () => {

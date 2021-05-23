@@ -12,6 +12,7 @@ import { createPendingActivities } from "../../graphql/mutations";
 import { listPendingActivitiess } from "../../graphql/queries";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
+import swal from "sweetalert";
 
 export default function UploadResponsiveDialog(props) {
   const [open, setOpen] = React.useState(false);
@@ -36,14 +37,14 @@ export default function UploadResponsiveDialog(props) {
       return d.constructor === Date
         ? d
         : d.constructor === Array
-        ? new Date(d[0], d[1], d[2])
-        : d.constructor === Number
-        ? new Date(d)
-        : d.constructor === String
-        ? new Date(d)
-        : typeof d === "object"
-        ? new Date(d.year, d.month, d.date)
-        : NaN;
+          ? new Date(d[0], d[1], d[2])
+          : d.constructor === Number
+            ? new Date(d)
+            : d.constructor === String
+              ? new Date(d)
+              : typeof d === "object"
+                ? new Date(d.year, d.month, d.date)
+                : NaN;
     },
     compare: function (a, b) {
       // Compare two dates (could be of any type supported by the convert
@@ -97,11 +98,11 @@ export default function UploadResponsiveDialog(props) {
   function validURL(str) {
     var pattern = new RegExp(
       "^(https?:\\/\\/)?" + // protocol
-        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-        "(\\#[-a-z\\d_]*)?$",
+      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+      "(\\#[-a-z\\d_]*)?$",
       "i"
     ); // fragment locator
     return !!pattern.test(str);
@@ -203,7 +204,7 @@ export default function UploadResponsiveDialog(props) {
     var validate = validation();
     if (validate === "true") setOpen(true);
     else {
-      alert(validate);
+      swal("", validate, "error");
       setOpen(false);
     }
   };
@@ -211,7 +212,7 @@ export default function UploadResponsiveDialog(props) {
   const handleClose = async () => {
     setOpen(false);
     await createActivity().then(
-      alert("בקשתך התקבלה בהצלחה, אנא המתן לאישור מנהל")
+      swal("", "בקשתך התקבלה בהצלחה, אנא המתן לאישור מנהל", "success")
     );
     window.location.reload(false);
   };

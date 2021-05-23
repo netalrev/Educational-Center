@@ -10,6 +10,7 @@ import { useTheme } from "@material-ui/core/styles";
 import { deletePendingUser } from "../../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
 import PersonAddDisabledIcon from "@material-ui/icons/PersonAddDisabled";
+import swal from "sweetalert";
 
 export default function DenyResponsiveDialogUser(props) {
   const [open, setOpen] = React.useState(false);
@@ -31,7 +32,7 @@ export default function DenyResponsiveDialogUser(props) {
 
   const handleClose = async () => {
     setOpen(false);
-    await deleteSingleUser(props.id).then(alert("הסרת המשתתף התקבלה בהצלחה"));
+    await deleteSingleUser(props.id).then(swal("", "הסרת המשתתף התקבלה בהצלחה", "success"));
     window.location.reload(false);
   };
   const handleCancel = () => {

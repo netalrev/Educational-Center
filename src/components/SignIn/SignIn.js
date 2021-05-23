@@ -112,20 +112,6 @@ async function signIn() {
     history.push("/register");
     if (username == "" || username == null) {
       swal(" ", "אנא מלא אימייל", "error");
-<<<<<<< HEAD
-    }
-    else if (password == "" || password == null) {
-      swal(" ", "אנא מלא סיסמה", "error");
-    }
-    else if (password.length < 8) {
-      swal(" ", "סיסמה קצרה מ-8 תווים", "error");
-    }
-    else if (error.name == "UserNotFoundException") {
-      swal(" ", "אימייל זה אינו רשום לאתר", "error");
-    }
-    else
-      swal(" ", "סיסמה/אימייל אינם נכונים", "error");
-=======
     } else if (password == "" || password == null) {
       swal(" ", "אנא מלא סיסמה", "error");
     } else if (password.length < 8) {
@@ -133,7 +119,6 @@ async function signIn() {
     } else if (error.name == "UserNotFoundException") {
       swal(" ", "אימייל זה אינו רשום לאתר", "error");
     } else swal(" ", "סיסמה/אימייל אינם נכונים", "error");
->>>>>>> 016c550e9762511c6e8c7018bc4b40283860d599
     console.log("שגיאת התחברות", error);
   }
 }

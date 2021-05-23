@@ -18,6 +18,7 @@ import {
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
 import UpdateIcon from "@material-ui/icons/Update";
+import swal from "sweetalert";
 
 export default function UpdateResponsiveDialog(props) {
   const [open, setOpen] = React.useState(false);
@@ -39,14 +40,14 @@ export default function UpdateResponsiveDialog(props) {
       return d.constructor === Date
         ? d
         : d.constructor === Array
-        ? new Date(d[0], d[1], d[2])
-        : d.constructor === Number
-        ? new Date(d)
-        : d.constructor === String
-        ? new Date(d)
-        : typeof d === "object"
-        ? new Date(d.year, d.month, d.date)
-        : NaN;
+          ? new Date(d[0], d[1], d[2])
+          : d.constructor === Number
+            ? new Date(d)
+            : d.constructor === String
+              ? new Date(d)
+              : typeof d === "object"
+                ? new Date(d.year, d.month, d.date)
+                : NaN;
     },
     compare: function (a, b) {
       // Compare two dates (could be of any type supported by the convert
@@ -203,11 +204,11 @@ export default function UpdateResponsiveDialog(props) {
   function validURL(str) {
     var pattern = new RegExp(
       "^(https?:\\/\\/)?" + // protocol
-        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-        "(\\#[-a-z\\d_]*)?$",
+      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+      "(\\#[-a-z\\d_]*)?$",
       "i"
     ); // fragment locator
     return !!pattern.test(str);
@@ -251,7 +252,7 @@ export default function UpdateResponsiveDialog(props) {
     ) {
       if (
         document.getElementsByName("activity_description")[0].value.length <
-          10 ||
+        10 ||
         document.getElementsByName("activity_description")[0].value === ""
       )
         return "Invalid description";
@@ -274,16 +275,16 @@ export default function UpdateResponsiveDialog(props) {
     if (validate == "true") {
       if (props.type === "pending") {
         await editPendingActivities(props.id).then(
-          alert("בקשתך לעריכת התוכן המבוקש התקבלה בהצלחה.")
+          swal("", "בקשתך לעריכת התוכן המבוקש התקבלה בהצלחה.", "success")
         );
       } else {
         await editApprovedActivities(props.id).then(
-          alert("בקשתך לעריכת התוכן המבוקש התקבלה בהצלחה.")
+          swal("", "בקשתך לעריכת התוכן המבוקש התקבלה בהצלחה.", "success")
         );
       }
       // window.location.reload(false);
     } else {
-      alert(validate);
+      swal("", validate, "error");
       setOpen(false);
     }
   };
