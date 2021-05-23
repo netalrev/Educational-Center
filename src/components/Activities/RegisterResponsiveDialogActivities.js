@@ -13,6 +13,7 @@ import { listPendingUsers } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
+import swal from "sweetalert";
 
 export default function RegisterResponsiveDialog(props) {
   const [open, setOpen] = React.useState(false);
@@ -60,7 +61,7 @@ export default function RegisterResponsiveDialog(props) {
   const handleClose = async () => {
     setOpen(false);
     await registerPendingUser().then(
-      alert("בקשתך התקבלה בהצלחה, אנא המתן לאישור מנהל")
+      swal("", "בקשתך התקבלה בהצלחה, אנא המתן לאישור מנהל", "info")
     );
     window.location.reload(false);
   };

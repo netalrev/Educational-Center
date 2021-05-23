@@ -13,6 +13,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
+import swal from "sweetalert";
 
 export default function ApproveResponsiveDialogActivity(props) {
   const [open, setOpen] = React.useState(false);
@@ -71,7 +72,7 @@ export default function ApproveResponsiveDialogActivity(props) {
   const handleClose = async () => {
     setOpen(false);
     await approveUser(props.id);
-    await deleteSinglePendingUser(props.id).then(alert("המשתתף אושר בהצלחה"));
+    await deleteSinglePendingUser(props.id).then(swal("", "המשתתף אושר בהצלחה", "success"));
     window.location.reload(false);
   };
   const handleCancel = () => {

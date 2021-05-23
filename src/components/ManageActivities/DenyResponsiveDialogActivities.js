@@ -13,6 +13,7 @@ import {
 } from "../../graphql/mutations";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import DeleteIcon from "@material-ui/icons/Delete";
+import swal from "sweetalert";
 
 export default function DenyResponsiveDialogActivities(props) {
   const [open, setOpen] = React.useState(false);
@@ -48,9 +49,9 @@ export default function DenyResponsiveDialogActivities(props) {
   const handleClose = async () => {
     setOpen(false);
     if (props.type === "pending") {
-      await deleteSinglePending(props.id).then(alert("התוכן נמחק בהצלחה"));
+      await deleteSinglePending(props.id).then(swal("", "התוכן נמחק בהצלחה", "success"));
     } else {
-      await deleteSingleApproved(props.id).then(alert("התוכן נמחק בהצלחה"));
+      await deleteSingleApproved(props.id).then(swal("", "התוכן נמחק בהצלחה", "success"));
     }
     window.location.reload(false);
   };
