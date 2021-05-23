@@ -32,7 +32,9 @@ export default function DenyResponsiveDialogUser(props) {
 
   const handleClose = async () => {
     setOpen(false);
-    await deleteSingleUser(props.id).then(swal("", "הסרת המשתתף התקבלה בהצלחה", "success"));
+    await deleteSingleUser(props.id).then(swal("", "הסרת המשתתף התקבלה בהצלחה", "success", {
+      button: "אישור",
+    }));
     window.location.reload(false);
   };
   const handleCancel = () => {

@@ -298,7 +298,9 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
             update_S(user[0], user[1]);
           })
       )
-      .then(swal("", "משוב הוזן בהצלחה.", "success"))
+      .then(swal("", "משוב הוזן בהצלחה.", "success", {
+        button: "אישור",
+      }))
       .then(await createNewSubmittedFeedback())
       .then(await delete_ActivityFeedback(to_del));
 

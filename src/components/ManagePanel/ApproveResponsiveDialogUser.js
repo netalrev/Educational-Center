@@ -72,7 +72,9 @@ export default function ApproveResponsiveDialogActivity(props) {
   const handleClose = async () => {
     setOpen(false);
     await approveUser(props.id);
-    await deleteSinglePendingUser(props.id).then(swal("", "המשתתף אושר בהצלחה", "success"));
+    await deleteSinglePendingUser(props.id).then(swal("", "המשתתף אושר בהצלחה", "success", {
+      button: "אישור",
+    }));
     window.location.reload(false);
   };
   const handleCancel = () => {

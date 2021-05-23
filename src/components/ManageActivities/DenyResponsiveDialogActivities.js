@@ -49,9 +49,13 @@ export default function DenyResponsiveDialogActivities(props) {
   const handleClose = async () => {
     setOpen(false);
     if (props.type === "pending") {
-      await deleteSinglePending(props.id).then(swal("", "התוכן נמחק בהצלחה", "success"));
+      await deleteSinglePending(props.id).then(swal("", "התוכן נמחק בהצלחה", "success", {
+        button: "אישור",
+      }));
     } else {
-      await deleteSingleApproved(props.id).then(swal("", "התוכן נמחק בהצלחה", "success"));
+      await deleteSingleApproved(props.id).then(swal("", "התוכן נמחק בהצלחה", "success", {
+        button: "אישור",
+      }));
     }
     window.location.reload(false);
   };

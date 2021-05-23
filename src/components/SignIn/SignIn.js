@@ -111,14 +111,24 @@ async function signIn() {
   } catch (error) {
     history.push("/register");
     if (username == "" || username == null) {
-      swal(" ", "אנא מלא אימייל", "error");
+      swal(" ", "אנא מלא אימייל", "error", {
+        button: "אישור",
+      });
     } else if (password == "" || password == null) {
-      swal(" ", "אנא מלא סיסמה", "error");
+      swal(" ", "אנא מלא סיסמה", "error", {
+        button: "אישור",
+      });
     } else if (password.length < 8) {
-      swal(" ", "סיסמה קצרה מ-8 תווים", "error");
+      swal(" ", "סיסמה קצרה מ-8 תווים", "error", {
+        button: "אישור",
+      });
     } else if (error.name == "UserNotFoundException") {
-      swal(" ", "אימייל זה אינו רשום לאתר", "error");
-    } else swal(" ", "סיסמה/אימייל אינם נכונים", "error");
+      swal(" ", "אימייל זה אינו רשום לאתר", "error", {
+        button: "אישור",
+      });
+    } else swal(" ", "סיסמה/אימייל אינם נכונים", "error", {
+      button: "אישור",
+    });
     console.log("שגיאת התחברות", error);
   }
 }

@@ -118,7 +118,9 @@ function App() {
       userHasAuthenticated(true);
     } catch (e) {
       if (e !== "No current user") {
-        swal(" ", e, "error");
+        swal(" ", e, "error", {
+          button: "אישור",
+        });
       }
     }
     setIsAuthenticating(false);
@@ -149,8 +151,8 @@ function App() {
               <HomePage />
             </Route>
             {groupName === "admins" ||
-            groupName === "contentSuppliers" ||
-            groupName === "approvedUsers" ? (
+              groupName === "contentSuppliers" ||
+              groupName === "approvedUsers" ? (
               <Route exact path="/profile">
                 <h1>עמוד פרופיל</h1>
               </Route>
@@ -160,8 +162,8 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-            groupName === "contentSuppliers" ||
-            groupName === "approvedUsers" ? (
+              groupName === "contentSuppliers" ||
+              groupName === "approvedUsers" ? (
               <Route exact path="/activitiespage">
                 <ActivitiesPage
                   groupName={groupName}
@@ -179,8 +181,8 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-            groupName === "contentSuppliers" ||
-            groupName === "approvedUsers" ? (
+              groupName === "contentSuppliers" ||
+              groupName === "approvedUsers" ? (
               <Route exact path="/classespage">
                 <ClassesPage />
               </Route>
