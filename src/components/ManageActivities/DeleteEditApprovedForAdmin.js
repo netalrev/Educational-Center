@@ -73,9 +73,9 @@ const columns = [
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 1300,
-    minWidth: 1300,
-    margin: "10px",
+    maxWidth: "1300px",
+    minWidth: "1300px",
+    margin: "15px",
     opacity: 0.85,
     backgroundColor: "rgba(3, 3, 3, 0.5)",
     backgroundPosition: "center",
@@ -83,7 +83,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: "cover",
     color: "red",
     text: "red",
-    borderRadius: "4%",
     right: 0,
     transition: "transform 0.15s ease-in-out",
   },
@@ -282,7 +281,7 @@ export default function DeleteEditPendingForAdmin(props) {
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
           })}
-          style={{ fill: "white", width: "19rem" }}
+          style={{ fill: "white" }}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
@@ -302,7 +301,7 @@ export default function DeleteEditPendingForAdmin(props) {
                         <TableCell
                           key={column.id}
                           align={column.align}
-                          style={{ minWidth: column.minWidth }}
+                          style={{ minWidth: column.minWidth, color: "white" }}
                         >
                           {column.label}
                         </TableCell>
@@ -326,7 +325,11 @@ export default function DeleteEditPendingForAdmin(props) {
                             {columns.map((column) => {
                               const value = row[column.id];
                               return (
-                                <TableCell key={column.id} align={column.align}>
+                                <TableCell
+                                  key={column.id}
+                                  align={column.align}
+                                  style={{ color: "white" }}
+                                >
                                   {column.format && typeof value === "number"
                                     ? column.format(value)
                                     : value}

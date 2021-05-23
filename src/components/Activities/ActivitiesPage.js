@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-
+import Loading from "../Loading/Loading";
 import ActivityTable from "./ActivityTable";
 import { useState, useEffect } from "react";
+import $ from "jquery";
 
 export default function ActivitiesPage(props) {
   const [dateAndTime, setDateAndTime] = useState([]);
@@ -23,19 +24,32 @@ export default function ActivitiesPage(props) {
   useEffect(() => {
     fetchTimeAndDate();
   }, [url]);
+  $("#activities_page").hide();
+  setTimeout(() => $("#loadingg").hide(), 2000);
+  setTimeout(() => $("#activities_page").show(), 2000);
 
   return (
     <div>
       {/* <Clock format={'DD/MM/YYYY HH:mm:ss'} className='current_time' date={dateAndTime} /> */}
       {/* {console.log(document.getElementsByClassName("current_time")[0].innerText)} */}
-      <ActivityTable
-        currentTime={dateAndTime}
-        email={props.email}
-        givenName={props.givenName}
-        familyName={props.familyName}
-        phoneNumber={props.phoneNumber}
-        groupName={props.groupName}
-      />
+      <div id="loadingg">
+        <Loading />
+      </div>
+      <div id="activities_page">
+        <ActivityTable
+          currentTime={dateAndTime}
+          email={props.email}
+          givenName={props.givenName}
+          familyName={props.familyName}
+          phoneNumber={props.phoneNumber}
+          groupName={props.groupName}
+        />
+      </div>
     </div>
   );
 }
+/*
+$("td").each(function () {
+  $(this).css("color", "#ffffff");
+});
+*/

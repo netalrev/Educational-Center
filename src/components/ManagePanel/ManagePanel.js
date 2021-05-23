@@ -6,9 +6,21 @@ import DeleteEditApprovedForAdmin from "../ManageActivities/DeleteEditApprovedFo
 export default function ManagePanel(props) {
   return (
     <div>
-      <ManageCardActivities groupName={props.groupName} title="פעילויות שטרם אושרו" />
-      <DeleteEditApprovedForAdmin groupName={props.groupName} type="pending" email={props.email} title="פעיליות שאושרו" />
-      <ManageCardUsers groupName={props.groupName} title="אישור משתתפים לפעילויות" />
-    </div >
+      <ManageCardActivities
+        groupName={props.groupName}
+        title="פעילויות שטרם אושרו"
+        style={{ textAlign: "center", align: "center" }}
+      />
+      <DeleteEditApprovedForAdmin
+        groupName={props.groupName}
+        type="pending"
+        email={props.email}
+        title="פעיליות שאושרו"
+      />
+      <ManageCardUsers
+        groupName={props.groupName}
+        title="אישור משתתפים לפעילויות"
+      />
+    </div>
   );
 }

@@ -6,6 +6,7 @@ import { API, graphqlOperation } from "aws-amplify";
 import RecipeReviewCard from "./RecipeReviewCard";
 
 import SearchBar from "material-ui-search-bar";
+import $ from "jquery";
 
 export default function ActivityTable(props) {
   const [allApprovedActivitiess, setAllApprovedActivitiess] = useState([]);

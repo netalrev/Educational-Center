@@ -50,8 +50,8 @@ const columns = [
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 1300,
-    minWidth: 1300,
+    maxWidth: "1300px",
+    minWidth: "1300px",
     margin: "10px",
     opacity: 0.85,
     backgroundColor: "rgba(3, 3, 3, 0.5)",
@@ -60,7 +60,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: "cover",
     color: "red",
     text: "red",
-    borderRadius: "4%",
     right: 0,
     transition: "transform 0.15s ease-in-out",
   },
@@ -270,7 +269,7 @@ export default function DeleteEditPendingForContectSupplier(props) {
                         <TableCell
                           key={column.id}
                           align={column.align}
-                          style={{ minWidth: column.minWidth }}
+                          style={{ minWidth: column.minWidth, color: "white" }}
                         >
                           {column.label}
                         </TableCell>
@@ -294,7 +293,11 @@ export default function DeleteEditPendingForContectSupplier(props) {
                             {columns.map((column) => {
                               const value = row[column.id];
                               return (
-                                <TableCell key={column.id} align={column.align}>
+                                <TableCell
+                                  key={column.id}
+                                  align={column.align}
+                                  style={{ color: "white" }}
+                                >
                                   {column.format && typeof value === "number"
                                     ? column.format(value)
                                     : value}

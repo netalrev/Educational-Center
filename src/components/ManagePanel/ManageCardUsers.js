@@ -61,9 +61,9 @@ const columns = [
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 900,
-    minWidth: 900,
-    margin: "10px",
+    maxWidth: "1300px",
+    minWidth: "1300px",
+    margin: "15px",
     opacity: 0.85,
     backgroundColor: "rgba(3, 3, 3, 0.5)",
     backgroundPosition: "center",
@@ -71,16 +71,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: "cover",
     color: "red",
     text: "red",
-    borderRadius: "4%",
     right: 0,
     transition: "transform 0.15s ease-in-out",
-    marginInline: 200,
   },
   expand: {
     transform: "rotate(0deg)",
     marginLeft: "auto",
     color: "red", //arrow color
-
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
@@ -290,7 +287,11 @@ export default function ManageCardUsers(props) {
                             {columns.map((column) => {
                               const value = row[column.id];
                               return (
-                                <TableCell key={column.id} align={column.align}>
+                                <TableCell
+                                  key={column.id}
+                                  align={column.align}
+                                  style={{ color: "white" }}
+                                >
                                   {column.format && typeof value === "number"
                                     ? column.format(value)
                                     : value}

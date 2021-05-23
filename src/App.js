@@ -136,13 +136,6 @@ function App() {
     createU();
   }
 
-  $("td").each(function () {
-    $(this).css("color", "#ffffff");
-  });
-  $("tr").each(function () {
-    $(this).css("color", "#ffffff");
-  });
-
   return (
     <div className="App">
       <Navbar givenName={gname} familyName={fname} groupName={groupName} />
@@ -257,5 +250,4 @@ function App() {
     </div>
   );
 }
-
 export default App;

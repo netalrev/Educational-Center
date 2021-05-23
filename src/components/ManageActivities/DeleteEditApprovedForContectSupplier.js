@@ -50,8 +50,8 @@ const columns = [
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 1300,
-    minWidth: 1300,
+    maxWidth: "1300px",
+    minWidth: "1300px",
     margin: "10px",
     opacity: 0.85,
     backgroundImage: 'url("")',
@@ -60,7 +60,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: "cover",
     color: "red",
     text: "red",
-    borderRadius: "4%",
     right: 0,
     transition: "transform 0.15s ease-in-out",
   },
