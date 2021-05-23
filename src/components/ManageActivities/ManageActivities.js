@@ -23,14 +23,14 @@ export default function ManageActivities(props) {
           groupName={props.groupName}
           type="pending"
           email={props.email}
-          title="פעיליות שטרם שאושרו"
+          title="פעילויות שטרם אושרו"
         />
       ) : (
         <DeleteEditPendingForContectSupplier
           groupName={props.groupName}
           type="pending"
           email={props.email}
-          title="פעיליות שטרם שאושרו"
+          title="פעילויות שטרם אושרו"
         />
       )}
       {props.groupName === "admins" ? (
@@ -52,7 +52,7 @@ export default function ManageActivities(props) {
         groupName={props.groupName}
         type="approved"
         email={props.email}
-        title="משוב פעלויות"
+        title="משוב פעילויות"
       />
     </div>
   );

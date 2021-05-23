@@ -263,7 +263,11 @@ export default function ManageCardUsers(props) {
                         <TableCell
                           key={column.id}
                           align={column.align}
-                          style={{ minWidth: column.minWidth }}
+                          style={{
+                            minWidth: column.minWidth,
+                            backgroundColor: "black",
+                            color: "white",
+                          }}
                         >
                           <p className="tableTxt">{column.label}</p>
                         </TableCell>

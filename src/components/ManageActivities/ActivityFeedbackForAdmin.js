@@ -26,7 +26,14 @@ import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 
 const columns = [
-  { id: "buttons", label: "", minWidth: 110, maxWidth: 110, align: "center" },
+  {
+    id: "buttons",
+    label: "",
+    minWidth: 110,
+    maxWidth: 110,
+    align: "center",
+    color: "white",
+  },
   {
     id: "students",
     label: "רשומים",
@@ -278,7 +285,11 @@ export default function ActivityFeedbackForAdmin(props) {
                         <TableCell
                           key={column.id}
                           align={column.align}
-                          style={{ minWidth: column.minWidth, color: "white" }}
+                          style={{
+                            minWidth: column.minWidth,
+                            color: "white",
+                            backgroundColor: "black",
+                          }}
                         >
                           {column.label}
                         </TableCell>

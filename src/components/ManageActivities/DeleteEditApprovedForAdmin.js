@@ -301,7 +301,11 @@ export default function DeleteEditPendingForAdmin(props) {
                         <TableCell
                           key={column.id}
                           align={column.align}
-                          style={{ minWidth: column.minWidth, color: "white" }}
+                          style={{
+                            minWidth: column.minWidth,
+                            color: "white",
+                            backgroundColor: "black",
+                          }}
                         >
                           {column.label}
                         </TableCell>

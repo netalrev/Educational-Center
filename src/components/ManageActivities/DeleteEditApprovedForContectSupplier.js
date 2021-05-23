@@ -292,7 +292,14 @@ export default function DeleteEditPendingForAdmin(props) {
                             {columns.map((column) => {
                               const value = row[column.id];
                               return (
-                                <TableCell key={column.id} align={column.align}>
+                                <TableCell
+                                  key={column.id}
+                                  align={column.align}
+                                  style={{
+                                    color: "white",
+                                    backgroundColor: "black",
+                                  }}
+                                >
                                   {column.format && typeof value === "number"
                                     ? column.format(value)
                                     : value}

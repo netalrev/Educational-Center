@@ -28,7 +28,13 @@ import Typography from "@material-ui/core/Typography";
 import $ from "jquery";
 
 const columns = [
-  { id: "buttons", label: "", minWidth: 110, maxWidth: 110, align: "center" },
+  {
+    id: "buttons",
+    label: "",
+    minWidth: 110,
+    maxWidth: 110,
+    align: "center",
+  },
   {
     id: "dates",
     label: "תארכי מפגשים",
@@ -317,7 +323,11 @@ export default function ManageCardActivities(props) {
                         <TableCell
                           key={column.id}
                           align={column.align}
-                          style={{ minWidth: column.minWidth }}
+                          style={{
+                            minWidth: column.minWidth,
+                            backgroundColor: "black",
+                            color: "white",
+                          }}
                         >
                           {column.label}
                         </TableCell>
