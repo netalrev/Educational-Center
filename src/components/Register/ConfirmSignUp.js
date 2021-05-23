@@ -14,6 +14,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
+import swal from "sweetalert";
+
+
 var history;
 function Copyright() {
   return (
@@ -87,14 +90,14 @@ async function confirmSignUp() {
     history.push("/register");
     return;
   } catch (error) {
-    alert('הקוד שהוזן אינו תקין', error);
+    swal("", "הקוד שהוזן אינו תקין", "error");
   }
 }
 async function resendConfirmationCode() {
   const mail = window.$mail;
   try {
     await Auth.resendSignUp(window.$mail);
-    alert('קוד נשלח לכתובת המייל ' + mail);
+    swal("", mail + ' - קוד נשלח לכתובת המייל ', "success");
   } catch (err) {
     console.log("error resending code: ", err);
   }
