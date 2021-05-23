@@ -250,13 +250,13 @@ export default function UploadResponsiveDialog(props) {
           <Button
             autoFocus
             onClick={handleCancel}
-            style={{ fill: "rgba(60,60,60)" }}
+            style={{ fill: "white", backgroundColor: "red" }}
           >
             בטל העלאה
           </Button>
           <Button
             onClick={handleClose}
-            style={{ fill: "rgba(60,60,60)" }}
+            style={{ fill: "white", backgroundColor: "green" }}
             autoFocus
           >
             אשר העלאה

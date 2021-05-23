@@ -76,13 +76,13 @@ export default function CancelParticipationResponsiveDialog(props) {
           <Button
             autoFocus
             onClick={handleCancel}
-            style={{ fill: "rgba(60,60,60)" }}
+            style={{ fill: "white", backgroundColor: "red" }}
           >
             בטל
           </Button>
           <Button
             onClick={handleClose}
-            style={{ fill: "rgba(60,60,60)" }}
+            style={{ fill: "white", backgroundColor: "green" }}
             autoFocus
           >
             אשר

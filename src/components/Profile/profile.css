@@ -1,4 +1,14 @@
 @import url("https://fonts.googleapis.com/css?family=Krub:400,700");
+
+@keyframes grow {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 87%;
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -9,13 +19,18 @@ html,
 body {
     width: 100%;
     height: 100%;
-}
-
-body {
     background: #202020;
     font-family: "Krub", sans-serif;
 }
 
+.avater {
+    max-width: 290px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-bottom: 0;
+}
 .card {
     position: absolute;
     margin-top: 100px;
@@ -50,12 +65,8 @@ body {
     top: 40px;
     right: 0;
     left: 0;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    box-shadow: 0 0 0 5px #151515, inset 0 0 0 5px #000000, inset 0 0 0 5px #000000, inset 0 0 0 5px #000000,
-        inset 0 0 0 5px #000000;
-    background: white;
+    width: 200px;
+    height: 200px;
     overflow: hidden;
     animation: mvTop 1.5s;
 }
@@ -71,6 +82,7 @@ body {
     right: 0;
     bottom: 0;
     left: 0;
+    margin-top: 20px;
     width: inherit;
     height: 200px;
     text-align: center;
@@ -84,11 +96,11 @@ body {
 }
 .card .name a:hover {
     text-decoration: underline;
-    color: red;
 }
 .card .name h6 {
     position: absolute;
     margin: auto;
+    font-size: 30px;
     height: 170px;
     left: 0;
     right: 0;
@@ -138,10 +150,13 @@ body {
 .card .ds-info .projects,
 .card .ds-info .posts {
     position: relative;
-    left: -300px;
+    left: -340px;
     align-self: center;
-    width: calc(250px / 3);
+    width: 80px;
     text-align: center;
+    font-size: larger;
+    margin-left: 8px;
+    margin-right: 8px;
     color: white;
     animation: fadeInMove 2s;
     animation-fill-mode: forwards;
@@ -155,7 +170,9 @@ body {
 .card .ds-info .pens p,
 .card .ds-info .projects p,
 .card .ds-info .posts p {
-    font-size: 12px;
+    font-size: 15px;
+    margin-top: 5px;
+    margin-bottom: 0px;
 }
 .card .ds-info .ds:nth-of-type(2) {
     animation-delay: 0.5s;
@@ -163,17 +180,7 @@ body {
 .card .ds-info .ds:nth-of-type(1) {
     animation-delay: 1s;
 }
-.card .ds-skill {
-    position: absolute;
-    margin: auto;
-    margin-bottom: 60px;
-    bottom: 50px;
-    right: 0;
-    left: 0;
-    width: 200px;
-    height: 100px;
-    animation: mvBottom 1.5s;
-}
+
 .logout {
     position: absolute;
     margin: auto;
@@ -183,62 +190,6 @@ body {
     left: 0;
     animation: mvBottom 1.5s;
     margin-top: 25px;
-}
-.card .ds-skill1 {
-    position: absolute;
-    margin: auto;
-    margin-bottom: 10px;
-    right: 0;
-    left: 0;
-    width: 200px;
-    height: 100px;
-    animation: mvBottom 1.5s;
-}
-.card .ds-skill h6 {
-    margin-bottom: 5px;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: red;
-}
-.card .ds-skill .skill h6 {
-    font-weight: 400;
-    font-size: 8px;
-    letter-spacing: 0.05em;
-    margin: 4px 0;
-    color: white;
-}
-.card .ds-skill .skill .fab {
-    color: red;
-    font-size: 14px;
-}
-.card .ds-skill .skill .bar {
-    height: 5px;
-    background: red;
-    text-align: right;
-}
-.card .ds-skill .skill .bar p {
-    color: white;
-    font-size: 8px;
-    padding-top: 5px;
-    animation: fadeIn 5s;
-}
-.card .ds-skill .skill .bar:hover {
-    background: white;
-}
-.card .ds-skill .skill .bar-html {
-    width: 95%;
-    animation: htmlSkill 1s;
-    animation-delay: 0.4s;
-}
-.card .ds-skill .skill .bar-css {
-    width: 90%;
-    animation: cssSkill 2s;
-    animation-delay: 0.4s;
-}
-.card .ds-skill .skill .bar-js {
-    width: 75%;
-    animation: jsSkill 3s;
-    animation-delay: 0.4s;
 }
 
 @keyframes fadeInMove {
@@ -310,4 +261,62 @@ body {
 .following {
     color: white;
     background: red;
+}
+
+#container {
+    position: relative;
+    width: 50vw;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+}
+
+input {
+    display: none;
+}
+
+.myLabel {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 40px;
+    background: transparent;
+    border-radius: 0.4rem;
+    border: 2px solid white;
+    overflow: hidden;
+    box-shadow: -2px 0 8px 0 rgba(255, 255, 255, 0.6);
+}
+.myLabel div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to bottom, #ff7878 35%, #ff0404);
+    height: 100%;
+    width: 0%;
+    animation: grow 2s forwards;
+    box-shadow: 0 0 8px 1px white inset;
+}
+.myLabel div:before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/172299/bubbles-mask.gif);
+    mix-blend-mode: overlay;
+    opacity: 0.5;
+}
+
+span {
+    display: inline-block;
+    color: white;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 0.7rem;
+}
+span:last-child {
+    float: right;
 }

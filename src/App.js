@@ -22,6 +22,8 @@ import ConfirmSignUp from "./components/Register/ConfirmSignUp";
 import { I18n } from "aws-amplify";
 import { Translations } from "@aws-amplify/ui-components";
 import { Hub, Logger } from "aws-amplify";
+import swal from "sweetalert";
+import $ from "jquery";
 
 Amplify.configure(awsconfig); //AWS CONFIGORE
 var fname = "null";
@@ -116,7 +118,7 @@ function App() {
       userHasAuthenticated(true);
     } catch (e) {
       if (e !== "No current user") {
-        alert(e);
+        swal(" ", e, "error");
       }
     }
     setIsAuthenticating(false);
@@ -133,6 +135,7 @@ function App() {
   ) {
     createU();
   }
+
   return (
     <div className="App">
       <Navbar givenName={gname} familyName={fname} groupName={groupName} />
@@ -221,7 +224,6 @@ function App() {
               {isAuthenticated ? (
                 <div onClick={refreshPage}>
                   {" "}
-                  <h1 className="profileHeader">עמוד פרופיל</h1>
                   <Profile
                     givenName={gname}
                     familyName={fname}
@@ -248,5 +250,4 @@ function App() {
     </div>
   );
 }
-
 export default App;

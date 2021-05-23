@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
     margin: "10px",
     background: "rgba(0, 0, 0, 0.5)",
     color: "black",
-    text: "black",
     borderRadius: "4%",
     right: 0,
     transition: "transform 0.15s ease-in-out",
@@ -48,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
 
   media: {
     height: 0,
-    color: "black",
     paddingTop: "56.25%", // 16:9
   },
   expand: {

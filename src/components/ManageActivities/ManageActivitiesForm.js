@@ -27,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: "cover",
     color: "red",
     text: "red",
-    borderRadius: "4%",
     right: 0,
     transition: "transform 0.15s ease-in-out",
     marginInline: 400,
@@ -37,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
     transform: "rotate(0deg)",
     marginLeft: "auto",
     color: "red", //arrow color
-
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
@@ -120,8 +118,13 @@ export default function ManageActivitiesFormPending(props) {
               .substring(0, 16)}
             className={classes.textField}
             InputLabelProps={{
+              style: {
+                color: "#fff",
+                right: "0px",
+                marginLeft: "35px",
+                backgroundColor: "#e1980c",
+              },
               shrink: true,
-              style: { color: "red" },
             }}
             InputProps={{
               style: { color: "#fff" },

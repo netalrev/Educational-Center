@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Inconsolata");
-
 .arc {
     position: absolute;
     margin: auto;
@@ -10,7 +9,7 @@
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    border-top: 2px solid #ffea29;
+    border-top: 2px solid #ff0037;
     border-left: 1px solid transparent;
     border-right: 1px solid transparent;
     animation: rt 2s infinite linear;
@@ -26,7 +25,7 @@
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    border-top: 2px solid #8d29ff;
+    border-top: 2px solid #ffffff;
     border-left: 1px solid transparent;
     border-right: 1px solid transparent;
     animation: rt 4s infinite linear reverse;
@@ -47,7 +46,7 @@
     border-right: initial;
     animation: cw 1s infinite;
     content: "";
-    background: snow;
+    background: rgb(255, 0, 0);
 }
 
 .h1loading {
@@ -63,7 +62,7 @@
     letter-spacing: 0.1em;
     font-size: 14px;
     font-weight: lighter;
-    color: white;
+    color: rgb(255, 121, 121);
 }
 .h1loading span {
     display: none;
