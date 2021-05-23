@@ -24,11 +24,6 @@ export const MenuItems = [
     url: "/ManagerPanel",
     cName: "nav-links",
   },
-  {
-    title: "צור קשר",
-    url: "/ContactUs",
-    cName: "nav-links",
-  },
 
   {
     title: "התחברות/הרשמה",

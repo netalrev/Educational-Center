@@ -84,7 +84,7 @@ function App() {
       const usersList = usersData.data.listUsers.items;
       setUsers(usersList);
     } catch (error) {
-      console.log("error on fetching Pending Activities", error);
+      console.log("error on fetching users", error);
     }
   };
   const create_User = async () => {
@@ -100,7 +100,7 @@ function App() {
         phone_number: phoneNumber,
         score: 0,
       };
-      console.log(user);
+      console.log(user, users);
       await API.graphql(graphqlOperation(createUser, { input: user }));
       await fetchUsers();
     } catch (error) {
@@ -151,8 +151,8 @@ function App() {
               <HomePage />
             </Route>
             {groupName === "admins" ||
-              groupName === "contentSuppliers" ||
-              groupName === "approvedUsers" ? (
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
               <Route exact path="/profile">
                 <h1>עמוד פרופיל</h1>
               </Route>
@@ -162,8 +162,8 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-              groupName === "contentSuppliers" ||
-              groupName === "approvedUsers" ? (
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
               <Route exact path="/activitiespage">
                 <ActivitiesPage
                   groupName={groupName}
@@ -181,8 +181,8 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-              groupName === "contentSuppliers" ||
-              groupName === "approvedUsers" ? (
+            groupName === "contentSuppliers" ||
+            groupName === "approvedUsers" ? (
               <Route exact path="/classespage">
                 <ClassesPage />
               </Route>
@@ -224,7 +224,7 @@ function App() {
             )}
             <Route exact path="/register">
               {isAuthenticated ? (
-                <div onClick={refreshPage}>
+                <div>
                   {" "}
                   <Profile
                     givenName={gname}

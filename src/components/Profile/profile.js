@@ -4,6 +4,8 @@ import Amplify, { Auth } from "aws-amplify";
 import { AmplifySignOut } from "@aws-amplify/ui-react";
 import { useState, useEffect } from "react";
 import Dog from "../Avatars/Dog";
+import { listUsers } from "../../graphql/queries";
+import { API, graphqlOperation } from "aws-amplify";
 
 var level = 6;
 var nextLevel = 88;
@@ -12,6 +14,16 @@ var pastActivities = 1;
 var procces = registeredActivities / registeredActivities;
 
 export default function Profile(props) {
+  const [users, setUsers] = useState([]);
+  const fetchUsers = async () => {
+    try {
+      const usersData = await API.graphql(graphqlOperation(listUsers));
+      const usersList = usersData.data.listUsers.items;
+      setUsers(usersList);
+    } catch (error) {
+      console.log("error on fetching users", error);
+    }
+  };
   useEffect(() => {
     var elm = document.querySelector("#progress1");
     setInterval(function () {
@@ -21,6 +33,9 @@ export default function Profile(props) {
         clearInterval();
       }
     }, 18);
+  }, []);
+  useEffect(() => {
+    fetchUsers();
   }, []);
   return (
     <div className="card">
@@ -36,11 +51,8 @@ export default function Profile(props) {
         </div>
       </div>
       <div className="name">
-        <a href="https://codepen.io/AlbertFeynman/" target="_blank">
-          {props.givenName + " " + props.familyName}
-        </a>
+        <a>{props.givenName + " " + props.familyName}</a>
         <h6 title="Level">
-          <i className="fas fa-user-graduate"></i>{" "}
           <span className="Level"> {level} </span>
         </h6>
       </div>

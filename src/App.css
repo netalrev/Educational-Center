@@ -101,13 +101,20 @@ tbody {
 .swal-modal {
     background-color: rgba(0, 0, 0, 0.651);
     color: white;
+    justify-content: center;
+    text-align: center;
 }
 .swal-text {
     color: white;
     font-size: 33px;
+    text-align: center;
 }
 .swal-button {
     background-color: #ff2600;
+    color: #ffffff;
+}
+.swal-button:hover {
+    background-color: #5a0e01;
     color: #ffffff;
 }
 textField {
