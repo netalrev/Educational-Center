@@ -153,7 +153,7 @@ body {
     align-self: center;
     width: 80px;
     text-align: center;
-    font-size: larger;
+    font-size: xx-large;
     margin-left: 8px;
     margin-right: 8px;
     color: white;
@@ -163,8 +163,7 @@ body {
 .card .ds-info .pens h6,
 .card .ds-info .projects h6,
 .card .ds-info .posts h6 {
-    text-transform: uppercase;
-    color: red;
+    font-size: large;
 }
 .card .ds-info .pens p,
 .card .ds-info .projects p,
@@ -268,6 +267,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate3d(-50%, -50%, 0);
+    margin-top: 50px;
 }
 
 input {
@@ -318,4 +318,19 @@ span {
 }
 span:last-child {
     float: right;
+}
+.points {
+    font-weight: 900;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 80px;
+}
+.levels {
+    font-weight: 900;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 30px;
+    color: rgb(255, 0, 0);
+    margin-top: 20px;
+}
+.prof1 {
+    margin-top: 50px;
 }

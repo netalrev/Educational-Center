@@ -15,15 +15,23 @@ var procces = registeredActivities / registeredActivities;
 
 export default function Profile(props) {
   const [users, setUsers] = useState([]);
+  const [myScore, setMyScore] = useState([]);
   const fetchUsers = async () => {
     try {
       const usersData = await API.graphql(graphqlOperation(listUsers));
       const usersList = usersData.data.listUsers.items;
       setUsers(usersList);
+      if (props.groupName === "approvedUsers")
+        setMyScore(
+          usersList.filter(
+            (user) => user.name === props.givenName + " " + props.familyName
+          )[0]
+        );
     } catch (error) {
       console.log("error on fetching users", error);
     }
   };
+
   useEffect(() => {
     var elm = document.querySelector("#progress1");
     setInterval(function () {
@@ -42,7 +50,6 @@ export default function Profile(props) {
       <div className="ds-top"></div>
       <div className="avatar-holder">
         <div id="container">
-          <input type="checkbox" id="water" />
           <label for="water" className="myLabel">
             <div id="fill"></div>
           </label>
@@ -53,28 +60,28 @@ export default function Profile(props) {
       <div className="name">
         <a>{props.givenName + " " + props.familyName}</a>
         <h6 title="Level">
-          <span className="Level"> {level} </span>
+          <h1 className="points"> {level} </h1>
         </h6>
       </div>
 
       <div className="ds-info">
         <div className="ds pens">
-          <h6 title="Number of pens created by the user">
+          <h6 className="prof1" title="Number of pens created by the user">
             רישום לפעילויות <i className="fas fa-edit"></i>
           </h6>
-          <p> {registeredActivities} </p>
+          <h6 className="levels"> {registeredActivities} </h6>
         </div>
         <div className="ds projects">
-          <h6 title="Number of projects created by the user">
+          <h6 className="prof1" title="Number of projects created by the user">
             התקדמות בפעילויות <i className="fas fa-project-diagram"></i>
           </h6>
-          <p> {procces} </p>
+          <h6 className="levels"> {procces} </h6>
         </div>
         <div className="ds posts">
-          <h6 title="Number of posts">
+          <h6 className="prof1" title="Number of posts">
             דרגה הבאה <i className="fas fa-comments"></i>
           </h6>
-          <p> {nextLevel} </p>
+          <h6 className="levels"> {nextLevel} </h6>
         </div>
       </div>
 
