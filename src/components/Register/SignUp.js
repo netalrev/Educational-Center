@@ -18,11 +18,8 @@ import ConfirmSignUp from "./ConfirmSignUp";
 import { red } from "@material-ui/core/colors";
 import "./SignUp.css";
 import swal from "sweetalert";
-swal({
-  showCancelButton: true,
-  cancelButtonColor: "e1980c",
-  confirmButtonColor: "e1980c",
-});
+
+
 var history;
 function Copyright() {
   return (
@@ -98,26 +95,6 @@ const useStyles = makeStyles((theme) => ({
 var username, password, phone_number, given_name, family_name, birthdate;
 async function signUp() {
   try {
-    if (/[^א-תa-zA-Z]/.test(given_name) || /[^א-תa-zA-Z]/.test(family_name)) {
-      swal("", "שם פרטי/משפחה לא חוקי", "error");
-      throw Error;
-    } else if (
-      phone_number[4] != "0" ||
-      isNaN(phone_number.substring(1)) ||
-      phone_number.length !== 14
-    ) {
-      swal("", "מספר פלאפון לא חוקי", "error");
-      throw Error;
-    } else if (
-      birthdate.toString() == "1900-01-01" ||
-      parseInt(birthdate.toString().split("-")[0]) <= 1901
-    ) {
-      swal("", "תאריך לידה לא חוקי", "error");
-      throw Error;
-    } else if (password.length < 8) {
-      swal("", "אנא הכנס סיסמה באורך לפחות 8 תווים", "error");
-      throw Error;
-    }
     const { user } = await Auth.signUp({
       username,
       password,
@@ -131,9 +108,30 @@ async function signUp() {
     });
     swal("", "קוד לאישור הרשמה נשלח אל כתובת המייל שלך", "success");
     window.$mail = username;
-    history.push("/ConfirmSignUp" /* , {state: username}*/);
-    //window.location.reload();
+    history.push("/ConfirmSignUp");
   } catch (error) {
+    if (/[^א-תa-zA-Z]/.test(given_name) || /[^א-תa-zA-Z]/.test(family_name)) {
+      swal("", "שם פרטי/משפחה לא חוקי", "error");
+    } else if (
+      phone_number[4] != "0" ||
+      isNaN(phone_number.substring(1)) ||
+      phone_number.length !== 14
+    ) {
+      swal("", "מספר פלאפון לא חוקי", "error");
+    } else if (
+      birthdate.toString() == "1900-01-01" ||
+      parseInt(birthdate.toString().split("-")[0]) <= 1901
+    ) {
+      swal("", "תאריך לידה לא חוקי", "error");
+    } else if (password.length < 8) {
+      swal("", "אנא הכנס סיסמה באורך לפחות 8 תווים", "error");
+    }
+    else if (error.name == "UsernameExistsException") {
+      swal("", "אימייל זה כבר קיים במערכת", "error");
+    }
+    else {
+      swal("", "אנא וודא שהפרטים נכונים", "error");
+    }
     console.log("שגיאת הרשמה", error);
   }
 }
@@ -253,7 +251,7 @@ export default function SignUp() {
                 autoComplete="current-password"
               />
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <FormControlLabel
                 style={{
                   color: "#ffffff",
@@ -268,7 +266,7 @@ export default function SignUp() {
                 }
                 label="אני מאשר את תנאי השימוש"
               />
-            </Grid>
+            </Grid> */}
           </Grid>
           <Button
             style={{

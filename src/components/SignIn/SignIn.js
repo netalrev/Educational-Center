@@ -1,6 +1,5 @@
 import React from "react";
 import { Hub, Logger } from "aws-amplify";
-
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -18,6 +17,7 @@ import { Auth } from "aws-amplify";
 import Loading from "../Loading/Loading";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import swal from "sweetalert";
 
 function Copyright() {
   return (
@@ -109,9 +109,17 @@ async function signIn() {
     document.getElementById("allForm").style.display = "none";
     window.location.reload();
   } catch (error) {
-    alert("אנא וודא כי הפרטים נכונים");
     history.push("/register");
-    console.log("error signing in", error);
+    if (username == "" || username == null) {
+      swal(" ", "אנא מלא אימייל", "error");
+    } else if (password == "" || password == null) {
+      swal(" ", "אנא מלא סיסמה", "error");
+    } else if (password.length < 8) {
+      swal(" ", "סיסמה קצרה מ-8 תווים", "error");
+    } else if (error.name == "UserNotFoundException") {
+      swal(" ", "אימייל זה אינו רשום לאתר", "error");
+    } else swal(" ", "סיסמה/אימייל אינם נכונים", "error");
+    console.log("שגיאת התחברות", error);
   }
 }
 export default function SignIn() {
@@ -123,21 +131,7 @@ export default function SignIn() {
     console.log("Loggin in....");
     username = document.getElementById("email").value;
     password = document.getElementById("password").value;
-    if (username === "" || username === null) {
-      alert("אנא מלא אימייל");
-      return;
-    }
-    if (password === "" || password === null) {
-      alert("");
-      return;
-    }
-    if (password.length < 8) {
-      alert("סיסמא קצרה מדיי");
-      return;
-    }
-
     signIn();
-
     e.preventDefault();
   }
 

@@ -282,6 +282,7 @@ export default function DeleteEditPendingForAdmin(props) {
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
           })}
+          style={{ fill: "white", width: "19rem" }}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"

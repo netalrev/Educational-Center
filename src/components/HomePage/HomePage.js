@@ -7,6 +7,9 @@ var history;
 function goToAc() {
   history.push("./activitiesPage");
 }
+function goToLogin() {
+  history.push("./register");
+}
 export default function HomePage() {
   history = useHistory();
   return (
@@ -111,13 +114,16 @@ export default function HomePage() {
       <div className="hero__content">
         <h1 className="homeTitle1">ברוכים הבאים אל 5 על 5</h1>
         <h2 className="homeTitle2">
-          ישראלי מצוי לא כל כך שפוי לא כל כך אפוי לא תמיד צפוי צל הוא הכינוי לא
-          נורמלי נראה לי תמיד מחלוקת או שינוי לא ריאלי לרפי העולם תמיד רצוי לא
-          פנוי לא נשוי פנוי ולא רפוי שיכור ולא שתוי אני צל ולא חסוי אז רוצה
-          להיות כמוני רוצה להיות יואב? וואחד כאפה לפנים באמת אני כוכב.
+          לורם איפסום הוא כינוי לטקסט חסר משמעות לחלוטין - הנקרא לפעמים גם דמי
+          טקסט או ג'יבריש - ומיועד להיות ממוקם בסקיצות עיצוביות - של עלונים,
+          מגזינים, מודעות, אתרי אינטרנט וכו' - במקום הטקסט האמיתי הסופי - עד
+          שיהיה טקסט אמיתי.
         </h2>
         <p className="btnText" onClick={goToAc}>
           לחץ כאן לכל הפעילויות
+        </p>
+        <p className="btnText" onClick={goToLogin}>
+          לחץ כאן להתחברות
         </p>
       </div>
     </div>

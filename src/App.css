@@ -20,6 +20,7 @@
     --amplify-text-xl: 4rem;
     --amplify-text-lg: 4rem;
 }
+
 .main {
     display: flex;
     position: static;
@@ -97,4 +98,23 @@ input:-webkit-autofill {
 }
 tbody {
     color: #ffffff;
+}
+.swal-modal {
+    background-color: rgba(0, 0, 0, 0.651);
+    color: white;
+}
+.swal-text {
+    color: white;
+    font-size: 33px;
+}
+.swal-button {
+    background-color: #ff2600;
+    color: #ffffff;
+}
+textField {
+    width: "90%";
+    margin-left: "auto";
+    margin-right: "auto";
+    padding-bottom: 0;
+    color: aqua;
 }

@@ -11,6 +11,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import PersonAddDisabledIcon from "@material-ui/icons/PersonAddDisabled";
+import swal from "sweetalert";
 
 export default function CancelParticipationResponsiveDialog(props) {
   const [open, setOpen] = React.useState(false);
@@ -78,7 +79,7 @@ export default function CancelParticipationResponsiveDialog(props) {
           </Button>
           <Button
             onClick={handleClose}
-            style={{ fill: "rgba(60,60,60)" }}
+            style={{ fill: "white", backgroundColor: "green" }}
             autoFocus
           >
             אשר

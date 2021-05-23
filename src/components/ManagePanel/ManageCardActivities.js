@@ -48,6 +48,7 @@ const columns = [
     minWidth: 130,
     maxWidth: 130,
     align: "center",
+    color: "#ffffff",
   },
   {
     id: "activityName",

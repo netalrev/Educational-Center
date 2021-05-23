@@ -14,6 +14,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Auth } from 'aws-amplify';
 import { useHistory } from "react-router-dom";
+import swal from "sweetalert";
+
 var history;
 function Copyright() {
     return (
@@ -85,13 +87,19 @@ var username, code, new_password;
 async function forgetPassword() {
     try {
         // Send confirmation code to user's email
-        Auth.forgotPasswordSubmit(username, code, new_password)
-            .then(data => console.log(data))
-            .catch(err => console.log(err));
+        await Auth.forgotPasswordSubmit(username, code, new_password);
+        swal("", 'סיסמה שונתה בהצלחה ', "success");
         history.push("/register");
         return;
     } catch (error) {
-        alert('error confirming sign up', error);
+        if (error.name == "CodeMismatchException") {
+            swal("", 'קוד אימות שגוי', "error");
+        }
+        else if (error.name == "InvalidParameterException") {
+            swal("", "סיסמה קצרה מ-8 תווים", "error");
+        }
+        else
+            swal("", ' אנא וודא שהפרטים נכונים ', "error");
     }
 }
 export default function ForgetPassword(props) {
@@ -101,8 +109,8 @@ export default function ForgetPassword(props) {
     function sendCode(e) {
         username = document.getElementById("email").value;
         Auth.forgotPassword(username)
-            .then(data => alert(data))
-            .catch(err => alert(err));
+            .then(data => swal("", username + ' - קוד נשלח לכתובת המייל ', "success"))
+            .catch(err => swal("", "אימייל זה אינו רשום", "error"));
         e.preventDefault();
     }
     function resendConfirmationCode(e) {
