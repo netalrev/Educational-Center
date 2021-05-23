@@ -79,8 +79,9 @@ export default function ManageActivitiesFormPending(props) {
 
   var handleChange = (event) => {
     var toReturn;
-    setChecked(event.target.checked);
-    if (event.target.checked == true) {
+    setChecked(!document.getElementById("zoomCheckBox").checked);
+    //console.log(document.getElementById("zoomCheckBox").checked);
+    if (!document.getElementById("zoomCheckBox").checked == true) {
       toReturn = (
         <tr>
           <FormElement name="activity_zoom" title=": קישור לזום" type="text" />
@@ -170,7 +171,7 @@ export default function ManageActivitiesFormPending(props) {
                 <Checkbox
                   id="zoomCheckBox"
                   checked={checked}
-                  onChange={handleChange}
+                  onClick={handleChange}
                   fill="red"
                   inputProps={{ "aria-label": "primary checkbox" }}
                 />
