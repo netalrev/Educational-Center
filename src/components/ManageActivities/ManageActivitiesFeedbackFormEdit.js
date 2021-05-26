@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
   subColor: {
     color: "red",
   },
+
   // textField: {
   //     width: '90%',
   //     marginLeft: 'auto',
@@ -159,7 +160,10 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                                     backgroundColor: "black",
                                   }}
                                 >
-                                  <FormLabel component="legend">
+                                  <FormLabel
+                                    component="legend"
+                                    style={{ color: "white" }}
+                                  >
                                     נוכחות במפגש
                                   </FormLabel>
                                   <RadioGroup
@@ -169,22 +173,25 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                                     style={{
                                       display: "flex",
                                       justifyContent: "center",
+                                      color: "white",
                                     }}
                                   >
                                     <FormControlLabel
                                       value="10"
-                                      control={<Radio color="rgba(60,60,60)" />}
+                                      control={<Radio color="white" />}
                                       label="נכח"
-                                      labelPlacement="top"
                                     />
                                     <FormControlLabel
                                       value="0"
-                                      control={<Radio color="rgba(60,60,60)" />}
+                                      control={<Radio color="white" />}
                                       label="לא נכח"
                                       labelPlacement="top"
                                     />
                                   </RadioGroup>
-                                  <FormLabel component="legend">
+                                  <FormLabel
+                                    component="legend"
+                                    style={{ color: "white" }}
+                                  >
                                     השתתפות במפגש
                                   </FormLabel>
                                   <RadioGroup
@@ -229,7 +236,10 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                                       labelPlacement="top"
                                     />
                                   </RadioGroup>
-                                  <FormLabel component="legend">
+                                  <FormLabel
+                                    component="legend"
+                                    style={{ color: "white" }}
+                                  >
                                     תרומה למפגש
                                   </FormLabel>
                                   <RadioGroup

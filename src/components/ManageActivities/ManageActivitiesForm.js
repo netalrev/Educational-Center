@@ -51,16 +51,31 @@ const useStyles = makeStyles((theme) => ({
   subColor: {
     color: "red",
   },
-  // textField: {
-  //     width: '90%',
-  //     marginLeft: 'auto',
-  //     marginRight: 'auto',
-  //     textAlign: 'right',
-  //     theme: "createMuiTheme({ direction: \"rtl\" }",
-  //     paddingBottom: 0,
-  //     marginTop: "0",
-  //     fontWeight: 500
-  // },
+  textField: {
+    zIndex: "0",
+    border: "3px solid red",
+    borderRadius: "9px",
+
+    "& label.Mui-focused": {
+      padding: "10px",
+      color: "white",
+    },
+    "& input": {
+      color: "white",
+    },
+    "& label": {
+      padding: "10px",
+      color: "white",
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "red",
+    },
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused fieldset": {
+        borderColor: "black",
+      },
+    },
+  },
 }));
 
 export default function ManageActivitiesFormPending(props) {
@@ -117,18 +132,6 @@ export default function ManageActivitiesFormPending(props) {
               .toISOString()
               .substring(0, 16)}
             className={classes.textField}
-            InputLabelProps={{
-              style: {
-                color: "#fff",
-                right: "0px",
-                marginLeft: "35px",
-                backgroundColor: "#e1980c",
-              },
-              shrink: true,
-            }}
-            InputProps={{
-              style: { color: "#fff" },
-            }}
           />
         </tr>
       );
@@ -194,13 +197,6 @@ export default function ManageActivitiesFormPending(props) {
                   multiline
                   rows={4}
                   variant="outlined"
-                  InputLabelProps={{
-                    shrink: true,
-                    style: { color: "red" },
-                  }}
-                  InputProps={{
-                    style: { color: "#fff" },
-                  }}
                 />
               </tr>
               <tr>
