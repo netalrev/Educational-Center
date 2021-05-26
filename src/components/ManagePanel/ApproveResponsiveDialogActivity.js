@@ -96,9 +96,11 @@ export default function ApproveResponsiveDialogActivity(props) {
   const handleClose = async () => {
     setOpen(false);
     await approveActivity(props.id);
-    await deleteSinglePending(props.id).then(swal("", "התוכן אושר בהצלחה", "success", {
-      button: "אישור",
-    }));
+    await deleteSinglePending(props.id).then(
+      swal("", "התוכן אושר בהצלחה", "success", {
+        button: "אישור",
+      })
+    );
     window.location.reload(false);
   };
   const handleCancel = () => {
@@ -110,11 +112,21 @@ export default function ApproveResponsiveDialogActivity(props) {
       <Button
         startIcon={
           <CheckCircleIcon
-            style={{ fill: "white", backgroundColor: "green" }}
+            style={{
+              fill: "white",
+              backgroundColor: "green",
+              maxWidth: "100px",
+              marginBottom: "11px"
+            }}
           ></CheckCircleIcon>
         }
         variant="outlined"
-        style={{ fill: "white", backgroundColor: "green" }}
+        style={{
+          fill: "white",
+          backgroundColor: "green",
+          maxHeight: "40px",
+          paddingBottom: "15px"
+        }}
         onClick={handleClickOpen}
       >
         אשר
@@ -125,25 +137,30 @@ export default function ApproveResponsiveDialogActivity(props) {
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title" style={{ color: "red" }}>
+        <DialogTitle
+          id="responsive-dialog-title"
+          style={{ color: "white", backgroundColor: "black" }}
+        >
           <b>אישור העלאת תוכן</b>
         </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
+        <DialogContent style={{ color: "white", backgroundColor: "black" }}>
+          <DialogContentText
+            style={{ color: "white", backgroundColor: "black" }}
+          >
             ?האם את/ה בטוח/ה שפרטי הפעילות שהזנתם תואמים את הפעילות
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
+        <DialogActions style={{ color: "white", backgroundColor: "black" }}>
           <Button
             autoFocus
             onClick={handleCancel}
-            style={{ fill: "rgba(60,60,60)" }}
+            style={{ color: "white", backgroundColor: "red" }}
           >
             בטל העלאה
           </Button>
           <Button
             onClick={handleClose}
-            style={{ fill: "rgba(60,60,60)" }}
+            style={{ color: "white", backgroundColor: "green" }}
             autoFocus
           >
             אשר העלאה

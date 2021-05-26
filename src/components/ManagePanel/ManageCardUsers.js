@@ -61,9 +61,11 @@ const columns = [
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: "1300px",
-    minWidth: "1300px",
-    margin: "15px",
+    maxWidth: "95%",
+    minWidth: "95%",
+    left: 0,
+    margin: "auto",
+    marginTop: "20px",
     opacity: 0.85,
     backgroundColor: "rgba(3, 3, 3, 0.5)",
     backgroundPosition: "center",

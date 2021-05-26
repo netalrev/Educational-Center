@@ -17,9 +17,12 @@ import Checkbox from "@material-ui/core/Checkbox";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 500,
-    minWidth: 500,
-    margin: "10px",
+    maxWidth: "40%",
+    minWidth: "40%",
+    left: 0,
+    margin: "auto",
+    borderRadius: "33px",
+    marginTop: "20px",
     opacity: 0.85,
     backgroundColor: "rgba(3, 3, 3, 0.5)",
     backgroundPosition: "center",
@@ -29,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
     text: "red",
     right: 0,
     transition: "transform 0.15s ease-in-out",
-    marginInline: 400,
     textAlign: "center",
     justifyContent: "center",
   },
@@ -57,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     zIndex: "0",
     border: "3px solid red",
-    borderRadius: "9px",
+    borderRadius: "33px",
     minWidth: "450px",
 
     "& label.Mui-focused": {
@@ -155,6 +157,11 @@ export default function ManageActivitiesFormPending(props) {
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
+          style={{
+            backgroundColor: "red",
+            maxWidth: "50px",
+            maxHeight: "50px",
+          }}
         >
           <ExpandMoreIcon />
         </IconButton>

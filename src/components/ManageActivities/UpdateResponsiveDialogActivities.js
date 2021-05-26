@@ -329,9 +329,18 @@ export default function UpdateResponsiveDialog(props) {
   return (
     <div>
       <Button
-        startIcon={<UpdateIcon style={{ fill: "#ffffff" }}></UpdateIcon>}
+        startIcon={<UpdateIcon style={{
+          fill: "#ffffff",
+          maxWidth: "100px",
+          marginBottom: "11px"
+        }}></UpdateIcon>}
         variant="outlined"
-        style={{ fill: "#04c704", backgroundColor: "#04c704" }}
+        style={{
+          fill: "white",
+          backgroundColor: "green",
+          maxHeight: "40px",
+          paddingBottom: "15px"
+        }}
         onClick={handleClickOpen}
       >
         עדכן

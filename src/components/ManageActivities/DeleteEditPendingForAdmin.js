@@ -72,9 +72,11 @@ const columns = [
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: "1300px",
-    minWidth: "1300px",
-    margin: "10px",
+    maxWidth: "95%",
+    minWidth: "95%",
+    left: 0,
+    margin: "auto",
+    marginTop: "20px",
     opacity: 0.85,
     backgroundColor: "rgba(3, 3, 3, 0.5)",
     backgroundPosition: "center",
@@ -123,14 +125,14 @@ export default function DeleteEditPendingForAdmin(props) {
       return d.constructor === Date
         ? d
         : d.constructor === Array
-          ? new Date(d[0], d[1], d[2])
-          : d.constructor === Number
-            ? new Date(d)
-            : d.constructor === String
-              ? new Date(d)
-              : typeof d === "object"
-                ? new Date(d.year, d.month, d.date)
-                : NaN;
+        ? new Date(d[0], d[1], d[2])
+        : d.constructor === Number
+        ? new Date(d)
+        : d.constructor === String
+        ? new Date(d)
+        : typeof d === "object"
+        ? new Date(d.year, d.month, d.date)
+        : NaN;
     },
     compare: function (a, b) {
       // Compare two dates (could be of any type supported by the convert
