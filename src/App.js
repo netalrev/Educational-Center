@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar/Navbar";
 import HomePage from "./components/HomePage/HomePage";
 import Loading from "./components/Loading/Loading";
 import Profile from "./components/Profile/profile";
+import ProfileCard from "./components/Profile/ProfileCard";
 import SignUp from "./components/Register/SignUp";
 import { useState, useEffect } from "react";
 import { createUser } from "./graphql/mutations";
@@ -24,6 +25,7 @@ import { Translations } from "@aws-amplify/ui-components";
 import { Hub, Logger } from "aws-amplify";
 import swal from "sweetalert";
 import $ from "jquery";
+import ReactCardFlip from "react-card-flip";
 
 Amplify.configure(awsconfig); //AWS CONFIGORE
 var fname = "null";
@@ -226,10 +228,11 @@ function App() {
               {isAuthenticated ? (
                 <div>
                   {" "}
-                  <Profile
+                  <ProfileCard
                     givenName={gname}
                     familyName={fname}
                     groupName={groupName}
+                    email={emailAddress}
                   />{" "}
                 </div>
               ) : (

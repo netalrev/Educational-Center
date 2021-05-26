@@ -21,16 +21,16 @@
 }
 
 .main {
-    display: flex;
     position: static;
     align-items: center;
     align-self: center;
-    min-height: 600px;
     justify-content: center;
     justify-self: center;
-    padding-bottom: 0;
+    padding: auto;
     margin-bottom: 0px;
     background-color: #2b2b2b;
+    padding-top: 0px;
+    min-height: 600px;
 }
 .forbidden {
     color: aliceblue;
