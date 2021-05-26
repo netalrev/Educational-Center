@@ -26,7 +26,7 @@ export default function EditResponsiveDialogActivities(props) {
     <div style={{ backgroundColor: "#000000", color: "#ffffff" }}>
       <Button
         startIcon={
-          <EditIcon style={{ fill: "white", width: "19rem" }}></EditIcon>
+          <EditIcon style={{ fill: "white", width: "1rem" }}></EditIcon>
         }
         variant="outlined"
         style={{ backgroundColor: "#005ccc", fontSize: "larger" }}

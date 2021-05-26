@@ -51,13 +51,14 @@ const useStyles = makeStyles((theme) => ({
   subColor: {
     color: "red",
   },
+
   textField: {
     zIndex: "0",
     border: "3px solid red",
     borderRadius: "9px",
 
     "& label.Mui-focused": {
-      padding: "10px",
+      //padding: "10px",
       color: "white",
     },
     "& input": {
@@ -71,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
       borderBottomColor: "red",
     },
     "& .MuiOutlinedInput-root": {
+      color: "white",
       "&.Mui-focused fieldset": {
         borderColor: "black",
       },
@@ -167,6 +169,7 @@ export default function ManageActivitiesFormPending(props) {
                   name="activity_img"
                   title="קישור לתמונה :"
                   type="text"
+                  className={classes.textField}
                 />
               </tr>
               <tr>

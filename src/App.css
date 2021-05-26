@@ -68,7 +68,25 @@ amplify-sign-in {
     border-radius: 20px;
     border: 3px solid rgb(0, 0, 0);
 }
-
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    cursor: pointer;
+    display: block;
+    width: 8px;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    position: relative;
+    margin: 9px;
+}
+input[type="number"]:hover::-webkit-inner-spin-button {
+    background: rgb(255, 0, 0) url("http://i.stack.imgur.com/YYySO.png") no-repeat 50% 50%;
+    width: 14px;
+    height: 14px;
+    padding: 4px;
+    position: relative;
+    right: 4px;
+    border-radius: 28px;
+}
 html {
     height: 100%;
 }
