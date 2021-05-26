@@ -19,7 +19,6 @@ import { red } from "@material-ui/core/colors";
 import "./SignUp.css";
 import swal from "sweetalert";
 
-
 var history;
 function Copyright() {
   return (
@@ -89,7 +88,8 @@ const useStyles = makeStyles((theme) => ({
         borderColor: "black",
       },
     },
-    "& label span": { //For remove Asterisk from required inputs.
+    "& label span": {
+      //For remove Asterisk from required inputs.
       display: "none",
     },
   },
@@ -138,13 +138,11 @@ async function signUp() {
       swal("", "אנא הכנס סיסמה באורך לפחות 8 תווים", "error", {
         button: "אישור",
       });
-    }
-    else if (error.name == "UsernameExistsException") {
+    } else if (error.name == "UsernameExistsException") {
       swal("", "אימייל זה כבר קיים במערכת", "error", {
         button: "אישור",
       });
-    }
-    else {
+    } else {
       swal("", "אנא וודא שהפרטים נכונים", "error", {
         button: "אישור",
       });

@@ -75,10 +75,19 @@ export default function RegisterResponsiveDialog(props) {
     <div>
       <Button
         startIcon={
-          <PersonAddIcon style={{ fill: "rgba(60,60,60)" }}></PersonAddIcon>
+          <PersonAddIcon
+            style={{ fill: "white", marginBottom: "5px" }}
+          ></PersonAddIcon>
         }
         variant="outlined"
-        style={{ fill: "rgba(60,60,60)" }}
+        style={{
+          backgroundColor: "red",
+          minWidth: "100%",
+          borderRadius: "33px",
+          padding: "0px",
+          paddingRight: "10px",
+          paddingLeft: "10px",
+        }}
         onClick={handleClickOpen}
       >
         הרשמה
