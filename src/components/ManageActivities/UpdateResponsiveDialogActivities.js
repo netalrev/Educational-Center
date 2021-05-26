@@ -219,51 +219,74 @@ export default function UpdateResponsiveDialog(props) {
     return re.test(email);
   }
   function validation() {
-    // var name = document.getElementsByName("name")[0].value;
-    if (document.getElementById("zoomCheckBox").checked) {
-      if (
-        !validURL(document.getElementsByName("activity_zoom")[0].value) ||
-        document.getElementsByName("activity_zoom")[0].value === ""
+    if (props.type === "approved" && props.groupName === "contentSuppliers") {
+      if (document.getElementById("zoomCheckBox").checked) {
+        if (
+          !validURL(document.getElementsByName("activity_zoom")[0].value) ||
+          document.getElementsByName("activity_zoom")[0].value === ""
+        )
+          return "קישור לזום אינו תקין";
+      }
+      else if (
+        !document.getElementsByName("activityCount")[0].value ||
+        document.getElementsByName("activityCount")[0].value < 1 ||
+        document.getElementsByName("activityCount")[0].value === ""
       )
-        return "קישור לזום אינו תקין";
+        return "כמות פעילויות לא חוקית";
+      var date_map = Array.from(document.getElementsByName("dates")).map(
+        (date) => date.value
+      );
+      var current_time = props.currentTime;
+      var temp;
+      for (var i = 0; i < date_map.length; i++) {
+        temp = dates_class.convert(date_map[i]);
+        if (dates_class.compare(current_time, temp) == 1)
+          return "תאריך לא חוקי";
+      }
+      return true;
     }
-    // else if (!validURL(document.getElementsByName("activity_img")[0].value)) return "Invalid image url.";
-    else if (
-      !document.getElementsByName("activityCount")[0].value ||
-      document.getElementsByName("activityCount")[0].value < 1 ||
-      document.getElementsByName("activityCount")[0].value === ""
-    )
-      return "כמות פעילויות אינה חוקית";
-    var date_map = Array.from(document.getElementsByName("dates")).map(
-      (date) => date.value
-    );
-    var current_time = dates_class.convert(
-      new Date(Date.now() - tzoffset_start).toISOString().substring(0, 16)
-    );
-    var temp;
-    for (var i = 0; i < date_map.length; i++) {
-      temp = dates_class.convert(date_map[i]);
-      if (dates_class.compare(current_time, temp) == 1)
-        return "תאריך לא חוקי";
-    }
-    if (
-      props.groupName === "admins" ||
-      (props.type == "pending" && props.groupName === "contentSuppliers")
-    ) {
+    else {
       if (
-        document.getElementsByName("activity_description")[0].value.length <
-        10 ||
-        document.getElementsByName("activity_description")[0].value === ""
-      )
-        return "תיאור לא חוקי";
-      if (
-        document.getElementsByName("name")[0].value.length > 100 ||
+        document.getElementsByName("name")[0].value > 100 ||
         document.getElementsByName("name")[0].value === ""
       )
         return "כותרת לא חוקית";
+      else if (
+        !validURL(document.getElementsByName("activity_img")[0].value) &&
+        document.getElementsByName("activity_img")[0].value !== ""
+      )
+        return "קישור לתמונה אינו תקין";
+      else if (document.getElementById("zoomCheckBox").checked) {
+        if (
+          !validURL(document.getElementsByName("activity_zoom")[0].value) ||
+          document.getElementsByName("activity_zoom")[0].value === ""
+        )
+          return "קישור לזום אינו תקין";
+      }
+      else if (
+        !document.getElementsByName("activityCount")[0].value ||
+        document.getElementsByName("activityCount")[0].value < 1 ||
+        document.getElementsByName("activityCount")[0].value === ""
+      )
+        return "כמות פעילויות לא חוקית";
+      var date_map = Array.from(document.getElementsByName("dates")).map(
+        (date) => date.value
+      );
+      var current_time = props.currentTime;
+      var temp;
+      for (var i = 0; i < date_map.length; i++) {
+        temp = dates_class.convert(date_map[i]);
+        if (dates_class.compare(current_time, temp) == 1)
+          return "תאריך לא חוקי";
+      }
+      if (
+        document.getElementsByName("activity_description")[0].value.length < 10 ||
+        document.getElementsByName("activity_description")[0].value === ""
+      )
+        return "תיאור לא חוקי";
+      return "true";
     }
 
-    return "true";
   }
   const handleClickOpen = () => {
     setOpen(true);

@@ -113,13 +113,6 @@ export default function UploadResponsiveDialog(props) {
     return re.test(email);
   }
   function validation() {
-    if (document.getElementById("zoomCheckBox").checked) {
-      if (
-        !validURL(document.getElementsByName("activity_zoom")[0].value) ||
-        document.getElementsByName("activity_zoom")[0].value === ""
-      )
-        return "קישור לזום אינו תקין";
-    }
     if (
       document.getElementsByName("name")[0].value > 100 ||
       document.getElementsByName("name")[0].value === ""
@@ -130,6 +123,13 @@ export default function UploadResponsiveDialog(props) {
       document.getElementsByName("activity_img")[0].value !== ""
     )
       return "קישור לתמונה אינו תקין";
+    else if (document.getElementById("zoomCheckBox").checked) {
+      if (
+        !validURL(document.getElementsByName("activity_zoom")[0].value) ||
+        document.getElementsByName("activity_zoom")[0].value === ""
+      )
+        return "קישור לזום אינו תקין";
+    }
     else if (
       !document.getElementsByName("activityCount")[0].value ||
       document.getElementsByName("activityCount")[0].value < 1 ||
@@ -139,9 +139,7 @@ export default function UploadResponsiveDialog(props) {
     var date_map = Array.from(document.getElementsByName("dates")).map(
       (date) => date.value
     );
-    var current_time = dates_class.convert(
-      new Date(Date.now() - tzoffset_start).toISOString().substring(0, 16)
-    );
+    var current_time = props.currentTime;
     var temp;
     for (var i = 0; i < date_map.length; i++) {
       temp = dates_class.convert(date_map[i]);

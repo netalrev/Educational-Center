@@ -5,9 +5,28 @@ import DeleteEditApprovedForContectSupplier from "./DeleteEditApprovedForContect
 import DeleteEditApprovedForAdmin from "./DeleteEditApprovedForAdmin";
 import ActivityFeedbackForAdmin from "./ActivityFeedbackForAdmin";
 import ManageActivitiesForm from "./ManageActivitiesForm";
+import { useState, useEffect } from "react"
+
 
 // class ManageActivities extends Component {
 export default function ManageActivities(props) {
+  const [dateAndTime, setDateAndTime] = useState([]);
+  const fetchTimeAndDate = async () => {
+    try {
+      var url =
+        "http://api.timezonedb.com/v2.1/get-time-zone?key=7IOGNZDWONQE&format=json&by=zone&zone=Asia/Jerusalem";
+      if (url.length !== 0) {
+        const res = await fetch(url);
+        const data = await res.json();
+        setDateAndTime(data.formatted);
+      }
+    } catch (err) {
+      console.log("Error fetching date and time.", err);
+    }
+  };
+  useEffect(() => {
+    fetchTimeAndDate();
+  });
   return (
     <div style={{ align: "justify", align: "center" }}>
       <ManageActivitiesForm
@@ -16,6 +35,7 @@ export default function ManageActivities(props) {
         givenName={props.givenName}
         familyName={props.familyName}
         id="1"
+        currentTime={dateAndTime}
         title="העלאת תוכן"
       />
       {props.groupName === "admins" ? (
@@ -23,6 +43,7 @@ export default function ManageActivities(props) {
           groupName={props.groupName}
           type="pending"
           email={props.email}
+          currentTime={dateAndTime}
           title="פעילויות שטרם אושרו"
         />
       ) : (
@@ -30,6 +51,7 @@ export default function ManageActivities(props) {
           groupName={props.groupName}
           type="pending"
           email={props.email}
+          currentTime={dateAndTime}
           title="פעילויות שטרם אושרו"
         />
       )}
@@ -38,6 +60,7 @@ export default function ManageActivities(props) {
           groupName={props.groupName}
           type="approved"
           email={props.email}
+          currentTime={dateAndTime}
           title="פעיליות שאושרו"
         />
       ) : (
@@ -45,6 +68,7 @@ export default function ManageActivities(props) {
           groupName={props.groupName}
           type="approved"
           email={props.email}
+          currentTime={dateAndTime}
           title="פעיליות שאושרו"
         />
       )}
@@ -52,6 +76,7 @@ export default function ManageActivities(props) {
         groupName={props.groupName}
         type="approved"
         email={props.email}
+        currentTime={dateAndTime}
         title="משוב פעילויות"
       />
     </div>

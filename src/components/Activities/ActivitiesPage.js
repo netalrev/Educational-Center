@@ -30,8 +30,6 @@ export default function ActivitiesPage(props) {
 
   return (
     <div>
-      {/* <Clock format={'DD/MM/YYYY HH:mm:ss'} className='current_time' date={dateAndTime} /> */}
-      {/* {console.log(document.getElementsByClassName("current_time")[0].innerText)} */}
       <div id="loadingg">
         <Loading />
       </div>
