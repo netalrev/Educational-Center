@@ -38,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
     transform: "rotate(180deg)",
     color: "red",
   },
+  tr_dates: {
+    margin: "auto",
+  },
   avatar: {
     backgroundColor: red[500],
     color: "white",
@@ -48,8 +51,10 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     zIndex: "0",
     border: "3px solid red",
-    borderRadius: "9px",
-
+    borderRadius: "33px",
+    marginLeft: "auto",
+    marginRight: "auto",
+    widht: "95%",
     "& label.Mui-focused": {
       padding: "10px",
       color: "white",
@@ -174,7 +179,7 @@ export default function ManageActivitiesFormEditApproved(props) {
     for (var i = 0; i < props.activityCount; i++) {
       var temp = ":תאריך פעילות מספר" + " " + (i + 1);
       toReturn.push(
-        <tr>
+        <tr className={classes.tr_dates}>
           <TextField
             id="datetime-local"
             name="dates"

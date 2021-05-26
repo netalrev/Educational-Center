@@ -75,16 +75,18 @@ export default function RegisterResponsiveDialog(props) {
     <div>
       <Button
         startIcon={
-          <PersonAddIcon style={{
-            fill: "white",
-            maxWidth: "100px",
-            marginBottom: "11px"
-          }}></PersonAddIcon>
+          <PersonAddIcon
+            style={{ fill: "white", marginBottom: "5px" }}
+          ></PersonAddIcon>
         }
         variant="outlined"
         style={{
-          fill: "rgba(60,60,60)", maxHeight: "40px",
-          paddingBottom: "15px"
+          backgroundColor: "red",
+          minWidth: "100%",
+          borderRadius: "33px",
+          padding: "0px",
+          paddingRight: "10px",
+          paddingLeft: "10px",
         }}
         onClick={handleClickOpen}
       >

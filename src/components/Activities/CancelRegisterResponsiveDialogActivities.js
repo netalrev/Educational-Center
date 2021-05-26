@@ -74,15 +74,20 @@ export default function CancelRegisterResponsiveDialog(props) {
         onClose={handleCancel}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title" style={{ color: "red" }}>
+        <DialogTitle
+          id="responsive-dialog-title"
+          style={{ backgroundColor: "black", color: "white" }}
+        >
           <b>ביטול הרשמה לפעילות</b>
         </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
+        <DialogContent style={{ backgroundColor: "black", color: "white" }}>
+          <DialogContentText
+            style={{ backgroundColor: "black", color: "white" }}
+          >
             ?האם את/ה בטוח/ה שברצונך לבטל את הרשמה לפעילות
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
+        <DialogActions style={{ backgroundColor: "black", color: "white" }}>
           <Button
             autoFocus
             onClick={handleCancel}
