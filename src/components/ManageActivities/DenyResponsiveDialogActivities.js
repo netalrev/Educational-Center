@@ -67,7 +67,7 @@ export default function DenyResponsiveDialogActivities(props) {
     <div>
       <Button
         startIcon={
-          <DeleteIcon style={{
+          <DeleteIcon style={{ //delete button size adjust
             fill: "white",
             maxWidth: "100px",
             marginBottom: "10px"

@@ -29,7 +29,7 @@ export default function EditResponsiveDialogActivities(props) {
     }}>
       <Button
         startIcon={
-          <EditIcon style={{
+          <EditIcon style={{//edit button size adjust
             fill: "white",
             maxWidth: "100px",
             marginBottom: "11px"
