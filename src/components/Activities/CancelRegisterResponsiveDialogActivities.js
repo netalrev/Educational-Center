@@ -58,9 +58,8 @@ export default function CancelRegisterResponsiveDialog(props) {
         }
         variant="outlined"
         style={{
+          backgroundColor: "red",
           fill: "rgba(60,60,60)",
-          border: "2px solid white",
-          borderRadius: "6%",
           maxHeight: "40px",
           paddingBottom: "15px"
         }}

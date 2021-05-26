@@ -325,7 +325,7 @@ export default function UpdateResponsiveDialog(props) {
     <div>
       <Button
         startIcon={<UpdateIcon style={{
-          fill: "#ffffff",
+          fill: "white",
           maxWidth: "100px",
           marginBottom: "11px"
         }}></UpdateIcon>}

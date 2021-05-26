@@ -314,7 +314,7 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
     <div>
       <Button
         startIcon={<UpdateIcon style={{
-          fill: "#04c704",
+          fill: "white",
           maxWidth: "100px",
           marginBottom: "11px"
         }}></UpdateIcon>}

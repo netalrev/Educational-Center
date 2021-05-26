@@ -86,10 +86,9 @@ export default function ApproveResponsiveDialogActivity(props) {
       <Button
         startIcon={
           <PersonAddIcon style={{
-            fill: "rgba(60,60,60)",
+            fill: "white",
             maxWidth: "100px",
             marginBottom: "11px"
-
           }}></PersonAddIcon>
         }
         variant="outlined"

@@ -25,7 +25,6 @@ export default function FillResponsiveDialogActivitiesFeedback(props) {
     <div>
       <Button
         startIcon={<EditIcon style={{
-          fill: "rgba(60,60,60)",
           fill: "white",
           maxWidth: "100px",
           marginBottom: "10px"
