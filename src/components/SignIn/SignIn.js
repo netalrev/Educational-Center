@@ -96,6 +96,9 @@ const useStyles = makeStyles((theme) => ({
         borderColor: "black",
       },
     },
+    "& label span": { //For remove Asterisk from required inputs.
+      display: "none",
+    },
   },
 }));
 
