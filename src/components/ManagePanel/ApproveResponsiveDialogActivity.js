@@ -154,16 +154,22 @@ export default function ApproveResponsiveDialogActivity(props) {
           <Button
             autoFocus
             onClick={handleCancel}
-            style={{ color: "white", backgroundColor: "red" }}
+            style={{
+              color: "white", backgroundColor: "red", maxHeight: "40px",
+              paddingBottom: "15px"
+            }}
           >
-            בטל העלאה
+            בטל&nbsp;העלאה
           </Button>
           <Button
             onClick={handleClose}
-            style={{ color: "white", backgroundColor: "green" }}
+            style={{
+              color: "white", backgroundColor: "green", maxHeight: "40px",
+              paddingBottom: "15px"
+            }}
             autoFocus
           >
-            אשר העלאה
+            אשר&nbsp;העלאה
           </Button>
         </DialogActions>
       </Dialog>

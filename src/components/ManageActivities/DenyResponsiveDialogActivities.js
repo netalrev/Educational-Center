@@ -114,13 +114,19 @@ export default function DenyResponsiveDialogActivities(props) {
           <Button
             autoFocus
             onClick={handleCancel}
-            style={{ color: "white", backgroundColor: "green" }}
+            style={{
+              color: "white", backgroundColor: "green", maxHeight: "40px",
+              paddingBottom: "15px"
+            }}
           >
             בטל
           </Button>
           <Button
             onClick={handleClose}
-            style={{ color: "white", backgroundColor: "red" }}
+            style={{
+              color: "white", backgroundColor: "red", maxHeight: "40px",
+              paddingBottom: "15px"
+            }}
             autoFocus
           >
             מחק

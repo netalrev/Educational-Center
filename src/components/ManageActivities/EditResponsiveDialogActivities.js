@@ -93,7 +93,11 @@ export default function EditResponsiveDialogActivities(props) {
           <Button
             autoFocus
             onClick={handleCancel}
-            style={{ backgroundColor: "#ff1100" }}
+            style={{
+              backgroundColor: "#ff1100",
+              maxHeight: "40px",
+              paddingBottom: "15px"
+            }}
           >
             בטל
           </Button>

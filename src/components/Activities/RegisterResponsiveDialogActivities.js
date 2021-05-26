@@ -75,10 +75,20 @@ export default function RegisterResponsiveDialog(props) {
     <div>
       <Button
         startIcon={
-          <PersonAddIcon style={{ fill: "rgba(60,60,60)" }}></PersonAddIcon>
+          <PersonAddIcon
+            style={{
+              fill: "white",
+              maxWidth: "100px",
+              marginBottom: "11px"
+            }}
+          ></PersonAddIcon>
         }
         variant="outlined"
-        style={{ fill: "rgba(60,60,60)" }}
+        style={{
+          backgroundColor: "green",
+          maxHeight: "40px",
+          paddingBottom: "15px"
+        }}
         onClick={handleClickOpen}
       >
         הרשמה
@@ -106,13 +116,19 @@ export default function RegisterResponsiveDialog(props) {
           <Button
             autoFocus
             onClick={handleCancel}
-            style={{ fill: "white", backgroundColor: "red" }}
+            style={{
+              fill: "white", backgroundColor: "red", maxHeight: "40px",
+              paddingBottom: "15px"
+            }}
           >
             בטל
           </Button>
           <Button
             onClick={handleClose}
-            style={{ fill: "white", backgroundColor: "green" }}
+            style={{
+              fill: "white", backgroundColor: "green", maxHeight: "40px",
+              paddingBottom: "15px"
+            }}
             autoFocus
           >
             אשר
