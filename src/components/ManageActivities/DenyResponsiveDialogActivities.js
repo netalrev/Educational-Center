@@ -49,13 +49,17 @@ export default function DenyResponsiveDialogActivities(props) {
   const handleClose = async () => {
     setOpen(false);
     if (props.type === "pending") {
-      await deleteSinglePending(props.id).then(swal("", "התוכן נמחק בהצלחה", "success", {
-        button: "אישור",
-      }));
+      await deleteSinglePending(props.id).then(
+        swal("", "התוכן נמחק בהצלחה", "success", {
+          button: "אישור",
+        })
+      );
     } else {
-      await deleteSingleApproved(props.id).then(swal("", "התוכן נמחק בהצלחה", "success", {
-        button: "אישור",
-      }));
+      await deleteSingleApproved(props.id).then(
+        swal("", "התוכן נמחק בהצלחה", "success", {
+          button: "אישור",
+        })
+      );
     }
     window.location.reload(false);
   };
@@ -67,18 +71,21 @@ export default function DenyResponsiveDialogActivities(props) {
     <div>
       <Button
         startIcon={
-          <DeleteIcon style={{ //delete button size adjust
-            fill: "white",
-            maxWidth: "100px",
-            marginBottom: "10px"
-          }}></DeleteIcon>
+          <DeleteIcon
+            style={{
+              //delete button size adjust
+              fill: "white",
+              maxWidth: "100px",
+              marginBottom: "10px",
+            }}
+          ></DeleteIcon>
         }
         variant="outlined"
         style={{
           fill: "rgba(60,60,60)",
           backgroundColor: "red",
           maxHeight: "40px",
-          paddingBottom: "15px"
+          paddingBottom: "15px",
         }}
         onClick={handleClickOpen}
       >
@@ -90,25 +97,30 @@ export default function DenyResponsiveDialogActivities(props) {
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title" style={{ color: "red" }}>
+        <DialogTitle
+          id="responsive-dialog-title"
+          style={{ color: "white", backgroundColor: "black" }}
+        >
           <b>דחיית פעילות</b>
         </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
+        <DialogContent style={{ color: "white", backgroundColor: "black" }}>
+          <DialogContentText
+            style={{ color: "white", backgroundColor: "black" }}
+          >
             ?האם את/ה בטוח/ה שברצונך למחוק את הפעילות
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
+        <DialogActions style={{ color: "white", backgroundColor: "black" }}>
           <Button
             autoFocus
             onClick={handleCancel}
-            style={{ fill: "rgba(60,60,60)" }}
+            style={{ color: "white", backgroundColor: "green" }}
           >
             בטל
           </Button>
           <Button
             onClick={handleClose}
-            style={{ fill: "white", backgroundColor: "red" }}
+            style={{ color: "white", backgroundColor: "red" }}
             autoFocus
           >
             מחק
