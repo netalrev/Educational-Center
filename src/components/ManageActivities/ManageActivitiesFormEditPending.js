@@ -81,7 +81,6 @@ export default function ManageActivitiesFormEditPending(props) {
   var handleChange = (event) => {
     var toReturn;
     setChecked(!document.getElementById("zoomCheckBox").checked);
-    //console.log(document.getElementById("zoomCheckBox").checked);
     if (!document.getElementById("zoomCheckBox").checked == true) {
       toReturn = (
         <tr>
@@ -236,7 +235,6 @@ export default function ManageActivitiesFormEditPending(props) {
     <Card className={classes.root}>
       <CardHeader title={text} />
       <CardContent>
-        {console.log(props.email)}
         {props.groupName === "admins"
           ? allPendingActivitiess.map((activity) => {
             if (props.id === activity.id) {
@@ -309,6 +307,7 @@ export default function ManageActivitiesFormEditPending(props) {
                         isZoom={checked}
                         type={props.type}
                         id={activity.id}
+                        currentTime={props.currentTime}
                         dates={dates}
                       />
                     </tr>
@@ -388,6 +387,7 @@ export default function ManageActivitiesFormEditPending(props) {
                         isZoom={checked}
                         groupName={props.groupName}
                         type={props.type}
+                        currentTime={props.currentTime}
                         id={activity.id}
                         dates={dates}
                       />

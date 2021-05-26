@@ -80,7 +80,6 @@ export default function ManageActivitiesFormPending(props) {
   var handleChange = (event) => {
     var toReturn;
     setChecked(!document.getElementById("zoomCheckBox").checked);
-    //console.log(document.getElementById("zoomCheckBox").checked);
     if (!document.getElementById("zoomCheckBox").checked == true) {
       toReturn = (
         <tr>

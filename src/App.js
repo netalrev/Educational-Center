@@ -102,7 +102,6 @@ function App() {
         phone_number: phoneNumber,
         score: 0,
       };
-      console.log(user, users);
       await API.graphql(graphqlOperation(createUser, { input: user }));
       await fetchUsers();
     } catch (error) {

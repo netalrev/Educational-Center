@@ -69,7 +69,6 @@ export default function ManageActivitiesFormEditApproved(props) {
   var handleChange = (event) => {
     var toReturn;
     setChecked(!document.getElementById("zoomCheckBox").checked);
-    //console.log(document.getElementById("zoomCheckBox").checked);
     if (!document.getElementById("zoomCheckBox").checked == true) {
       toReturn = (
         <tr>
@@ -169,7 +168,6 @@ export default function ManageActivitiesFormEditApproved(props) {
   function fillDateInputs() {
     var toReturn = [];
     var tzoffset = new Date().getTimezoneOffset() * 60000;
-    console.log(props.activityCount, props.dates);
     for (var i = 0; i < props.activityCount; i++) {
       var temp = ":תאריך פעילות מספר" + " " + (i + 1);
       toReturn.push(
@@ -297,6 +295,7 @@ export default function ManageActivitiesFormEditApproved(props) {
                     <tr>
                       <UpdateResponsiveDialogActivities
                         isZoom={checked}
+                        currentTime={props.currentTime}
                         groupName={props.groupName}
                         type={props.type}
                         id={activity.id}
@@ -341,6 +340,7 @@ export default function ManageActivitiesFormEditApproved(props) {
                         id={activity.id}
                         type={props.type}
                         idx={props.idx}
+                        currentTime={props.currentTime}
                         dates={dates}
                       />
                     </tr>

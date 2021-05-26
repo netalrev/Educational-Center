@@ -206,12 +206,14 @@ export default function ManageCardActivities(props) {
         <ApproveResponsiveDialogActivity
           id={activity.id}
           email={props.email}
+          currentTime={props.currentTime}
           givenName={props.givenName}
           familyName={props.familyName}
         />
         <br></br>
         <DenyResponsiveDialogActivities
           groupName={props.groupName}
+          currentTime={props.currentTime}
           type="pending"
           id={activity.id}
           email={props.email}
@@ -221,6 +223,7 @@ export default function ManageCardActivities(props) {
         <br></br>
         <EditResponsiveDialogActivities
           groupName={props.groupName}
+          currentTime={props.currentTime}
           type="pending"
           description={activity.description}
           activityCount={activity.activityCount}
