@@ -23,13 +23,24 @@ export default function EditResponsiveDialogActivities(props) {
     setOpen(false);
   };
   return (
-    <div style={{ backgroundColor: "#000000", color: "#ffffff" }}>
+    <div style={{
+      backgroundColor: "#000000",
+      color: "#ffffff"
+    }}>
       <Button
         startIcon={
-          <EditIcon style={{ fill: "white", width: "1rem" }}></EditIcon>
+          <EditIcon style={{//edit button size adjust
+            fill: "white",
+            maxWidth: "100px",
+            marginBottom: "11px"
+          }}></EditIcon>
         }
         variant="outlined"
-        style={{ backgroundColor: "#005ccc", fontSize: "larger" }}
+        style={{
+          backgroundColor: "#005ccc",
+          maxHeight: "40px",
+          paddingBottom: "15px"
+        }}
         onClick={handleClickOpen}
       >
         ערוך
