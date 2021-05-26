@@ -39,7 +39,7 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
       const usersList = usersData.data.listUsers.items;
       setUsers(usersList);
     } catch (error) {
-      console.log("error on fetching Pending Activities", error);
+      console.log("error on fetching users", error);
     }
   };
   const updateScore = async (to_update, to_add) => {
@@ -133,6 +133,7 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
   useEffect(() => {
     fetchUsers();
   }, []);
+
   const fetchSubmittedActivitiesFeedbacks = async () => {
     try {
       const submitteActivitiesFeedbackData = await API.graphql(
@@ -187,11 +188,9 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
       var toCreate = allActivitiesFeedback.filter(
         (feedback) => feedback.activity_id === props.id
       )[0];
-      console.log(toCreate);
       var IDs = allSubmittedActivitiesFeedback.map((element) =>
         parseInt(element.id)
       );
-      console.log("IDS", IDs);
       IDs.sort(function compareNumbers(a, b) {
         return a - b;
       });
@@ -210,7 +209,6 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
         phone_number: toCreate.phone_number,
         form: toCreate.form,
       };
-      console.log(activityFeedback);
       await API.graphql(
         graphqlOperation(createSubmitedActivityFeedback, {
           input: activityFeedback,
@@ -228,7 +226,6 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
       );
       const to_edit = list[0];
       var form = [];
-      console.log("edit", to_edit);
       to_edit.form.map((student) => {
         var grade1 = student[0] + " 1";
         var grade2 = student[0] + " 2";
@@ -254,7 +251,6 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
       delete to_edit.createdAt;
       delete to_edit.updatedAt;
       to_edit.form = form;
-      console.log("edit", to_edit);
       const activityFeedbackData = await API.graphql(
         graphqlOperation(updateActivityFeedback, { input: to_edit })
       );
@@ -270,6 +266,23 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
     }
   };
 
+  const validateRadios = () => {
+    console.log("hhh");
+    var usersFromForm = users.filter(user => Array.from(document.getElementsByName(user.email + " 1")).length > 0).map(user => {
+      var toRetrun = [];
+      toRetrun.push(Array.from(document.getElementsByName(user.email + " 1")).filter(input => input.checked === true).length === 0 ? false : true);
+      toRetrun.push(Array.from(document.getElementsByName(user.email + " 2")).filter(input => input.checked === true).length === 0 ? false : true);
+      toRetrun.push(Array.from(document.getElementsByName(user.email + " 3")).filter(input => input.checked === true).length === 0 ? false : true);
+      return toRetrun;
+    });
+    for (var i = 0; i < usersFromForm.length; i++) {
+      for (var j = 0; j < usersFromForm[i].length; j++) {
+        if (usersFromForm[i][j] === false)
+          return false;
+      }
+    }
+    return true;
+  };
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -281,8 +294,8 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
     var to_del = allActivitiesFeedback.filter(
       (feedback) => feedback.activity_id === props.id
     )[0].id;
-    await editActivityFeedback(props.id)
-      .then(
+    if (validateRadios() === true) {
+      await editActivityFeedback(props.id).then(
         allActivitiesFeedback
           .filter((feedback) => feedback.activity_id === props.id)[0]
           .form.map((elm) => {
@@ -291,25 +304,29 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
             toReturn.push(
               parseInt(elm[3]) + parseInt(elm[4]) + parseInt(elm[5])
             );
-            console.log("toReturn", toReturn);
             return toReturn;
           })
           .forEach((user) => {
             update_S(user[0], user[1]);
           })
       )
-      .then(swal("", "משוב הוזן בהצלחה.", "success", {
-        button: "אישור",
-      }))
-      .then(await createNewSubmittedFeedback())
-      .then(await delete_ActivityFeedback(to_del));
+        .then(swal("", "משוב הוזן בהצלחה.", "success", {
+          button: "אישור",
+        }))
+        .then(await createNewSubmittedFeedback())
+        .then(await delete_ActivityFeedback(to_del));
 
-    window.location.reload(false);
+      window.location.reload(false);
+    }
+    else {
+      swal("", "אנא מלא את המשוב במלואו", "error", {
+        button: "אישור",
+      });
+    }
   };
   const handleCancel = () => {
     setOpen(false);
   };
-
   return (
     <div>
       <Button
