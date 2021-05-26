@@ -67,10 +67,19 @@ export default function DenyResponsiveDialogActivities(props) {
     <div>
       <Button
         startIcon={
-          <DeleteIcon style={{ fill: "white", width: "19rem" }}></DeleteIcon>
+          <DeleteIcon style={{
+            fill: "white",
+            maxWidth: "100px",
+            marginBottom: "10px"
+          }}></DeleteIcon>
         }
         variant="outlined"
-        style={{ fill: "rgba(60,60,60)", backgroundColor: "red" }}
+        style={{
+          fill: "rgba(60,60,60)",
+          backgroundColor: "red",
+          maxHeight: "40px",
+          paddingBottom: "15px"
+        }}
         onClick={handleClickOpen}
       >
         מחק
