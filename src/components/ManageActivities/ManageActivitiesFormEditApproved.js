@@ -55,6 +55,31 @@ const useStyles = makeStyles((theme) => ({
   //     marginTop: "0",
   //     fontWeight: 500
   // },
+  textField: {
+    zIndex: "0",
+    border: "3px solid red",
+    borderRadius: "9px",
+
+    "& label.Mui-focused": {
+      padding: "10px",
+      color: "white",
+    },
+    "& input": {
+      color: "white",
+    },
+    "& label": {
+      padding: "10px",
+      color: "white",
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "red",
+    },
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused fieldset": {
+        borderColor: "black",
+      },
+    },
+  },
 }));
 
 export default function ManageActivitiesFormEditApproved(props) {
@@ -147,18 +172,6 @@ export default function ManageActivitiesFormEditApproved(props) {
               .toISOString()
               .substring(0, 16)}
             className={classes.textField}
-            InputLabelProps={{
-              style: {
-                color: "#fff",
-                right: "0px",
-                marginLeft: "35px",
-                backgroundColor: "#e1980c",
-              },
-              shrink: true,
-            }}
-            InputProps={{
-              style: { color: "#fff" },
-            }}
           />
         </tr>
       );
@@ -180,18 +193,6 @@ export default function ManageActivitiesFormEditApproved(props) {
             type="datetime-local"
             defaultValue={props.dates[i]}
             className={classes.textField}
-            InputLabelProps={{
-              style: {
-                color: "#fff",
-                right: "0px",
-                marginLeft: "35px",
-                backgroundColor: "#e1980c",
-              },
-              shrink: true,
-            }}
-            InputProps={{
-              style: { color: "#fff" },
-            }}
           />
         </tr>
       );
@@ -278,19 +279,6 @@ export default function ManageActivitiesFormEditApproved(props) {
                           multiline
                           rows={4}
                           variant="outlined"
-                          InputLabelProps={{
-                            style: {
-                              color: "#fff",
-                              right: "0px",
-                              marginLeft: "35px",
-                              backgroundColor: "#e1980c",
-                            },
-                            shrink: true,
-                          }}
-                          InputProps={{
-                            style: { color: "#fff" },
-                          }}
-                          ד
                         />
                       </tr>
                       <tr>
