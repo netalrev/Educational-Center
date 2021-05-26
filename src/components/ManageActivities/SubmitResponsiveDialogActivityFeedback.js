@@ -313,9 +313,18 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
   return (
     <div>
       <Button
-        startIcon={<UpdateIcon style={{ fill: "#04c704" }}></UpdateIcon>}
+        startIcon={<UpdateIcon style={{
+          fill: "#04c704",
+          maxWidth: "100px",
+          marginBottom: "11px"
+        }}></UpdateIcon>}
         variant="outlined"
-        style={{ fill: "#ffffff", backgroundColor: "#04c704" }}
+        style={{
+          fill: "#ffffff",
+          backgroundColor: "#04c704",
+          maxHeight: "40px",
+          paddingBottom: "15px"
+        }}
         onClick={handleClickOpen}
       >
         עדכן

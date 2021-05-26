@@ -112,11 +112,21 @@ export default function ApproveResponsiveDialogActivity(props) {
       <Button
         startIcon={
           <CheckCircleIcon
-            style={{ fill: "white", backgroundColor: "green" }}
+            style={{
+              fill: "white",
+              backgroundColor: "green",
+              maxWidth: "100px",
+              marginBottom: "11px"
+            }}
           ></CheckCircleIcon>
         }
         variant="outlined"
-        style={{ fill: "white", backgroundColor: "green" }}
+        style={{
+          fill: "white",
+          backgroundColor: "green",
+          maxHeight: "40px",
+          paddingBottom: "15px"
+        }}
         onClick={handleClickOpen}
       >
         אשר

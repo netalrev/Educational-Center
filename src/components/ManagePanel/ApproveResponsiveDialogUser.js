@@ -85,10 +85,20 @@ export default function ApproveResponsiveDialogActivity(props) {
     <div>
       <Button
         startIcon={
-          <PersonAddIcon style={{ fill: "rgba(60,60,60)" }}></PersonAddIcon>
+          <PersonAddIcon style={{
+            fill: "rgba(60,60,60)",
+            maxWidth: "100px",
+            marginBottom: "11px"
+
+          }}></PersonAddIcon>
         }
         variant="outlined"
-        style={{ fill: "white", backgroundColor: "green" }}
+        style={{
+          fill: "white",
+          backgroundColor: "green",
+          maxHeight: "40px",
+          paddingBottom: "15px"
+        }}
         onClick={handleClickOpen}
       >
         אשר
