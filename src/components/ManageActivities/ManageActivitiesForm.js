@@ -30,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     transition: "transform 0.15s ease-in-out",
     marginInline: 400,
+    textAlign: "center",
+    justifyContent: "center",
   },
 
   expand: {
@@ -56,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: "0",
     border: "3px solid red",
     borderRadius: "9px",
+    minWidth: "450px",
 
     "& label.Mui-focused": {
       //padding: "10px",
