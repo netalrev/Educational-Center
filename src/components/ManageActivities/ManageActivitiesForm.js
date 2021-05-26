@@ -211,6 +211,7 @@ export default function ManageActivitiesFormPending(props) {
                   email={props.email}
                   givenName={props.givenName}
                   familyName={props.familyName}
+                  currentTime={props.currentTime}
                 />
               </tr>
             </table>

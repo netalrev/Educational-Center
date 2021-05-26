@@ -25,7 +25,7 @@ import { Translations } from "@aws-amplify/ui-components";
 import { Hub, Logger } from "aws-amplify";
 import swal from "sweetalert";
 import $ from "jquery";
-import ReactCardFlip from "react-card-flip";
+// import ReactCardFlip from "react-card-flip";
 
 Amplify.configure(awsconfig); //AWS CONFIGORE
 var fname = "null";
@@ -153,8 +153,8 @@ function App() {
               <HomePage />
             </Route>
             {groupName === "admins" ||
-            groupName === "contentSuppliers" ||
-            groupName === "approvedUsers" ? (
+              groupName === "contentSuppliers" ||
+              groupName === "approvedUsers" ? (
               <Route exact path="/profile">
                 <h1>עמוד פרופיל</h1>
               </Route>
@@ -164,8 +164,8 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-            groupName === "contentSuppliers" ||
-            groupName === "approvedUsers" ? (
+              groupName === "contentSuppliers" ||
+              groupName === "approvedUsers" ? (
               <Route exact path="/activitiespage">
                 <ActivitiesPage
                   groupName={groupName}
@@ -183,8 +183,8 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-            groupName === "contentSuppliers" ||
-            groupName === "approvedUsers" ? (
+              groupName === "contentSuppliers" ||
+              groupName === "approvedUsers" ? (
               <Route exact path="/classespage">
                 <ClassesPage />
               </Route>
