@@ -358,16 +358,22 @@ export default function UpdateResponsiveDialog(props) {
           <Button
             autoFocus
             onClick={handleCancel}
-            style={{ fill: "white", backgroundColor: "red" }}
+            style={{
+              fill: "white", backgroundColor: "red", maxHeight: "40px",
+              paddingBottom: "15px"
+            }}
           >
-            בטל העלאה
+            בטל&nbsp;העלאה
           </Button>
           <Button
             onClick={handleClose}
-            style={{ fill: "white", backgroundColor: "green" }}
+            style={{
+              fill: "white", backgroundColor: "green", maxHeight: "40px",
+              paddingBottom: "15px"
+            }}
             autoFocus
           >
-            אשר העלאה
+            אשר&nbsp;העלאה
           </Button>
         </DialogActions>
       </Dialog>

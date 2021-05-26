@@ -58,11 +58,12 @@ export default function CancelParticipationResponsiveDialog(props) {
         style={{
           fill: "rgba(60,60,60)",
           border: "2px solid white",
-          borderRadius: "6%",
+          borderRadius: "6%", maxHeight: "40px",
+          paddingBottom: "15px"
         }}
         onClick={handleClickOpen}
       >
-        בטל השתתפות
+        בטל&nbsp;השתתפות
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -82,13 +83,20 @@ export default function CancelParticipationResponsiveDialog(props) {
           <Button
             autoFocus
             onClick={handleCancel}
-            style={{ fill: "rgba(60,60,60)" }}
+            style={{
+              fill: "rgba(60,60,60)",
+              maxHeight: "40px",
+              paddingBottom: "15px"
+            }}
           >
             בטל
           </Button>
           <Button
             onClick={handleClose}
-            style={{ fill: "white", backgroundColor: "green" }}
+            style={{
+              fill: "white", backgroundColor: "green", maxHeight: "40px",
+              paddingBottom: "15px"
+            }}
             autoFocus
           >
             אשר

@@ -49,7 +49,11 @@ export default function CancelRegisterResponsiveDialog(props) {
       <Button
         startIcon={
           <PersonAddDisabledIcon
-            style={{ fill: "red" }}
+            style={{
+              fill: "white",
+              maxWidth: "100px",
+              marginBottom: "11px"
+            }}
           ></PersonAddDisabledIcon>
         }
         variant="outlined"
@@ -57,10 +61,12 @@ export default function CancelRegisterResponsiveDialog(props) {
           fill: "rgba(60,60,60)",
           border: "2px solid white",
           borderRadius: "6%",
+          maxHeight: "40px",
+          paddingBottom: "15px"
         }}
         onClick={handleClickOpen}
       >
-        בטל הרשמה
+        בטל&nbsp;הרשמה
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -80,13 +86,19 @@ export default function CancelRegisterResponsiveDialog(props) {
           <Button
             autoFocus
             onClick={handleCancel}
-            style={{ fill: "white", backgroundColor: "red" }}
+            style={{
+              fill: "white", backgroundColor: "red", maxHeight: "40px",
+              paddingBottom: "15px"
+            }}
           >
             בטל
           </Button>
           <Button
             onClick={handleClose}
-            style={{ fill: "white", backgroundColor: "green" }}
+            style={{
+              fill: "white", backgroundColor: "green", maxHeight: "40px",
+              paddingBottom: "15px"
+            }}
             autoFocus
           >
             אשר

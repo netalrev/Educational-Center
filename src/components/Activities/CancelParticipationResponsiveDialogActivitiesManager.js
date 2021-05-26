@@ -48,18 +48,23 @@ export default function CancelParticipationResponsiveDialog(props) {
       <Button
         startIcon={
           <PersonAddDisabledIcon
-            style={{ fill: "red", color: "red" }}
+            style={{
+              fill: "white",
+              maxWidth: "100px",
+              marginBottom: "11px"
+            }}
           ></PersonAddDisabledIcon>
         }
         variant="outlined"
         style={{
           color: "#ffffff",
           background: "red",
-          borderRadius: "30px",
+          borderRadius: "30px", maxHeight: "40px",
+          paddingBottom: "15px"
         }}
         onClick={handleClickOpen}
       >
-        בטל השתתפות
+        בטל&nbsp;השתתפות
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -84,13 +89,19 @@ export default function CancelParticipationResponsiveDialog(props) {
           <Button
             autoFocus
             onClick={handleCancel}
-            style={{ fill: "white", backgroundColor: "red" }}
+            style={{
+              fill: "white", backgroundColor: "red", maxHeight: "40px",
+              paddingBottom: "15px"
+            }}
           >
             בטל
           </Button>
           <Button
             onClick={handleClose}
-            style={{ fill: "white", backgroundColor: "green" }}
+            style={{
+              fill: "white", backgroundColor: "green", maxHeight: "40px",
+              paddingBottom: "15px"
+            }}
             autoFocus
           >
             אשר
