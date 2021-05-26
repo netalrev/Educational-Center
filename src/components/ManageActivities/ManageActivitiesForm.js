@@ -70,7 +70,7 @@ export default function ManageActivitiesFormPending(props) {
   const [checked, setChecked] = React.useState(true);
   const [zoomLink, setZoomLink] = useState(
     <tr>
-      <FormElement name="activity_zoom" title=": קישור לזום" type="text" />
+      <FormElement name="activity_zoom" title="קישור לזום :" type="text" />
     </tr>
   );
   const handleExpandClick = () => {
@@ -105,7 +105,7 @@ export default function ManageActivitiesFormPending(props) {
       i < document.getElementsByName("activityCount")[0].value;
       i++
     ) {
-      var temp = ":תאריך פעילות מספר" + " " + (i + 1);
+      var temp = "תאריך פעילות מספר :" + " " + (i + 1);
       var tzoffset = new Date().getTimezoneOffset() * 60000;
       toReturn.push(
         <tr>
@@ -157,12 +157,12 @@ export default function ManageActivitiesFormPending(props) {
           <div style={{ display: "flex", justifyContent: "center" }}>
             <table>
               <tr>
-                <FormElement name="name" title=": שם הפעילות" type="text" />
+                <FormElement name="name" title="שם הפעילות :" type="text" />
               </tr>
               <tr>
                 <FormElement
                   name="activity_img"
-                  title=": קישור לתמונה"
+                  title="קישור לתמונה :"
                   type="text"
                 />
               </tr>
@@ -180,7 +180,7 @@ export default function ManageActivitiesFormPending(props) {
               <tr>
                 <FormElement
                   name="activityCount"
-                  title=": מספר פעילויות"
+                  title="מספר פעילויות :"
                   type="number"
                   onChange={createDateInputs}
                 />
@@ -189,7 +189,7 @@ export default function ManageActivitiesFormPending(props) {
               <tr>
                 <TextField
                   id="outlined-multiline-static"
-                  label=": תיאור הפעילויות"
+                  label="תיאור הפעילויות :"
                   className={classes.textField}
                   name="activity_description"
                   multiline
