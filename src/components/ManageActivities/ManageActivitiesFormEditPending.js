@@ -55,16 +55,35 @@ const useStyles = makeStyles((theme) => ({
   subColor: {
     color: "red",
   },
-  // textField: {
-  //     width: '90%',
-  //     marginLeft: 'auto',
-  //     marginRight: 'auto',
-  //     textAlign: 'right',
-  //     theme: "createMuiTheme({ direction: \"rtl\" }",
-  //     paddingBottom: 0,
-  //     marginTop: "0",
-  //     fontWeight: 500
-  // },
+  textField: {
+    zIndex: "0",
+    border: "3px solid red",
+    borderRadius: "9px",
+
+    "& label.Mui-focused": {
+      padding: "10px",
+      color: "white",
+    },
+    "& input": {
+      color: "white",
+    },
+    "& label": {
+      padding: "10px",
+      color: "white",
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "red",
+    },
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused fieldset": {
+        borderColor: "black",
+      },
+    },
+    "& label span": {
+      //For remove Asterisk from required inputs.
+      display: "none",
+    },
+  },
 }));
 
 export default function ManageActivitiesFormEditPending(props) {
@@ -397,8 +416,8 @@ export default function ManageActivitiesFormEditPending(props) {
               );
             }
           })}
-      </CardContent>
+      </CardContent >
       {/* </Collapse> */}
-    </Card>
+    </Card >
   );
 }
