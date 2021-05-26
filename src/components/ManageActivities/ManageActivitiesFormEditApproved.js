@@ -68,8 +68,9 @@ export default function ManageActivitiesFormEditApproved(props) {
 
   var handleChange = (event) => {
     var toReturn;
-    setChecked(event.target.checked);
-    if (event.target.checked == true) {
+    setChecked(!document.getElementById("zoomCheckBox").checked);
+    //console.log(document.getElementById("zoomCheckBox").checked);
+    if (!document.getElementById("zoomCheckBox").checked == true) {
       toReturn = (
         <tr>
           <FormElement name="activity_zoom" title=": קישור לזום" type="text" />
@@ -227,127 +228,127 @@ export default function ManageActivitiesFormEditApproved(props) {
       <CardContent>
         {props.groupName === "admins"
           ? allApprovedActivitiess.map((activity) => {
-              if (props.id === activity.id) {
-                return (
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    <table>
-                      <tr>
-                        <FormElement
-                          name="name"
-                          title=": שם הפעילות"
-                          type="text"
-                          defaultValue={activity.title}
-                        />
-                      </tr>
-                      <tr>
-                        <FormElement
-                          name="activity_img"
-                          title=": קישור לתמונה"
-                          type="text"
-                          defaultValue={activity.img}
-                        />
-                      </tr>
-                      <tr>
-                        מפגש בזום
+            if (props.id === activity.id) {
+              return (
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <table>
+                    <tr>
+                      <FormElement
+                        name="name"
+                        title=": שם הפעילות"
+                        type="text"
+                        defaultValue={activity.title}
+                      />
+                    </tr>
+                    <tr>
+                      <FormElement
+                        name="activity_img"
+                        title=": קישור לתמונה"
+                        type="text"
+                        defaultValue={activity.img}
+                      />
+                    </tr>
+                    <tr>
+                      מפגש בזום
                         <Checkbox
-                          id="zoomCheckBox"
-                          checked={checked}
-                          onChange={handleChange}
-                          fill="red"
-                          inputProps={{ "aria-label": "primary checkbox" }}
-                        />
-                      </tr>
-                      <tr>{zoomLink}</tr>
-                      <tr>
-                        <FormElement
-                          name="activityCount"
-                          title=": מספר פעילויות"
-                          type="number"
-                          onChange={createDateInputs}
-                          defaultValue={activity.activityCount}
-                        />
-                      </tr>
-                      <tr id="dates_tr">{dates}</tr>
-                      <tr>
-                        <TextField
-                          id="outlined-multiline-static"
-                          label=": תיאור הפעילויות"
-                          className={classes.textField}
-                          name="activity_description"
-                          defaultValue={activity.description}
-                          multiline
-                          rows={4}
-                          variant="outlined"
-                          InputLabelProps={{
-                            style: {
-                              color: "#fff",
-                              right: "0px",
-                              marginLeft: "35px",
-                              backgroundColor: "#e1980c",
-                            },
-                            shrink: true,
-                          }}
-                          InputProps={{
-                            style: { color: "#fff" },
-                          }}
-                          ד
-                        />
-                      </tr>
-                      <tr>
-                        <UpdateResponsiveDialogActivities
-                          isZoom={checked}
-                          groupName={props.groupName}
-                          type={props.type}
-                          id={activity.id}
-                          dates={dates}
-                        />
-                      </tr>
-                    </table>
-                  </div>
-                );
-              }
-            })
+                        id="zoomCheckBox"
+                        checked={checked}
+                        onClick={handleChange}
+                        fill="red"
+                        inputProps={{ "aria-label": "primary checkbox" }}
+                      />
+                    </tr>
+                    <tr>{zoomLink}</tr>
+                    <tr>
+                      <FormElement
+                        name="activityCount"
+                        title=": מספר פעילויות"
+                        type="number"
+                        onChange={createDateInputs}
+                        defaultValue={activity.activityCount}
+                      />
+                    </tr>
+                    <tr id="dates_tr">{dates}</tr>
+                    <tr>
+                      <TextField
+                        id="outlined-multiline-static"
+                        label=": תיאור הפעילויות"
+                        className={classes.textField}
+                        name="activity_description"
+                        defaultValue={activity.description}
+                        multiline
+                        rows={4}
+                        variant="outlined"
+                        InputLabelProps={{
+                          style: {
+                            color: "#fff",
+                            right: "0px",
+                            marginLeft: "35px",
+                            backgroundColor: "#e1980c",
+                          },
+                          shrink: true,
+                        }}
+                        InputProps={{
+                          style: { color: "#fff" },
+                        }}
+                        ד
+                      />
+                    </tr>
+                    <tr>
+                      <UpdateResponsiveDialogActivities
+                        isZoom={checked}
+                        groupName={props.groupName}
+                        type={props.type}
+                        id={activity.id}
+                        dates={dates}
+                      />
+                    </tr>
+                  </table>
+                </div>
+              );
+            }
+          })
           : approvedActivitiess.map((activity) => {
-              if (props.id === activity.id) {
-                return (
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    <table>
-                      <tr>
-                        מפגש בזום
+            if (props.id === activity.id) {
+              return (
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <table>
+                    <tr>
+                      מפגש בזום
                         <Checkbox
-                          id="zoomCheckBox"
-                          checked={checked}
-                          onChange={handleChange}
-                          fill="red"
-                          inputProps={{ "aria-label": "primary checkbox" }}
-                        />
-                      </tr>
-                      <tr>{zoomLink}</tr>
-                      <tr>
-                        <FormElement
-                          name="activityCount"
-                          title=": מספר פעילויות"
-                          type="number"
-                          onChange={createDateInputs}
-                          defaultValue={activity.activityCount}
-                        />
-                      </tr>
-                      <tr id="dates_tr">{dates}</tr>
-                      <tr>
-                        <UpdateResponsiveDialogActivities
-                          isZoom={checked}
-                          groupName={props.groupName}
-                          id={activity.id}
-                          type={props.type}
-                          idx={props.idx}
-                          dates={dates}
-                        />
-                      </tr>
-                    </table>
-                  </div>
-                );
-              }
-            })}
+                        id="zoomCheckBox"
+                        checked={checked}
+                        onClick={handleChange}
+                        fill="red"
+                        inputProps={{ "aria-label": "primary checkbox" }}
+                      />
+                    </tr>
+                    <tr>{zoomLink}</tr>
+                    <tr>
+                      <FormElement
+                        name="activityCount"
+                        title=": מספר פעילויות"
+                        type="number"
+                        onChange={createDateInputs}
+                        defaultValue={activity.activityCount}
+                      />
+                    </tr>
+                    <tr id="dates_tr">{dates}</tr>
+                    <tr>
+                      <UpdateResponsiveDialogActivities
+                        isZoom={checked}
+                        groupName={props.groupName}
+                        id={activity.id}
+                        type={props.type}
+                        idx={props.idx}
+                        dates={dates}
+                      />
+                    </tr>
+                  </table>
+                </div>
+              );
+            }
+          })}
       </CardContent>
       {/* </Collapse> */}
     </Card>
