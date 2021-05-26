@@ -134,14 +134,14 @@ export default function ManageCardActivities(props) {
       return d.constructor === Date
         ? d
         : d.constructor === Array
-        ? new Date(d[0], d[1], d[2])
-        : d.constructor === Number
-        ? new Date(d)
-        : d.constructor === String
-        ? new Date(d)
-        : typeof d === "object"
-        ? new Date(d.year, d.month, d.date)
-        : NaN;
+          ? new Date(d[0], d[1], d[2])
+          : d.constructor === Number
+            ? new Date(d)
+            : d.constructor === String
+              ? new Date(d)
+              : typeof d === "object"
+                ? new Date(d.year, d.month, d.date)
+                : NaN;
     },
     compare: function (a, b) {
       // Compare two dates (could be of any type supported by the convert
@@ -206,12 +206,14 @@ export default function ManageCardActivities(props) {
         <ApproveResponsiveDialogActivity
           id={activity.id}
           email={props.email}
+          currentTime={props.currentTime}
           givenName={props.givenName}
           familyName={props.familyName}
         />
         <br></br>
         <DenyResponsiveDialogActivities
           groupName={props.groupName}
+          currentTime={props.currentTime}
           type="pending"
           id={activity.id}
           email={props.email}
@@ -221,6 +223,7 @@ export default function ManageCardActivities(props) {
         <br></br>
         <EditResponsiveDialogActivities
           groupName={props.groupName}
+          currentTime={props.currentTime}
           type="pending"
           description={activity.description}
           activityCount={activity.activityCount}

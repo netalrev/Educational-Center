@@ -46,9 +46,8 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
-    backgroundColor: "#2b2b2b",
     display: "flex",
+    paddingTop: "30px",
     flexDirection: "column",
     alignItems: "center",
     color: "white",
@@ -96,7 +95,8 @@ const useStyles = makeStyles((theme) => ({
         borderColor: "black",
       },
     },
-    "& label span": { //For remove Asterisk from required inputs.
+    "& label span": {
+      //For remove Asterisk from required inputs.
       display: "none",
     },
   },
@@ -129,9 +129,10 @@ async function signIn() {
       swal(" ", "אימייל זה אינו רשום לאתר", "error", {
         button: "אישור",
       });
-    } else swal(" ", "סיסמה/אימייל אינם נכונים", "error", {
-      button: "אישור",
-    });
+    } else
+      swal(" ", "סיסמה/אימייל אינם נכונים", "error", {
+        button: "אישור",
+      });
     console.log("שגיאת התחברות", error);
   }
 }

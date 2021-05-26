@@ -69,6 +69,7 @@ export default function EditResponsiveDialogActivities(props) {
                 isZoom={props.isZoom}
                 groupName={props.groupName}
                 dates={props.dates}
+                currentTime={props.currentTime}
                 activityCount={props.activityCount}
                 id={props.id}
                 email={props.email}
@@ -80,6 +81,7 @@ export default function EditResponsiveDialogActivities(props) {
                 isZoom={props.isZoom}
                 groupName={props.groupName}
                 dates={props.dates}
+                currentTime={props.currentTime}
                 activityCount={props.activityCount}
                 id={props.id}
                 email={props.email}
