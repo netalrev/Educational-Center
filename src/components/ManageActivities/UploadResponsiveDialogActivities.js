@@ -37,14 +37,14 @@ export default function UploadResponsiveDialog(props) {
       return d.constructor === Date
         ? d
         : d.constructor === Array
-          ? new Date(d[0], d[1], d[2])
-          : d.constructor === Number
-            ? new Date(d)
-            : d.constructor === String
-              ? new Date(d)
-              : typeof d === "object"
-                ? new Date(d.year, d.month, d.date)
-                : NaN;
+        ? new Date(d[0], d[1], d[2])
+        : d.constructor === Number
+        ? new Date(d)
+        : d.constructor === String
+        ? new Date(d)
+        : typeof d === "object"
+        ? new Date(d.year, d.month, d.date)
+        : NaN;
     },
     compare: function (a, b) {
       // Compare two dates (could be of any type supported by the convert
@@ -98,11 +98,11 @@ export default function UploadResponsiveDialog(props) {
   function validURL(str) {
     var pattern = new RegExp(
       "^(https?:\\/\\/)?" + // protocol
-      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-      "(\\#[-a-z\\d_]*)?$",
+        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+        "(\\#[-a-z\\d_]*)?$",
       "i"
     ); // fragment locator
     return !!pattern.test(str);
@@ -129,8 +129,7 @@ export default function UploadResponsiveDialog(props) {
         document.getElementsByName("activity_zoom")[0].value === ""
       )
         return "קישור לזום אינו תקין";
-    }
-    else if (
+    } else if (
       !document.getElementsByName("activityCount")[0].value ||
       document.getElementsByName("activityCount")[0].value < 1 ||
       document.getElementsByName("activityCount")[0].value === ""
@@ -143,8 +142,7 @@ export default function UploadResponsiveDialog(props) {
     var temp;
     for (var i = 0; i < date_map.length; i++) {
       temp = dates_class.convert(date_map[i]);
-      if (dates_class.compare(current_time, temp) == 1)
-        return "תאריך לא חוקי";
+      if (dates_class.compare(current_time, temp) == 1) return "תאריך לא חוקי";
     }
     if (
       document.getElementsByName("activity_description")[0].value.length < 10 ||
@@ -229,7 +227,13 @@ export default function UploadResponsiveDialog(props) {
           <CloudUploadIcon style={{ fill: "white" }}></CloudUploadIcon>
         }
         variant="outlined"
-        style={{ fill: "red", background: "red" }}
+        style={{
+          fill: "red",
+          background: "red",
+          minWidth: "95%",
+          marginTop: "20px",
+          borderRadius: "33px",
+        }}
         onClick={handleClickOpen}
       >
         העלה
