@@ -126,234 +126,183 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
     >
       <CardHeader title={text} />
       <CardContent>
-        {props.groupName === "admins"
-          ? allActivitiesFeedback.map((activity) => {
-            if (props.id === activity.activity_id) {
-              return (
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    backgroundColor: "black",
-                    color: "white",
-                  }}
-                >
-                  <table>
-                    <tr>
-                      <div>
-                        {activity.form.map((student) => (
-                          <div>
-                            <div
+        {allActivitiesFeedback.map((activity) => {
+          if (props.id === activity.activity_id) {
+            return (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  backgroundColor: "black",
+                  color: "white",
+                }}
+              >
+                <table>
+                  <tr>
+                    <div>
+                      {activity.form.map((student) => (
+                        <div>
+                          <div
+                            style={{
+                              borderStyle: "solid",
+                              borderRadius: "15px",
+                              color: "white",
+                              backgroundColor: "black",
+                            }}
+                          >
+                            <h4>:{student[0]}</h4>
+                            <br></br>
+                            <FormControl
+                              component="fieldset"
                               style={{
-                                borderStyle: "solid",
-                                borderRadius: "15px",
                                 color: "white",
                                 backgroundColor: "black",
                               }}
                             >
-                              <h4>:{student[0]}</h4>
-                              <br></br>
-                              <FormControl
-                                component="fieldset"
+                              <FormLabel
+                                component="legend"
+                                style={{ color: "white" }}
+                              >
+                                נוכחות במפגש
+                                  </FormLabel>
+                              <RadioGroup
+                                row
+                                aria-label="position"
+                                name={student[1] + " 1"}
                                 style={{
+                                  display: "flex",
+                                  justifyContent: "center",
                                   color: "white",
-                                  backgroundColor: "black",
                                 }}
                               >
-                                <FormLabel
-                                  component="legend"
-                                  style={{ color: "white" }}
-                                >
-                                  נוכחות במפגש
+                                <FormControlLabel
+                                  value="10"
+                                  control={<Radio color="white" />}
+                                  label="נכח"
+                                />
+                                <FormControlLabel
+                                  value="0"
+                                  control={<Radio color="white" />}
+                                  label="לא נכח"
+                                  labelPlacement="top"
+                                />
+                              </RadioGroup>
+                              <FormLabel
+                                component="legend"
+                                style={{ color: "white" }}
+                              >
+                                השתתפות במפגש
                                   </FormLabel>
-                                <RadioGroup
-                                  row
-                                  aria-label="position"
-                                  name={student[1] + " 1"}
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    color: "white",
-                                  }}
-                                >
-                                  <FormControlLabel
-                                    value="10"
-                                    control={<Radio color="white" />}
-                                    label="נכח"
-                                  />
-                                  <FormControlLabel
-                                    value="0"
-                                    control={<Radio color="white" />}
-                                    label="לא נכח"
-                                    labelPlacement="top"
-                                  />
-                                </RadioGroup>
-                                <FormLabel
-                                  component="legend"
-                                  style={{ color: "white" }}
-                                >
-                                  השתתפות במפגש
+                              <RadioGroup
+                                row
+                                aria-label="position"
+                                name={student[1] + " 2"}
+                              >
+                                <FormControlLabel
+                                  value="15"
+                                  control={<Radio color="rgba(60,60,60)" />}
+                                  label="5"
+                                  labelPlacement="top"
+                                />
+                                <FormControlLabel
+                                  value="12"
+                                  control={<Radio color="rgba(60,60,60)" />}
+                                  label="4"
+                                  labelPlacement="top"
+                                />
+                                <FormControlLabel
+                                  value="9"
+                                  control={<Radio color="rgba(60,60,60)" />}
+                                  label="3"
+                                  labelPlacement="top"
+                                />
+                                <FormControlLabel
+                                  value="6"
+                                  control={<Radio color="rgba(60,60,60)" />}
+                                  label="2"
+                                  labelPlacement="top"
+                                />
+                                <FormControlLabel
+                                  value="3"
+                                  control={<Radio color="rgba(60,60,60)" />}
+                                  label="1"
+                                  labelPlacement="top"
+                                />
+                                <FormControlLabel
+                                  value="0"
+                                  control={<Radio color="rgba(60,60,60)" />}
+                                  label="0"
+                                  labelPlacement="top"
+                                />
+                              </RadioGroup>
+                              <FormLabel
+                                component="legend"
+                                style={{ color: "white" }}
+                              >
+                                תרומה למפגש
                                   </FormLabel>
-                                <RadioGroup
-                                  row
-                                  aria-label="position"
-                                  name={student[1] + " 2"}
-                                >
-                                  <FormControlLabel
-                                    value="15"
-                                    control={<Radio color="rgba(60,60,60)" />}
-                                    label="5"
-                                    labelPlacement="top"
-                                  />
-                                  <FormControlLabel
-                                    value="12"
-                                    control={<Radio color="rgba(60,60,60)" />}
-                                    label="4"
-                                    labelPlacement="top"
-                                  />
-                                  <FormControlLabel
-                                    value="9"
-                                    control={<Radio color="rgba(60,60,60)" />}
-                                    label="3"
-                                    labelPlacement="top"
-                                  />
-                                  <FormControlLabel
-                                    value="6"
-                                    control={<Radio color="rgba(60,60,60)" />}
-                                    label="2"
-                                    labelPlacement="top"
-                                  />
-                                  <FormControlLabel
-                                    value="3"
-                                    control={<Radio color="rgba(60,60,60)" />}
-                                    label="1"
-                                    labelPlacement="top"
-                                  />
-                                  <FormControlLabel
-                                    value="0"
-                                    control={<Radio color="rgba(60,60,60)" />}
-                                    label="0"
-                                    labelPlacement="top"
-                                  />
-                                </RadioGroup>
-                                <FormLabel
-                                  component="legend"
-                                  style={{ color: "white" }}
-                                >
-                                  תרומה למפגש
-                                  </FormLabel>
-                                <RadioGroup
-                                  row
-                                  aria-label="position"
-                                  name={student[1] + " 3"}
-                                >
-                                  <FormControlLabel
-                                    value="15"
-                                    control={<Radio color="rgba(60,60,60)" />}
-                                    label="5"
-                                    labelPlacement="top"
-                                  />
-                                  <FormControlLabel
-                                    value="12"
-                                    control={<Radio color="rgba(60,60,60)" />}
-                                    label="4"
-                                    labelPlacement="top"
-                                  />
-                                  <FormControlLabel
-                                    value="9"
-                                    control={<Radio color="rgba(60,60,60)" />}
-                                    label="3"
-                                    labelPlacement="top"
-                                  />
-                                  <FormControlLabel
-                                    value="6"
-                                    control={<Radio color="rgba(60,60,60)" />}
-                                    label="2"
-                                    labelPlacement="top"
-                                  />
-                                  <FormControlLabel
-                                    value="3"
-                                    control={<Radio color="rgba(60,60,60)" />}
-                                    label="1"
-                                    labelPlacement="top"
-                                  />
-                                  <FormControlLabel
-                                    value="0"
-                                    control={<Radio color="rgba(60,60,60)" />}
-                                    label="0"
-                                    labelPlacement="top"
-                                  />
-                                </RadioGroup>
-                              </FormControl>
-                            </div>
-                            <br></br>
+                              <RadioGroup
+                                row
+                                aria-label="position"
+                                name={student[1] + " 3"}
+                              >
+                                <FormControlLabel
+                                  value="15"
+                                  control={<Radio color="rgba(60,60,60)" />}
+                                  label="5"
+                                  labelPlacement="top"
+                                />
+                                <FormControlLabel
+                                  value="12"
+                                  control={<Radio color="rgba(60,60,60)" />}
+                                  label="4"
+                                  labelPlacement="top"
+                                />
+                                <FormControlLabel
+                                  value="9"
+                                  label="3"
+                                  control={<Radio color="rgba(60,60,60)" />}
+                                  color="white"
+                                  labelPlacement="top"
+                                />
+                                <FormControlLabel
+                                  value="6"
+                                  control={<Radio color="rgba(60,60,60)" />}
+                                  label="2"
+                                  labelPlacement="top"
+                                />
+                                <FormControlLabel
+                                  value="3"
+                                  control={<Radio color="rgba(60,60,60)" />}
+                                  label="1"
+                                  labelPlacement="top"
+                                />
+                                <FormControlLabel
+                                  value="0"
+                                  control={<Radio color="rgba(60,60,60)" />}
+                                  label="0"
+                                  labelPlacement="top"
+                                />
+                              </RadioGroup>
+                            </FormControl>
                           </div>
-                        ))}
-                      </div>
-                    </tr>
-                    <tr>
-                      <SubmitResponsiveDialogActivityFeedback
-                        id={props.id}
-                        date={activity.date}
-                        student={activity.form}
-                      />
-                    </tr>
-                  </table>
-                </div>
-              );
-            }
-          })
-          : activitiesFeedback.map((activity) => {
-            if (props.id === activity.id) {
-              return (
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  {/* <table>
-                                        <tr>
-                                            <FormElement name="name" title=": שם הפעילות" type="text" defaultValue={activity.title} />
-                                        </tr>
-                                        <tr>
-                                            <FormElement name="activity_img" title=": קישור לתמונה" type="text" defaultValue={activity.img} />
-                                        </tr>
-                                        <tr>
-                                            מפגש בזום
-                                                <Checkbox
-                                                id="zoomCheckBox"
-                                                checked={checked}
-                                                onChange={handleChange}
-                                                fill="red"
-                                                inputProps={{ 'aria-label': 'primary checkbox' }}
-                                            />
-                                        </tr>
-                                        <tr>
-                                            {zoomLink}
-                                        </tr>
-                                        <tr>
-                                            <FormElement name="activityCount" title=": מספר פעילויות" type="number" onChange={createDateInputs} defaultValue={activity.activityCount} />
-                                        </tr>
-                                        <tr id="dates_tr">
-                                            {dates}
-                                        </tr>
-                                        <tr>
-                                            <TextField
-                                                id="outlined-multiline-static"
-                                                label=": תיאור הפעילויות"
-                                                name="activity_description"
-                                                className={classes.textField}
-                                                defaultValue={activity.description}
-                                                multiline
-                                                rows={4}
-                                                variant="outlined"
-                                            />
-
-                                        </tr>
-                                        <tr>
-                                            <UpdateResponsiveDialogActivities isZoom={checked} groupName={props.groupName} type={props.type} id={activity.id} dates={dates} />
-                                        </tr>
-                                    </table> */}
-                </div>
-              );
-            }
-          })}
+                          <br></br>
+                        </div>
+                      ))}
+                    </div>
+                  </tr>
+                  <tr>
+                    <SubmitResponsiveDialogActivityFeedback
+                      id={props.id}
+                      date={activity.date}
+                      student={activity.form}
+                    />
+                  </tr>
+                </table>
+              </div>
+            );
+          }
+        })}
       </CardContent>
     </Card>
   );
