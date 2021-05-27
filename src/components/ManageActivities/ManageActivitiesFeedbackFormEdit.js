@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
       margin: "10px",
       color: "white",
       backgroundColor: "pink",
+      zIndex: "2000",
     },
   },
 
