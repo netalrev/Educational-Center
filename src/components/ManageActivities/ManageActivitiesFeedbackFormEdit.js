@@ -33,13 +33,17 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     transition: "transform 0.15s ease-in-out",
     "&:hover": { transform: "scale3d(1.05, 1.05, 1)" },
+    "& label": {
+      margin: "10px",
+      color: "white",
+      backgroundColor: "pink",
+    },
   },
 
   expand: {
     transform: "rotate(0deg)",
     marginLeft: "auto",
     color: "red", //arrow color
-
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
@@ -54,10 +58,6 @@ const useStyles = makeStyles((theme) => ({
   },
   subColor: {
     color: "red",
-  },
-  formControlLabel: {
-    color: "white",
-    backgroundColor: "black",
   },
 }));
 
@@ -173,9 +173,12 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                                   value="10"
                                   control={<Radio color="white" />}
                                   labelPlacement="top"
-                                  label="נכח"
+                                  label={
+                                    <span style={{ fontSize: "2rem" }}>
+                                      נכח
+                                    </span>
+                                  }
                                 />
-
                                 <FormControlLabel
                                   value="0"
                                   control={<Radio color="white" />}
