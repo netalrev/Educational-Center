@@ -87,6 +87,12 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     transition: "transform 0.15s ease-in-out",
   },
+  selectDropdown: { color: "white", backgroundColor: "black" },
+  menuItem: {
+    "&:hover": {
+      backgroundColor: "red",
+    },
+  },
   expand: {
     transform: "rotate(0deg)",
     marginLeft: "auto",
@@ -356,6 +362,10 @@ export default function DeleteEditPendingForAdmin(props) {
                 page={page}
                 onChangePage={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
+                SelectProps={{
+                  MenuProps: { classes: { paper: classes.selectDropdown } },
+                }}
+                classes={{ menuItem: classes.menuItem }}
               />
             </Paper>
           </div>
