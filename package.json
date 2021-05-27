@@ -17,8 +17,10 @@
     "axios": "^0.21.1",
     "history": "^5.0.0",
     "jquery": "^3.6.0",
+    "jquerykeyframes": "^1.0.8",
     "json-server": "^0.16.3",
     "jss-rtl": "^0.3.0",
+    "keyframe": "^2.1.0",
     "material-ui-icons": "^1.0.0-beta.36",
     "material-ui-search-bar": "^1.0.0",
     "mdbreact": "^5.0.1",
@@ -68,5 +70,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.5"
   }
 }

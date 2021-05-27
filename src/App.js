@@ -24,7 +24,6 @@ import { I18n } from "aws-amplify";
 import { Translations } from "@aws-amplify/ui-components";
 import { Hub, Logger } from "aws-amplify";
 import swal from "sweetalert";
-import $ from "jquery";
 // import ReactCardFlip from "react-card-flip";
 
 Amplify.configure(awsconfig); //AWS CONFIGORE
