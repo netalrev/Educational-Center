@@ -59,17 +59,6 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     backgroundColor: "black",
   },
-
-  // textField: {
-  //     width: '90%',
-  //     marginLeft: 'auto',
-  //     marginRight: 'auto',
-  //     textAlign: 'right',
-  //     theme: "createMuiTheme({ direction: \"rtl\" }",
-  //     paddingBottom: 0,
-  //     marginTop: "0",
-  //     fontWeight: 500
-  // },
 }));
 
 export default function ManageActivitiesFeedbackFormEdit(props) {
@@ -183,8 +172,10 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                                 <FormControlLabel
                                   value="10"
                                   control={<Radio color="white" />}
+                                  labelPlacement="top"
                                   label="נכח"
                                 />
+
                                 <FormControlLabel
                                   value="0"
                                   control={<Radio color="white" />}
