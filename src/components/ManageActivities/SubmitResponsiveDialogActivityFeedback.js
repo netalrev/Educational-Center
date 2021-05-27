@@ -37,7 +37,9 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
     try {
       const usersData = await API.graphql(graphqlOperation(listUsers));
       const usersList = usersData.data.listUsers.items;
+      console.log("USERS LIST", usersList);
       setUsers(usersList);
+      console.log("USERS LIST", usersList);
     } catch (error) {
       console.log("error on fetching users", error);
     }
@@ -46,16 +48,14 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
     try {
       var list = users.filter((user) => user.id === to_update);
       const to_edit = list[0];
+      console.log("SCORE BEFORE.", to_edit.score);
       to_edit.score = to_edit.score + to_add;
+      console.log("SCORE BEFORE.", to_edit.score);
       delete to_edit.createdAt;
       delete to_edit.updatedAt;
-      const userData = await API.graphql(
-        graphqlOperation(updateUser, { input: to_edit })
-      );
+      const userData = await API.graphql(graphqlOperation(updateUser, { input: to_edit }));
       const userActivityList = [...users];
-      var idx = users.filter((user, idx) => {
-        if (user.id === to_update) return idx;
-      });
+      var idx = users.filter((user, idx) => { if (user.id === to_update) return idx; });
       userActivityList[idx[0]] = userData.data.updateUser;
       setUsers(userActivityList);
     } catch (error) {
@@ -227,9 +227,9 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
       const to_edit = list[0];
       var form = [];
       to_edit.form.map((student) => {
-        var grade1 = student[0] + " 1";
-        var grade2 = student[0] + " 2";
-        var grade3 = student[0] + " 3";
+        var grade1 = student[1] + " 1";
+        var grade2 = student[1] + " 2";
+        var grade3 = student[1] + " 3";
         var studentWithGrade = [];
         studentWithGrade.push(student[0]);
         studentWithGrade.push(student[1]);
@@ -308,6 +308,7 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
           })
           .forEach((user) => {
             update_S(user[0], user[1]);
+            console.log("USER FROM FORM", user, props.form);
           })
       )
         .then(swal("", "משוב הוזן בהצלחה.", "success", {

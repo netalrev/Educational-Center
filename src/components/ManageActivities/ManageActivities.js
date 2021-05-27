@@ -74,6 +74,7 @@ export default function ManageActivities(props) {
       )}
       <ActivityFeedbackForAdmin
         groupName={props.groupName}
+        phoneNumber={props.phoneNumber}
         type="approved"
         email={props.email}
         currentTime={dateAndTime}

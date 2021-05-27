@@ -5,6 +5,7 @@ import {
   listActivityFeedbacks,
   listPendingUsers,
   listApprovedUsers,
+  listApprovedActivitiess
 } from "../../graphql/queries";
 import { createActivityFeedback } from "../../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
@@ -69,6 +70,11 @@ export default function RecipeReviewCard(props) {
   const [pendingUsers, setPendingUsers] = useState([]);
   const [approvedUsers, setApprovedUsers] = useState([]);
   const [activityFeedbacks, setActivityFeedbacks] = useState([]);
+  const [allApprovedActivitiess, setAllApprovedActivitiess] = useState([]);
+  useEffect(() => {
+    fetchAllApprovedActivities();
+  }, []);
+
   useEffect(() => {
     fetchPendingUsers();
   }, []);
@@ -79,6 +85,17 @@ export default function RecipeReviewCard(props) {
   useEffect(() => {
     fetchActivityFeedbacks();
   }, []);
+
+  const fetchAllApprovedActivities = async () => {
+    try {
+      const approvedActivitiesData = await API.graphql(graphqlOperation(listApprovedActivitiess));
+      const approvedActivitiesList = approvedActivitiesData.data.listApprovedActivitiess.items;
+      setAllApprovedActivitiess(approvedActivitiesList);
+    } catch (error) {
+      console.log("error on fetching Approved Activities", error);
+    }
+  };
+
   const fetchActivityFeedbacks = async () => {
     try {
       const feedbacksData = await API.graphql(
@@ -111,20 +128,8 @@ export default function RecipeReviewCard(props) {
   };
   const createNewActivityFeedback = async () => {
     try {
-      //     id: ID!
-      // title: String!
-      // activityCount: String!
-      // date: String!
-      // owner: String!
-      // img: String
-      // zoom: String
-      // phone_number: String!
-      // email: String!
-      // form: [[String!]]
       var new_form = [];
-      var filteredUsers = approvedUsers.filter(
-        (user) => user.activity_id === props.id
-      );
+      var filteredUsers = approvedUsers.filter((user) => user.activity_id === props.id);
       filteredUsers.map((element) => {
         var student = [];
         student.push(element.name);
@@ -132,7 +137,6 @@ export default function RecipeReviewCard(props) {
         student.push(element.phone_number);
         new_form.push(student);
       });
-      console.log(filteredUsers, new_form);
       var IDs = activityFeedbacks.map((element) => parseInt(element.id));
       IDs.sort(function compareNumbers(a, b) {
         return a - b;
@@ -143,7 +147,7 @@ export default function RecipeReviewCard(props) {
         id: IDs.length == 0 ? 0 : IDs[IDs.length - 1] + 1,
         owner: props.owner,
         title: props.title,
-        email: props.email,
+        email: allApprovedActivitiess.filter(activity => activity.id === props.id)[0].email,
         activity_id: props.id,
         zoom: zoomLink,
         img: props.img,
@@ -189,14 +193,14 @@ export default function RecipeReviewCard(props) {
       return d.constructor === Date
         ? d
         : d.constructor === Array
-        ? new Date(d[0], d[1], d[2])
-        : d.constructor === Number
-        ? new Date(d)
-        : d.constructor === String
-        ? new Date(d)
-        : typeof d === "object"
-        ? new Date(d.year, d.month, d.date)
-        : NaN;
+          ? new Date(d[0], d[1], d[2])
+          : d.constructor === Number
+            ? new Date(d)
+            : d.constructor === String
+              ? new Date(d)
+              : typeof d === "object"
+                ? new Date(d.year, d.month, d.date)
+                : NaN;
     },
     compare: function (a, b) {
       // Compare two dates (could be of any type supported by the convert
@@ -242,8 +246,7 @@ export default function RecipeReviewCard(props) {
               .convert(date)
               .setMinutes(dates_class.convert(date).getMinutes() + 20)
           )
-        ) <= 0
-    );
+        ) <= 0);
     if (
       start.length !== 0 &&
       approvedUsers
@@ -272,7 +275,7 @@ export default function RecipeReviewCard(props) {
     } else if (
       dates_class.compare(
         dates_class.convert(props.currentTime),
-        dates_class.convert(props.dates[props.dates.length - 1])
+        dates_class.convert(props.dates[props.dates.length - 1]).setMinutes(dates_class.convert(props.dates[props.dates.length - 1]).getMinutes() + 20)
       ) >= 0
     ) {
       return <h3 style={{ color: "red" }}>הפעילות הסתיימה</h3>;

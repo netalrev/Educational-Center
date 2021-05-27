@@ -25,59 +25,6 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 
-const columns = [
-  {
-    id: "buttons",
-    label: "",
-    minWidth: 110,
-    maxWidth: 110,
-    align: "center",
-    color: "white",
-  },
-  {
-    id: "students",
-    label: "רשומים",
-    minWidth: 120,
-    maxWidth: 130,
-    align: "center",
-  },
-  {
-    id: "date",
-    label: "תארכי מפגשים",
-    minWidth: 170,
-    maxWidth: 170,
-    align: "center",
-  },
-  {
-    id: "email",
-    label: "אימייל ספק התוכן",
-    minWidth: 130,
-    maxWidth: 130,
-    align: "center",
-  },
-  {
-    id: "activityName",
-    label: "שם הפעילות",
-    minWidth: 120,
-    maxWidth: 170,
-    align: "center",
-  },
-  {
-    id: "phoneNumber",
-    label: "פלאפון ספק התוכן",
-    minWidth: 120,
-    maxWidth: 120,
-    align: "center",
-  },
-  {
-    id: "name",
-    label: "שם ספק התוכן",
-    minWidth: 120,
-    maxWidth: 130,
-    align: "center",
-  },
-];
-
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "95%",
@@ -127,7 +74,94 @@ export default function ActivityFeedbackForAdmin(props) {
   // const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const rows = activitiesFeedbacks.map((activity, index) => {
+
+  const columns = props.groupName === "admins" ?
+    [
+      {
+        id: "buttons",
+        label: "",
+        minWidth: 110,
+        maxWidth: 110,
+        align: "center",
+        color: "white",
+      },
+      {
+        id: "students",
+        label: "רשומים",
+        minWidth: 120,
+        maxWidth: 130,
+        align: "center",
+      },
+      {
+        id: "date",
+        label: "תארכי מפגשים",
+        minWidth: 170,
+        maxWidth: 170,
+        align: "center",
+      },
+      {
+        id: "email",
+        label: "אימייל ספק התוכן",
+        minWidth: 130,
+        maxWidth: 130,
+        align: "center",
+      },
+      {
+        id: "activityName",
+        label: "שם הפעילות",
+        minWidth: 120,
+        maxWidth: 170,
+        align: "center",
+      },
+      {
+        id: "phoneNumber",
+        label: "פלאפון ספק התוכן",
+        minWidth: 120,
+        maxWidth: 120,
+        align: "center",
+      },
+      {
+        id: "name",
+        label: "שם ספק התוכן",
+        minWidth: 120,
+        maxWidth: 130,
+        align: "center",
+      },
+    ]
+    :
+    [
+      {
+        id: "buttons",
+        label: "",
+        minWidth: 110,
+        maxWidth: 110,
+        align: "center",
+        color: "white",
+      },
+      {
+        id: "students",
+        label: "רשומים",
+        minWidth: 120,
+        maxWidth: 130,
+        align: "center",
+      },
+      {
+        id: "date",
+        label: "תארכי מפגשים",
+        minWidth: 170,
+        maxWidth: 170,
+        align: "center",
+      },
+      {
+        id: "activityName",
+        label: "שם הפעילות",
+        minWidth: 120,
+        maxWidth: 170,
+        align: "center",
+      },
+    ];
+
+  const rows = (props.groupName === "admins") ? activitiesFeedbacks.map((activity, index) => {
     return createDataAdmin(
       activity.owner,
       activity.phone_number,
@@ -158,7 +192,38 @@ export default function ActivityFeedbackForAdmin(props) {
         />
       </div>
     );
-  });
+  })
+    :
+    activitiesFeedbacks.map((activity, index) => {
+      return createDataContentSuppliers(
+        activity.title,
+        <p>
+          תאריך - {activity.date.substring(0, 10).split("-").reverse().join("-")}{" "}
+      שעה - {activity.date.substring(11)}
+        </p>,
+        <Scrollbars style={{ width: 130, height: 200, float: "right" }}>
+          {activity.form.map((student) => (
+            <div>
+              <p>{student[0]}</p>
+            </div>
+          ))}
+        </Scrollbars>,
+        <div>
+          <FillResponsiveDialogActivitiesFeedback
+            title={activity.title}
+            date={activity.date}
+            students={activity.form}
+            idx={index}
+            id={activity.activity_id}
+            email={props.email}
+            givenName={props.givenName}
+            familyName={props.familyName}
+            groupName={props.groupName}
+          />
+        </div>
+      );
+    })
+    ;
 
   useEffect(() => {
     fetchActivitiesFeedbacks();
@@ -177,14 +242,14 @@ export default function ActivityFeedbackForAdmin(props) {
       return d.constructor === Date
         ? d
         : d.constructor === Array
-        ? new Date(d[0], d[1], d[2])
-        : d.constructor === Number
-        ? new Date(d)
-        : d.constructor === String
-        ? new Date(d)
-        : typeof d === "object"
-        ? new Date(d.year, d.month, d.date)
-        : NaN;
+          ? new Date(d[0], d[1], d[2])
+          : d.constructor === Number
+            ? new Date(d)
+            : d.constructor === String
+              ? new Date(d)
+              : typeof d === "object"
+                ? new Date(d.year, d.month, d.date)
+                : NaN;
     },
     compare: function (a, b) {
       // Compare two dates (could be of any type supported by the convert
@@ -213,14 +278,7 @@ export default function ActivityFeedbackForAdmin(props) {
         : NaN;
     },
   };
-  var tzoffset_start = new Date().getTimezoneOffset() * 60000;
-  var tzoffset_end = new Date().getTimezoneOffset() * 60000 - 60 * 60000;
-  var current_time = dates_class.convert(
-    new Date(Date.now() - tzoffset_start).toISOString().substring(0, 16)
-  );
-  var current_time_20 = dates_class.convert(
-    new Date(Date.now() - tzoffset_end).toISOString().substring(0, 16)
-  );
+
   function compare_createdAt(a, b) {
     var a_converted = dates_class.convert(a.createdAt);
     var b_converted = dates_class.convert(b.createdAt);
@@ -235,7 +293,12 @@ export default function ActivityFeedbackForAdmin(props) {
       );
       const activitiesFeedbacksList =
         activitiesFeedbacksData.data.listActivityFeedbacks.items;
-      setActivitiesFeedbacks(activitiesFeedbacksList.sort(compare_createdAt));
+      if (props.groupName === "admins")
+        setActivitiesFeedbacks(activitiesFeedbacksList.sort(compare_createdAt));
+      else {
+        var mappedFeedbacks = activitiesFeedbacksList.filter(feedback => feedback.email === props.email);
+        setActivitiesFeedbacks(mappedFeedbacks);
+      }
     } catch (error) {
       console.log("error on fetching Approved Activities", error);
     }
@@ -251,6 +314,15 @@ export default function ActivityFeedbackForAdmin(props) {
     buttons
   ) {
     return { name, phoneNumber, activityName, email, date, students, buttons };
+  }
+
+  function createDataContentSuppliers(
+    activityName,
+    date,
+    students,
+    buttons
+  ) {
+    return { activityName, date, students, buttons };
   }
 
   const handleChangePage = (event, newPage) => {
