@@ -228,16 +228,6 @@ export default function Back(props) {
   }, []);
 
   useEffect(() => {
-    var elm = document.querySelector("#progress1");
-    setInterval(function () {
-      if (!elm.innerHTML.match(/87%/gi)) {
-        elm.innerHTML = parseInt(elm.innerHTML) + 1 + "%";
-      } else {
-        clearInterval();
-      }
-    }, 18);
-  }, []);
-  useEffect(() => {
     fetchUsers();
   }, []);
   useEffect(() => {

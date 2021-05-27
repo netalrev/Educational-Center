@@ -66,7 +66,7 @@ export default function Profile(props) {
   useEffect(() => {
     var elm = document.querySelector("#progress1");
     setInterval(function () {
-      if (!elm.innerHTML.match(/87%/gi)) {
+      if (!elm.innerHTML.match(/44%/gi)) {
         elm.innerHTML = parseInt(elm.innerHTML) + 1 + "%";
       } else {
         clearInterval();
