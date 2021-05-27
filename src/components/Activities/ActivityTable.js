@@ -116,50 +116,6 @@ export default function ActivityTable(props) {
         approvedActivitiesData.data.listApprovedActivitiess.items;
       approvedActivitiesList.sort(comparing);
       for (var i = 0; i < approvedActivitiesList.length; i++) {
-        console.log("i", i)
-        // console.log("HEHEYYYYYYYYYYY", dates_class.compare((props.currentTime), dates_class.convert(dates_class.convert(approvedActivitiesList[i].dates[approvedActivitiesList[i].dates.length - 1]).setMinutes(dates_class.convert(approvedActivitiesList[i].dates[approvedActivitiesList[i].dates.length - 1]).getMinutes() + 60))))
-        // console.log(dates_class.compare(dates_class.convert(props.currentTime), dates_class.convert(dates_class.convert(approvedActivitiesList[i].dates[approvedActivitiesList[i].dates.length - 1]).setHours(dates_class.convert(approvedActivitiesList[i].dates[approvedActivitiesList[i].dates.length - 1]).getHours() + 1))));
-        // console.log("GGGGG", dates_class.convert(
-        //   dates_class
-        //     .convert(
-        //       approvedActivitiesList[i].dates[
-        //       approvedActivitiesList[i].dates.length - 1
-        //       ]
-        //     )
-        //     .setMinutes(
-        //       dates_class
-        //         .convert(
-        //           approvedActivitiesList[i].dates[
-        //           approvedActivitiesList[i].dates.length - 1
-        //           ]
-        //         )
-        //         .getMinutes() + 60
-        //     )), dates_class
-        //       .convert(
-        //         approvedActivitiesList[i].dates[
-        //         approvedActivitiesList[i].dates.length - 1
-        //         ]
-        //       ));
-        console.log(approvedActivitiesList, approvedActivitiesList[i].title, dates_class.compare(
-          props.currentTime,
-          dates_class.convert(
-            dates_class
-              .convert(
-                approvedActivitiesList[i].dates[
-                approvedActivitiesList[i].dates.length - 1
-                ]
-              )
-              .setMinutes(
-                dates_class
-                  .convert(
-                    approvedActivitiesList[i].dates[
-                    approvedActivitiesList[i].dates.length - 1
-                    ]
-                  )
-                  .getMinutes() + 60
-              )
-          )
-        ));
         if (
           dates_class.compare(
             props.currentTime,
@@ -182,7 +138,6 @@ export default function ActivityTable(props) {
             )
           ) === 1
         ) {
-          // console.log(approvedActivitiesList[i].title);
           approvedActivitiesList.splice(i, 1);
           i = 0;
         }
