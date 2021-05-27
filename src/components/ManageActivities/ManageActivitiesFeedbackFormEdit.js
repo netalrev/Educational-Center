@@ -36,8 +36,8 @@ const useStyles = makeStyles((theme) => ({
     "& label": {
       margin: "10px",
       color: "white",
-      backgroundColor: "pink",
-      zIndex: "2000",
+      backgroundColor: "red",
+      borderRadius: "20px",
     },
   },
 
@@ -174,11 +174,10 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                                   value="10"
                                   control={<Radio color="white" />}
                                   labelPlacement="top"
-                                  label={
-                                    <span style={{ fontSize: "2rem" }}>
-                                      נכח
-                                    </span>
-                                  }
+                                  label="נכח"
+                                  classes={{
+                                    label: useStyles.formcontrollabel, // label class overriding
+                                  }}
                                 />
                                 <FormControlLabel
                                   value="0"
