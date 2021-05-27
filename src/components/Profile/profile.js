@@ -77,9 +77,6 @@ export default function Profile(props) {
       <div className="ds-top"></div>
       <div className="avatar-holder1">
         <div id="container">
-          {/* <label for="water" className="myLabel">
-            <div id="fill"></div>
-          </label> */}
           <LinearDeterminate score={score} />
           <span>Progress</span>
           <span id="progress1">{score}%</span>

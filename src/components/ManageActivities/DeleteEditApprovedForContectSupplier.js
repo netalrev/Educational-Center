@@ -50,11 +50,13 @@ const columns = [
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: "1300px",
-    minWidth: "1300px",
-    margin: "10px",
+    maxWidth: "95%",
+    minWidth: "95%",
+    left: 0,
+    margin: "auto",
+    marginTop: "20px",
     opacity: 0.85,
-    backgroundImage: 'url("")',
+    backgroundColor: "rgba(3, 3, 3, 0.5)",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
@@ -275,7 +277,11 @@ export default function DeleteEditPendingForAdmin(props) {
                         <TableCell
                           key={column.id}
                           align={column.align}
-                          style={{ minWidth: column.minWidth }}
+                          style={{
+                            minWidth: column.minWidth,
+                            color: "white",
+                            backgroundColor: "black",
+                          }}
                         >
                           {column.label}
                         </TableCell>

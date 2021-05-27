@@ -33,13 +33,18 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     transition: "transform 0.15s ease-in-out",
     "&:hover": { transform: "scale3d(1.05, 1.05, 1)" },
+    "& label": {
+      margin: "10px",
+      color: "white",
+      backgroundColor: "red",
+      borderRadius: "20px",
+    },
   },
 
   expand: {
     transform: "rotate(0deg)",
     marginLeft: "auto",
     color: "red", //arrow color
-
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
@@ -55,21 +60,6 @@ const useStyles = makeStyles((theme) => ({
   subColor: {
     color: "red",
   },
-  formControlLabel: {
-    color: "white",
-    backgroundColor: "black",
-  },
-
-  // textField: {
-  //     width: '90%',
-  //     marginLeft: 'auto',
-  //     marginRight: 'auto',
-  //     textAlign: 'right',
-  //     theme: "createMuiTheme({ direction: \"rtl\" }",
-  //     paddingBottom: 0,
-  //     marginTop: "0",
-  //     fontWeight: 500
-  // },
 }));
 
 export default function ManageActivitiesFeedbackFormEdit(props) {
@@ -183,7 +173,11 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                                 <FormControlLabel
                                   value="10"
                                   control={<Radio color="white" />}
+                                  labelPlacement="top"
                                   label="נכח"
+                                  classes={{
+                                    label: useStyles.formcontrollabel, // label class overriding
+                                  }}
                                 />
                                 <FormControlLabel
                                   value="0"
