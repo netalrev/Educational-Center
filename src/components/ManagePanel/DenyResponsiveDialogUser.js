@@ -46,11 +46,18 @@ export default function DenyResponsiveDialogUser(props) {
       <Button
         startIcon={
           <PersonAddDisabledIcon
-            style={{ fill: "white" }}
+            style={{
+              fill: "white",
+              maxWidth: "100px",
+              marginBottom: "11px"
+            }}
           ></PersonAddDisabledIcon>
         }
         variant="outlined"
-        style={{ fill: "white", backgroundColor: "red" }}
+        style={{
+          fill: "white", backgroundColor: "red", maxHeight: "40px",
+          paddingBottom: "15px"
+        }}
         onClick={handleClickOpen}
       >
         דחה
@@ -76,16 +83,22 @@ export default function DenyResponsiveDialogUser(props) {
           <Button
             autoFocus
             onClick={handleCancel}
-            style={{ backgroundColor: "red" }}
+            style={{
+              backgroundColor: "red", maxHeight: "40px",
+              paddingBottom: "15px"
+            }}
           >
             חזור
           </Button>
           <Button
             onClick={handleClose}
-            style={{ backgroundColor: "green" }}
+            style={{
+              backgroundColor: "green", maxHeight: "40px",
+              paddingBottom: "15px"
+            }}
             autoFocus
           >
-            ביטול הרשמה
+            ביטול&nbsp;הרשמה
           </Button>
         </DialogActions>
       </Dialog>

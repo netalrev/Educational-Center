@@ -25,7 +25,6 @@ export default function FillResponsiveDialogActivitiesFeedback(props) {
     <div>
       <Button
         startIcon={<EditIcon style={{
-          fill: "rgba(60,60,60)",
           fill: "white",
           maxWidth: "100px",
           marginBottom: "10px"
@@ -73,7 +72,10 @@ export default function FillResponsiveDialogActivitiesFeedback(props) {
           <Button
             autoFocus
             onClick={handleCancel}
-            style={{ fill: "rgba(60,60,60)", backgroundColor: "red" }}
+            style={{
+              fill: "rgba(60,60,60)", backgroundColor: "red", maxHeight: "40px",
+              paddingBottom: "15px"
+            }}
           >
             בטל
           </Button>

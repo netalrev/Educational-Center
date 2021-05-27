@@ -144,6 +144,7 @@ export default function UpdateResponsiveDialog(props) {
       ).value;
       delete to_edit.createdAt;
       delete to_edit.updatedAt;
+      console.log("hey", to_edit);
       const activityData = await API.graphql(
         graphqlOperation(updatePendingActivities, { input: to_edit })
       );
@@ -243,7 +244,7 @@ export default function UpdateResponsiveDialog(props) {
         if (dates_class.compare(current_time, temp) == 1)
           return "תאריך לא חוקי";
       }
-      return true;
+      return "true";
     }
     else {
       if (
@@ -292,24 +293,28 @@ export default function UpdateResponsiveDialog(props) {
     setOpen(true);
   };
 
+  const handlea = () => {
+    console.log("aaa");
+  };
+
   const handleClose = async () => {
     setOpen(false);
     const validate = validation();
+    console.log(validate);
     if (validate == "true") {
       if (props.type === "pending") {
         await editPendingActivities(props.id).then(
           swal("", "בקשתך לעריכת התוכן המבוקש התקבלה בהצלחה.", "success", {
             button: "אישור",
-          })
-        );
+          }));
+        window.location.reload(false);
       } else {
         await editApprovedActivities(props.id).then(
           swal("", "בקשתך לעריכת התוכן המבוקש התקבלה בהצלחה.", "success", {
-            button: "אישור",
-          })
-        );
+            button: "אישור", handlea
+          }));
+        window.location.reload(false);
       }
-      // window.location.reload(false);
     } else {
       swal("", validate, "error", {
         button: "אישור",
@@ -325,7 +330,7 @@ export default function UpdateResponsiveDialog(props) {
     <div>
       <Button
         startIcon={<UpdateIcon style={{
-          fill: "#ffffff",
+          fill: "white",
           maxWidth: "100px",
           marginBottom: "11px"
         }}></UpdateIcon>}
@@ -358,16 +363,22 @@ export default function UpdateResponsiveDialog(props) {
           <Button
             autoFocus
             onClick={handleCancel}
-            style={{ fill: "white", backgroundColor: "red" }}
+            style={{
+              fill: "white", backgroundColor: "red", maxHeight: "40px",
+              paddingBottom: "15px"
+            }}
           >
-            בטל העלאה
+            בטל&nbsp;העלאה
           </Button>
           <Button
             onClick={handleClose}
-            style={{ fill: "white", backgroundColor: "green" }}
+            style={{
+              fill: "white", backgroundColor: "green", maxHeight: "40px",
+              paddingBottom: "15px"
+            }}
             autoFocus
           >
-            אשר העלאה
+            אשר&nbsp;העלאה
           </Button>
         </DialogActions>
       </Dialog>
