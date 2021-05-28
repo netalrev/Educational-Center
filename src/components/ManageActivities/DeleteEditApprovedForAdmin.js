@@ -301,7 +301,7 @@ export default function DeleteEditPendingForAdmin(props) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <div style={{ display: "flex", justifyContent: "center" }}>
-            <Paper className={classes.root}>
+            <Paper className={classes.root} id="table_id">
               <TableContainer className={classes.container}>
                 <Table stickyHeader aria-label="sticky table">
                   <TableHead>
@@ -367,7 +367,6 @@ export default function DeleteEditPendingForAdmin(props) {
                   MenuProps: { classes: { paper: classes.selectDropdown } },
                 }}
                 classes={{ menuItem: classes.menuItem }}
-              />
               />
             </Paper>
           </div>
