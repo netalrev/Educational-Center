@@ -27,17 +27,18 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 400,
     margin: "10px",
     backgroundColor: "light gray",
-    color: "red",
-    text: "red",
+
     borderRadius: "4%",
     right: 0,
     transition: "transform 0.15s ease-in-out",
-    "&:hover": { transform: "scale3d(1.05, 1.05, 1)" },
+    //"&:hover": { transform: "scale3d(1.05, 1.05, 1)" },
     "& label": {
       margin: "10px",
       color: "white",
+      fontSize: "2000px",
       backgroundColor: "red",
       borderRadius: "20px",
+      zIndex: "1222",
     },
   },
 
@@ -172,12 +173,9 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                               >
                                 <FormControlLabel
                                   value="10"
-                                  control={<Radio color="white" />}
+                                  control={<Radio />}
                                   labelPlacement="top"
                                   label="נכח"
-                                  classes={{
-                                    label: useStyles.formcontrollabel, // label class overriding
-                                  }}
                                 />
                                 <FormControlLabel
                                   value="0"
