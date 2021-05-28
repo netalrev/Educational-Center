@@ -279,7 +279,7 @@ body {
 #container2 {
     position: relative;
     width: 50vw;
-    top: 50%;
+    top: 45%;
     left: 48%;
     padding-left: 13px;
     padding-right: 13px;
@@ -288,7 +288,6 @@ body {
     margin-left: 5px;
     margin-right: 5px;
     transform: translate3d(-50%, -50%, 0);
-    margin-top: 50px;
 }
 
 input {

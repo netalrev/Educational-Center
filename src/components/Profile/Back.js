@@ -7,6 +7,7 @@ import Dog from "../Avatars/Dog";
 import { listUsers } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import ReactCardFlip from "react-card-flip";
+import { Scrollbars } from "rc-scrollbars";
 import ReplayIcon from "@material-ui/icons/Replay";
 import { Accordion } from "@material-ui/core";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
@@ -55,14 +56,14 @@ var dates_class = {
     return d.constructor === Date
       ? d
       : d.constructor === Array
-      ? new Date(d[0], d[1], d[2])
-      : d.constructor === Number
-      ? new Date(d)
-      : d.constructor === String
-      ? new Date(d)
-      : typeof d === "object"
-      ? new Date(d.year, d.month, d.date)
-      : NaN;
+        ? new Date(d[0], d[1], d[2])
+        : d.constructor === Number
+          ? new Date(d)
+          : d.constructor === String
+            ? new Date(d)
+            : typeof d === "object"
+              ? new Date(d.year, d.month, d.date)
+              : NaN;
   },
   compare: function (a, b) {
     // Compare two dates (could be of any type supported by the convert
@@ -101,9 +102,9 @@ export default function Back(props) {
   const [approvedUsers, setApprovedUsers] = useState([]);
   const [allApprovedActivities, setAllApprovedActivities] = useState([]);
   const [dateAndTime, setDateAndTime] = useState([]);
+  const [myActivities, setMyActivities] = useState([]);
   const [url, setUrl] = useState([]);
   const [personalActivitiesID, setPersonalActivitiesID] = useState([]);
-  const [personalActivities, setPersonalActivities] = useState([]);
 
   var activitiesHTML = "";
 
@@ -160,45 +161,60 @@ export default function Back(props) {
   }
   const fetchAllApprovedActivities = async () => {
     try {
-      const approvedActivitiesData = await API.graphql(
-        graphqlOperation(listApprovedActivitiess)
-      );
-      const approvedActivitiesList =
-        approvedActivitiesData.data.listApprovedActivitiess.items;
+      const approvedActivitiesData = await API.graphql(graphqlOperation(listApprovedActivitiess));
+      const approvedActivitiesList = approvedActivitiesData.data.listApprovedActivitiess.items;
       approvedActivitiesList.sort(comparing);
+      console.log(approvedActivitiesList, personalActivitiesID);
+      const x = approvedActivitiesList.filter(activity => personalActivitiesID.includes(activity.id))
+        .map(activity => {
+          return (
+            <div className="activityRow">
+              <p>{activity.title}</p>
+              <div class="progress2">
+                <div class="progress2-value"></div>
+              </div>
+            </div>
+          )
+        });
+      console.log("x", x);
+      setMyActivities(x);
       setAllApprovedActivities(approvedActivitiesList);
     } catch (error) {
       console.log("error on fetching Approved Activities", error);
     }
   };
-  const fetchPersonalActivities = async () => {
-    try {
-      const temp = personalActivitiesID.map((activity) => parseInt(activity));
-      const personalActivitiesList = allApprovedActivities.filter((activity) =>
-        personalActivitiesID.includes(activity.id)
-      );
-      //activitiesHTML = "";
-      for (var i = 0; i < personalActivitiesList.length; i++) {
-        activitiesHTML +=
-          "<div><p>" + personalActivitiesList[i].title + "</p></div>";
-      }
-
-      //console.log("okokok: " + activitiesHTML);
-      //document.getElementById("container").innerHTML = activitiesHTML;
-      console.log("NEW PERSONAL", personalActivitiesList);
-    } catch (error) {
-      console.log("error on fetching approved users", error);
-    }
-  };
+  // const fetchPersonalActivities = async () => {
+  //   try {
+  //     const temp = personalActivitiesID.map((activity) => parseInt(activity));
+  //     const personalActivitiesList = allApprovedActivities.filter((activity) =>
+  //       personalActivitiesID.includes(activity.id)
+  //     );
+  //     console.log(personalActivitiesList);
+  //     //activitiesHTML = "";
+  //     for (var i = 0; i < personalActivitiesList.length; i++) {
+  //       activitiesHTML +=
+  //         "<div><p>" + personalActivitiesList[i].title + "</p></div>";
+  //     }
+  //     setPersonalActivities(personalActivitiesList);
+  //     //console.log("okokok: " + activitiesHTML);
+  //     //document.getElementById("container").innerHTML = activitiesHTML;
+  //     console.log("NEW PERSONAL", personalActivitiesList);
+  //   } catch (error) {
+  //     console.log("error on fetching approved users", error);
+  //   }
+  // };
   const fetchApprovedUsers = async () => {
     try {
       const usersData = await API.graphql(graphqlOperation(listApprovedUsers));
       const usersList = usersData.data.listApprovedUsers.items;
-      const personalActivitiesIdList = usersList
-        .filter((user) => user.email === props.email)
-        .map((user) => user.activity_id);
-      console.log(personalActivitiesIdList);
-      setPersonalActivitiesID(personalActivitiesIdList);
+      const personalActivitiesIdList = usersList.filter((user) => user.email === props.email);
+      const IDs = personalActivitiesIdList.map(activity => {
+        if (activity !== null) {
+          return activity.activity_id
+        }
+      })
+      console.log("vv", IDs)
+      setPersonalActivitiesID(IDs);
       setApprovedUsers(usersList);
     } catch (error) {
       console.log("error on fetching approved users", error);
@@ -211,11 +227,8 @@ export default function Back(props) {
     try {
       const usersData = await API.graphql(graphqlOperation(listUsers));
       const usersList = usersData.data.listUsers.items;
-      console.log(props.groupName);
-      console.log(usersList.filter((user) => user.email === props.email));
       if (props.groupName === "approvedUsers")
         setMyScore(usersList.filter((user) => user.email === props.email)[0]);
-      console.log(usersList.filter((user) => user.email === props.email)[0]);
     } catch (error) {
       console.log("error on fetching users", error);
     }
@@ -225,44 +238,31 @@ export default function Back(props) {
   }, []);
   useEffect(() => {
     fetchAllApprovedActivities();
-  }, []);
+  }, [personalActivitiesID]);
 
   useEffect(() => {
     fetchUsers();
   }, []);
-  useEffect(() => {
-    fetchPersonalActivities();
-  }, []);
+
 
   return (
     <div className="card">
       <div className="ds-top">
         <h4>הפעילויות שלי</h4>
       </div>
-      <div id="container2">
-        <div className="activityRow">
-          <p>אפייה מנהלית</p>
-          <div class="progress2">
-            <div class="progress2-value"></div>
+      <Scrollbars style={{ marginBlockStart: 80, width: 300, height: 380, float: "right" }}>
+        <div id="container2">
+          <div className="activityRow">
+            <div className="ds pens">
+              <h6 className="prof2" title="Number of pens created by the user">
+                רישום לפעילויות
+          </h6>
+              <h6 className="levels"> {myActivities.length} </h6>
+            </div>
           </div>
+          {myActivities}
         </div>
-
-        <div className="activityRow">
-          <p>שיגור ארנבים</p>
-          <div class="progress2">
-            <div class="progress2-value"></div>
-          </div>
-        </div>
-        <div className="activityRow">
-          <p>ציד חייזרים</p>
-          <div class="progress2">
-            <div class="progress2-value"></div>
-          </div>
-        </div>
-        <div className="ds-info">
-          <div className="ds projects">{}</div>
-        </div>
-      </div>
+      </Scrollbars>
       <div className="logout">
         <div className="bottomProfile" onClick={props.function}>
           <ReplayIcon fontSize="large" className="flipIcon" />

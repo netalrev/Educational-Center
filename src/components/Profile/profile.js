@@ -7,9 +7,8 @@ import Dog from "../Avatars/Dog";
 import { listUsers } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import ReactCardFlip from "react-card-flip";
+import LinearDeterminate from "./LinearDeterminate";
 
-var level = 6;
-var nextLevel = 88;
 var registeredActivities = 1;
 var pastActivities = 1;
 var procces = registeredActivities / registeredActivities;
@@ -46,46 +45,41 @@ export default function Profile(props) {
   const [users, setUsers] = useState([]);
   const [myScore, setMyScore] = useState([]);
   const [prevState, setState] = useState(props.flip_state);
-
+  const grades = [0, 50, 100, 300, 700, 1500, 3100, 4700];
+  var nextLevel = 0;
+  var level = 0;
+  for (var i = 0; i < grades.length - 1; i++) {
+    if (myScore.score >= grades[i] && myScore.score < grades[i + 1]) {
+      level = i + 1;
+    }
+  }
+  nextLevel = grades[level] - parseInt(myScore.score);
+  var score = 0;
+  score = parseInt(myScore.score) - grades[level - 1];
+  score = score / (grades[level] - grades[level - 1]) * 100;
   const fetchUsers = async () => {
     try {
       const usersData = await API.graphql(graphqlOperation(listUsers));
       const usersList = usersData.data.listUsers.items;
       setUsers(usersList);
       if (props.groupName === "approvedUsers")
-        setMyScore(
-          usersList.filter(
-            (user) => user.name === props.givenName + " " + props.familyName
-          )[0]
-        );
+        setMyScore(usersList.filter((user) => user.email === props.email)[0]);
     } catch (error) {
       console.log("error on fetching users", error);
     }
   };
-
-  useEffect(() => {
-    var elm = document.querySelector("#progress1");
-    setInterval(function () {
-      if (!elm.innerHTML.match(/94%/gi)) {
-        elm.innerHTML = parseInt(elm.innerHTML) + 1 + "%";
-      } else {
-        clearInterval();
-      }
-    }, 18);
-  }, []);
   useEffect(() => {
     fetchUsers();
   }, []);
+
   return (
     <div className="card">
       <div className="ds-top"></div>
       <div className="avatar-holder1">
         <div id="container">
-          <label for="water" className="myLabel">
-            <div id="fill"></div>
-          </label>
+          <LinearDeterminate score={score} />
           <span>Progress</span>
-          <span id="progress1">0%</span>
+          <span id="progress1">{score}%</span>
         </div>
       </div>
       <div className="name">
@@ -96,11 +90,17 @@ export default function Profile(props) {
       </div>
 
       <div className="ds-info">
-        <div className="ds pens">
-          <h6 className="prof2" title="Number of pens created by the user">
-            רישום לפעילויות
+        <div className="ds posts">
+          <h6 className="prof2" title="Number of posts">
+            נקודות לדרגה הבאה
           </h6>
-          <h6 className="levels"> {registeredActivities} </h6>
+          <h6 className="levels"> {nextLevel} </h6>
+        </div>
+      </div>
+
+      <div className="logout">
+        <div className="avatar">
+          <Dog />
         </div>
         <div className="ds projects">
           <h6
@@ -111,22 +111,10 @@ export default function Profile(props) {
             התקדמות בפעילויות
           </h6>
         </div>
-        <div className="ds posts">
-          <h6 className="prof2" title="Number of posts">
-            דרגה הבאה
-          </h6>
-          <h6 className="levels"> {nextLevel} </h6>
-        </div>
-      </div>
-
-      <div className="logout">
-        <div className="avatar">
-          <Dog />
-        </div>
         <button className="signOutBtn" onClick={signOut}>
           התנתקות
         </button>
       </div>
-    </div>
+    </div >
   );
 }
