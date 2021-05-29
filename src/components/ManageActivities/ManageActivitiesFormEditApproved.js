@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "4%",
     right: 0,
     transition: "transform 0.15s ease-in-out",
-    "&:hover": { transform: "scale3d(1.05, 1.05, 1)" },
   },
 
   expand: {
@@ -54,7 +53,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "33px",
     marginLeft: "auto",
     marginRight: "auto",
-    widht: "95%",
+    minWidth: "95%",
+    marginTop: "15px",
     "& label.Mui-focused": {
       padding: "10px",
       color: "white",
@@ -167,6 +167,7 @@ export default function ManageActivitiesFormEditApproved(props) {
               .toISOString()
               .substring(0, 16)}
             className={classes.textField}
+            style={{ minWidth: "180%" }}
           />
         </tr>
       );

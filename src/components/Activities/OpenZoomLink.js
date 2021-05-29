@@ -32,9 +32,9 @@ export default function OpenZoomLink(props) {
           borderRadius: "33px",
           maxHeight: "40px",
           paddingBottom: "15px",
-          boxShadow: "5px 5px 9px rgba(255, 0, 0, 0.5)",
         }}
         onClick={handleClickOpen}
+        id="startZoom"
       >
         כניסה&nbsp;לפעילות
       </Button>
