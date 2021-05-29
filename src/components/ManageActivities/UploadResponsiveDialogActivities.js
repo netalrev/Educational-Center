@@ -37,14 +37,14 @@ export default function UploadResponsiveDialog(props) {
       return d.constructor === Date
         ? d
         : d.constructor === Array
-          ? new Date(d[0], d[1], d[2])
-          : d.constructor === Number
-            ? new Date(d)
-            : d.constructor === String
-              ? new Date(d)
-              : typeof d === "object"
-                ? new Date(d.year, d.month, d.date)
-                : NaN;
+        ? new Date(d[0], d[1], d[2])
+        : d.constructor === Number
+        ? new Date(d)
+        : d.constructor === String
+        ? new Date(d)
+        : typeof d === "object"
+        ? new Date(d.year, d.month, d.date)
+        : NaN;
     },
     compare: function (a, b) {
       // Compare two dates (could be of any type supported by the convert
@@ -98,11 +98,11 @@ export default function UploadResponsiveDialog(props) {
   function validURL(str) {
     var pattern = new RegExp(
       "^(https?:\\/\\/)?" + // protocol
-      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-      "(\\#[-a-z\\d_]*)?$",
+        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+        "(\\#[-a-z\\d_]*)?$",
       "i"
     ); // fragment locator
     return !!pattern.test(str);
@@ -224,11 +224,13 @@ export default function UploadResponsiveDialog(props) {
     <div>
       <Button
         startIcon={
-          <CloudUploadIcon style={{
-            fill: "white",
-            maxWidth: "100px",
-            marginBottom: "11px"
-          }}></CloudUploadIcon>
+          <CloudUploadIcon
+            style={{
+              fill: "white",
+              maxWidth: "100px",
+              marginBottom: "11px",
+            }}
+          ></CloudUploadIcon>
         }
         variant="outlined"
         style={{
@@ -238,7 +240,7 @@ export default function UploadResponsiveDialog(props) {
           marginTop: "20px",
           borderRadius: "33px",
           maxHeight: "40px",
-          paddingBottom: "15px"
+          paddingBottom: "15px",
         }}
         onClick={handleClickOpen}
       >
@@ -250,22 +252,29 @@ export default function UploadResponsiveDialog(props) {
         onClose={handleCancel}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title" style={{ color: "red" }}>
+        <DialogTitle
+          id="responsive-dialog-title"
+          style={{ color: "white", backgroundColor: "black" }}
+        >
           {" "}
           <b>אישור העלאת תוכן</b>
         </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
+        <DialogContent style={{ color: "white", backgroundColor: "black" }}>
+          <DialogContentText
+            style={{ color: "white", backgroundColor: "black" }}
+          >
             ?האם את/ה בטוח/ה שפרטי הפעילות שהזנת תואמים את הפעילות
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
+        <DialogActions style={{ color: "white", backgroundColor: "black" }}>
           <Button
             autoFocus
             onClick={handleCancel}
             style={{
-              fill: "white", backgroundColor: "red", maxHeight: "40px",
-              paddingBottom: "15px"
+              fill: "white",
+              backgroundColor: "red",
+              maxHeight: "40px",
+              paddingBottom: "15px",
             }}
           >
             בטל&nbsp;העלאה
@@ -273,8 +282,10 @@ export default function UploadResponsiveDialog(props) {
           <Button
             onClick={handleClose}
             style={{
-              fill: "white", backgroundColor: "green", maxHeight: "40px",
-              paddingBottom: "15px"
+              fill: "white",
+              backgroundColor: "green",
+              maxHeight: "40px",
+              paddingBottom: "15px",
             }}
             autoFocus
           >
