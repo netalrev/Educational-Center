@@ -2,15 +2,45 @@ import React, { Component } from "react";
 import { useState, useEffect } from "react";
 import { listApprovedActivitiess } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
-
+import { makeStyles } from "@material-ui/core/styles";
 import RecipeReviewCard from "./RecipeReviewCard";
-
 import SearchBar from "material-ui-search-bar";
 import $ from "jquery";
 
+const useStyles = makeStyles((theme) => ({
+  searchBar: {
+    zIndex: "0",
+    border: "3px solid white",
+    borderRadius: "33px",
+    textAlign: "center",
+    minWidth: "450px",
+    backgroundColor: "rgba(3, 3, 3, 0.5)",
+
+    "& label.Mui-focused": {
+      padding: "10px",
+      color: "white",
+    },
+    "& input": {
+      color: "white",
+    },
+    "& label": {
+      padding: "10px",
+      color: "white",
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "red",
+    },
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused fieldset": {
+        borderColor: "black",
+      },
+    },
+  },
+}));
 export default function ActivityTable(props) {
   const [allApprovedActivitiess, setAllApprovedActivitiess] = useState([]);
   const [toShow, setToShow] = useState([]);
+  const classes = useStyles();
 
   useEffect(() => {
     fetchAllApprovedActivities();
@@ -204,13 +234,15 @@ export default function ActivityTable(props) {
     <div style={{ width: "100%", padding: "20px" }}>
       <div>
         <SearchBar
-          className="searchBar"
+          className={classes.searchBar}
           onChange={(value) => search(value)}
+          placeholder="חיפוש פעילויות"
           style={{
             maxWidth: 1350,
             marginInline: 85,
             marginLeft: "auto",
             marginRight: "auto",
+            marginTop: "15px",
           }}
         />
       </div>

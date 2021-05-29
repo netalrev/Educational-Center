@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     transition: "transform 0.15s ease-in-out",
     //"&:hover": { transform: "scale3d(1.05, 1.05, 1)" },
+    boxShadow: "5px 5px 9px rgba(255, 0, 0, 0.5)",
   },
 
   media: {
