@@ -53,9 +53,13 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
       console.log("SCORE BEFORE.", to_edit.score);
       delete to_edit.createdAt;
       delete to_edit.updatedAt;
-      const userData = await API.graphql(graphqlOperation(updateUser, { input: to_edit }));
+      const userData = await API.graphql(
+        graphqlOperation(updateUser, { input: to_edit })
+      );
       const userActivityList = [...users];
-      var idx = users.filter((user, idx) => { if (user.id === to_update) return idx; });
+      var idx = users.filter((user, idx) => {
+        if (user.id === to_update) return idx;
+      });
       userActivityList[idx[0]] = userData.data.updateUser;
       setUsers(userActivityList);
     } catch (error) {
@@ -85,14 +89,14 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
       return d.constructor === Date
         ? d
         : d.constructor === Array
-          ? new Date(d[0], d[1], d[2])
-          : d.constructor === Number
-            ? new Date(d)
-            : d.constructor === String
-              ? new Date(d)
-              : typeof d === "object"
-                ? new Date(d.year, d.month, d.date)
-                : NaN;
+        ? new Date(d[0], d[1], d[2])
+        : d.constructor === Number
+        ? new Date(d)
+        : d.constructor === String
+        ? new Date(d)
+        : typeof d === "object"
+        ? new Date(d.year, d.month, d.date)
+        : NaN;
     },
     compare: function (a, b) {
       // Compare two dates (could be of any type supported by the convert
@@ -268,17 +272,39 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
 
   const validateRadios = () => {
     console.log("hhh");
-    var usersFromForm = users.filter(user => Array.from(document.getElementsByName(user.email + " 1")).length > 0).map(user => {
-      var toRetrun = [];
-      toRetrun.push(Array.from(document.getElementsByName(user.email + " 1")).filter(input => input.checked === true).length === 0 ? false : true);
-      toRetrun.push(Array.from(document.getElementsByName(user.email + " 2")).filter(input => input.checked === true).length === 0 ? false : true);
-      toRetrun.push(Array.from(document.getElementsByName(user.email + " 3")).filter(input => input.checked === true).length === 0 ? false : true);
-      return toRetrun;
-    });
+    var usersFromForm = users
+      .filter(
+        (user) =>
+          Array.from(document.getElementsByName(user.email + " 1")).length > 0
+      )
+      .map((user) => {
+        var toRetrun = [];
+        toRetrun.push(
+          Array.from(document.getElementsByName(user.email + " 1")).filter(
+            (input) => input.checked === true
+          ).length === 0
+            ? false
+            : true
+        );
+        toRetrun.push(
+          Array.from(document.getElementsByName(user.email + " 2")).filter(
+            (input) => input.checked === true
+          ).length === 0
+            ? false
+            : true
+        );
+        toRetrun.push(
+          Array.from(document.getElementsByName(user.email + " 3")).filter(
+            (input) => input.checked === true
+          ).length === 0
+            ? false
+            : true
+        );
+        return toRetrun;
+      });
     for (var i = 0; i < usersFromForm.length; i++) {
       for (var j = 0; j < usersFromForm[i].length; j++) {
-        if (usersFromForm[i][j] === false)
-          return false;
+        if (usersFromForm[i][j] === false) return false;
       }
     }
     return true;
@@ -295,31 +321,35 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
       (feedback) => feedback.activity_id === props.id
     )[0].id;
     if (validateRadios() === true) {
-      await editActivityFeedback(props.id).then(
-        allActivitiesFeedback
-          .filter((feedback) => feedback.activity_id === props.id)[0]
-          .form.map((elm) => {
-            var toReturn = [];
-            toReturn.push(users.filter((user) => user.email === elm[1])[0].id);
-            toReturn.push(
-              parseInt(elm[3]) + parseInt(elm[4]) + parseInt(elm[5])
-            );
-            return toReturn;
+      await editActivityFeedback(props.id)
+        .then(
+          allActivitiesFeedback
+            .filter((feedback) => feedback.activity_id === props.id)[0]
+            .form.map((elm) => {
+              var toReturn = [];
+              toReturn.push(
+                users.filter((user) => user.email === elm[1])[0].id
+              );
+              toReturn.push(
+                parseInt(elm[3]) + parseInt(elm[4]) + parseInt(elm[5])
+              );
+              return toReturn;
+            })
+            .forEach((user) => {
+              update_S(user[0], user[1]);
+              console.log("USER FROM FORM", user, props.form);
+            })
+        )
+        .then(
+          swal("", "משוב הוזן בהצלחה.", "success", {
+            button: "אישור",
           })
-          .forEach((user) => {
-            update_S(user[0], user[1]);
-            console.log("USER FROM FORM", user, props.form);
-          })
-      )
-        .then(swal("", "משוב הוזן בהצלחה.", "success", {
-          button: "אישור",
-        }))
+        )
         .then(await createNewSubmittedFeedback())
         .then(await delete_ActivityFeedback(to_del));
 
       window.location.reload(false);
-    }
-    else {
+    } else {
       swal("", "אנא מלא את המשוב במלואו", "error", {
         button: "אישור",
       });
@@ -331,17 +361,21 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
   return (
     <div>
       <Button
-        startIcon={<UpdateIcon style={{
-          fill: "white",
-          maxWidth: "100px",
-          marginBottom: "11px"
-        }}></UpdateIcon>}
+        startIcon={
+          <UpdateIcon
+            style={{
+              fill: "white",
+              maxWidth: "100px",
+              marginBottom: "11px",
+            }}
+          ></UpdateIcon>
+        }
         variant="outlined"
         style={{
           fill: "#ffffff",
           backgroundColor: "#04c704",
           maxHeight: "40px",
-          paddingBottom: "15px"
+          paddingBottom: "15px",
         }}
         onClick={handleClickOpen}
       >
@@ -352,11 +386,13 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
         open={open}
         onClose={handleCancel}
         aria-labelledby="responsive-dialog-title"
-        style={{ color: "white", backgroundColor: "black" }}
       >
         <DialogTitle
           id="responsive-dialog-title"
-          style={{ color: "red", backgroundColor: "black" }}
+          style={{
+            color: "red",
+            backgroundColor: "black",
+          }}
         >
           <b>אישור העלאת תוכן</b>
         </DialogTitle>
@@ -367,13 +403,15 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
             ?האם את/ה בטוח/ה שפרטי הפעילות שהזנת תואמים את הפעילות
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
+        <DialogActions style={{ color: "white", backgroundColor: "black" }}>
           <Button
             autoFocus
             onClick={handleCancel}
             style={{
-              fill: "white", backgroundColor: "red", maxHeight: "40px",
-              paddingBottom: "15px"
+              fill: "white",
+              backgroundColor: "red",
+              maxHeight: "40px",
+              paddingBottom: "15px",
             }}
           >
             בטל&nbsp;העלאה
@@ -381,8 +419,10 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
           <Button
             onClick={handleClose}
             style={{
-              fill: "white", backgroundColor: "green", maxHeight: "40px",
-              paddingBottom: "15px"
+              fill: "white",
+              backgroundColor: "green",
+              maxHeight: "40px",
+              paddingBottom: "15px",
             }}
             autoFocus
           >

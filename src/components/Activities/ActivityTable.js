@@ -2,15 +2,45 @@ import React, { Component } from "react";
 import { useState, useEffect } from "react";
 import { listApprovedActivitiess } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
-
+import { makeStyles } from "@material-ui/core/styles";
 import RecipeReviewCard from "./RecipeReviewCard";
-
 import SearchBar from "material-ui-search-bar";
 import $ from "jquery";
 
+const useStyles = makeStyles((theme) => ({
+  searchBar: {
+    zIndex: "0",
+    border: "3px solid white",
+    borderRadius: "33px",
+    textAlign: "center",
+    minWidth: "450px",
+    backgroundColor: "rgba(3, 3, 3, 0.5)",
+
+    "& label.Mui-focused": {
+      padding: "10px",
+      color: "white",
+    },
+    "& input": {
+      color: "white",
+    },
+    "& label": {
+      padding: "10px",
+      color: "white",
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "red",
+    },
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused fieldset": {
+        borderColor: "black",
+      },
+    },
+  },
+}));
 export default function ActivityTable(props) {
   const [allApprovedActivitiess, setAllApprovedActivitiess] = useState([]);
   const [toShow, setToShow] = useState([]);
+  const classes = useStyles();
 
   useEffect(() => {
     fetchAllApprovedActivities();
@@ -32,14 +62,14 @@ export default function ActivityTable(props) {
       return d.constructor === Date
         ? d
         : d.constructor === Array
-          ? new Date(d[0], d[1], d[2])
-          : d.constructor === Number
-            ? new Date(d)
-            : d.constructor === String
-              ? new Date(d)
-              : typeof d === "object"
-                ? new Date(d.year, d.month, d.date)
-                : NaN;
+        ? new Date(d[0], d[1], d[2])
+        : d.constructor === Number
+        ? new Date(d)
+        : d.constructor === String
+        ? new Date(d)
+        : typeof d === "object"
+        ? new Date(d.year, d.month, d.date)
+        : NaN;
     },
     compare: function (a, b) {
       // Compare two dates (could be of any type supported by the convert
@@ -123,14 +153,14 @@ export default function ActivityTable(props) {
               dates_class
                 .convert(
                   approvedActivitiesList[i].dates[
-                  approvedActivitiesList[i].dates.length - 1
+                    approvedActivitiesList[i].dates.length - 1
                   ]
                 )
                 .setMinutes(
                   dates_class
                     .convert(
                       approvedActivitiesList[i].dates[
-                      approvedActivitiesList[i].dates.length - 1
+                        approvedActivitiesList[i].dates.length - 1
                       ]
                     )
                     .getMinutes() + 60
@@ -201,14 +231,18 @@ export default function ActivityTable(props) {
   }
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "100%", padding: "20px" }}>
       <div>
         <SearchBar
-          className="searchBar"
+          className={classes.searchBar}
           onChange={(value) => search(value)}
+          placeholder="חיפוש פעילויות"
           style={{
             maxWidth: 1350,
             marginInline: 85,
+            marginLeft: "auto",
+            marginRight: "auto",
+            marginTop: "15px",
           }}
         />
       </div>

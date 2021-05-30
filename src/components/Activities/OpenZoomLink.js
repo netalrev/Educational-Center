@@ -17,18 +17,24 @@ export default function OpenZoomLink(props) {
     <div>
       <Button
         startIcon={
-          <OndemandVideoIcon style={{
-            fill: "white",
-            maxWidth: "100px",
-            marginBottom: "11px"
-          }}></OndemandVideoIcon>
+          <OndemandVideoIcon
+            style={{
+              fill: "white",
+              maxWidth: "100px",
+              marginBottom: "11px",
+            }}
+          ></OndemandVideoIcon>
         }
         variant="outlined"
         style={{
-          background: "red", color: "white", borderRadius: "33px", maxHeight: "40px",
-          paddingBottom: "15px"
+          background: "#E50914",
+          color: "white",
+          borderRadius: "33px",
+          maxHeight: "40px",
+          paddingBottom: "15px",
         }}
         onClick={handleClickOpen}
+        id="startZoom"
       >
         כניסה&nbsp;לפעילות
       </Button>
