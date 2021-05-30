@@ -88,16 +88,6 @@ export default function Profile(props) {
           <h1 className="points"> {level} </h1>
         </h6>
       </div>
-
-      <div className="ds-info">
-        <div className="ds posts">
-          <h6 className="prof2" title="Number of posts">
-            נקודות לדרגה הבאה
-          </h6>
-          <h6 className="levels"> {nextLevel} </h6>
-        </div>
-      </div>
-
       <div className="logout">
         <div className="avatar">
           <Dog />
