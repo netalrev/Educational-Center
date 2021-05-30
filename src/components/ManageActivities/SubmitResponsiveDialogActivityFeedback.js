@@ -89,14 +89,14 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
       return d.constructor === Date
         ? d
         : d.constructor === Array
-        ? new Date(d[0], d[1], d[2])
-        : d.constructor === Number
-        ? new Date(d)
-        : d.constructor === String
-        ? new Date(d)
-        : typeof d === "object"
-        ? new Date(d.year, d.month, d.date)
-        : NaN;
+          ? new Date(d[0], d[1], d[2])
+          : d.constructor === Number
+            ? new Date(d)
+            : d.constructor === String
+              ? new Date(d)
+              : typeof d === "object"
+                ? new Date(d.year, d.month, d.date)
+                : NaN;
     },
     compare: function (a, b) {
       // Compare two dates (could be of any type supported by the convert
@@ -376,6 +376,7 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
           backgroundColor: "#04c704",
           maxHeight: "40px",
           paddingBottom: "15px",
+          border: "3px solid #04c704",
         }}
         onClick={handleClickOpen}
       >
@@ -412,6 +413,7 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
               backgroundColor: "red",
               maxHeight: "40px",
               paddingBottom: "15px",
+              border: "3px solid red",
             }}
           >
             בטל&nbsp;העלאה
@@ -423,6 +425,7 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
               backgroundColor: "green",
               maxHeight: "40px",
               paddingBottom: "15px",
+              border: "3px solid green",
             }}
             autoFocus
           >

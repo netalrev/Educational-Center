@@ -34,7 +34,9 @@ export default function FillResponsiveDialogActivitiesFeedback(props) {
           fill: "rgba(3, 3, 3, 0.5)",
           backgroundColor: "green",
           maxHeight: "40px",
-          paddingBottom: "15px"
+          paddingBottom: "15px",
+          border: "3px solid green",
+
         }}
         onClick={handleClickOpen}
       >
@@ -74,7 +76,7 @@ export default function FillResponsiveDialogActivitiesFeedback(props) {
             onClick={handleCancel}
             style={{
               fill: "rgba(60,60,60)", backgroundColor: "red", maxHeight: "40px",
-              paddingBottom: "15px"
+              paddingBottom: "15px", border: "3px solid red",
             }}
           >
             בטל

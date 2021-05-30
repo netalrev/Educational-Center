@@ -96,7 +96,8 @@ export default function ApproveResponsiveDialogActivity(props) {
           fill: "white",
           backgroundColor: "green",
           maxHeight: "40px",
-          paddingBottom: "15px"
+          paddingBottom: "15px",
+          border: "3px solid green",
         }}
         onClick={handleClickOpen}
       >
@@ -125,7 +126,7 @@ export default function ApproveResponsiveDialogActivity(props) {
             onClick={handleCancel}
             style={{
               backgroundColor: "red", maxHeight: "40px",
-              paddingBottom: "15px"
+              paddingBottom: "15px", border: "3px solid red",
             }}
           >
             בטל
@@ -134,7 +135,7 @@ export default function ApproveResponsiveDialogActivity(props) {
             onClick={handleClose}
             style={{
               backgroundColor: "green", maxHeight: "40px",
-              paddingBottom: "15px"
+              paddingBottom: "15px", border: "3px solid green",
             }}
             autoFocus
           >
