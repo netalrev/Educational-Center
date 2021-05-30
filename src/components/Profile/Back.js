@@ -102,6 +102,7 @@ export default function Back(props) {
   const [allApprovedActivities, setAllApprovedActivities] = useState([]);
   const [dateAndTime, setDateAndTime] = useState([]);
   const [myActivities, setMyActivities] = useState([]);
+  const [myFinishActivities, setMyFinishActivities] = useState([]);
   const [url, setUrl] = useState([]);
   const [personalActivitiesID, setPersonalActivitiesID] = useState([]);
   const [personalActivitiesPending, setPersonalActivitiesPending] = useState([]);
@@ -178,20 +179,30 @@ export default function Back(props) {
       approvedActivitiesList.sort(comparing);
       setAllApprovedActivities(approvedActivitiesList);
       const feedbacks = howManyFeedBacks(approvedActivitiesList);
+      var finished = [];
+      var notFinshed = [];
       const x = approvedActivitiesList.filter(activity => personalActivitiesID.includes(activity.id))
         .map(activity => {
           var progress = parseInt(((feedbacks.filter(feedback => feedback.id === activity.id)[0].amount) / activity.dates.length) * 100);
-          return (
-            <div className="activityRow">
+          if (feedbacks.filter(feedback => feedback.id === activity.id)[0].amount < approvedActivitiesList.filter(activity2 => activity2.id === activity.id)[0].dates.length)
+            notFinshed.push(
+              <div className="activityRow">
+                <p>{activity.title}</p>
+                <LinearDeterminate score={progress} />
+                <p>{feedbacks.filter(feedback => feedback.id === activity.id)[0].amount} / {approvedActivitiesList.filter(activity2 => activity2.id === activity.id)[0].dates.length}</p>
+                <br></br>
+              </div>
+            )
+          else
+            finished.push(<div className="activityRow">
               <p>{activity.title}</p>
-              <LinearDeterminate score={progress} />
-              {console.log(feedbacks.filter(feedback => feedback.id === activity.id)[0].amount)}
               <p>{feedbacks.filter(feedback => feedback.id === activity.id)[0].amount} / {approvedActivitiesList.filter(activity2 => activity2.id === activity.id)[0].dates.length}</p>
               <br></br>
-            </div>
-          )
+            </div>)
+          return activity.id;
         });
-      setMyActivities(x);
+      setMyActivities(notFinshed);
+      setMyFinishActivities(finished);
     } catch (error) {
       console.log("error on fetching Approved Activities", error);
     }
@@ -269,8 +280,19 @@ export default function Back(props) {
           <div className="activityRow">
             <div className="ds pens">
               <h6 className="prof2" title="Number of pens created by the user">
-                הפעילויות שלי
+                פעילויות שסיימת
           </h6>
+              <h6 className="levels"> {myFinishActivities.length} </h6>
+            </div>
+          </div>
+          {myFinishActivities}
+        </div>
+        <div id="container2">
+          <div className="activityRow">
+            <div className="ds pens">
+              <h6 className="prof2" title="Number of pens created by the user">
+                פעילויות שכבר אושרת
+              </h6>
               <h6 className="levels"> {myActivities.length} </h6>
             </div>
           </div>
@@ -280,7 +302,7 @@ export default function Back(props) {
           <div className="activityRow">
             <div className="ds pens">
               <h6 className="prof2" title="Number of pens created by the user">
-                הפעילויות שטרם אושרו
+                פעילויות שממש עוד מעט תאושר אליהם
           </h6>
               <h6 className="levels"> {personalActivitiesPending.length} </h6>
             </div>

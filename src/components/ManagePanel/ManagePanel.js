@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ManageCardActivities from "./ManageCardActivities";
+import ManageCardActivitiesFeedback from "./ManageCardActivitiesFeedback";
 import ManageCardUsers from "./ManageCardUsers";
 import DeleteEditApprovedForAdmin from "../ManageActivities/DeleteEditApprovedForAdmin";
 import { useEffect, useState } from "react"
@@ -42,6 +43,13 @@ export default function ManagePanel(props) {
         currentTime={dateAndTime}
         groupName={props.groupName}
         title="אישור משתתפים לפעילויות"
+      />
+      <ManageCardActivitiesFeedback
+        groupName={props.groupName}
+        email={props.email}
+        currentTime={dateAndTime}
+        title="משובים"
+        style={{ textAlign: "center", align: "center" }}
       />
     </div>
   );

@@ -1,11 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { listActivityFeedbacks } from "../../graphql/queries";
+import { listApprovedActivitiess, listApprovedUsers } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import clsx from "clsx";
 import { Scrollbars } from "rc-scrollbars";
+import LinearDeterminate from "../Profile/LinearDeterminate";
 
-import FillResponsiveDialogActivitiesFeedback from "./FillResponsiveDialogActivitiesFeedback";
+import WatchResponsiveDialogActivitiesFeedback from "./WatchResponsiveDialogActivitiesFeedback";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -24,7 +25,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
-
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "95%",
@@ -67,13 +67,151 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ActivityFeedbackForAdmin(props) {
+export default function ActivityInfo(props) {
+  var dates_class = {
+    convert: function (d) {
+      // Converts the date in d to a date-object. The input can be:
+      //   a date object: returned without modification
+      //  an array      : Interpreted as [year,month,day]. NOTE: month is 0-11.
+      //   a number     : Interpreted as number of milliseconds
+      //                  since 1 Jan 1970 (a timestamp)
+      //   a string     : Any format supported by the javascript engine, like
+      //                  "YYYY/MM/DD", "MM/DD/YYYY", "Jan 31 2009" etc.
+      //  an object     : Interpreted as an object with year, month and date
+      //                  attributes.  **NOTE** month is 0-11.
+      return d.constructor === Date
+        ? d
+        : d.constructor === Array
+          ? new Date(d[0], d[1], d[2])
+          : d.constructor === Number
+            ? new Date(d)
+            : d.constructor === String
+              ? new Date(d)
+              : typeof d === "object"
+                ? new Date(d.year, d.month, d.date)
+                : NaN;
+    },
+    compare: function (a, b) {
+      // Compare two dates (could be of any type supported by the convert
+      // function above) and returns:
+      //  -1 : if a < b
+      //   0 : if a = b
+      //   1 : if a > b
+      // NaN : if a or b is an illegal date
+      // NOTE: The code inside isFinite does an assignment (=).
+      return isFinite((a = this.convert(a).valueOf())) &&
+        isFinite((b = this.convert(b).valueOf()))
+        ? (a > b) - (a < b)
+        : NaN;
+    },
+    inRange: function (d, start, end) {
+      // Checks if date in d is between dates in start and end.
+      // Returns a boolean or NaN:
+      //    true  : if d is between start and end (inclusive)
+      //    false : if d is before start or after end
+      //    NaN   : if one or more of the dates is illegal.
+      // NOTE: The code inside isFinite does an assignment (=).
+      return isFinite((d = this.convert(d).valueOf())) &&
+        isFinite((start = this.convert(start).valueOf())) &&
+        isFinite((end = this.convert(end).valueOf()))
+        ? start <= d && d <= end
+        : NaN;
+    },
+  };
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [activitiesFeedbacks, setActivitiesFeedbacks] = useState([]);
   // const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [approvedUsers, setApprovedUsers] = useState([]);
+  const [personalActivitiesID, setPersonalActivitiesID] = useState([]);
+  const [allApprovedActivities, setAllApprovedActivities] = useState([]);
+
+  useEffect(() => {
+    fetchApprovedUsers();
+  }, []);
+  useEffect(() => {
+    fetchAllApprovedActivities();
+  }, [personalActivitiesID]);
+  function comparing(a, b) {
+    var i = 0,
+      j = 0;
+    while (i < a.activityCount && j < b.activityCount) {
+      if (
+        dates_class.compare(dates_class.convert(a.dates[i]), props.currentTime) === -1
+      ) {
+        i++;
+        continue;
+      } else if (
+        dates_class.compare(dates_class.convert(b.dates[j]), props.currentTime) === -1
+      ) {
+        j++;
+        continue;
+      }
+      if (
+        dates_class.compare(
+          dates_class.convert(a.dates[i]),
+          dates_class.convert(b.dates[j])
+        ) === 1
+      )
+        return 1;
+      else if (
+        dates_class.compare(
+          dates_class.convert(a.dates[i]),
+          dates_class.convert(b.dates[j])
+        ) === 0
+      )
+        return 0;
+      else return -1;
+    }
+  }
+
+  const fetchApprovedUsers = async () => {
+    try {
+      const usersData = await API.graphql(graphqlOperation(listApprovedUsers));
+      const usersList = usersData.data.listApprovedUsers.items;
+      var temp = [];
+      var IDs = usersList.map(activity => {
+        if (activity !== null && !temp.includes(activity.activity_id)) {
+          temp.push(activity.activity_id);
+          return activity.activity_id;
+
+        }
+      })
+      setPersonalActivitiesID(IDs);
+      setApprovedUsers(usersList);
+    } catch (error) {
+      console.log("error on fetching approved users", error);
+    }
+  };
+  const fetchAllApprovedActivities = async () => {
+    try {
+      const approvedActivitiesData = await API.graphql(graphqlOperation(listApprovedActivitiess));
+      const approvedActivitiesList = approvedActivitiesData.data.listApprovedActivitiess.items;
+      approvedActivitiesList.sort(comparing);
+      console.log("LIST", approvedActivitiesList);
+      setAllApprovedActivities(approvedActivitiesList);
+      const feedbacks = howManyFeedBacks(approvedActivitiesList);
+      console.log("FEED", feedbacks);
+    } catch (error) {
+      console.log("error on fetching Approved Activities", error);
+    }
+  };
+  function howManyFeedBacks(activities) {
+    const feedbackPerActivity = activities.filter(activity => personalActivitiesID.includes(activity.id))
+      .map(activity => {
+        var amount = 0;
+        activity.dates.forEach((date) => {
+          if (dates_class.compare(props.currentTime, dates_class.convert(date)) >= 0)
+            amount += 1;
+        });
+        var id = activity.id;
+        return { id, amount };
+      })
+    return feedbackPerActivity;
+  }
 
   const columns = props.groupName === "admins" ?
     [
@@ -86,14 +224,14 @@ export default function ActivityFeedbackForAdmin(props) {
         color: "white",
       },
       {
-        id: "students",
-        label: "רשומים",
-        minWidth: 120,
-        maxWidth: 130,
+        id: "bar",
+        label: "התקדמות הפעילות",
+        minWidth: 170,
+        maxWidth: 170,
         align: "center",
       },
       {
-        id: "date",
+        id: "dates",
         label: "תאריכי מפגשים",
         minWidth: 170,
         maxWidth: 170,
@@ -139,14 +277,14 @@ export default function ActivityFeedbackForAdmin(props) {
         color: "white",
       },
       {
-        id: "students",
-        label: "רשומים",
-        minWidth: 120,
-        maxWidth: 130,
+        id: "bar",
+        label: "התקדמות הפעילות",
+        minWidth: 170,
+        maxWidth: 170,
         align: "center",
       },
       {
-        id: "date",
+        id: "dates",
         label: "תארכי מפגשים",
         minWidth: 170,
         maxWidth: 170,
@@ -160,61 +298,66 @@ export default function ActivityFeedbackForAdmin(props) {
         align: "center",
       },
     ];
-
   const rows = (props.groupName === "admins") ? activitiesFeedbacks.map((activity, index) => {
+    var progress = parseInt(((activity.dates.filter(date => dates_class.compare(props.currentTime, dates_class.convert(date)) >= 0).length) / activity.dates.length) * 100);
     return createDataAdmin(
       activity.owner,
       activity.phone_number,
       activity.title,
       activity.email,
-      <p>
-        תאריך - {activity.date.substring(0, 10).split("-").reverse().join("-")}{" "}
-        שעה - {activity.date.substring(11)}
-      </p>,
-      <Scrollbars style={{ width: 130, height: 200, float: "right" }}>
-        {activity.form.map((student) => (
+      activity.dates.map((date, index) => {
+        return (
           <div>
-            <p>{student[0]}</p>
-          </div>
-        ))}
-      </Scrollbars>,
+            <p>:מפגש {index + 1}</p>
+            <p>
+              תאריך - {date.substring(0, 10).split("-").reverse().join("-")} שעה -{" "}
+              {date.substring(11)}
+            </p>
+            <br></br>
+          </div>);
+      }),
       <div>
-        <FillResponsiveDialogActivitiesFeedback
+        <p>{activity.dates.filter(date => dates_class.compare(props.currentTime, dates_class.convert(date)) >= 0).length} / {activity.dates.length}</p>
+        <LinearDeterminate color="red" score={progress} />
+      </div>,
+      < div >
+        <WatchResponsiveDialogActivitiesFeedback
           title={activity.title}
-          date={activity.date}
+          dates={activity.dates}
           students={activity.form}
           idx={index}
-          id={activity.activity_id}
+          id={activity.id}
           email={props.email}
           givenName={props.givenName}
           familyName={props.familyName}
           groupName={props.groupName}
+          howManyPass={activity.dates.filter(date => dates_class.compare(props.currentTime, dates_class.convert(date)) >= 0).length}
         />
-      </div>
+      </div >
     );
   })
     :
     activitiesFeedbacks.map((activity, index) => {
+      var progress = parseInt(((activity.dates.filter(date => dates_class.compare(props.currentTime, dates_class.convert(date)) >= 0).length) / activity.dates.length) * 100);
       return createDataContentSuppliers(
         activity.title,
-        <p>
-          תאריך - {activity.date.substring(0, 10).split("-").reverse().join("-")}{" "}
-      שעה - {activity.date.substring(11)}
-        </p>,
-        <Scrollbars style={{ width: 130, height: 200, float: "right" }}>
-          {activity.form.map((student) => (
-            <div>
-              <p>{student[0]}</p>
-            </div>
-          ))}
-        </Scrollbars>,
+        activity.dates.map((date, index) =>
+          <div>
+            <p>:מפגש {index + 1}</p>
+            <p>
+              תאריך - {date.substring(0, 10).split("-").reverse().join("-")} שעה -{" "}
+              {date.substring(11)}
+            </p>
+            <br></br>
+          </div>),
+        <LinearDeterminate color="red" score={progress} />,
         <div>
-          <FillResponsiveDialogActivitiesFeedback
+          <WatchResponsiveDialogActivitiesFeedback
             title={activity.title}
-            date={activity.date}
+            dates={activity.dates}
             students={activity.form}
             idx={index}
-            id={activity.activity_id}
+            id={activity.id}
             email={props.email}
             givenName={props.givenName}
             familyName={props.familyName}
@@ -288,11 +431,8 @@ export default function ActivityFeedbackForAdmin(props) {
   }
   const fetchActivitiesFeedbacks = async () => {
     try {
-      const activitiesFeedbacksData = await API.graphql(
-        graphqlOperation(listActivityFeedbacks)
-      );
-      const activitiesFeedbacksList =
-        activitiesFeedbacksData.data.listActivityFeedbacks.items;
+      const activitiesFeedbacksData = await API.graphql(graphqlOperation(listApprovedActivitiess));
+      const activitiesFeedbacksList = activitiesFeedbacksData.data.listApprovedActivitiess.items;
       if (props.groupName === "admins")
         setActivitiesFeedbacks(activitiesFeedbacksList.sort(compare_createdAt));
       else {
@@ -309,20 +449,20 @@ export default function ActivityFeedbackForAdmin(props) {
     phoneNumber,
     activityName,
     email,
-    date,
-    students,
+    dates,
+    bar,
     buttons
   ) {
-    return { name, phoneNumber, activityName, email, date, students, buttons };
+    return { name, phoneNumber, activityName, email, dates, bar, buttons };
   }
 
   function createDataContentSuppliers(
     activityName,
-    date,
-    students,
+    dates,
+    bar,
     buttons
   ) {
-    return { activityName, date, students, buttons };
+    return { activityName, dates, bar, buttons };
   }
 
   const handleChangePage = (event, newPage) => {

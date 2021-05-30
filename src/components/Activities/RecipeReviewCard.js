@@ -174,7 +174,9 @@ export default function RecipeReviewCard(props) {
               )
             ) <= 0
         )[0],
-        phone_number: props.phoneNumber,
+        phone_number: allApprovedActivitiess.filter(
+          (activity) => activity.id === props.id
+        )[0].phone_number,
         form: new_form,
       };
       console.log(activityFeedback);
