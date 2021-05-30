@@ -4,7 +4,6 @@ import Amplify, { Auth } from "aws-amplify";
 import { AmplifySignOut } from "@aws-amplify/ui-react";
 import { useState, useEffect } from "react";
 import Dog from "../Avatars/Dog";
-import { listUsers } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import ReactCardFlip from "react-card-flip";
 import { Scrollbars } from "rc-scrollbars";
@@ -15,8 +14,7 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { makeStyles } from "@material-ui/core/styles";
-import { listApprovedUsers } from "../../graphql/queries";
-import { listApprovedActivitiess } from "../../graphql/queries";
+import { listApprovedUsers, listUsers, listApprovedActivitiess, listPendingUsers, listPendingActivitiess } from "../../graphql/queries";
 import LinearDeterminate from "./LinearDeterminate";
 
 const useStyles = makeStyles((theme) => ({
@@ -106,6 +104,7 @@ export default function Back(props) {
   const [myActivities, setMyActivities] = useState([]);
   const [url, setUrl] = useState([]);
   const [personalActivitiesID, setPersonalActivitiesID] = useState([]);
+  const [personalActivitiesPending, setPersonalActivitiesPending] = useState([]);
 
   var activitiesHTML = "";
 
@@ -196,6 +195,25 @@ export default function Back(props) {
     }
   };
 
+  const fetchPendingUsers = async () => {
+    try {
+      const usersData = await API.graphql(graphqlOperation(listPendingUsers));
+      const usersList = usersData.data.listPendingUsers.items;
+      const activityData = await API.graphql(graphqlOperation(listApprovedActivitiess));
+      const activityList = activityData.data.listApprovedActivitiess.items;
+      const personalActivitiesIdList = usersList.filter((user) => user.email === props.email).map(user => user.activity_id);
+      const myPendingActivities = activityList.filter(activity => personalActivitiesIdList.includes(activity.id)).map(activity =>
+        <div className="activityRow">
+          <p>{activity.title}</p>
+          <br></br>
+        </div>);
+      setPersonalActivitiesPending(myPendingActivities);
+      console.log(personalActivitiesIdList, myPendingActivities);
+    } catch (error) {
+      console.log("error on fetching pending users", error);
+    }
+  };
+
   const fetchApprovedUsers = async () => {
     try {
       const usersData = await API.graphql(graphqlOperation(listApprovedUsers));
@@ -235,6 +253,9 @@ export default function Back(props) {
   useEffect(() => {
     fetchUsers();
   }, []);
+  useEffect(() => {
+    fetchPendingUsers();
+  }, []);
 
 
   return (
@@ -247,12 +268,23 @@ export default function Back(props) {
           <div className="activityRow">
             <div className="ds pens">
               <h6 className="prof2" title="Number of pens created by the user">
-                רישום לפעילויות
+                הפעילויות שלי
           </h6>
               <h6 className="levels"> {myActivities.length} </h6>
             </div>
           </div>
           {myActivities}
+        </div>
+        <div id="container2">
+          <div className="activityRow">
+            <div className="ds pens">
+              <h6 className="prof2" title="Number of pens created by the user">
+                הפעילויות שטרם אושרו
+          </h6>
+              <h6 className="levels"> {personalActivitiesPending.length} </h6>
+            </div>
+          </div>
+          <h3>{personalActivitiesPending}</h3>
         </div>
       </Scrollbars>
       <div className="logout">
