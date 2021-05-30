@@ -185,6 +185,8 @@ export default function Back(props) {
             <div className="activityRow">
               <p>{activity.title}</p>
               <LinearDeterminate score={progress} />
+              {console.log(feedbacks.filter(feedback => feedback.id === activity.id)[0].amount)}
+              <p>{feedbacks.filter(feedback => feedback.id === activity.id)[0].amount} / {approvedActivitiesList.filter(activity2 => activity2.id === activity.id)[0].dates.length}</p>
               <br></br>
             </div>
           )
@@ -208,7 +210,6 @@ export default function Back(props) {
           <br></br>
         </div>);
       setPersonalActivitiesPending(myPendingActivities);
-      console.log(personalActivitiesIdList, myPendingActivities);
     } catch (error) {
       console.log("error on fetching pending users", error);
     }
