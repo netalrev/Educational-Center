@@ -177,7 +177,7 @@ export default function ConfirmSignUp(props) {
             fontSize: "18px",
             color: "#ffffff",
             marginTop: "20px",
-            borderRadius: "9px",
+            border: "3px solid red",
             borderColor: "red",
           }}
         >

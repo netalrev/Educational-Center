@@ -40,14 +40,14 @@ export default function UpdateResponsiveDialog(props) {
       return d.constructor === Date
         ? d
         : d.constructor === Array
-        ? new Date(d[0], d[1], d[2])
-        : d.constructor === Number
-        ? new Date(d)
-        : d.constructor === String
-        ? new Date(d)
-        : typeof d === "object"
-        ? new Date(d.year, d.month, d.date)
-        : NaN;
+          ? new Date(d[0], d[1], d[2])
+          : d.constructor === Number
+            ? new Date(d)
+            : d.constructor === String
+              ? new Date(d)
+              : typeof d === "object"
+                ? new Date(d.year, d.month, d.date)
+                : NaN;
     },
     compare: function (a, b) {
       // Compare two dates (could be of any type supported by the convert
@@ -205,11 +205,11 @@ export default function UpdateResponsiveDialog(props) {
   function validURL(str) {
     var pattern = new RegExp(
       "^(https?:\\/\\/)?" + // protocol
-        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-        "(\\#[-a-z\\d_]*)?$",
+      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+      "(\\#[-a-z\\d_]*)?$",
       "i"
     ); // fragment locator
     return !!pattern.test(str);
@@ -279,7 +279,7 @@ export default function UpdateResponsiveDialog(props) {
       }
       if (
         document.getElementsByName("activity_description")[0].value.length <
-          10 ||
+        10 ||
         document.getElementsByName("activity_description")[0].value === ""
       )
         return "תיאור לא חוקי";
@@ -344,6 +344,7 @@ export default function UpdateResponsiveDialog(props) {
           backgroundColor: "green",
           maxHeight: "40px",
           paddingBottom: "15px",
+          border: "3px solid green",
         }}
         onClick={handleClickOpen}
       >
@@ -377,6 +378,7 @@ export default function UpdateResponsiveDialog(props) {
               backgroundColor: "red",
               maxHeight: "40px",
               paddingBottom: "15px",
+              border: "3px solid red",
             }}
           >
             בטל&nbsp;העלאה
@@ -388,6 +390,7 @@ export default function UpdateResponsiveDialog(props) {
               backgroundColor: "green",
               maxHeight: "40px",
               paddingBottom: "15px",
+              border: "3px solid green",
             }}
             autoFocus
           >

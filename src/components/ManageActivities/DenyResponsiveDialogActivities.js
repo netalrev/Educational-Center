@@ -86,6 +86,7 @@ export default function DenyResponsiveDialogActivities(props) {
           backgroundColor: "red",
           maxHeight: "40px",
           paddingBottom: "15px",
+          border: "3px solid red",
         }}
         onClick={handleClickOpen}
       >
@@ -116,7 +117,7 @@ export default function DenyResponsiveDialogActivities(props) {
             onClick={handleCancel}
             style={{
               color: "white", backgroundColor: "green", maxHeight: "40px",
-              paddingBottom: "15px"
+              paddingBottom: "15px", border: "3px solid green",
             }}
           >
             בטל
@@ -125,7 +126,7 @@ export default function DenyResponsiveDialogActivities(props) {
             onClick={handleClose}
             style={{
               color: "white", backgroundColor: "red", maxHeight: "40px",
-              paddingBottom: "15px"
+              paddingBottom: "15px", border: "3px solid red",
             }}
             autoFocus
           >

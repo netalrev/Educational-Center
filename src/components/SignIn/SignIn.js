@@ -190,6 +190,7 @@ export default function SignIn() {
               padding: "18px 36px",
               fontSize: "18px",
               color: "#ffffff",
+              border: "3px solid red",
             }}
             type="submit"
             fullWidth

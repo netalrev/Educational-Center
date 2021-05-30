@@ -29,7 +29,7 @@ export default function OpenZoomLink(props) {
         style={{
           background: "#E50914",
           color: "white",
-          borderRadius: "33px",
+          border: "3px solid #E50914",
           maxHeight: "40px",
           paddingBottom: "15px",
         }}

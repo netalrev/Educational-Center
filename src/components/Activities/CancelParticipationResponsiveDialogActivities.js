@@ -62,6 +62,7 @@ export default function CancelParticipationResponsiveDialog(props) {
         style={{
           fill: "rgba(60,60,60)",
           backgroundColor: "red",
+          border: "3px solid red",
           maxHeight: "40px",
           paddingBottom: "15px"
         }}
@@ -90,6 +91,7 @@ export default function CancelParticipationResponsiveDialog(props) {
             style={{
               fill: "rgba(60,60,60)",
               maxHeight: "40px",
+              border: "3px solid red",
               paddingBottom: "15px"
             }}
           >
@@ -99,7 +101,7 @@ export default function CancelParticipationResponsiveDialog(props) {
             onClick={handleClose}
             style={{
               fill: "white", backgroundColor: "green", maxHeight: "40px",
-              paddingBottom: "15px"
+              paddingBottom: "15px", border: "3px solid green",
             }}
             autoFocus
           >
