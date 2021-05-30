@@ -342,7 +342,7 @@ span:last-child {
 .points {
     font-weight: 900;
     font-family: "Courier New", Courier, monospace;
-    font-size: 80px;
+    /* font-size: 80px; */
 }
 .levels {
     font-weight: 900;

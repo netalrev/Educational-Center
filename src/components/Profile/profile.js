@@ -56,7 +56,7 @@ export default function Profile(props) {
   nextLevel = grades[level] - parseInt(myScore.score);
   var score = 0;
   score = parseInt(myScore.score) - grades[level - 1];
-  score = score / (grades[level] - grades[level - 1]) * 100;
+  score = parseInt(score / (grades[level] - grades[level - 1]) * 100);
   const fetchUsers = async () => {
     try {
       const usersData = await API.graphql(graphqlOperation(listUsers));
@@ -85,19 +85,12 @@ export default function Profile(props) {
       <div className="name">
         <a>{props.givenName + " " + props.familyName}</a>
         <h6 title="Level">
-          <h1 className="points"> {level} </h1>
+          <div>
+            <h1 className="points" > {level}</h1>
+            <h3 className="points" > /{grades.length}</h3>
+          </div>
         </h6>
       </div>
-
-      <div className="ds-info">
-        <div className="ds posts">
-          <h6 className="prof2" title="Number of posts">
-            נקודות לדרגה הבאה
-          </h6>
-          <h6 className="levels"> {nextLevel} </h6>
-        </div>
-      </div>
-
       <div className="logout">
         <div className="avatar">
           <Dog />
