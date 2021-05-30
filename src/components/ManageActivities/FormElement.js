@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     zIndex: "0",
     border: "3px solid red",
-    borderRadius: "33px",
+    borderRadius: "3px",
     textAlign: "center",
     minWidth: "450px",
 
