@@ -7,7 +7,7 @@ var history;
 function goToAc() {
   history.push("./activitiesPage");
 }
-function goToLogin() {
+function goToProfile() {
   history.push("./register");
 }
 export default function HomePage() {
@@ -132,8 +132,8 @@ export default function HomePage() {
         <p className="btnText" onClick={goToAc}>
           לחץ כאן לכל הפעילויות
         </p>
-        <p className="btnText" onClick={goToLogin}>
-          לחץ כאן להתחברות\הרשמה
+        <p className="btnText" onClick={goToProfile}>
+          לחץ כאן לדף הפרופיל
         </p>
       </div>
     </div>
