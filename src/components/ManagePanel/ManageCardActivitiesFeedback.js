@@ -238,7 +238,7 @@ export default function ManageCardActivitiesFeedback(props) {
   };
   useEffect(() => {
     fetchActivitiesFeedbacks();
-  }, []);
+  });
   // const handleExpandClick = () => {
   //     setExpanded(!expanded);
   // };
@@ -248,7 +248,6 @@ export default function ManageCardActivitiesFeedback(props) {
       const activitiesFeedbacksData = await API.graphql(graphqlOperation(listSubmitedActivityFeedbacks));
       const activitiesFeedbacksList = activitiesFeedbacksData.data.listSubmitedActivityFeedbacks.items;
       setActivitiess(activitiesFeedbacksList.sort(compare_createdAt));
-      console.log(activitiesFeedbacksList)
     } catch (error) {
       console.log("error on fetching Pending Activities", error);
     }

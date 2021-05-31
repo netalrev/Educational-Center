@@ -90,6 +90,7 @@ export default function ManageActivities(props) {
         currentTime={dateAndTime}
         title="מידע עבור פעילויות"
       />
+
     </div>
   );
 }

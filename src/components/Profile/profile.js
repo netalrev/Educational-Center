@@ -9,13 +9,7 @@ import { API, graphqlOperation } from "aws-amplify";
 import ReactCardFlip from "react-card-flip";
 import LinearDeterminate from "./LinearDeterminate";
 
-var registeredActivities = 1;
-var pastActivities = 1;
-var procces = registeredActivities / registeredActivities;
-// function handleClick(e) {
-//   e.preventDefault();
-//   this.setState((prevState) => ({ isFlipped: !prevState.isFlipped }));
-// }
+
 var fname = "null";
 var gname = "null";
 var emailAddress = "null";
