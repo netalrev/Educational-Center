@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   subColor: {
-    color: "#51c4d3",
+    color: "#d8e3e7",
   },
 }));
 
