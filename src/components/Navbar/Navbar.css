@@ -1,7 +1,5 @@
-
-
-.NavbarItems{
-    background: black;
+.NavbarItems {
+    background: #132c33;
     height: 80px;
     position: sticky;
     top: 0;
@@ -10,10 +8,9 @@
     justify-content: center;
     align-items: center;
     font-size: 1.2rem;
-
 }
 
-.logo{
+.logo {
     height: 50%;
     width: 65px;
     /*margin-top: 2.3rem;*/
@@ -23,13 +20,13 @@
     /*margin-bottom: 10px;*/
 }
 
-.fa-react{
+.fa-react {
     margin-left: 0.5rem;
     font-size: 1.6rem;
     margin-right: 0.8rem;
 }
 
-.nav-menu{
+.nav-menu {
     display: grid;
     grid-template-columns: repeat(5, auto);
     grid-gap: 10px;
@@ -38,43 +35,40 @@
     width: 70vw;
     justify-content: end;
     margin-right: 2rem;
-
 }
 
-.nav-links{
+.nav-links {
     color: white;
     margin-right: 20px;
     text-decoration: none;
     padding: 0.5rem, 1rem;
 }
 
-.nav-links:hover{
-    background-color: #b40101;
+.nav-links:hover {
+    background-color: #51c4d3;
     border-radius: 4px;
     transition: all 0.2s ease-out;
-    
 }
 
-.fa-bars{
+.fa-bars {
     color: #fff;
 }
 
-.nav-links-mobile{
+.nav-links-mobile {
     display: none;
-} 
+}
 
-.menu-icon{
+.menu-icon {
     display: none;
 }
 
 @media screen and (max-width: 960px) {
-    .NavbarItems{
+    .NavbarItems {
         position: sticky;
         top: 0;
         z-index: 10;
-
     }
-    .nav-menu{
+    .nav-menu {
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -85,9 +79,8 @@
         opacity: 1;
         z-index: 9;
         transition: all 0.5s ease;
-
     }
-    .nav-menu.active{
+    .nav-menu.active {
         background: #000000;
         left: 0;
         opacity: 1;
@@ -95,24 +88,22 @@
         z-index: 1;
     }
 
-    .nav-links{
+    .nav-links {
         text-align: center;
         padding: 2rem;
         width: 100%;
         display: table;
-
     }
-    .nav-links:hover{
-        background-color: linear-gradient(90deg, rgb(2, 0, 15) 0%,  rgb(88, 3, 3) 100%);
-        border-radius: 0;        
+    .nav-links:hover {
+        background-color: linear-gradient(90deg, rgb(2, 0, 15) 0%, rgb(88, 3, 3) 100%);
+        border-radius: 0;
     }
 
-    .logo{
+    .logo {
         visibility: hidden;
-
     }
 
-    .menu-icon{
+    .menu-icon {
         display: block;
         position: absolute;
         top: 0;
@@ -120,34 +111,29 @@
         transform: translate(-100%, 60%);
         font-size: 1.8rem;
         cursor: pointer;
-
     }
-    .fa-times{
+    .fa-times {
         color: #fff;
         font-size: 2rem;
     }
-    .nav-links-mobile{
+    .nav-links-mobile {
         display: block;
         text-align: center;
         padding: 1.5rem;
         margin: 2rem auto;
         border-radius: 4px;
         width: 80%;
-        background: #fa0808;
+        background: #51c4d3;
         text-decoration: none;
         color: #fff;
         font-size: 1.5rem;
     }
-    .nav-links-mobile:hover{
+    .nav-links-mobile:hover {
         background: #fff;
-        color: #fa0808;
+        color: #51c4d3;
         transition: 250ms;
-        
-
     }
-    .daniels{
+    .daniels {
         display: none;
     }
-
-
 }

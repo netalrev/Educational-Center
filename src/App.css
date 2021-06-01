@@ -6,18 +6,6 @@
     font-family: "Montserrat", sans-serif;
     max-width: 100%;
     color: #ffffff;
-    --amplify-primary-color: #ff2600;
-    --amplify-primary-tint: #000000;
-    --amplify-primary-shade: #e0573e;
-    --amplify-secondary-color: red; /*main text color*/
-    --amplify-secondary-contrast: white; /*textboxes inner color*/
-    --amplify-white: white;
-    --amplify-secondary-shade: red;
-    --amplify-tertiary-color: black;
-    --amplify-tertiary-contrast: white;
-    --amplify-text-xxl: 4rem;
-    --amplify-text-xl: 4rem;
-    --amplify-text-lg: 4rem;
 }
 
 .main {
@@ -28,7 +16,7 @@
     justify-self: center;
     padding: auto;
     margin-bottom: 0px;
-    background-color: #2b2b2b;
+    background-color: #d8e3e7;
     padding-top: 0px;
     min-height: 600px;
 }
@@ -92,7 +80,7 @@ html {
 }
 
 body {
-    background-color: #2b2b2b;
+    background-color: #d8e3e7;
 }
 
 input:-webkit-autofill,
