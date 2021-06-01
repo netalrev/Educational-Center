@@ -10,11 +10,11 @@ import $ from "jquery";
 const useStyles = makeStyles((theme) => ({
   searchBar: {
     zIndex: "0",
-    border: "3px solid white",
-    borderRadius: "3px",
+    border: "3px solid #51c4d3",
+    borderRadius: "20px",
     textAlign: "center",
     minWidth: "450px",
-    backgroundColor: "rgba(3, 3, 3, 0.5)",
+    backgroundColor: "#132c33",
 
     "& label.Mui-focused": {
       padding: "10px",
@@ -62,14 +62,14 @@ export default function ActivityTable(props) {
       return d.constructor === Date
         ? d
         : d.constructor === Array
-          ? new Date(d[0], d[1], d[2])
-          : d.constructor === Number
-            ? new Date(d)
-            : d.constructor === String
-              ? new Date(d)
-              : typeof d === "object"
-                ? new Date(d.year, d.month, d.date)
-                : NaN;
+        ? new Date(d[0], d[1], d[2])
+        : d.constructor === Number
+        ? new Date(d)
+        : d.constructor === String
+        ? new Date(d)
+        : typeof d === "object"
+        ? new Date(d.year, d.month, d.date)
+        : NaN;
     },
     compare: function (a, b) {
       // Compare two dates (could be of any type supported by the convert
@@ -153,14 +153,14 @@ export default function ActivityTable(props) {
               dates_class
                 .convert(
                   approvedActivitiesList[i].dates[
-                  approvedActivitiesList[i].dates.length - 1
+                    approvedActivitiesList[i].dates.length - 1
                   ]
                 )
                 .setMinutes(
                   dates_class
                     .convert(
                       approvedActivitiesList[i].dates[
-                      approvedActivitiesList[i].dates.length - 1
+                        approvedActivitiesList[i].dates.length - 1
                       ]
                     )
                     .getMinutes() + 60
