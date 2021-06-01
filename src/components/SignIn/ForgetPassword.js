@@ -154,7 +154,7 @@ export default function ForgetPassword(props) {
                         margin: "20px",
                     }}
                 >
-                    דף אימות הרשמה
+                    דף איפוס סיסמה
         </Typography>
                 <form className={classes.form} validate  >
                     <TextField
