@@ -127,7 +127,7 @@ export default function ConfirmSignUp(props) {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar style={{
-          color: "#132c33",
+          color: "#ffffff",
         }} className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
