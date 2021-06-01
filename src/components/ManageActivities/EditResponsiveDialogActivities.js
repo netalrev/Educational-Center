@@ -39,7 +39,8 @@ export default function EditResponsiveDialogActivities(props) {
         style={{
           backgroundColor: "#005ccc",
           maxHeight: "40px",
-          paddingBottom: "15px"
+          paddingBottom: "15px",
+          border: "3px solid #005ccc",
         }}
         onClick={handleClickOpen}
       >
@@ -96,7 +97,9 @@ export default function EditResponsiveDialogActivities(props) {
             style={{
               backgroundColor: "#ff1100",
               maxHeight: "40px",
-              paddingBottom: "15px"
+              paddingBottom: "15px",
+              border: "3px solid #ff1100",
+
             }}
           >
             בטל

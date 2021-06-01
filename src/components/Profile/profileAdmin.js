@@ -9,7 +9,13 @@ import { API, graphqlOperation } from "aws-amplify";
 import ReactCardFlip from "react-card-flip";
 import LinearDeterminate from "./LinearDeterminate";
 
-
+var registeredActivities = 1;
+var pastActivities = 1;
+var procces = registeredActivities / registeredActivities;
+// function handleClick(e) {
+//   e.preventDefault();
+//   this.setState((prevState) => ({ isFlipped: !prevState.isFlipped }));
+// }
 var fname = "null";
 var gname = "null";
 var emailAddress = "null";
@@ -35,7 +41,7 @@ async function signOut() {
   }
 }
 
-export default function Profile(props) {
+export default function ProfileAdmin(props) {
   const [users, setUsers] = useState([]);
   const [myScore, setMyScore] = useState([]);
   const [prevState, setState] = useState(props.flip_state);
@@ -70,34 +76,11 @@ export default function Profile(props) {
     <div className="card">
       <div className="ds-top"></div>
       <div className="avatar-holder1">
-        <div id="container">
-          <LinearDeterminate score={score} />
-          <span>Progress</span>
-          <span id="progress1">{score}%</span>
-        </div>
       </div>
       <div className="name">
         <a>{props.givenName + " " + props.familyName}</a>
-        <h6 title="Level">
-          <div>
-            <h1 className="points" > {level}</h1>
-            <h3 className="points" > /{grades.length}</h3>
-          </div>
-        </h6>
       </div>
       <div className="logout">
-        <div className="avatar">
-          <Dog />
-        </div>
-        <div className="ds projects">
-          <h6
-            className="prof1"
-            title="Number of projects created by the user"
-            onClick={props.function}
-          >
-            התקדמות בפעילויות
-          </h6>
-        </div>
         <button className="signOutBtn" onClick={signOut}>
           התנתקות
         </button>

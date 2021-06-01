@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     textField: {
         zIndex: "0",
         border: "3px solid red",
-        borderRadius: "9px",
+        borderRadius: "3px",
 
         "& label.Mui-focused": {
             padding: "10px",
@@ -170,6 +170,7 @@ export default function ForgetPassword(props) {
                             fontSize: "18px",
                             color: "#ffffff",
                             marginTop: "20px",
+                            border: "3px solid red",
                         }}
                         onClick={sendCode}
                         fullWidth
@@ -215,6 +216,7 @@ export default function ForgetPassword(props) {
                             fontSize: "18px",
                             color: "#ffffff",
                             marginTop: "20px",
+                            border: "3px solid red",
                         }}
                         onClick={resendConfirmationCode}
                         fullWidth

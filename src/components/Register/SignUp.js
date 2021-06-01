@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     zIndex: "0",
     border: "3px solid red",
-    borderRadius: "9px",
+    borderRadius: "3px",
 
     "& label.Mui-focused": {
       padding: "10px",
@@ -289,6 +289,7 @@ export default function SignUp() {
               padding: "18px 18px",
               fontSize: "18px",
               color: "#ffffff",
+              border: "3px solid red",
             }}
             type="submit"
             fullWidth

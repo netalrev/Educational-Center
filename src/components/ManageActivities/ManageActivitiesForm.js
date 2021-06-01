@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     minWidth: "40%",
     left: 0,
     margin: "auto",
-    borderRadius: "33px",
+    borderRadius: "3px",
     marginTop: "20px",
     opacity: 0.85,
     backgroundColor: "rgba(3, 3, 3, 0.5)",
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     zIndex: "0",
     border: "3px solid red",
-    borderRadius: "33px",
+    borderRadius: "3px",
     minWidth: "450px",
 
     "& label.Mui-focused": {

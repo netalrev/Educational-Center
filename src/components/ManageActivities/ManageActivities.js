@@ -5,8 +5,8 @@ import DeleteEditApprovedForContectSupplier from "./DeleteEditApprovedForContect
 import DeleteEditApprovedForAdmin from "./DeleteEditApprovedForAdmin";
 import ActivityFeedbackForAdmin from "./ActivityFeedbackForAdmin";
 import ManageActivitiesForm from "./ManageActivitiesForm";
+import ActivityInfo from "./ActivityInfo";
 import { useState, useEffect } from "react"
-
 
 // class ManageActivities extends Component {
 export default function ManageActivities(props) {
@@ -39,13 +39,14 @@ export default function ManageActivities(props) {
         title="העלאת תוכן"
       />
       {props.groupName === "admins" ? (
-        <DeleteEditPendingForAdmin
-          groupName={props.groupName}
-          type="pending"
-          email={props.email}
-          currentTime={dateAndTime}
-          title="פעילויות שטרם אושרו"
-        />
+        // <DeleteEditPendingForAdmin
+        //   groupName={props.groupName}
+        //   type="pending"
+        //   email={props.email}
+        //   currentTime={dateAndTime}
+        //   title="פעילויות שטרם אושרו"
+        // />
+        console.log()
       ) : (
         <DeleteEditPendingForContectSupplier
           groupName={props.groupName}
@@ -56,13 +57,14 @@ export default function ManageActivities(props) {
         />
       )}
       {props.groupName === "admins" ? (
-        <DeleteEditApprovedForAdmin
-          groupName={props.groupName}
-          type="approved"
-          email={props.email}
-          currentTime={dateAndTime}
-          title="פעיליות שאושרו"
-        />
+        // <DeleteEditApprovedForAdmin
+        //   groupName={props.groupName}
+        //   type="approved"
+        //   email={props.email}
+        //   currentTime={dateAndTime}
+        //   title="פעיליות שאושרו"
+        // />
+        console.log()
       ) : (
         <DeleteEditApprovedForContectSupplier
           groupName={props.groupName}
@@ -80,6 +82,15 @@ export default function ManageActivities(props) {
         currentTime={dateAndTime}
         title="משוב פעילויות"
       />
+      <ActivityInfo
+        groupName={props.groupName}
+        phoneNumber={props.phoneNumber}
+        type="approved"
+        email={props.email}
+        currentTime={dateAndTime}
+        title="מידע עבור פעילויות"
+      />
+
     </div>
   );
 }

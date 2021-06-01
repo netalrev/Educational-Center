@@ -1,11 +1,10 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { listActivityFeedbacks } from "../../graphql/queries";
-import { API, graphqlOperation } from "aws-amplify";
 import clsx from "clsx";
-import { Scrollbars } from "rc-scrollbars";
+import { useState, useEffect } from "react";
+import { listSubmitedActivityFeedbacks } from "../../graphql/queries";
+import { API, graphqlOperation } from "aws-amplify";
 
-import FillResponsiveDialogActivitiesFeedback from "./FillResponsiveDialogActivitiesFeedback";
+import WatchResponsiveDialogActivitiesFeedback from "./WatchResponsiveDialogActivitiesFeedback";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -24,6 +23,53 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
+import $ from "jquery";
+
+const columns = [
+  {
+    id: "button",
+    label: "",
+    minWidth: 110,
+    maxWidth: 110,
+    align: "center",
+  },
+  {
+    id: "date",
+    label: "תאריך המפגש",
+    minWidth: 170,
+    maxWidth: 170,
+    align: "center",
+  },
+  {
+    id: "email",
+    label: "אימייל ספק התוכן",
+    minWidth: 130,
+    maxWidth: 130,
+    align: "center",
+    color: "white",
+  },
+  {
+    id: "activityName",
+    label: "שם הפעילות",
+    minWidth: 120,
+    maxWidth: 170,
+    align: "center",
+  },
+  {
+    id: "phoneNumber",
+    label: "פלאפון ספק התוכן",
+    minWidth: 120,
+    maxWidth: 120,
+    align: "center",
+  },
+  {
+    id: "name",
+    label: "שם ספק התוכן",
+    minWidth: 120,
+    maxWidth: 130,
+    align: "center",
+  },
+];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,7 +78,6 @@ const useStyles = makeStyles((theme) => ({
     left: 0,
     margin: "auto",
     marginTop: "20px",
-    marginBottom: "20px",
     opacity: 0.85,
     backgroundColor: "rgba(3, 3, 3, 0.5)",
     backgroundPosition: "center",
@@ -52,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
   expand: {
     transform: "rotate(0deg)",
     marginLeft: "auto",
-    color: "red", //arrow color
+    color: "white", //arrow color
 
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
@@ -67,167 +112,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ActivityFeedbackForAdmin(props) {
+export default function ManageCardActivitiesFeedback(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [activitiesFeedbacks, setActivitiesFeedbacks] = useState([]);
-  // const classes = useStyles();
+  const [allPendingActivitiess, setAllPendingActivitiess] = useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const columns = props.groupName === "admins" ?
-    [
-      {
-        id: "buttons",
-        label: "",
-        minWidth: 110,
-        maxWidth: 110,
-        align: "center",
-        color: "white",
-      },
-      {
-        id: "students",
-        label: "רשומים",
-        minWidth: 120,
-        maxWidth: 130,
-        align: "center",
-      },
-      {
-        id: "date",
-        label: "תאריכי מפגשים",
-        minWidth: 170,
-        maxWidth: 170,
-        align: "center",
-      },
-      {
-        id: "email",
-        label: "אימייל ספק התוכן",
-        minWidth: 130,
-        maxWidth: 130,
-        align: "center",
-      },
-      {
-        id: "activityName",
-        label: "שם הפעילות",
-        minWidth: 120,
-        maxWidth: 170,
-        align: "center",
-      },
-      {
-        id: "phoneNumber",
-        label: "פלאפון ספק התוכן",
-        minWidth: 120,
-        maxWidth: 120,
-        align: "center",
-      },
-      {
-        id: "name",
-        label: "שם ספק התוכן",
-        minWidth: 120,
-        maxWidth: 130,
-        align: "center",
-      },
-    ]
-    :
-    [
-      {
-        id: "buttons",
-        label: "",
-        minWidth: 110,
-        maxWidth: 110,
-        align: "center",
-        color: "white",
-      },
-      {
-        id: "students",
-        label: "רשומים",
-        minWidth: 120,
-        maxWidth: 130,
-        align: "center",
-      },
-      {
-        id: "date",
-        label: "תארכי מפגשים",
-        minWidth: 170,
-        maxWidth: 170,
-        align: "center",
-      },
-      {
-        id: "activityName",
-        label: "שם הפעילות",
-        minWidth: 120,
-        maxWidth: 170,
-        align: "center",
-      },
-    ];
-
-  const rows = (props.groupName === "admins") ? activitiesFeedbacks.map((activity, index) => {
-    return createDataAdmin(
-      activity.owner,
-      activity.phone_number,
-      activity.title,
-      activity.email,
-      <p>
-        תאריך - {activity.date.substring(0, 10).split("-").reverse().join("-")}{" "}
-        שעה - {activity.date.substring(11)}
-      </p>,
-      <Scrollbars style={{ width: 130, height: 200, float: "right" }}>
-        {activity.form.map((student) => (
-          <div>
-            <p>{student[0]}</p>
-          </div>
-        ))}
-      </Scrollbars>,
-      <div>
-        <FillResponsiveDialogActivitiesFeedback
-          title={activity.title}
-          date={activity.date}
-          students={activity.form}
-          idx={index}
-          id={activity.activity_id}
-          email={props.email}
-          givenName={props.givenName}
-          familyName={props.familyName}
-          groupName={props.groupName}
-        />
-      </div>
-    );
-  })
-    :
-    activitiesFeedbacks.map((activity, index) => {
-      return createDataContentSuppliers(
-        activity.title,
-        <p>
-          תאריך - {activity.date.substring(0, 10).split("-").reverse().join("-")}{" "}
-      שעה - {activity.date.substring(11)}
-        </p>,
-        <Scrollbars style={{ width: 130, height: 200, float: "right" }}>
-          {activity.form.map((student) => (
-            <div>
-              <p>{student[0]}</p>
-            </div>
-          ))}
-        </Scrollbars>,
-        <div>
-          <FillResponsiveDialogActivitiesFeedback
-            title={activity.title}
-            date={activity.date}
-            students={activity.form}
-            idx={index}
-            id={activity.activity_id}
-            email={props.email}
-            givenName={props.givenName}
-            familyName={props.familyName}
-            groupName={props.groupName}
-          />
-        </div>
-      );
-    })
-    ;
-
-  useEffect(() => {
-    fetchActivitiesFeedbacks();
-  }, []);
+  const [activitiess, setActivitiess] = useState([]);
   var dates_class = {
     convert: function (d) {
       // Converts the date in d to a date-object. The input can be:
@@ -278,7 +169,6 @@ export default function ActivityFeedbackForAdmin(props) {
         : NaN;
     },
   };
-
   function compare_createdAt(a, b) {
     var a_converted = dates_class.convert(a.createdAt);
     var b_converted = dates_class.convert(b.createdAt);
@@ -286,56 +176,81 @@ export default function ActivityFeedbackForAdmin(props) {
     else if (dates_class.compare(a_converted, b_converted) == 0) return 0;
     else return -1;
   }
-  const fetchActivitiesFeedbacks = async () => {
-    try {
-      const activitiesFeedbacksData = await API.graphql(
-        graphqlOperation(listActivityFeedbacks)
-      );
-      const activitiesFeedbacksList =
-        activitiesFeedbacksData.data.listActivityFeedbacks.items;
-      if (props.groupName === "admins")
-        setActivitiesFeedbacks(activitiesFeedbacksList.sort(compare_createdAt));
-      else {
-        var mappedFeedbacks = activitiesFeedbacksList.filter(feedback => feedback.email === props.email);
-        setActivitiesFeedbacks(mappedFeedbacks);
-      }
-    } catch (error) {
-      console.log("error on fetching Approved Activities", error);
-    }
-  };
-
+  const rows = activitiess.map((activity, index) => {
+    return createDataAdmin(
+      activity.owner,
+      activity.phone_number,
+      activity.title,
+      activity.email,
+      <div>
+        <p>
+          תאריך - {activity.date.substring(0, 10).split("-").reverse().join("-")} שעה -{" "}
+          {activity.date.substring(11)}
+        </p>
+        <br></br>
+      </div>,
+      <div>
+        <WatchResponsiveDialogActivitiesFeedback
+          title={activity.title}
+          date={activity.date}
+          students={activity.form}
+          idx={index}
+          id={activity.activity_id}
+          email={props.email}
+          givenName={props.givenName}
+          familyName={props.familyName}
+          groupName={props.groupName}
+        />
+      </div>
+    );
+  });
   function createDataAdmin(
     name,
     phoneNumber,
     activityName,
     email,
     date,
-    students,
-    buttons
+    button
   ) {
-    return { name, phoneNumber, activityName, email, date, students, buttons };
-  }
-
-  function createDataContentSuppliers(
-    activityName,
-    date,
-    students,
-    buttons
-  ) {
-    return { activityName, date, students, buttons };
+    return {
+      name,
+      phoneNumber,
+      activityName,
+      email,
+      date,
+      button
+    };
   }
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
+    $("td").each(function () {
+      $(this).css("color", "#ffffff");
+    });
   };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+  useEffect(() => {
+    fetchActivitiesFeedbacks();
+  });
+  // const handleExpandClick = () => {
+  //     setExpanded(!expanded);
+  // };
+
+  const fetchActivitiesFeedbacks = async () => {
+    try {
+      const activitiesFeedbacksData = await API.graphql(graphqlOperation(listSubmitedActivityFeedbacks));
+      const activitiesFeedbacksList = activitiesFeedbacksData.data.listSubmitedActivityFeedbacks.items;
+      setActivitiess(activitiesFeedbacksList.sort(compare_createdAt));
+    } catch (error) {
+      console.log("error on fetching Pending Activities", error);
+    }
   };
 
   var text = <b>{props.title}</b>;
@@ -356,20 +271,26 @@ export default function ActivityFeedbackForAdmin(props) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              color: "white",
+            }}
+          >
             <Paper className={classes.root}>
               <TableContainer className={classes.container}>
                 <Table stickyHeader aria-label="sticky table">
                   <TableHead>
-                    <TableRow>
+                    <TableRow key={rows.id}>
                       {columns.map((column) => (
                         <TableCell
                           key={column.id}
                           align={column.align}
                           style={{
                             minWidth: column.minWidth,
-                            color: "white",
                             backgroundColor: "black",
+                            color: "white",
                           }}
                         >
                           {column.label}

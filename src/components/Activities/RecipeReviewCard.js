@@ -174,7 +174,9 @@ export default function RecipeReviewCard(props) {
               )
             ) <= 0
         )[0],
-        phone_number: props.phoneNumber,
+        phone_number: allApprovedActivitiess.filter(
+          (activity) => activity.id === props.id
+        )[0].phone_number,
         form: new_form,
       };
       console.log(activityFeedback);
@@ -200,14 +202,14 @@ export default function RecipeReviewCard(props) {
       return d.constructor === Date
         ? d
         : d.constructor === Array
-        ? new Date(d[0], d[1], d[2])
-        : d.constructor === Number
-        ? new Date(d)
-        : d.constructor === String
-        ? new Date(d)
-        : typeof d === "object"
-        ? new Date(d.year, d.month, d.date)
-        : NaN;
+          ? new Date(d[0], d[1], d[2])
+          : d.constructor === Number
+            ? new Date(d)
+            : d.constructor === String
+              ? new Date(d)
+              : typeof d === "object"
+                ? new Date(d.year, d.month, d.date)
+                : NaN;
     },
     compare: function (a, b) {
       // Compare two dates (could be of any type supported by the convert
@@ -256,6 +258,26 @@ export default function RecipeReviewCard(props) {
         ) <= 0
     );
     if (
+      activityFeedbacks.filter(
+        (activity) => activity.activity_id === props.id && activity.date === props.dates.filter(
+          (date) =>
+            dates_class.compare(
+              dates_class.convert(props.currentTime),
+              dates_class.convert(date)
+            ) >= 0 &&
+            dates_class.compare(
+              dates_class.convert(props.currentTime),
+              dates_class.convert(
+                dates_class
+                  .convert(date)
+                  .setMinutes(dates_class.convert(date).getMinutes() + 20)
+              )
+            ) <= 0
+        )[0]
+      ).length === 0
+    )
+      createActivityF();
+    if (
       start.length !== 0 &&
       approvedUsers
         .filter((users) => users.activity_id === props.id)
@@ -264,12 +286,6 @@ export default function RecipeReviewCard(props) {
         ).length !== 0
     ) {
       if (props.zoom !== "") {
-        if (
-          activityFeedbacks.filter(
-            (activity) => activity.activity_id === props.id
-          ).length === 0
-        )
-          createActivityF();
         return <OpenZoomLink zoom={props.zoom} />;
       } else {
         if (

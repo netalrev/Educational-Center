@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import ReactCardFlip from "react-card-flip";
 
 import Profile from "./profile";
+import ProfileAdmin from "./profileAdmin";
 import Back from "./Back";
 
 class ProfileCard extends React.Component {
@@ -28,20 +29,26 @@ class ProfileCard extends React.Component {
           className="_ReactCardFlip"
         >
           <div id="card_cont">
-            <Profile
-              className="flip_btn"
-              function={this.handleClick}
-              givenName={this.props.givenName}
-              familyName={this.props.familyName}
-              email={this.props.email}
-              groupName={this.props.groupName}
-            />
-            {/* <button className="flip_btn" onClick={this.handleClick}>
-            Click to flip
-          </button> */}
+            {this.props.groupName === "approvedUsers" ?
+              <Profile
+                className="flip_btn"
+                function={this.handleClick}
+                givenName={this.props.givenName}
+                familyName={this.props.familyName}
+                email={this.props.email}
+                groupName={this.props.groupName}
+              />
+              :
+              <ProfileAdmin
+                className="flip_btn"
+                function={this.handleClick}
+                givenName={this.props.givenName}
+                familyName={this.props.familyName}
+                email={this.props.email}
+                groupName={this.props.groupName}
+              />}
             <div className="flip_btn"></div>
           </div>
-
           <div id="card_cont">
             <Back
               className="flip_btn"
@@ -52,13 +59,9 @@ class ProfileCard extends React.Component {
               groupName={this.props.groupName}
             />
             <div className="flip_btn"></div>
-            {/* <button className="flip_btn" onClick={this.handleClick}>
-            Click to flip
-          </button> */}
           </div>
         </ReactCardFlip>
-      </div>
-    );
+      </div>);
   }
 }
 export default ProfileCard;

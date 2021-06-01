@@ -8,9 +8,9 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
-import ManageActivitiesFeedbackFormEdit from "./ManageActivitiesFeedbackFormEdit";
+import ManageSubmitActivitiesFeedback from "./ManageSubmitActivitiesFeedback";
 
-export default function FillResponsiveDialogActivitiesFeedback(props) {
+export default function WatchResponsiveDialogActivitiesFeedback(props) {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -40,7 +40,7 @@ export default function FillResponsiveDialogActivitiesFeedback(props) {
         }}
         onClick={handleClickOpen}
       >
-        השלם
+        צפה
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -59,13 +59,14 @@ export default function FillResponsiveDialogActivitiesFeedback(props) {
           <DialogContentText
             style={{ backgroundColor: "black", color: "white" }}
           >
-            <ManageActivitiesFeedbackFormEdit
+            משוב עבור מפגש
+            <ManageSubmitActivitiesFeedback
               groupName={props.groupName}
-              date={props.date}
-              students={props.students}
+              dates={props.dates}
               id={props.id}
               email={props.email}
               style={{ backgroundColor: "black" }}
+              howManyPass={props.howManyPass}
             />
           </DialogContentText>
         </DialogContent>

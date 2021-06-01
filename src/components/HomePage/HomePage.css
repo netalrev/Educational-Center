@@ -20,11 +20,11 @@ h2 {
 
 .btnText {
     color: red;
-    font-size: large;
-    padding: 10px;
+    /*font-size: large;*/
+    padding: 1px;
     background-color: #ffffff;
-    border-radius: 25px;
-    width: 500px;
+    border-radius: 3px;
+    width: 160px;
     margin-top: 30px;
     margin-left: auto;
     margin-right: auto;

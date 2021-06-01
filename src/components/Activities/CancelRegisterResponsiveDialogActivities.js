@@ -61,6 +61,7 @@ export default function CancelRegisterResponsiveDialog(props) {
           backgroundColor: "red",
           fill: "rgba(60,60,60)",
           maxHeight: "40px",
+          border: "3px solid red",
           paddingBottom: "15px"
         }}
         onClick={handleClickOpen}
@@ -92,7 +93,7 @@ export default function CancelRegisterResponsiveDialog(props) {
             onClick={handleCancel}
             style={{
               fill: "white", backgroundColor: "red", maxHeight: "40px",
-              paddingBottom: "15px"
+              paddingBottom: "15px", border: "3px solid red",
             }}
           >
             בטל
@@ -101,7 +102,7 @@ export default function CancelRegisterResponsiveDialog(props) {
             onClick={handleClose}
             style={{
               fill: "white", backgroundColor: "green", maxHeight: "40px",
-              paddingBottom: "15px"
+              paddingBottom: "15px", border: "3px solid green",
             }}
             autoFocus
           >
