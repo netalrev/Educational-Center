@@ -25,14 +25,14 @@ function Copyright() {
       variant="body2"
       align="center"
       style={{
-        color: "#ffffff",
-        padding: "30px",
+        color: "#132c33",
+        padding: "20px",
       }}
     >
       {"Copyright © "}
       <Link
         style={{
-          color: "#ffffff",
+          color: "#132c33",
         }}
         href="#"
       >
@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: "red",
+    backgroundColor: "#132c33",
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -71,28 +71,27 @@ const useStyles = makeStyles((theme) => ({
   },
   textField: {
     zIndex: "0",
-    border: "3px solid red",
-    borderRadius: "3px",
-    color: "white",
+    border: "3px solid #132c33",
+    borderRadius: "10px",
+
     "& label.Mui-focused": {
       padding: "10px",
-      color: "white",
+      color: "#132c33",
     },
     "& input": {
-      color: "white",
+      color: "#132c33",
     },
-
     "& label": {
       padding: "10px",
-      color: "white",
+      color: "#132c33",
     },
     "& .MuiInput-underline:after": {
-      borderBottomColor: "red",
+      borderBottomColor: "#132c33",
+      display: "none",
     },
     "& .MuiOutlinedInput-root": {
-      "& fieldset": {},
       "&.Mui-focused fieldset": {
-        borderColor: "black",
+        display: "none",
       },
     },
     "& label span": {
@@ -153,10 +152,14 @@ export default function SignIn() {
     <Container component="main" maxWidth="xs" id="allForm">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+        <Avatar style={{
+          color: "#132c33",
+        }} className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5" style={{
+          color: "#132c33",
+        }}>
           כניסה
         </Typography>
         <form className={classes.form} onSubmit={doSomething} noValidate>
@@ -186,11 +189,12 @@ export default function SignIn() {
           />
           <Button
             style={{
-              backgroundColor: "red",
-              padding: "18px 36px",
-              fontSize: "18px",
+              backgroundColor: "#132c33",
+              padding: "10px 10px",
+              fontSize: "10px",
               color: "#ffffff",
-              border: "3px solid red",
+              border: "3px solid #132c33",
+              borderRadius: "10px",
             }}
             type="submit"
             fullWidth
@@ -205,7 +209,7 @@ export default function SignIn() {
                 href="/ForgetPassword"
                 variant="body2"
                 style={{
-                  color: "#ffffff",
+                  color: "#132c33",
                 }}
               >
                 שכחתי את הסיסמה
@@ -216,7 +220,7 @@ export default function SignIn() {
                 href="/SignUp"
                 variant="body2"
                 style={{
-                  color: "#ffffff",
+                  color: "#132c33",
                 }}
               >
                 {"לא רשום? לחץ כאן להרשמה"}

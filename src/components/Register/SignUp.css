@@ -1,5 +1,5 @@
 ::-webkit-calendar-picker-indicator {
-    filter: invert(1);
+    filter: invert(0);
 }
 .swal-modal{
    /* background-color: black;*/

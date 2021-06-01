@@ -23,14 +23,14 @@ function Copyright() {
             variant="body2"
             align="center"
             style={{
-                color: "#ffffff",
+                color: "#132c33",
                 padding: "20px",
             }}
         >
             {"Copyright © "}
             <Link
                 style={{
-                    color: "#ffffff",
+                    color: "#132c33",
                 }}
                 href="#"
             >
@@ -44,43 +44,45 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-        marginTop: theme.spacing(8),
         display: "flex",
+        paddingTop: "30px",
         flexDirection: "column",
         alignItems: "center",
+        color: "white",
     },
     avatar: {
         margin: theme.spacing(1),
-        backgroundColor: "red",
+        backgroundColor: "#132c33",
     },
     Button: {
     },
     textField: {
         zIndex: "0",
-        border: "3px solid red",
-        borderRadius: "3px",
+        border: "3px solid #132c33",
+        borderRadius: "10px",
 
         "& label.Mui-focused": {
             padding: "10px",
-            color: "white",
+            color: "#132c33",
         },
         "& input": {
-            color: "white",
+            color: "#132c33",
         },
-
         "& label": {
             padding: "10px",
-            color: "white",
+            color: "#132c33",
         },
         "& .MuiInput-underline:after": {
-            borderBottomColor: "red",
+            borderBottomColor: "#132c33",
+            display: "none",
         },
         "& .MuiOutlinedInput-root": {
             "&.Mui-focused fieldset": {
-                borderColor: "black",
+                display: "none",
             },
         },
-        "& label span": { //For remove Asterisk from required inputs.
+        "& label span": {
+            //For remove Asterisk from required inputs.
             display: "none",
         },
     },
@@ -139,17 +141,20 @@ export default function ForgetPassword(props) {
         <Container component="main" maxWidth="xs" id="allForm" >
             <CssBaseline />
             <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
+                <Avatar style={{
+                    background: "#132c33",
+                }} className={classes.avatar}>
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography
                     component="h1"
                     variant="h5"
                     style={{
-                        color: "#ffffff",
+                        color: "#132c33",
+                        margin: "20px",
                     }}
                 >
-                    אנא הזן את קוד האישור שקיבלת במייל
+                    דף אימות הרשמה
         </Typography>
                 <form className={classes.form} validate  >
                     <TextField
@@ -165,12 +170,13 @@ export default function ForgetPassword(props) {
                     />
                     <Button
                         style={{
-                            backgroundColor: "red",
-                            padding: "18px 18px",
-                            fontSize: "18px",
+                            backgroundColor: "#132c33",
+                            padding: "10px 10px",
+                            fontSize: "10px",
                             color: "#ffffff",
                             marginTop: "20px",
-                            border: "3px solid red",
+                            border: "3px solid #132c33",
+                            borderRadius: "10px",
                         }}
                         onClick={sendCode}
                         fullWidth
@@ -179,6 +185,15 @@ export default function ForgetPassword(props) {
                     >
                         שלח קוד אימות
           </Button>
+                    <Typography
+                        style={{
+                            color: "#132c33",
+                            marginTop: "20px",
+                            marginBottom: "-20px",
+                        }}
+                    >
+                        אנא הזן את קוד האימות שקיבלת במייל
+                    </Typography>
                     <TextField
                         className={classes.textField}
                         autoComplete="code"
@@ -193,6 +208,15 @@ export default function ForgetPassword(props) {
                         }}
                         autoFocus
                     />
+                    <Typography
+                        style={{
+                            color: "#132c33",
+                            marginTop: "20px",
+                            marginBottom: "-20px",
+                        }}
+                    >
+                        אנא הזן סיסמה חדשה
+                    </Typography>
                     <TextField
                         className={classes.textField}
                         autoComplete="code"
@@ -211,12 +235,13 @@ export default function ForgetPassword(props) {
 
                     <Button
                         style={{
-                            backgroundColor: "red",
-                            padding: "18px 18px",
-                            fontSize: "18px",
+                            backgroundColor: "#132c33",
+                            padding: "10px 10px",
+                            fontSize: "10px",
                             color: "#ffffff",
                             marginTop: "20px",
-                            border: "3px solid red",
+                            border: "3px solid #132c33",
+                            borderRadius: "10px",
                         }}
                         onClick={resendConfirmationCode}
                         fullWidth
