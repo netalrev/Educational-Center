@@ -38,10 +38,11 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 320,
     // maxHeight: 700,
     margin: "10px",
-    background: "#126e82",
+    background: "#132c33",
     borderRadius: "4%",
     border: "6px solid #132c33",
     right: 0,
+    color: "#d8e3e7",
     transition: "transform 0.15s ease-in-out",
     //"&:hover": { transform: "scale3d(1.05, 1.05, 1)" },
     boxShadow: "5px 5px 9px rgba(20, 18, 18, 0.62)",
@@ -403,7 +404,7 @@ export default function RecipeReviewCard(props) {
       <CardHeader
         title={
           <h1 className="title__h1" style={{ color: "#d8e3e7" }}>
-            <b>{props.title}</b>{" "}
+            <b style={{ color: "#d8e3e7" }}>{props.title}</b>{" "}
             {approvedUsers
               .filter((users) => users.activity_id === props.id)
               .filter(

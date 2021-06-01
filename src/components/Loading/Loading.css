@@ -9,7 +9,7 @@
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    border-top: 2px solid #ff0037;
+    border-top: 2px solid #126e82;
     border-left: 1px solid transparent;
     border-right: 1px solid transparent;
     animation: rt 2s infinite linear;
@@ -25,7 +25,7 @@
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    border-top: 2px solid #ffffff;
+    border-top: 2px solid #132c33;
     border-left: 1px solid transparent;
     border-right: 1px solid transparent;
     animation: rt 4s infinite linear reverse;
@@ -46,7 +46,7 @@
     border-right: initial;
     animation: cw 1s infinite;
     content: "";
-    background: rgb(255, 0, 0);
+    background: #51c4d3;
 }
 
 .h1loading {
@@ -62,7 +62,7 @@
     letter-spacing: 0.1em;
     font-size: 14px;
     font-weight: lighter;
-    color: rgb(255, 121, 121);
+    color: #132c33;
 }
 .h1loading span {
     display: none;

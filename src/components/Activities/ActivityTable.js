@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
     border: "3px solid #51c4d3",
     borderRadius: "20px",
     textAlign: "center",
-    minWidth: "450px",
     backgroundColor: "#132c33",
 
     "& label.Mui-focused": {
