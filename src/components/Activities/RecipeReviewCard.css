@@ -1,13 +1,13 @@
 .title__h1 {
-    color: white;
+    color: #d8e3e7;
     font-size: x-large;
 }
 
 h3 {
-    color: red;
+    color: #132c33;
 }
 .actDesc,
 .nameOfStudent,
 act_desc {
-    color: white;
+    color: #d8e3e7;
 }

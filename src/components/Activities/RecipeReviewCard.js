@@ -38,13 +38,13 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 320,
     // maxHeight: 700,
     margin: "10px",
-    background: "rgba(0, 0, 0, 0.5)",
-    color: "black",
+    background: "#126e82",
     borderRadius: "4%",
+    border: "6px solid #132c33",
     right: 0,
     transition: "transform 0.15s ease-in-out",
     //"&:hover": { transform: "scale3d(1.05, 1.05, 1)" },
-    boxShadow: "5px 5px 9px rgba(255, 0, 0, 0.5)",
+    boxShadow: "5px 5px 9px rgba(20, 18, 18, 0.62)",
   },
 
   media: {
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   subColor: {
-    color: "red",
+    color: "#51c4d3",
   },
 }));
 
@@ -202,14 +202,14 @@ export default function RecipeReviewCard(props) {
       return d.constructor === Date
         ? d
         : d.constructor === Array
-          ? new Date(d[0], d[1], d[2])
-          : d.constructor === Number
-            ? new Date(d)
-            : d.constructor === String
-              ? new Date(d)
-              : typeof d === "object"
-                ? new Date(d.year, d.month, d.date)
-                : NaN;
+        ? new Date(d[0], d[1], d[2])
+        : d.constructor === Number
+        ? new Date(d)
+        : d.constructor === String
+        ? new Date(d)
+        : typeof d === "object"
+        ? new Date(d.year, d.month, d.date)
+        : NaN;
     },
     compare: function (a, b) {
       // Compare two dates (could be of any type supported by the convert
@@ -259,21 +259,24 @@ export default function RecipeReviewCard(props) {
     );
     if (
       activityFeedbacks.filter(
-        (activity) => activity.activity_id === props.id && activity.date === props.dates.filter(
-          (date) =>
-            dates_class.compare(
-              dates_class.convert(props.currentTime),
-              dates_class.convert(date)
-            ) >= 0 &&
-            dates_class.compare(
-              dates_class.convert(props.currentTime),
-              dates_class.convert(
-                dates_class
-                  .convert(date)
-                  .setMinutes(dates_class.convert(date).getMinutes() + 20)
-              )
-            ) <= 0
-        )[0]
+        (activity) =>
+          activity.activity_id === props.id &&
+          activity.date ===
+            props.dates.filter(
+              (date) =>
+                dates_class.compare(
+                  dates_class.convert(props.currentTime),
+                  dates_class.convert(date)
+                ) >= 0 &&
+                dates_class.compare(
+                  dates_class.convert(props.currentTime),
+                  dates_class.convert(
+                    dates_class
+                      .convert(date)
+                      .setMinutes(dates_class.convert(date).getMinutes() + 20)
+                  )
+                ) <= 0
+            )[0]
       ).length === 0
     )
       createActivityF();
@@ -312,7 +315,7 @@ export default function RecipeReviewCard(props) {
     } else if (props.groupName !== "approvedUsers" && props.zoom !== "") {
       return <OpenZoomLink zoom={props.zoom} />;
     } else if (props.groupName !== "approvedUsers") {
-      return <h3 style={{ color: "white" }}>פעילות פרונטלית</h3>;
+      return <h3 style={{ color: "#d8e3e7" }}>פעילות פרונטלית</h3>;
     } else if (
       approvedUsers
         .filter((users) => users.activity_id === props.id)
@@ -399,7 +402,7 @@ export default function RecipeReviewCard(props) {
     <Card className={classes.root}>
       <CardHeader
         title={
-          <h1 className="title__h1" style={{ color: "white" }}>
+          <h1 className="title__h1" style={{ color: "#d8e3e7" }}>
             <b>{props.title}</b>{" "}
             {approvedUsers
               .filter((users) => users.activity_id === props.id)
@@ -512,7 +515,7 @@ export default function RecipeReviewCard(props) {
               ) : (
                 ""
               )}
-              <Typography variant="body2" color="white" component="p">
+              <Typography variant="body2" color="#d8e3e7" component="p">
                 <h3>מספר מפגשים: {props.activityCount}</h3>
                 <br></br>
                 <h3>:תאריכים</h3>

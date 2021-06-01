@@ -19,7 +19,7 @@ export default function OpenZoomLink(props) {
         startIcon={
           <OndemandVideoIcon
             style={{
-              fill: "white",
+              fill: "#d8e3e7",
               maxWidth: "100px",
               marginBottom: "11px",
             }}
@@ -27,9 +27,9 @@ export default function OpenZoomLink(props) {
         }
         variant="outlined"
         style={{
-          background: "#E50914",
-          color: "white",
-          border: "3px solid #E50914",
+          background: "#132c33",
+          color: "#d8e3e7",
+          border: "3px solid #d8e3e7",
           maxHeight: "40px",
           paddingBottom: "15px",
         }}

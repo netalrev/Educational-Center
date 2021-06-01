@@ -5,7 +5,7 @@
     text-align: center;
     font-family: "Montserrat", sans-serif;
     max-width: 100%;
-    color: #ffffff;
+    color: #132c33;
 }
 
 .main {
@@ -88,7 +88,7 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px rgb(0, 0, 0) inset !important;
-    color: white;
+    color: #d8e3e7;
 }
 
 input:-webkit-autofill {
@@ -106,12 +106,12 @@ tbody {
 }
 .swal-modal {
     background-color: rgba(0, 0, 0, 0.651);
-    color: white;
+    color: #d8e3e7;
     justify-content: center;
     text-align: center;
 }
 .swal-text {
-    color: white;
+    color: #d8e3e7;
     font-size: 33px;
     text-align: center;
 }
@@ -136,9 +136,9 @@ textField {
 
 @keyframes pulse {
     from {
-        box-shadow: 0px 0px 10px 3px #00e013;
+        box-shadow: 0px 0px 10px 3px #ffffffab;
     }
     to {
-        box-shadow: 0px 0px 20px 5px #ff0000;
+        box-shadow: 0px 0px 20px 5px #ff000000;
     }
 }
