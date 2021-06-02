@@ -21,15 +21,16 @@ const useStyles = makeStyles((theme) => ({
     minWidth: "40%",
     left: 0,
     margin: "auto",
-    borderRadius: "3px",
+    borderRadius: "10px",
+    border: "3px solid #132c33",
     marginTop: "20px",
     opacity: 0.85,
-    backgroundColor: "rgba(3, 3, 3, 0.5)",
+    backgroundColor: "#d8e3e7",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
-    color: "red",
-    text: "red",
+    color: "#132c33",
+    text: "#132c33",
     right: 0,
     transition: "transform 0.15s ease-in-out",
     textAlign: "center",
@@ -39,47 +40,52 @@ const useStyles = makeStyles((theme) => ({
   expand: {
     transform: "rotate(0deg)",
     marginLeft: "auto",
-    color: "red", //arrow color
+    color: "d8e3e7", //arrow color
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
   },
   expandOpen: {
     transform: "rotate(180deg)",
-    color: "red",
+    color: "d8e3e7",
   },
   avatar: {
-    backgroundColor: red[500],
+    backgroundColor: "#132c33",
     color: "white",
   },
   subColor: {
-    color: "red",
+    color: "d8e3e7",
   },
 
   textField: {
     zIndex: "0",
-    border: "3px solid red",
-    borderRadius: "3px",
+    border: "3px solid #132c33",
+    borderRadius: "10px",
     minWidth: "450px",
+    //textAlign: "center",
 
     "& label.Mui-focused": {
-      //padding: "10px",
-      color: "white",
+      padding: "10px",
+      color: "#132c33",
     },
     "& input": {
-      color: "white",
+      color: "#132c33",
     },
     "& label": {
       padding: "10px",
-      color: "white",
+      color: "#132c33",
+    },
+    "& .MuiInput-underline:before": {
+      borderBottomColor: "#132c33",
+      display: "none",
     },
     "& .MuiInput-underline:after": {
-      borderBottomColor: "red",
+      borderBottomColor: "#132c33",
+      display: "none",
     },
     "& .MuiOutlinedInput-root": {
-      color: "white",
       "&.Mui-focused fieldset": {
-        borderColor: "black",
+        display: "none",
       },
     },
   },
@@ -145,7 +151,7 @@ export default function ManageActivitiesFormPending(props) {
     }
     setDates(toReturn);
   }
-  var text = <b>{props.title}</b>;
+  var text = <b style={{ color: "#132c33" }}>{props.title}</b>;
   return (
     <Card className={classes.root}>
       <CardHeader title={text} />
@@ -158,7 +164,7 @@ export default function ManageActivitiesFormPending(props) {
           aria-expanded={expanded}
           aria-label="show more"
           style={{
-            backgroundColor: "red",
+            backgroundColor: "#132c33",
             maxWidth: "50px",
             maxHeight: "50px",
           }}
@@ -184,11 +190,16 @@ export default function ManageActivitiesFormPending(props) {
               <tr>
                 מפגש בזום
                 <Checkbox
+                  label="Antoine Llorca"
                   id="zoomCheckBox"
                   checked={checked}
                   onClick={handleChange}
-                  fill="red"
                   inputProps={{ "aria-label": "primary checkbox" }}
+                  style={{
+                    paddingTop: "2.5px",
+                    backgroundColor: "#132c33", maxWidth: "40px",
+                    maxHeight: "40px",
+                  }}
                 />
               </tr>
               <tr>{zoomLink}</tr>
@@ -204,7 +215,7 @@ export default function ManageActivitiesFormPending(props) {
               <tr>
                 <TextField
                   id="outlined-multiline-static"
-                  label="תיאור הפעילויות :"
+                  label=": תיאור הפעילויות"
                   className={classes.textField}
                   name="activity_description"
                   multiline

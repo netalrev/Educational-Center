@@ -234,11 +234,11 @@ export default function UploadResponsiveDialog(props) {
         }
         variant="outlined"
         style={{
-          fill: "red",
-          background: "red",
+          backgroundColor: "#132c33",
           minWidth: "95%",
           marginTop: "20px",
-          border: "3px solid red",
+          border: "3px solid #132c33",
+          borderRadius: "10px",
           maxHeight: "40px",
           paddingBottom: "15px",
         }}

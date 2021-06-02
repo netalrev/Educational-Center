@@ -6,28 +6,33 @@ import "./FormElement.css";
 const useStyles = makeStyles((theme) => ({
   textField: {
     zIndex: "0",
-    border: "3px solid red",
-    borderRadius: "3px",
-    textAlign: "center",
+    border: "3px solid #132c33",
+    borderRadius: "10px",
     minWidth: "450px",
+    textAlign: "center",
 
     "& label.Mui-focused": {
       padding: "10px",
-      color: "white",
+      color: "#132c33",
     },
     "& input": {
-      color: "white",
+      color: "#132c33",
     },
     "& label": {
       padding: "10px",
-      color: "white",
+      color: "#132c33",
+    },
+    "& .MuiInput-underline:before": {
+      borderBottomColor: "#132c33",
+      display: "none",
     },
     "& .MuiInput-underline:after": {
-      borderBottomColor: "red",
+      borderBottomColor: "#132c33",
+      display: "none",
     },
     "& .MuiOutlinedInput-root": {
       "&.Mui-focused fieldset": {
-        borderColor: "black",
+        display: "none",
       },
     },
   },
