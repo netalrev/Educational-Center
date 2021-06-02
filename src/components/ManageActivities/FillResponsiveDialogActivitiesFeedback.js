@@ -51,13 +51,13 @@ export default function FillResponsiveDialogActivitiesFeedback(props) {
       >
         <DialogTitle
           id="responsive-dialog-title"
-          style={{ color: "red", backgroundColor: "black" }}
+          style={{ backgroundColor: "#d8e3e7" }}
         >
-          <b>משוב פעילות עבור {props.title}</b>
+          <b style={{ color: "#132c33" }}>משוב פעילות עבור {props.title}</b>
         </DialogTitle>
-        <DialogContent style={{ backgroundColor: "black", color: "white" }}>
+        <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
           <DialogContentText
-            style={{ backgroundColor: "black", color: "white" }}
+            style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}
           >
             <ManageActivitiesFeedbackFormEdit
               groupName={props.groupName}
@@ -69,13 +69,13 @@ export default function FillResponsiveDialogActivitiesFeedback(props) {
             />
           </DialogContentText>
         </DialogContent>
-        <DialogActions style={{ backgroundColor: "black" }}>
+        <DialogActions style={{ backgroundColor: "#d8e3e7" }}>
           <Button
             autoFocus
             onClick={handleCancel}
             style={{
-              fill: "rgba(60,60,60)", backgroundColor: "red", maxHeight: "40px",
-              paddingBottom: "15px", border: "3px solid red",
+              backgroundColor: "#132c33", maxHeight: "40px",
+              paddingBottom: "15px", borderRadius: "10px"
             }}
           >
             בטל

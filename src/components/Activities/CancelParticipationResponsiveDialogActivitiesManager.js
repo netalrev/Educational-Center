@@ -74,24 +74,24 @@ export default function CancelParticipationResponsiveDialog(props) {
       >
         <DialogTitle
           id="responsive-dialog-title"
-          style={{ color: "white", backgroundColor: "black" }}
+          style={{ backgroundColor: "#d8e3e7" }}
         >
-          <b>ביטול השתתפות של תלמיד/ה מפעילות</b>
+          <b style={{ color: "#132c33" }}>ביטול השתתפות של תלמיד/ה מפעילות</b>
         </DialogTitle>
-        <DialogContent style={{ color: "white", backgroundColor: "black" }}>
+        <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
           <DialogContentText
-            style={{ color: "white", backgroundColor: "black" }}
+            style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}
           >
             ?האם את/ה בטוח/ה שברצונך לבטל השתתפות של תלמיד/ה זה/ו מהפעילות
           </DialogContentText>
         </DialogContent>
-        <DialogActions style={{ color: "white", backgroundColor: "black" }}>
+        <DialogActions style={{ backgroundColor: "#d8e3e7" }}>
           <Button
             autoFocus
             onClick={handleCancel}
             style={{
-              fill: "white", backgroundColor: "red", maxHeight: "40px",
-              paddingBottom: "15px", border: "3px solid red",
+              backgroundColor: "#132c33", maxHeight: "40px",
+              paddingBottom: "15px", borderRadius: "10px"
             }}
           >
             בטל
@@ -99,8 +99,8 @@ export default function CancelParticipationResponsiveDialog(props) {
           <Button
             onClick={handleClose}
             style={{
-              fill: "white", backgroundColor: "green", maxHeight: "40px",
-              paddingBottom: "15px", border: "3px solid green",
+              backgroundColor: "#132c33", maxHeight: "40px",
+              paddingBottom: "15px", borderRadius: "10px"
             }}
             autoFocus
           >

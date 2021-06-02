@@ -111,22 +111,22 @@ export default function ApproveResponsiveDialogActivity(props) {
       >
         <DialogTitle
           id="responsive-dialog-title"
-          style={{ color: "red", backgroundColor: "#000000" }}
+          style={{ backgroundColor: "#d8e3e7" }}
         >
-          <b>אישור משתתף</b>
+          <b style={{ color: "#132c33" }}>אישור משתתף</b>
         </DialogTitle>
-        <DialogContent style={{ backgroundColor: "#000000" }}>
-          <DialogContentText style={{ color: "#ffffff" }}>
+        <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
+          <DialogContentText style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}>
             ?האם את/ה בטוח/ה שברצונך לאשר את המשתתפ/ת
           </DialogContentText>
         </DialogContent>
-        <DialogActions style={{ backgroundColor: "#000000" }}>
+        <DialogActions style={{ backgroundColor: "#d8e3e7" }}>
           <Button
             autoFocus
             onClick={handleCancel}
             style={{
-              backgroundColor: "red", maxHeight: "40px",
-              paddingBottom: "15px", border: "3px solid red",
+              backgroundColor: "#132c33", maxHeight: "40px",
+              paddingBottom: "15px", borderRadius: "10px"
             }}
           >
             בטל
@@ -134,8 +134,8 @@ export default function ApproveResponsiveDialogActivity(props) {
           <Button
             onClick={handleClose}
             style={{
-              backgroundColor: "green", maxHeight: "40px",
-              paddingBottom: "15px", border: "3px solid green",
+              backgroundColor: "#132c33", maxHeight: "40px",
+              paddingBottom: "15px", borderRadius: "10px"
             }}
             autoFocus
           >

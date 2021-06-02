@@ -54,13 +54,13 @@ export default function EditResponsiveDialogActivities(props) {
       >
         <DialogTitle
           id="responsive-dialog-title"
-          style={{ backgroundColor: "#000000", color: "#ffffff" }}
+          style={{ backgroundColor: "#d8e3e7" }}
         >
-          <b>עריכת פעילות</b>
+          <b style={{ color: "#132c33" }}>עריכת פעילות</b>
         </DialogTitle>
-        <DialogContent style={{ backgroundColor: "#000000", color: "#ffffff" }}>
+        <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
           <DialogContentText
-            style={{ backgroundColor: "#000000", color: "#ffffff" }}
+            style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}
           >
             ?אילו שינויים ברצונך לערוך
             {props.type === "pending" ? (
@@ -90,16 +90,13 @@ export default function EditResponsiveDialogActivities(props) {
             )}
           </DialogContentText>
         </DialogContent>
-        <DialogActions style={{ backgroundColor: "#000000", color: "#ffffff" }}>
+        <DialogActions style={{ backgroundColor: "#d8e3e7" }}>
           <Button
             autoFocus
             onClick={handleCancel}
             style={{
-              backgroundColor: "#ff1100",
-              maxHeight: "40px",
-              paddingBottom: "15px",
-              border: "3px solid #ff1100",
-
+              backgroundColor: "#132c33", maxHeight: "40px",
+              paddingBottom: "15px", borderRadius: "10px"
             }}
           >
             בטל

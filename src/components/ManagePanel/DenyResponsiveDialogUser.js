@@ -70,22 +70,22 @@ export default function DenyResponsiveDialogUser(props) {
       >
         <DialogTitle
           id="responsive-dialog-title"
-          style={{ color: "red", backgroundColor: "black" }}
+          style={{ backgroundColor: "#d8e3e7" }}
         >
-          <b>ביטול הרשמה לפעילות</b>
+          <b style={{ color: "#132c33" }}>ביטול הרשמה לפעילות</b>
         </DialogTitle>
-        <DialogContent style={{ backgroundColor: "black" }}>
-          <DialogContentText style={{ color: "white" }}>
+        <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
+          <DialogContentText style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}>
             ?האם את/ה בטוח/ה שברצונך לדחות הרשמה של משתתפ/ת זה
           </DialogContentText>
         </DialogContent>
-        <DialogActions style={{ backgroundColor: "black" }}>
+        <DialogActions style={{ backgroundColor: "#d8e3e7" }}>
           <Button
             autoFocus
             onClick={handleCancel}
             style={{
-              backgroundColor: "red", maxHeight: "40px",
-              paddingBottom: "15px", border: "3px solid red",
+              backgroundColor: "#132c33", maxHeight: "40px",
+              paddingBottom: "15px", borderRadius: "10px"
             }}
           >
             חזור
@@ -93,8 +93,8 @@ export default function DenyResponsiveDialogUser(props) {
           <Button
             onClick={handleClose}
             style={{
-              backgroundColor: "green", maxHeight: "40px",
-              paddingBottom: "15px", border: "3px solid green",
+              backgroundColor: "#132c33", maxHeight: "40px",
+              paddingBottom: "15px", borderRadius: "10px"
             }}
             autoFocus
           >
