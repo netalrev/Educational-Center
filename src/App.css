@@ -61,13 +61,13 @@ input[type="number"]::-webkit-inner-spin-button {
     cursor: pointer;
     display: block;
     width: 8px;
-    color: rgb(255, 255, 255);
+    color: #132c33;
     text-align: center;
     position: relative;
     margin: 9px;
 }
 input[type="number"]:hover::-webkit-inner-spin-button {
-    background: rgb(255, 0, 0) url("http://i.stack.imgur.com/YYySO.png") no-repeat 50% 50%;
+    background: #132c33 url("http://i.stack.imgur.com/YYySO.png") no-repeat 50% 50%;
     width: 14px;
     height: 14px;
     padding: 4px;

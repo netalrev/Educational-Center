@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
   subColor: {
-    color: "d8e3e7",
+    color: "#d8e3e7",
   },
 
   textField: {
