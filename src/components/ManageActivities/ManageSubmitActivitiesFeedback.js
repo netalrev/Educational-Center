@@ -129,20 +129,20 @@ export default function ManageSubmitActivitiesFeedback(props) {
     <Card
       className={classes.root}
       style={{
-        color: "white",
-        backgroundColor: "black",
+        color: "#132c33",
+        backgroundColor: "#d8e3e7",
       }}
     >
       <CardHeader title={text} />
-      <CardContent>
+      <CardContent s>
         {<div>
           <h4>{text}</h4>
           <div
             style={{
               display: "flex",
               justifyContent: "center",
-              backgroundColor: "black",
-              color: "white",
+              backgroundColor: "#d8e3e7",
+              color: "#132c33",
             }}
           >
             <table>
@@ -154,8 +154,8 @@ export default function ManageSubmitActivitiesFeedback(props) {
                         style={{
                           borderStyle: "solid",
                           borderRadius: "15px",
-                          color: "white",
-                          backgroundColor: "black",
+                          color: "#132c33",
+                          backgroundColor: "#d8e3e7",
                         }}
                       >
                         <h4>{student[0]}</h4>
