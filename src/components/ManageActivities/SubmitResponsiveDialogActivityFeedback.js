@@ -372,11 +372,12 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
         }
         variant="outlined"
         style={{
-          fill: "#ffffff",
-          backgroundColor: "#04c704",
+          backgroundColor: "#132c33",
+          border: "3px solid #132c33",
+          color: "#d8e3e7",
           maxHeight: "40px",
           paddingBottom: "15px",
-          border: "3px solid #04c704",
+          borderRadius: "10px",
         }}
         onClick={handleClickOpen}
       >

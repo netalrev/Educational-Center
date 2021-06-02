@@ -196,7 +196,7 @@ export default function ManageActivitiesFormPending(props) {
                   onClick={handleChange}
                   inputProps={{ "aria-label": "primary checkbox" }}
                   style={{
-                    paddingTop: "2.5px",
+                    paddingTop: "1px",
                     backgroundColor: "#132c33", maxWidth: "40px",
                     maxHeight: "40px",
                   }}

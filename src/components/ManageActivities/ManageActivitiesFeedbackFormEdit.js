@@ -26,22 +26,20 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 1000,
     minWidth: 400,
     margin: "10px",
-    backgroundColor: "light gray",
-
-    borderRadius: "4%",
+    borderRadius: "10px",
+    border: "3px solid #132c33",
     right: 0,
     transition: "transform 0.15s ease-in-out",
     //"&:hover": { transform: "scale3d(1.05, 1.05, 1)" },
     "& label": {
       margin: "10px",
-      color: "white",
-      fontSize: "2000px",
-      backgroundColor: "red",
-      borderRadius: "3px",
-      zIndex: "1222",
+      color: "#d8e3e7",
+      fontSize: "20px",
+      backgroundColor: "#126e82",
+      borderRadius: "10px",
+      //zIndex: "1222",
     },
   },
-
   expand: {
     transform: "rotate(0deg)",
     marginLeft: "auto",
@@ -116,8 +114,8 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
     <Card
       className={classes.root}
       style={{
-        color: "white",
-        backgroundColor: "black",
+        /*color: "white",*/
+        backgroundColor: "#d8e3e7",
       }}
     >
       <CardHeader title={text} />
@@ -131,10 +129,10 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                 <h4>בשעה: {activity.date.substring(11)}</h4>
                 <div
                   style={{
-                    display: "flex",
+                    /*display: "flex",
                     justifyContent: "center",
                     backgroundColor: "black",
-                    color: "white",
+                    color: "white",*/
                   }}
                 >
                   <table>
@@ -144,10 +142,10 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                           <div>
                             <div
                               style={{
-                                borderStyle: "solid",
-                                borderRadius: "15px",
-                                color: "white",
-                                backgroundColor: "black",
+                                /* borderStyle: "solid",
+                                 borderRadius: "15px",
+                                 color: "white",
+                                 backgroundColor: "black",*/
                               }}
                             >
                               <h4>:{student[0]}</h4>
@@ -155,13 +153,13 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                               <FormControl
                                 component="fieldset"
                                 style={{
-                                  color: "white",
-                                  backgroundColor: "black",
+                                  color: "#132c33",
+                                  backgroundColor: "#d8e3e7",
                                 }}
                               >
                                 <FormLabel
                                   component="legend"
-                                  style={{ color: "white" }}
+                                  style={{ color: "#132c33", }}
                                 >
                                   נוכחות במפגש
                               </FormLabel>
@@ -172,7 +170,7 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                                   style={{
                                     display: "flex",
                                     justifyContent: "center",
-                                    color: "white",
+                                    color: "#132c33",
                                   }}
                                 >
                                   <FormControlLabel
@@ -183,14 +181,14 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                                   />
                                   <FormControlLabel
                                     value="0"
-                                    control={<Radio color="white" />}
+                                    control={<Radio color="#132c33" />}
                                     label="לא נכח"
                                     labelPlacement="top"
                                   />
                                 </RadioGroup>
                                 <FormLabel
                                   component="legend"
-                                  style={{ color: "white" }}
+                                  style={{ color: "#132c33" }}
                                 >
                                   השתתפות במפגש
                               </FormLabel>
@@ -201,44 +199,44 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                                 >
                                   <FormControlLabel
                                     value="15"
-                                    control={<Radio color="rgba(60,60,60)" />}
+                                    control={<Radio color="#132c33" />}
                                     label="5"
                                     labelPlacement="top"
                                   />
                                   <FormControlLabel
                                     value="12"
-                                    control={<Radio color="rgba(60,60,60)" />}
+                                    control={<Radio color="#132c33" />}
                                     label="4"
                                     labelPlacement="top"
                                   />
                                   <FormControlLabel
                                     value="9"
-                                    control={<Radio color="rgba(60,60,60)" />}
+                                    control={<Radio color="#132c33" />}
                                     label="3"
                                     labelPlacement="top"
                                   />
                                   <FormControlLabel
                                     value="6"
-                                    control={<Radio color="rgba(60,60,60)" />}
+                                    control={<Radio color="#132c33" />}
                                     label="2"
                                     labelPlacement="top"
                                   />
                                   <FormControlLabel
                                     value="3"
-                                    control={<Radio color="rgba(60,60,60)" />}
+                                    control={<Radio color="#132c33" />}
                                     label="1"
                                     labelPlacement="top"
                                   />
                                   <FormControlLabel
                                     value="0"
-                                    control={<Radio color="rgba(60,60,60)" />}
+                                    control={<Radio color="#132c33" />}
                                     label="0"
                                     labelPlacement="top"
                                   />
                                 </RadioGroup>
                                 <FormLabel
                                   component="legend"
-                                  style={{ color: "white" }}
+                                  style={{ color: "#132c33" }}
                                 >
                                   תרומה למפגש
                               </FormLabel>
@@ -249,38 +247,38 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                                 >
                                   <FormControlLabel
                                     value="15"
-                                    control={<Radio color="rgba(60,60,60)" />}
+                                    control={<Radio color="#132c33" />}
                                     label="5"
                                     labelPlacement="top"
                                   />
                                   <FormControlLabel
                                     value="12"
-                                    control={<Radio color="rgba(60,60,60)" />}
+                                    control={<Radio color="#132c33" />}
                                     label="4"
                                     labelPlacement="top"
                                   />
                                   <FormControlLabel
                                     value="9"
                                     label="3"
-                                    control={<Radio color="rgba(60,60,60)" />}
-                                    color="white"
+                                    control={<Radio color="#132c33" />}
+                                    color="#132c33"
                                     labelPlacement="top"
                                   />
                                   <FormControlLabel
                                     value="6"
-                                    control={<Radio color="rgba(60,60,60)" />}
+                                    control={<Radio color="#132c33" />}
                                     label="2"
                                     labelPlacement="top"
                                   />
                                   <FormControlLabel
                                     value="3"
-                                    control={<Radio color="rgba(60,60,60)" />}
+                                    control={<Radio color="#132c33" />}
                                     label="1"
                                     labelPlacement="top"
                                   />
                                   <FormControlLabel
                                     value="0"
-                                    control={<Radio color="rgba(60,60,60)" />}
+                                    control={<Radio color="#132c33" />}
                                     label="0"
                                     labelPlacement="top"
                                   />

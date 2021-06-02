@@ -25,18 +25,18 @@ export default function FillResponsiveDialogActivitiesFeedback(props) {
     <div>
       <Button
         startIcon={<EditIcon style={{
-          fill: "white",
+          fill: "#d8e3e7",
           maxWidth: "100px",
           marginBottom: "10px"
         }}></EditIcon>}
         variant="outlined"
         style={{
-          fill: "rgba(3, 3, 3, 0.5)",
-          backgroundColor: "green",
+          backgroundColor: "#51c4d3",
+          border: "3px solid #51c4d3",
+          color: "#d8e3e7",
           maxHeight: "40px",
           paddingBottom: "15px",
-          border: "3px solid green",
-
+          borderRadius: "10px",
         }}
         onClick={handleClickOpen}
       >
