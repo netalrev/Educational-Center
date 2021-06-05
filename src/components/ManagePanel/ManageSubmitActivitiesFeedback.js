@@ -147,9 +147,9 @@ export default function ManageSubmitActivitiesFeedback(props) {
                               <br></br>
                               {student[3] === "10" ? <h4>נכח</h4> : <h4>לא נכח</h4>}
                               <br></br>
-                              <h4>ציון עבור השתתפות במפגש: 5 / {parseInt(student[3] / 3)}</h4>
+                              <h4>ציון עבור השתתפות במפגש: 5 / {parseInt(student[4] / 3)}</h4>
                               <br></br>
-                              <h4>ציון עבור תרומה במפגש: 5 / {parseInt(student[4] / 3)}</h4>
+                              <h4>ציון עבור תרומה במפגש: 5 / {parseInt(student[5] / 3)}</h4>
                               <br></br>
                             </div>
                             <br></br>

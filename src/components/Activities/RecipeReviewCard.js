@@ -136,6 +136,8 @@ export default function RecipeReviewCard(props) {
       var filteredUsers = approvedUsers.filter(
         (user) => user.activity_id === props.id
       );
+      console.log(props.id, "I WANT 21");
+
       filteredUsers.map((element) => {
         var student = [];
         student.push(element.name);
@@ -149,6 +151,7 @@ export default function RecipeReviewCard(props) {
       });
       var zoomLink = "";
       if (props.zoom.length > 0) zoomLink = props.zoom;
+
       const activityFeedback = {
         id: IDs.length == 0 ? 0 : IDs[IDs.length - 1] + 1,
         owner: props.owner,
@@ -180,7 +183,7 @@ export default function RecipeReviewCard(props) {
         )[0].phone_number,
         form: new_form,
       };
-      console.log(activityFeedback);
+      // console.log("HELLO", activityFeedback);
       await API.graphql(
         graphqlOperation(createActivityFeedback, { input: activityFeedback })
       );
@@ -203,14 +206,14 @@ export default function RecipeReviewCard(props) {
       return d.constructor === Date
         ? d
         : d.constructor === Array
-        ? new Date(d[0], d[1], d[2])
-        : d.constructor === Number
-        ? new Date(d)
-        : d.constructor === String
-        ? new Date(d)
-        : typeof d === "object"
-        ? new Date(d.year, d.month, d.date)
-        : NaN;
+          ? new Date(d[0], d[1], d[2])
+          : d.constructor === Number
+            ? new Date(d)
+            : d.constructor === String
+              ? new Date(d)
+              : typeof d === "object"
+                ? new Date(d.year, d.month, d.date)
+                : NaN;
     },
     compare: function (a, b) {
       // Compare two dates (could be of any type supported by the convert
@@ -258,26 +261,27 @@ export default function RecipeReviewCard(props) {
           )
         ) <= 0
     );
+    console.log(start, props.title, "acvbnm")
     if (
       activityFeedbacks.filter(
         (activity) =>
           activity.activity_id === props.id &&
           activity.date ===
-            props.dates.filter(
-              (date) =>
-                dates_class.compare(
-                  dates_class.convert(props.currentTime),
-                  dates_class.convert(date)
-                ) >= 0 &&
-                dates_class.compare(
-                  dates_class.convert(props.currentTime),
-                  dates_class.convert(
-                    dates_class
-                      .convert(date)
-                      .setMinutes(dates_class.convert(date).getMinutes() + 20)
-                  )
-                ) <= 0
-            )[0]
+          props.dates.filter(
+            (date) =>
+              dates_class.compare(
+                dates_class.convert(props.currentTime),
+                dates_class.convert(date)
+              ) >= 0 &&
+              dates_class.compare(
+                dates_class.convert(props.currentTime),
+                dates_class.convert(
+                  dates_class
+                    .convert(date)
+                    .setMinutes(dates_class.convert(date).getMinutes() + 20)
+                )
+              ) <= 0
+          )[0]
       ).length === 0
     )
       createActivityF();

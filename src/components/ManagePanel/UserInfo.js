@@ -198,7 +198,7 @@ export default function UserInfo(props) {
             user.email,
             <div>
                 <p>
-                    ניקוד : {grades[level]} / {user.score}
+                    ניקוד : {level === 0 ? grades[level] : grades[level] - grades[level - 1]} / {level === 0 ? user.score : user.score - grades[level - 1]}
                 </p>
                 <p>
                     רמה : {level}
