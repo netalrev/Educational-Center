@@ -213,7 +213,6 @@ export default function UserProgressCard(props) {
                         toReturn = (
                             <div>
                                 <h4>{elm.title}</h4>
-                                {console.log(elm.title)}
                                 <div
                                     style={{
                                         display: "flex",
@@ -232,15 +231,15 @@ export default function UserProgressCard(props) {
                                                             borderRadius: "15px",
                                                             color: "white",
                                                             backgroundColor: "black",
+                                                            minWidth: "200px"
                                                         }}
                                                     >
-                                                        <h4>{elm.title}</h4>
                                                         <br></br>
-                                                        <h4>נכח:</h4> {course.attendance} / {elm.dates.length}
+                                                        <h4>נוכחות: {course.attendance} / {elm.dates.length}</h4>
                                                         <br></br>
-                                                        <h4>ציון עבור השתתפות : 5 / {parseInt(course.participation) / elm.dates.length}</h4>
+                                                        <h4>השתתפות : 5 / {parseInt(course.participation) / elm.dates.length}</h4>
                                                         <br></br>
-                                                        <h4>ציון עבור תרומה : 5 / {parseInt(course.contribute) / elm.dates.length}</h4>
+                                                        <h4>תרומה : 5 / {parseInt(course.contribute) / elm.dates.length}</h4>
                                                         <br></br>
                                                     </div>
                                                     <br></br>

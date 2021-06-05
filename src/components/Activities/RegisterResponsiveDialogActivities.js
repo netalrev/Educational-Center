@@ -61,7 +61,7 @@ export default function RegisterResponsiveDialog(props) {
   const handleClose = async () => {
     setOpen(false);
     await registerPendingUser().then(
-      swal("", "בקשתך התקבלה בהצלחה, אנא המתן לאישור מנהל", "success", {
+      swal("", "נרשמת לקורס, נשתדל לאשר אותך בהקדם", "success", {
         button: "אישור",
       })
     );
@@ -104,13 +104,13 @@ export default function RegisterResponsiveDialog(props) {
           id="responsive-dialog-title"
           style={{ backgroundColor: "#d8e3e7" }}
         >
-          <b style={{ color: "#132c33" }}>הרשמה לפעילות</b>
+          <b style={{ color: "#132c33" }}>הרשמה לקורס - {props.title}</b>
         </DialogTitle>
         <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
           <DialogContentText
             style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}
           >
-            ?האם את/ה בטוח/ה שברצונך להרשם
+            בלחיצה על "אישור" תשלח בקשה לרישום
           </DialogContentText>
         </DialogContent>
         <DialogActions style={{ backgroundColor: "#d8e3e7" }}>
@@ -122,7 +122,7 @@ export default function RegisterResponsiveDialog(props) {
               paddingBottom: "15px", borderRadius: "10px"
             }}
           >
-            בטל
+            ביטול
           </Button>
           <Button
             onClick={handleClose}
@@ -132,7 +132,7 @@ export default function RegisterResponsiveDialog(props) {
             }}
             autoFocus
           >
-            אשר
+            אישור
           </Button>
         </DialogActions>
       </Dialog>

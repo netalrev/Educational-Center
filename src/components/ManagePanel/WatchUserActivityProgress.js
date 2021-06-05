@@ -26,11 +26,6 @@ export default function WatchUserActivityProgress(props) {
     return (
         <div>
             <Button
-                startIcon={<EditIcon style={{
-                    fill: "white",
-                    maxWidth: "100px",
-                    marginBottom: "10px"
-                }}></EditIcon>}
                 variant="outlined"
                 style={{
                     fill: "rgba(3, 3, 3, 0.5)",
@@ -42,7 +37,7 @@ export default function WatchUserActivityProgress(props) {
                 }}
                 onClick={handleClickOpen}
             >
-                צפה
+                צפייה במשובים
       </Button>
             <Dialog
                 fullScreen={fullScreen}
@@ -55,14 +50,13 @@ export default function WatchUserActivityProgress(props) {
                     id="responsive-dialog-title"
                     style={{ backgroundColor: "#d8e3e7" }}
                 >
-                    <b style={{ color: "#132c33" }}>משוב פעילות עבור {props.title}</b>
+                    <b style={{ color: "#132c33" }}>משובים עבור - {props.name}</b>
                 </DialogTitle>
                 <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
                     <DialogContentText
                         style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}
                     >
-                        משוב עבור מפגש
-            <UserProgressCard
+                        <UserProgressCard
                             groupName={props.groupName}
                             date={props.date}
                             students={props.students}
@@ -81,7 +75,7 @@ export default function WatchUserActivityProgress(props) {
                             paddingBottom: "15px", borderRadius: "10px"
                         }}
                     >
-                        בטל
+                        חזרה
           </Button>
                 </DialogActions>
             </Dialog>

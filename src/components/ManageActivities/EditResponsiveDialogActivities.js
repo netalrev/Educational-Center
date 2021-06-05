@@ -44,7 +44,7 @@ export default function EditResponsiveDialogActivities(props) {
         }}
         onClick={handleClickOpen}
       >
-        ערוך
+        עריכה
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -56,13 +56,12 @@ export default function EditResponsiveDialogActivities(props) {
           id="responsive-dialog-title"
           style={{ backgroundColor: "#d8e3e7" }}
         >
-          <b style={{ color: "#132c33" }}>עריכת פעילות</b>
+          <b style={{ color: "#132c33" }}>עריכת קורס - {props.title}</b>
         </DialogTitle>
         <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
           <DialogContentText
             style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}
           >
-            ?אילו שינויים ברצונך לערוך
             {props.type === "pending" ? (
               <ManageActivitiesFormEditPending
                 type="pending"
@@ -99,7 +98,7 @@ export default function EditResponsiveDialogActivities(props) {
               paddingBottom: "15px", borderRadius: "10px"
             }}
           >
-            בטל
+            חזרה
           </Button>
         </DialogActions>
       </Dialog>

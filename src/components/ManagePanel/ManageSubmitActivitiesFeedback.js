@@ -9,6 +9,8 @@ import TextField from "@material-ui/core/TextField";
 // import SubmitResponsiveDialogActivityFeedback from "./SubmitResponsiveDialogActivityFeedback";
 import { useState, useEffect } from "react";
 import { listSubmitedActivityFeedbacks } from "../../graphql/queries";
+import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
 import {
   deletePendingActivities,
   deleteApprovedActivities,
@@ -119,9 +121,6 @@ export default function ManageSubmitActivitiesFeedback(props) {
           if (props.id === activity.activity_id && activity.date === props.date) {
             return (
               <div>
-                <h4>{activity.title}</h4>
-                <h4>בתאריך: {activity.date.substring(0, 10)}</h4>
-                <h4>בשעה: {activity.date.substring(11)}</h4>
                 <div
                   style={{
                     display: "flex",
@@ -135,21 +134,21 @@ export default function ManageSubmitActivitiesFeedback(props) {
                       <div>
                         {activity.form.map((student) => (
                           <div>
+                            <h4>{student[0]}</h4>
                             <div
                               style={{
                                 borderStyle: "solid",
                                 borderRadius: "15px",
                                 color: "white",
                                 backgroundColor: "black",
+                                minWidth: "200px"
                               }}
                             >
-                              <h4>{student[0]}</h4>
+                              <h4>{student[3] === "10" ? <CheckIcon></CheckIcon> : <CloseIcon></CloseIcon>} :נוכחות</h4>
                               <br></br>
-                              {student[3] === "10" ? <h4>נכח</h4> : <h4>לא נכח</h4>}
+                              <h4>השתתפות: 5 / {parseInt(student[4] / 3)}</h4>
                               <br></br>
-                              <h4>ציון עבור השתתפות במפגש: 5 / {parseInt(student[4] / 3)}</h4>
-                              <br></br>
-                              <h4>ציון עבור תרומה במפגש: 5 / {parseInt(student[5] / 3)}</h4>
+                              <h4>תרומה: 5 / {parseInt(student[5] / 3)}</h4>
                               <br></br>
                             </div>
                             <br></br>

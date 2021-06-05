@@ -90,7 +90,7 @@ export default function DenyResponsiveDialogActivities(props) {
         }}
         onClick={handleClickOpen}
       >
-        מחק
+        הסרה
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -102,13 +102,13 @@ export default function DenyResponsiveDialogActivities(props) {
           id="responsive-dialog-title"
           style={{ backgroundColor: "#d8e3e7" }}
         >
-          <b style={{ color: "#132c33" }}>דחיית פעילות</b>
+          <b style={{ color: "#132c33" }}>הסרת קורס - {props.title}</b>
         </DialogTitle>
         <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
           <DialogContentText
             style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}
           >
-            ?האם את/ה בטוח/ה שברצונך למחוק את הפעילות
+            בלחיצה על "הסרה" הקורס יוסר לצמיתות מהאתר
           </DialogContentText>
         </DialogContent>
         <DialogActions style={{ backgroundColor: "#d8e3e7" }}>
@@ -120,7 +120,7 @@ export default function DenyResponsiveDialogActivities(props) {
               paddingBottom: "15px", borderRadius: "10px"
             }}
           >
-            בטל
+            ביטול
           </Button>
           <Button
             onClick={handleClose}
@@ -130,7 +130,7 @@ export default function DenyResponsiveDialogActivities(props) {
             }}
             autoFocus
           >
-            מחק
+            הסרה
           </Button>
         </DialogActions>
       </Dialog>

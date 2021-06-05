@@ -341,7 +341,7 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
             })
         )
         .then(
-          swal("", "משוב הוזן בהצלחה.", "success", {
+          swal("", "משוב נשלח", "success", {
             button: "אישור",
           })
         )
@@ -350,7 +350,7 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
 
       window.location.reload(false);
     } else {
-      swal("", "אנא מלא את המשוב במלואו", "error", {
+      swal("", "יש למלא את המשוב במלואו", "error", {
         button: "אישור",
       });
     }
@@ -361,15 +361,6 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
   return (
     <div>
       <Button
-        startIcon={
-          <UpdateIcon
-            style={{
-              fill: "white",
-              maxWidth: "100px",
-              marginBottom: "11px",
-            }}
-          ></UpdateIcon>
-        }
         variant="outlined"
         style={{
           backgroundColor: "#132c33",
@@ -381,7 +372,7 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
         }}
         onClick={handleClickOpen}
       >
-        עדכן
+        שמירה ושליחה
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -393,13 +384,13 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
           id="responsive-dialog-title"
           style={{ backgroundColor: "#d8e3e7" }}
         >
-          <b style={{ color: "#132c33" }}>אישור העלאת תוכן</b>
+          <b style={{ color: "#132c33" }}>שליחת משוב</b>
         </DialogTitle>
         <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
           <DialogContentText
             style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}
           >
-            ?האם את/ה בטוח/ה שפרטי הפעילות שהזנת תואמים את הפעילות
+            בלחיצה על "שליחה" המשוב ישלח להנהלה וינעל לשינויים
           </DialogContentText>
         </DialogContent>
         <DialogActions style={{ backgroundColor: "#d8e3e7" }}>
@@ -411,8 +402,8 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
               paddingBottom: "15px", borderRadius: "10px"
             }}
           >
-            בטל&nbsp;העלאה
-          </Button>
+            ביטול
+        </Button>
           <Button
             onClick={handleClose}
             style={{
@@ -421,7 +412,7 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
             }}
             autoFocus
           >
-            אשר&nbsp;העלאה
+            שליחה
           </Button>
         </DialogActions>
       </Dialog>

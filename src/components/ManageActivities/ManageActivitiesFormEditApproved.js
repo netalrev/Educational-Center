@@ -178,7 +178,7 @@ export default function ManageActivitiesFormEditApproved(props) {
     var toReturn = [];
     var tzoffset = new Date().getTimezoneOffset() * 60000;
     for (var i = 0; i < props.activityCount; i++) {
-      var temp = ":תאריך פעילות מספר" + " " + (i + 1);
+      var temp = ":מפגש" + " " + (i + 1);
       toReturn.push(
         <tr className={classes.tr_dates}>
           <TextField
@@ -230,7 +230,7 @@ export default function ManageActivitiesFormEditApproved(props) {
                     <tr>
                       <FormElement
                         name="name"
-                        title=": שם הפעילות"
+                        title=": שם הקורס"
                         type="text"
                         defaultValue={activity.title}
                       />
@@ -238,13 +238,13 @@ export default function ManageActivitiesFormEditApproved(props) {
                     <tr>
                       <FormElement
                         name="activity_img"
-                        title=": קישור לתמונה"
+                        title=": קישור לתמונת הקורס"
                         type="text"
                         defaultValue={activity.img}
                       />
                     </tr>
                     <tr>
-                      מפגש בזום
+                      הקורס יתבצע באופן מקוון
                         <Checkbox
                         id="zoomCheckBox"
                         checked={checked}
@@ -257,7 +257,7 @@ export default function ManageActivitiesFormEditApproved(props) {
                     <tr>
                       <FormElement
                         name="activityCount"
-                        title=": מספר פעילויות"
+                        title=": מספר מפגשים"
                         type="number"
                         onChange={createDateInputs}
                         defaultValue={activity.activityCount}
@@ -267,7 +267,7 @@ export default function ManageActivitiesFormEditApproved(props) {
                     <tr>
                       <TextField
                         id="outlined-multiline-static"
-                        label=": תיאור הפעילויות"
+                        label=": תיאור הקורס"
                         className={classes.textField}
                         name="activity_description"
                         defaultValue={activity.description}
@@ -286,7 +286,6 @@ export default function ManageActivitiesFormEditApproved(props) {
                         InputProps={{
                           style: { color: "#fff" },
                         }}
-                        ד
                       />
                     </tr>
                     <tr>
@@ -310,7 +309,7 @@ export default function ManageActivitiesFormEditApproved(props) {
                 <div style={{ display: "flex", justifyContent: "center" }}>
                   <table>
                     <tr>
-                      מפגש בזום
+                      הקורס יתבצע באופן מקוון
                         <Checkbox
                         id="zoomCheckBox"
                         checked={checked}
@@ -323,7 +322,7 @@ export default function ManageActivitiesFormEditApproved(props) {
                     <tr>
                       <FormElement
                         name="activityCount"
-                        title=": מספר פעילויות"
+                        title=": מספר מפגשים"
                         type="number"
                         onChange={createDateInputs}
                         defaultValue={activity.activityCount}
