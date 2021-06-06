@@ -17,7 +17,7 @@ import {
 } from "../../graphql/queries";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
-import UpdateIcon from "@material-ui/icons/Update";
+import SaveIcon from '@material-ui/icons/Save';
 import swal from "sweetalert";
 
 export default function UpdateResponsiveDialog(props) {
@@ -232,7 +232,7 @@ export default function UpdateResponsiveDialog(props) {
         document.getElementsByName("activityCount")[0].value < 1 ||
         document.getElementsByName("activityCount")[0].value === ""
       )
-        return "כמות פעילויות לא חוקית";
+        return "יש להכניס לפחות מפגש אחד";
       var date_map = Array.from(document.getElementsByName("dates")).map(
         (date) => date.value
       );
@@ -241,7 +241,7 @@ export default function UpdateResponsiveDialog(props) {
       for (var i = 0; i < date_map.length; i++) {
         temp = dates_class.convert(date_map[i]);
         if (dates_class.compare(current_time, temp) == 1)
-          return "תאריך לא חוקי";
+          return "יש להכניס מועד עתידי";
       }
       return "true";
     } else {
@@ -249,12 +249,12 @@ export default function UpdateResponsiveDialog(props) {
         document.getElementsByName("name")[0].value > 100 ||
         document.getElementsByName("name")[0].value === ""
       )
-        return "כותרת לא חוקית";
+        return "שם הקורס אינו תקין, יכול להכיל עד 100 תווים";
       else if (
         !validURL(document.getElementsByName("activity_img")[0].value) &&
         document.getElementsByName("activity_img")[0].value !== ""
       )
-        return "קישור לתמונה אינו תקין";
+        return "קישור לתמונה אינו תקין, יש לנסות קישור אחר";
       else if (document.getElementById("zoomCheckBox").checked) {
         if (
           !validURL(document.getElementsByName("activity_zoom")[0].value) ||
@@ -266,7 +266,7 @@ export default function UpdateResponsiveDialog(props) {
         document.getElementsByName("activityCount")[0].value < 1 ||
         document.getElementsByName("activityCount")[0].value === ""
       )
-        return "כמות פעילויות לא חוקית";
+        return "יש להכניס לפחות מפגש אחד";
       var date_map = Array.from(document.getElementsByName("dates")).map(
         (date) => date.value
       );
@@ -275,14 +275,14 @@ export default function UpdateResponsiveDialog(props) {
       for (var i = 0; i < date_map.length; i++) {
         temp = dates_class.convert(date_map[i]);
         if (dates_class.compare(current_time, temp) == 1)
-          return "תאריך לא חוקי";
+          return "יש להכניס מועד עתידי";
       }
       if (
         document.getElementsByName("activity_description")[0].value.length <
         10 ||
         document.getElementsByName("activity_description")[0].value === ""
       )
-        return "תיאור לא חוקי";
+        return "תיאור קצר מדי";
       return "true";
     }
   }
@@ -297,7 +297,6 @@ export default function UpdateResponsiveDialog(props) {
   const handleClose = async () => {
     setOpen(false);
     const validate = validation();
-    console.log(validate);
     if (validate == "true") {
       if (props.type === "pending") {
         await editPendingActivities(props.id).then(
@@ -330,13 +329,13 @@ export default function UpdateResponsiveDialog(props) {
     <div>
       <Button
         startIcon={
-          <UpdateIcon
+          <SaveIcon
             style={{
               fill: "white",
               maxWidth: "100px",
               marginBottom: "11px",
             }}
-          ></UpdateIcon>
+          ></SaveIcon>
         }
         variant="outlined"
         style={{
@@ -348,7 +347,7 @@ export default function UpdateResponsiveDialog(props) {
         }}
         onClick={handleClickOpen}
       >
-        עדכן
+        שמירת שינויים
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -360,14 +359,22 @@ export default function UpdateResponsiveDialog(props) {
           id="responsive-dialog-title"
           style={{ backgroundColor: "#d8e3e7" }}
         >
-          <b style={{ color: "#132c33" }}>אישור העלאת תוכן</b>
+          <b style={{ color: "#132c33" }}>אישור שמירת שינויים</b>
         </DialogTitle>
         <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
-          <DialogContentText
-            style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}
-          >
-            ?האם את/ה בטוח/ה שפרטי הפעילות שהזנת תואמים את הפעילות
+          {props.type === "pending" ?
+            <DialogContentText
+              style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}
+            >
+              בלחיצה על "אישור" השינויים ישמרו במאגר מידע
           </DialogContentText>
+            :
+            <DialogContentText
+              style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}
+            >
+              בלחיצה על "אישור" השינויים ישמרו ויוצגו בדף קורסים
+        </DialogContentText>
+          }
         </DialogContent>
         <DialogActions style={{ backgroundColor: "#d8e3e7" }}>
           <Button
@@ -378,7 +385,7 @@ export default function UpdateResponsiveDialog(props) {
               paddingBottom: "15px", borderRadius: "10px"
             }}
           >
-            בטל&nbsp;העלאה
+            ביטול
           </Button>
           <Button
             onClick={handleClose}
@@ -388,7 +395,7 @@ export default function UpdateResponsiveDialog(props) {
             }}
             autoFocus
           >
-            אשר&nbsp;העלאה
+            אישור
           </Button>
         </DialogActions>
       </Dialog>

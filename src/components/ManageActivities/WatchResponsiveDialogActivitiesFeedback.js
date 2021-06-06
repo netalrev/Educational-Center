@@ -24,11 +24,6 @@ export default function WatchResponsiveDialogActivitiesFeedback(props) {
   return (
     <div>
       <Button
-        startIcon={<EditIcon style={{
-          fill: "#d8e3e7",
-          maxWidth: "100px",
-          marginBottom: "10px"
-        }}></EditIcon>}
         variant="outlined"
         style={{
           backgroundColor: "#51c4d3",
@@ -41,7 +36,7 @@ export default function WatchResponsiveDialogActivitiesFeedback(props) {
         }}
         onClick={handleClickOpen}
       >
-        צפה
+        מידע נוסף
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -54,13 +49,12 @@ export default function WatchResponsiveDialogActivitiesFeedback(props) {
           id="responsive-dialog-title"
           style={{ backgroundColor: "#d8e3e7" }}
         >
-          <b style={{ color: "#132c33" }}>משוב פעילות עבור {props.title}</b>
+          <b style={{ color: "#132c33" }}>מידע נוסף עבור {props.title}</b>
         </DialogTitle>
         <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
           <DialogContentText
             style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}
           >
-            משוב עבור מפגש
             <ManageSubmitActivitiesFeedback
               groupName={props.groupName}
               dates={props.dates}
@@ -79,7 +73,7 @@ export default function WatchResponsiveDialogActivitiesFeedback(props) {
               paddingBottom: "15px", borderRadius: "10px"
             }}
           >
-            בטל
+            חזרה
           </Button>
         </DialogActions>
       </Dialog>

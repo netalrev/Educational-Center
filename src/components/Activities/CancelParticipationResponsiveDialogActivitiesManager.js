@@ -34,10 +34,10 @@ export default function CancelParticipationResponsiveDialog(props) {
 
   const handleClose = async () => {
     setOpen(false);
-    await deleteSingleUser(props.id).then(swal("", "הסרתך התקבלה בהצלחה", "success", {
+    await deleteSingleUser(props.id).then(swal("", "הסרת משתמש", "success", {
       button: "אישור",
     }));
-    // window.location.reload(false);
+    window.location.reload(false);
   };
   const handleCancel = () => {
     setOpen(false);
@@ -64,7 +64,7 @@ export default function CancelParticipationResponsiveDialog(props) {
         }}
         onClick={handleClickOpen}
       >
-        בטל&nbsp;השתתפות
+        ביטול&nbsp;השתתפות
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -76,13 +76,13 @@ export default function CancelParticipationResponsiveDialog(props) {
           id="responsive-dialog-title"
           style={{ backgroundColor: "#d8e3e7" }}
         >
-          <b style={{ color: "#132c33" }}>ביטול השתתפות של תלמיד/ה מפעילות</b>
+          <b style={{ color: "#132c33" }}>ביטול השתתפות של {props.name} מ{props.title} </b>
         </DialogTitle>
         <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
           <DialogContentText
             style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}
           >
-            ?האם את/ה בטוח/ה שברצונך לבטל השתתפות של תלמיד/ה זה/ו מהפעילות
+            בלחיצה על "הסרה" תבוטל ההשתתפות בקורס, ניתן להרשם מחדש
           </DialogContentText>
         </DialogContent>
         <DialogActions style={{ backgroundColor: "#d8e3e7" }}>
@@ -94,7 +94,7 @@ export default function CancelParticipationResponsiveDialog(props) {
               paddingBottom: "15px", borderRadius: "10px"
             }}
           >
-            בטל
+            ביטול
           </Button>
           <Button
             onClick={handleClose}
@@ -104,7 +104,7 @@ export default function CancelParticipationResponsiveDialog(props) {
             }}
             autoFocus
           >
-            אשר
+            הסרה
           </Button>
         </DialogActions>
       </Dialog>

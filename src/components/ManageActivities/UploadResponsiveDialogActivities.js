@@ -117,12 +117,12 @@ export default function UploadResponsiveDialog(props) {
       document.getElementsByName("name")[0].value > 100 ||
       document.getElementsByName("name")[0].value === ""
     )
-      return "כותרת לא חוקית";
+      return "שם הקורס אינו תקין, יכול להכיל עד 100 תווים";
     else if (
       !validURL(document.getElementsByName("activity_img")[0].value) &&
       document.getElementsByName("activity_img")[0].value !== ""
     )
-      return "קישור לתמונה אינו תקין";
+      return "קישור לתמונה אינו תקין, יש לנסות קישור אחר";
     else if (document.getElementById("zoomCheckBox").checked) {
       if (
         !validURL(document.getElementsByName("activity_zoom")[0].value) ||
@@ -134,7 +134,7 @@ export default function UploadResponsiveDialog(props) {
       document.getElementsByName("activityCount")[0].value < 1 ||
       document.getElementsByName("activityCount")[0].value === ""
     )
-      return "כמות פעילויות לא חוקית";
+      return "יש להכניס לפחות מפגש אחד";
     var date_map = Array.from(document.getElementsByName("dates")).map(
       (date) => date.value
     );
@@ -142,13 +142,13 @@ export default function UploadResponsiveDialog(props) {
     var temp;
     for (var i = 0; i < date_map.length; i++) {
       temp = dates_class.convert(date_map[i]);
-      if (dates_class.compare(current_time, temp) == 1) return "תאריך לא חוקי";
+      if (dates_class.compare(current_time, temp) == 1) return "יש להכניס מועד עתידי";
     }
     if (
       document.getElementsByName("activity_description")[0].value.length < 10 ||
       document.getElementsByName("activity_description")[0].value === ""
     )
-      return "תיאור לא חוקי";
+      return "תיאור קצר מדי ";
     return "true";
   }
   function compare_dates(a, b) {
@@ -210,7 +210,7 @@ export default function UploadResponsiveDialog(props) {
   const handleClose = async () => {
     setOpen(false);
     await createActivity().then(
-      swal("", "בקשתך התקבלה בהצלחה, אנא המתן לאישור מנהל", "success", {
+      swal("", "פרטי הקורס התקבלו, הקורס יתווסף לאחר אישור מנהל", "success", {
         button: "אישור",
       })
     );
@@ -223,15 +223,6 @@ export default function UploadResponsiveDialog(props) {
   return (
     <div>
       <Button
-        startIcon={
-          <CloudUploadIcon
-            style={{
-              fill: "white",
-              maxWidth: "100px",
-              marginBottom: "11px",
-            }}
-          ></CloudUploadIcon>
-        }
         variant="outlined"
         style={{
           backgroundColor: "#132c33",
@@ -244,7 +235,7 @@ export default function UploadResponsiveDialog(props) {
         }}
         onClick={handleClickOpen}
       >
-        העלה
+        יצירת קורס
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -257,13 +248,13 @@ export default function UploadResponsiveDialog(props) {
           style={{ backgroundColor: "#d8e3e7" }}
         >
           {" "}
-          <b style={{ color: "#132c33" }}>אישור העלאת תוכן</b>
+          <b style={{ color: "#132c33" }}>אישור יצירת קורס</b>
         </DialogTitle>
         <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
           <DialogContentText
             style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}
           >
-            ?האם את/ה בטוח/ה שפרטי הפעילות שהזנת תואמים את הפעילות
+            בלחיצה על "אישור" פרטי הקורס ישלחו לבדיקה, במידה והפרטים תקינים הקורס יאושר
           </DialogContentText>
         </DialogContent>
         <DialogActions style={{ backgroundColor: "#d8e3e7" }}>
@@ -275,7 +266,7 @@ export default function UploadResponsiveDialog(props) {
               paddingBottom: "15px", borderRadius: "10px"
             }}
           >
-            בטל&nbsp;העלאה
+            ביטול
           </Button>
           <Button
             onClick={handleClose}
@@ -285,7 +276,7 @@ export default function UploadResponsiveDialog(props) {
             }}
             autoFocus
           >
-            אשר&nbsp;העלאה
+            אישור
           </Button>
         </DialogActions>
       </Dialog>

@@ -36,14 +36,14 @@ const columns = [
     },
     {
         id: "score",
-        label: "נקודות ורמה  ",
+        label: "ניקוד  ",
         minWidth: 120,
         maxWidth: 130,
         align: "center",
     },
     {
         id: "email",
-        label: "אימייל התלמיד",
+        label: "דוא\"ל",
         minWidth: 130,
         maxWidth: 130,
         align: "center",
@@ -51,14 +51,14 @@ const columns = [
     },
     {
         id: "phoneNumber",
-        label: "פלאפון התלמיד",
+        label: "טלפון",
         minWidth: 120,
         maxWidth: 120,
         align: "center",
     },
     {
         id: "name",
-        label: "שם ספק התוכן",
+        label: "שם",
         minWidth: 120,
         maxWidth: 130,
         align: "center",
@@ -184,6 +184,7 @@ export default function UserInfo(props) {
     useEffect(() => {
         fetchActivitiesFeedbacks();
     }, []);
+
     const rows = users.map((user, index) => {
         const grades = [0, 50, 100, 300, 700, 1500, 3100, 4700];
         var level = 0;
@@ -198,7 +199,7 @@ export default function UserInfo(props) {
             user.email,
             <div>
                 <p>
-                    ניקוד : {grades[level]} / {user.score}
+                    ניקוד : {level === 0 ? grades[level] : grades[level] - grades[level - 1]} / {level === 0 ? user.score : user.score - grades[level - 1]}
                 </p>
                 <p>
                     רמה : {level}
@@ -211,9 +212,7 @@ export default function UserInfo(props) {
                 <WatchUserActivityProgress
                     idx={index}
                     email={user.email}
-                    givenName={user.givenName}
-                    familyName={user.familyName}
-                    groupName={user.groupName}
+                    name={user.name}
                 />
             </div>
         );

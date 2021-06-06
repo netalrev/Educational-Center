@@ -31,28 +31,28 @@ const columns = [
   { id: "buttons", label: "", minWidth: 110, maxWidth: 110, align: "center" },
   {
     id: "ActivityName",
-    label: "שם הפעילות",
+    label: "שם הקורס",
     minWidth: 130,
     maxWidth: 130,
     align: "center",
   },
   {
     id: "email",
-    label: "אימייל משתתף",
+    label: "דוא\"ל",
     minWidth: 120,
     maxWidth: 170,
     align: "center",
   },
   {
     id: "phoneNumber",
-    label: "פלאפון משתתף",
+    label: "טלפון",
     minWidth: 120,
     maxWidth: 120,
     align: "center",
   },
   {
     id: "name",
-    label: "שם המשתתף",
+    label: "שם",
     minWidth: 120,
     maxWidth: 130,
     align: "center",
@@ -142,14 +142,14 @@ export default function ManageCardUsers(props) {
       return d.constructor === Date
         ? d
         : d.constructor === Array
-        ? new Date(d[0], d[1], d[2])
-        : d.constructor === Number
-        ? new Date(d)
-        : d.constructor === String
-        ? new Date(d)
-        : typeof d === "object"
-        ? new Date(d.year, d.month, d.date)
-        : NaN;
+          ? new Date(d[0], d[1], d[2])
+          : d.constructor === Number
+            ? new Date(d)
+            : d.constructor === String
+              ? new Date(d)
+              : typeof d === "object"
+                ? new Date(d.year, d.month, d.date)
+                : NaN;
     },
     compare: function (a, b) {
       // Compare two dates (could be of any type supported by the convert
@@ -204,8 +204,8 @@ export default function ManageCardUsers(props) {
         ).length === 0
           ? null
           : allApprovedActivitiess.filter(
-              (activity) => activity.id === user.activity_id
-            )[0].title,
+            (activity) => activity.id === user.activity_id
+          )[0].title,
         <div>
           <ApproveResponsiveDialogUser id={user.id} />
           <br></br>

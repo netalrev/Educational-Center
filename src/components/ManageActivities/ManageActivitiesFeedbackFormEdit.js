@@ -124,9 +124,6 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
           if (props.id === activity.activity_id && activity.date === props.date) {
             return (
               <div>
-                <h4>{activity.title}</h4>
-                <h4>בתאריך: {activity.date.substring(0, 10)}</h4>
-                <h4>בשעה: {activity.date.substring(11)}</h4>
                 <div
                   style={{
                     /*display: "flex",
@@ -161,7 +158,7 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                                   component="legend"
                                   style={{ color: "#132c33", }}
                                 >
-                                  נוכחות במפגש
+                                  נוכחות
                               </FormLabel>
                                 <RadioGroup
                                   row
@@ -190,7 +187,7 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                                   component="legend"
                                   style={{ color: "#132c33" }}
                                 >
-                                  השתתפות במפגש
+                                  השתתפות
                               </FormLabel>
                                 <RadioGroup
                                   row
@@ -238,7 +235,7 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                                   component="legend"
                                   style={{ color: "#132c33" }}
                                 >
-                                  תרומה למפגש
+                                  תרומה
                               </FormLabel>
                                 <RadioGroup
                                   row

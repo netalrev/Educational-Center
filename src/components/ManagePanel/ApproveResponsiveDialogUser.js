@@ -72,7 +72,7 @@ export default function ApproveResponsiveDialogActivity(props) {
   const handleClose = async () => {
     setOpen(false);
     await approveUser(props.id);
-    await deleteSinglePendingUser(props.id).then(swal("", "המשתתף אושר בהצלחה", "success", {
+    await deleteSinglePendingUser(props.id).then(swal("", "השתתפות אושרה", "success", {
       button: "אישור",
     }));
     window.location.reload(false);
@@ -101,7 +101,7 @@ export default function ApproveResponsiveDialogActivity(props) {
         }}
         onClick={handleClickOpen}
       >
-        אשר
+        אישור
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -113,11 +113,11 @@ export default function ApproveResponsiveDialogActivity(props) {
           id="responsive-dialog-title"
           style={{ backgroundColor: "#d8e3e7" }}
         >
-          <b style={{ color: "#132c33" }}>אישור משתתף</b>
+          <b style={{ color: "#132c33" }}>אישור השתתפות</b>
         </DialogTitle>
         <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
           <DialogContentText style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}>
-            ?האם את/ה בטוח/ה שברצונך לאשר את המשתתפ/ת
+            בלחיצה על "אישור" קישור הזום יהיה זמין למשתתף או המשתתפת
           </DialogContentText>
         </DialogContent>
         <DialogActions style={{ backgroundColor: "#d8e3e7" }}>
@@ -129,7 +129,7 @@ export default function ApproveResponsiveDialogActivity(props) {
               paddingBottom: "15px", borderRadius: "10px"
             }}
           >
-            בטל
+            ביטול
           </Button>
           <Button
             onClick={handleClose}
@@ -139,7 +139,7 @@ export default function ApproveResponsiveDialogActivity(props) {
             }}
             autoFocus
           >
-            אשר
+            אישור
           </Button>
         </DialogActions>
       </Dialog>

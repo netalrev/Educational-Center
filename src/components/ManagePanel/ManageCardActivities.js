@@ -36,46 +36,46 @@ const columns = [
     align: "center",
   },
   {
-    id: "dates",
-    label: "תארכי מפגשים",
-    minWidth: 170,
-    maxWidth: 170,
-    align: "center",
-  },
-  {
-    id: "description",
-    label: "תיאור הפעילות",
-    minWidth: 170,
-    maxWidth: 200,
-    align: "center",
-  },
-  {
     id: "email",
-    label: "אימייל ספק התוכן",
+    label: "דוא\"ל מרצה",
     minWidth: 130,
     maxWidth: 130,
     align: "center",
     color: "white",
   },
   {
-    id: "activityName",
-    label: "שם הפעילות",
-    minWidth: 120,
-    maxWidth: 170,
-    align: "center",
-  },
-  {
     id: "phoneNumber",
-    label: "פלאפון ספק התוכן",
+    label: "טלפון מרצה",
     minWidth: 120,
     maxWidth: 120,
     align: "center",
   },
   {
     id: "name",
-    label: "שם ספק התוכן",
+    label: "שם המרצה",
     minWidth: 120,
     maxWidth: 130,
+    align: "center",
+  },
+  {
+    id: "dates",
+    label: "מועדי הקורס",
+    minWidth: 170,
+    maxWidth: 170,
+    align: "center",
+  },
+  {
+    id: "description",
+    label: "תיאור הקורס",
+    minWidth: 170,
+    maxWidth: 200,
+    align: "center",
+  },
+  {
+    id: "activityName",
+    label: "שם הקורס",
+    minWidth: 120,
+    maxWidth: 170,
     align: "center",
   },
 ];
@@ -142,14 +142,14 @@ export default function ManageCardActivities(props) {
       return d.constructor === Date
         ? d
         : d.constructor === Array
-        ? new Date(d[0], d[1], d[2])
-        : d.constructor === Number
-        ? new Date(d)
-        : d.constructor === String
-        ? new Date(d)
-        : typeof d === "object"
-        ? new Date(d.year, d.month, d.date)
-        : NaN;
+          ? new Date(d[0], d[1], d[2])
+          : d.constructor === Number
+            ? new Date(d)
+            : d.constructor === String
+              ? new Date(d)
+              : typeof d === "object"
+                ? new Date(d.year, d.month, d.date)
+                : NaN;
     },
     compare: function (a, b) {
       // Compare two dates (could be of any type supported by the convert
@@ -217,9 +217,11 @@ export default function ManageCardActivities(props) {
           currentTime={props.currentTime}
           givenName={props.givenName}
           familyName={props.familyName}
+          title={activity.title}
         />
         <br></br>
         <DenyResponsiveDialogActivities
+          title={activity.title}
           groupName={props.groupName}
           currentTime={props.currentTime}
           type="pending"
@@ -242,6 +244,8 @@ export default function ManageCardActivities(props) {
           givenName={props.givenName}
           familyName={props.familyName}
           groupName={props.groupName}
+          title={activity.title}
+
         />
       </div>
     );

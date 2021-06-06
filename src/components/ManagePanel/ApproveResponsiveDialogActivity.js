@@ -97,7 +97,7 @@ export default function ApproveResponsiveDialogActivity(props) {
     setOpen(false);
     await approveActivity(props.id);
     await deleteSinglePending(props.id).then(
-      swal("", "התוכן אושר בהצלחה", "success", {
+      swal("", "הקורס אושר בהצלחה", "success", {
         button: "אישור",
       })
     );
@@ -130,7 +130,7 @@ export default function ApproveResponsiveDialogActivity(props) {
         }}
         onClick={handleClickOpen}
       >
-        אשר
+        אישור
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -142,13 +142,13 @@ export default function ApproveResponsiveDialogActivity(props) {
           id="responsive-dialog-title"
           style={{ backgroundColor: "#d8e3e7" }}
         >
-          <b style={{ color: "#132c33" }}>אישור העלאת תוכן</b>
+          <b style={{ color: "#132c33" }}>אישור קורס - {props.title}</b>
         </DialogTitle>
         <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
           <DialogContentText
             style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}
           >
-            ?האם את/ה בטוח/ה שפרטי הפעילות שהזנתם תואמים את הפעילות
+            בלחיצה על "אישור" הקורס יוצג בדף "קורסים" ויפתח להרשמה
           </DialogContentText>
         </DialogContent>
         <DialogActions style={{ backgroundColor: "#d8e3e7" }}>
@@ -160,7 +160,7 @@ export default function ApproveResponsiveDialogActivity(props) {
               paddingBottom: "15px", borderRadius: "10px"
             }}
           >
-            בטל&nbsp;העלאה
+            ביטול
           </Button>
           <Button
             onClick={handleClose}
@@ -170,7 +170,7 @@ export default function ApproveResponsiveDialogActivity(props) {
             }}
             autoFocus
           >
-            אשר&nbsp;העלאה
+            אישור
           </Button>
         </DialogActions>
       </Dialog>

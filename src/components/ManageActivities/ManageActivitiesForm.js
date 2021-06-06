@@ -132,7 +132,7 @@ export default function ManageActivitiesFormPending(props) {
       i < document.getElementsByName("activityCount")[0].value;
       i++
     ) {
-      var temp = "תאריך פעילות מספר :" + " " + (i + 1);
+      var temp = "מפגש :" + " " + (i + 1);
       var tzoffset = new Date().getTimezoneOffset() * 60000;
       toReturn.push(
         <tr>
@@ -177,18 +177,18 @@ export default function ManageActivitiesFormPending(props) {
           <div style={{ display: "flex", justifyContent: "center" }}>
             <table>
               <tr>
-                <FormElement name="name" title="שם הפעילות :" type="text" />
+                <FormElement name="name" title="שם הקורס :" type="text" />
               </tr>
               <tr>
                 <FormElement
                   name="activity_img"
-                  title="קישור לתמונה :"
+                  title="קישור לתמונת הקורס :"
                   type="text"
                   className={classes.textField}
                 />
               </tr>
               <tr>
-                מפגש בזום
+                הקורס יתבצע באופן מקוון
                 <Checkbox
                   label="Antoine Llorca"
                   id="zoomCheckBox"
@@ -206,7 +206,7 @@ export default function ManageActivitiesFormPending(props) {
               <tr>
                 <FormElement
                   name="activityCount"
-                  title="מספר פעילויות :"
+                  title="מספר מפגשים :"
                   type="number"
                   onChange={createDateInputs}
                 />
@@ -215,7 +215,7 @@ export default function ManageActivitiesFormPending(props) {
               <tr>
                 <TextField
                   id="outlined-multiline-static"
-                  label=": תיאור הפעילויות"
+                  label=": תיאור הקורס"
                   className={classes.textField}
                   name="activity_description"
                   multiline

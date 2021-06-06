@@ -35,10 +35,11 @@ export default function CancelParticipationResponsiveDialog(props) {
   const handleClose = async () => {
     setOpen(false);
     await deleteSingleUser(props.id).then(
-      swal("", "הסרתך התקבלה בהצלחה", "success", {
+      swal("", props.title + " הוסרת מקורס", "success", {
         button: "אישור",
       })
     );
+    window.location.reload(false);
   };
   const handleCancel = () => {
     setOpen(false);
@@ -67,7 +68,7 @@ export default function CancelParticipationResponsiveDialog(props) {
         }}
         onClick={handleClickOpen}
       >
-        בטל&nbsp;השתתפות
+        ביטול&nbsp;השתתפות
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -76,11 +77,11 @@ export default function CancelParticipationResponsiveDialog(props) {
         aria-labelledby="responsive-dialog-title"
       >
         <DialogTitle id="responsive-dialog-title" style={{ backgroundColor: "#d8e3e7" }}>
-          <b style={{ color: "#132c33" }}>ביטול השתתפות בפעילות</b>
+          <b style={{ color: "#132c33" }}>ביטול השתתפות בקורס - {props.title}</b>
         </DialogTitle>
         <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
           <DialogContentText style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}>
-            ?האם את/ה בטוח/ה שברצונך לבטל השתתפות
+            אושרת לקורס זה, בלחיצה על "הסרה" אישורך יבטול
           </DialogContentText>
         </DialogContent>
         <DialogActions style={{ backgroundColor: "#d8e3e7" }}>

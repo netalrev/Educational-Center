@@ -62,6 +62,7 @@ export default function UserProgressCard(props) {
     const [approvedActivities, setApprovedActivities] = useState([]);
     const [approvedUsers, setApprovedUsers] = useState([]);
     const [users, setUsers] = useState([]);
+    const [userInfo, setUserInfo] = useState([]);
 
     useEffect(() => {
         // Fetch for admins
@@ -81,6 +82,10 @@ export default function UserProgressCard(props) {
         // Fetch for admins
         fetchAllActivitiesFeedbacks();
     }, []);
+    useEffect(() => {
+        // Fetch for admins
+        fetchPersonalIDs();
+    }, [users, approvedUsers, allActivitiesFeedback]);
 
     const fetchUsers = async () => {
         try {
@@ -120,65 +125,66 @@ export default function UserProgressCard(props) {
             console.log("error on fetching approved activities", error);
         }
     };
+    const fetchPersonalIDs = async () => {
+        try {
+            if (users.length !== 0 && approvedUsers.length !== 0 && allActivitiesFeedback.length !== 0) {
+                var list = users.map(user => {
+                    var user_activities = approvedUsers.filter(user2 => user2.email === user.email);
+                    var email = user.email;
+                    var name = user.name;
+                    var activities_ids = user_activities.map(activity => {
+                        console.log(activity.title, activity.activity_id);
+                        return activity.activity_id
+                    });
+                    var toReturn = { email, name, activities_ids };
+                    return toReturn
+                });
+                console.log("LIST",);
+                list = list.filter(user => user.email === props.email)[0];
+                var existing_feedbacks = allActivitiesFeedback.map(feed => feed.activity_id);
+                console.log(list.activities_ids, existing_feedbacks);
+                var copy = [];
+                for (var i = 0; i < list.activities_ids.length; i++) {
+                    if (existing_feedbacks.includes(list.activities_ids[i])) {
+                        copy.push(list.activities_ids[i])
+                    }
+
+                }
+                list.activities_ids = copy;
+                // setUserInfo(list);
+                var courses = [];
+                var feedbacks = allActivitiesFeedback.filter(feedback => list.activities_ids.includes(feedback.activity_id));
+                list.activities_ids.forEach(id => {
+                    var attendance = 0;
+                    var contribute = 0;
+                    var participation = 0;
+                    var filtered = feedbacks.filter(feedback => feedback.activity_id === id);
+                    filtered.forEach(feedback => {
+                        console.log(feedback.form, "FORM", parseInt(feedback.form[0][4]))
+                        if (feedback.form[0][3] === "10") attendance += 1;
+                        if (feedback.form[0][4] !== "0") contribute += parseInt(feedback.form[0][4]) / 3;
+                        if (feedback.form[0][5] !== "0") participation += parseInt(feedback.form[0][5]) / 3;
+                    })
+                    courses.push({ id, attendance, contribute, participation })
+                });
+                console.log("COURSES", courses);
+                setUserInfo(courses);
+            }
+        }
+        catch (error) {
+            console.log("error on fetching personal ids", error);
+        }
+    }
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
-    console.log(users, "ASDASD");
-    var personal_activities_ids_for_users = users.map(user => {
-        var user_activities = approvedUsers.filter(user2 => user2.email === user.email);
-        var email = user.email;
-        var name = user.name;
-        var activities_ids = user_activities.map(activity => activity.activity_id);
-        var toReturn = [];
-        // toReturn.push(email);
-        // toReturn.push(name);
-        // toReturn.push(activities_ids);
-        return { email, name, activities_ids }
-        // return toReturn;
-    });
-    var personal_activities_for_users = personal_activities_ids_for_users.map(obj => {
-        var activities = [];
-        activities = approvedActivities.filter(activity => obj.activities_ids.includes(activity.id));
-        var email = obj.email;
-        var name = obj.name;
-        var toReturn = [];
 
-        // toReturn.push(email);
-        // toReturn.push(name);
-        // toReturn.push(activities);
-        // return toReturn;
-        return { email, name, activities }
-    });
-    var existing_feedbacks = allActivitiesFeedback.map(feed => feed.activity_id);
-    console.log("BEFO", allActivitiesFeedback, personal_activities_ids_for_users)
-    var student = personal_activities_ids_for_users.filter(user => user.email === props.email);
-    console.log("HEY", student, props.email);
-    student.forEach(user => {
-        for (var i = 0; i < user.activities_ids.length; i++) {
-            if (!existing_feedbacks.includes(user.activities_ids[i])) user.activities_ids.splice(i, 1);
-            i = 0;
-        }
-    })
-    console.log("STUDENT", student);
-    var courses = [];
-    student.forEach(user => {
-        var feedbacks = allActivitiesFeedback.filter(feedback => user.activities_ids.includes(feedback.activity_id));
-        console.log(feedbacks, "feed");
-        user.activities_ids.forEach(id => {
-            var attendance = 0;
-            var contribute = 0;
-            var participation = 0;
-            var filtered = feedbacks.filter(feedback => feedback.activity_id === id);
-            filtered.forEach(feedback => {
-                console.log(feedback.form, "FORM", parseInt(feedback.form[0][4]))
-                if (feedback.form[0][3] === "10") attendance += 1;
-                if (feedback.form[0][4] !== "0") contribute += parseInt(feedback.form[0][4]) / 3;
-                if (feedback.form[0][5] !== "0") participation += parseInt(feedback.form[0][5]) / 3;
-            })
-            courses.push({ id, attendance, contribute, participation })
-        })
-    })
+
+
+    // console.log(userInfo, "INFO");
+
+
     // if (idx !== -1) {
     //     if (user.form[0][3] === "10") {
     //         students[idx][3]++;
@@ -200,14 +206,13 @@ export default function UserProgressCard(props) {
         >
             <CardHeader title={text} />
             <CardContent>
-                {courses.map((course) => {
+                {userInfo.map((course) => {
                     var activity = approvedActivities.filter(elm => elm.id === course.id);
                     var toReturn;
                     activity.forEach(elm => {
                         toReturn = (
                             <div>
                                 <h4>{elm.title}</h4>
-                                {console.log(elm.title)}
                                 <div
                                     style={{
                                         display: "flex",
@@ -226,15 +231,15 @@ export default function UserProgressCard(props) {
                                                             borderRadius: "15px",
                                                             color: "white",
                                                             backgroundColor: "black",
+                                                            minWidth: "200px"
                                                         }}
                                                     >
-                                                        <h4>{elm.title}</h4>
                                                         <br></br>
-                                                        <h4>נכח:</h4> {course.attendance} / {elm.dates.length}
+                                                        <h4>נוכחות: {course.attendance} / {elm.dates.length}</h4>
                                                         <br></br>
-                                                        <h4>ציון עבור השתתפות : {elm.dates.length * 5} / {parseInt(course.participation)}</h4>
+                                                        <h4>השתתפות : 5 / {parseInt(course.participation) / elm.dates.length}</h4>
                                                         <br></br>
-                                                        <h4>ציון עבור תרומה : {elm.dates.length * 5} / {parseInt(course.contribute)}</h4>
+                                                        <h4>תרומה : 5 / {parseInt(course.contribute) / elm.dates.length}</h4>
                                                         <br></br>
                                                     </div>
                                                     <br></br>

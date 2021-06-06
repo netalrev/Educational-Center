@@ -30,7 +30,7 @@ export default function ManagePanel(props) {
         groupName={props.groupName}
         email={props.email}
         currentTime={dateAndTime}
-        title="פעילויות שטרם אושרו"
+        title="קורסים הממתינים לאישור"
         style={{ textAlign: "center", align: "center" }}
       />
       <DeleteEditApprovedForAdmin
@@ -38,25 +38,25 @@ export default function ManagePanel(props) {
         currentTime={dateAndTime}
         type="pending"
         email={props.email}
-        title="פעיליות שאושרו"
+        title="קורסים מאושרים"
       />
       <ManageCardUsers
         currentTime={dateAndTime}
         groupName={props.groupName}
-        title="אישור משתתפים לפעילויות"
-      />
-      <ManageCardActivitiesFeedback
-        groupName={props.groupName}
-        email={props.email}
-        currentTime={dateAndTime}
-        title="משובים"
-        style={{ textAlign: "center", align: "center" }}
+        title="משתתפים הממתינים לאישור"
       />
       <UserInfo
         groupName={props.groupName}
         email={props.email}
         currentTime={dateAndTime}
-        title="תלמידים"
+        title="משובים לפי משתתפים"
+        style={{ textAlign: "center", align: "center" }}
+      />
+      <ManageCardActivitiesFeedback
+        groupName={props.groupName}
+        email={props.email}
+        currentTime={dateAndTime}
+        title="משובים לפי מפגש בקורס"
         style={{ textAlign: "center", align: "center" }}
       />
     </div>

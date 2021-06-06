@@ -110,14 +110,14 @@ async function signUp() {
         // other custom attributes
       },
     });
-    swal("", "קוד לאישור הרשמה נשלח אל כתובת המייל שלך", "success", {
+    swal("", "קוד לאישור הרשמה נשלח אל כתובת הדוא\"ל שלך", "success", {
       button: "אישור",
     });
     window.$mail = username;
     history.push("/ConfirmSignUp");
   } catch (error) {
     if (/[^א-תa-zA-Z]/.test(given_name) || /[^א-תa-zA-Z]/.test(family_name)) {
-      swal("", "שם פרטי/משפחה לא חוקי", "error", {
+      swal("", "שם פרטי/משפחה לא תקין", "error", {
         button: "אישור",
       });
     } else if (
@@ -125,30 +125,29 @@ async function signUp() {
       isNaN(phone_number.substring(1)) ||
       phone_number.length !== 14
     ) {
-      swal("", "מספר פלאפון לא חוקי", "error", {
+      swal("", "מספר טלפון לא תקין", "error", {
         button: "אישור",
       });
     } else if (
       birthdate.toString() == "1900-01-01" ||
       parseInt(birthdate.toString().split("-")[0]) <= 1901
     ) {
-      swal("", "תאריך לידה לא חוקי", "error", {
+      swal("", "תאריך לידה לא תקין", "error", {
         button: "אישור",
       });
     } else if (password.length < 8) {
-      swal("", "אנא הכנס סיסמה באורך לפחות 8 תווים", "error", {
+      swal("", "סיסמה קצרה מדי, יש להכנס סיסמה באורך 8 תווים לפחות", "error", {
         button: "אישור",
       });
     } else if (error.name == "UsernameExistsException") {
-      swal("", "אימייל זה כבר קיים במערכת", "error", {
+      swal("", "דוא\"ל זה כבר קיים במערכת", "error", {
         button: "אישור",
       });
     } else {
-      swal("", "אנא וודא שהפרטים נכונים", "error", {
+      swal("", "יש לוודא שהפרטים נכונים", "error", {
         button: "אישור",
       });
     }
-    console.log("שגיאת הרשמה", error);
   }
 }
 
@@ -251,7 +250,7 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="email"
-                label="כתובת אימייל"
+                label="כתובת מייל"
                 name="email"
                 autoComplete="email"
               />
@@ -317,9 +316,7 @@ export default function SignUp() {
           </Grid>
         </form>
       </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
+      <br></br>
     </Container>
   );
 }
