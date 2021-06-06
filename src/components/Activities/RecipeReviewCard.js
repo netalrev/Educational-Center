@@ -136,6 +136,8 @@ export default function RecipeReviewCard(props) {
       var filteredUsers = approvedUsers.filter(
         (user) => user.activity_id === props.id
       );
+      console.log(props.id, "I WANT 21");
+
       filteredUsers.map((element) => {
         var student = [];
         student.push(element.name);
@@ -149,6 +151,7 @@ export default function RecipeReviewCard(props) {
       });
       var zoomLink = "";
       if (props.zoom.length > 0) zoomLink = props.zoom;
+
       const activityFeedback = {
         id: IDs.length == 0 ? 0 : IDs[IDs.length - 1] + 1,
         owner: props.owner,
@@ -180,7 +183,7 @@ export default function RecipeReviewCard(props) {
         )[0].phone_number,
         form: new_form,
       };
-      console.log(activityFeedback);
+      // console.log("HELLO", activityFeedback);
       await API.graphql(
         graphqlOperation(createActivityFeedback, { input: activityFeedback })
       );
@@ -203,14 +206,14 @@ export default function RecipeReviewCard(props) {
       return d.constructor === Date
         ? d
         : d.constructor === Array
-        ? new Date(d[0], d[1], d[2])
-        : d.constructor === Number
-        ? new Date(d)
-        : d.constructor === String
-        ? new Date(d)
-        : typeof d === "object"
-        ? new Date(d.year, d.month, d.date)
-        : NaN;
+          ? new Date(d[0], d[1], d[2])
+          : d.constructor === Number
+            ? new Date(d)
+            : d.constructor === String
+              ? new Date(d)
+              : typeof d === "object"
+                ? new Date(d.year, d.month, d.date)
+                : NaN;
     },
     compare: function (a, b) {
       // Compare two dates (could be of any type supported by the convert
@@ -263,21 +266,21 @@ export default function RecipeReviewCard(props) {
         (activity) =>
           activity.activity_id === props.id &&
           activity.date ===
-            props.dates.filter(
-              (date) =>
-                dates_class.compare(
-                  dates_class.convert(props.currentTime),
-                  dates_class.convert(date)
-                ) >= 0 &&
-                dates_class.compare(
-                  dates_class.convert(props.currentTime),
-                  dates_class.convert(
-                    dates_class
-                      .convert(date)
-                      .setMinutes(dates_class.convert(date).getMinutes() + 20)
-                  )
-                ) <= 0
-            )[0]
+          props.dates.filter(
+            (date) =>
+              dates_class.compare(
+                dates_class.convert(props.currentTime),
+                dates_class.convert(date)
+              ) >= 0 &&
+              dates_class.compare(
+                dates_class.convert(props.currentTime),
+                dates_class.convert(
+                  dates_class
+                    .convert(date)
+                    .setMinutes(dates_class.convert(date).getMinutes() + 20)
+                )
+              ) <= 0
+          )[0]
       ).length === 0
     )
       createActivityF();
@@ -298,7 +301,7 @@ export default function RecipeReviewCard(props) {
           ).length === 0
         )
           createActivityF();
-        return <h3 style={{ color: "green" }}>הפעילות התחילה</h3>;
+        return <h3 style={{ color: "green" }}>המפגש התחיל</h3>;
       }
     } else if (
       dates_class.compare(
@@ -312,11 +315,11 @@ export default function RecipeReviewCard(props) {
           )
       ) >= 0
     ) {
-      return <h3 style={{ color: "red" }}>הפעילות הסתיימה</h3>;
+      return <h3 style={{ color: "red" }}>הקורס הסתיים</h3>;
     } else if (props.groupName !== "approvedUsers" && props.zoom !== "") {
       return <OpenZoomLink zoom={props.zoom} />;
     } else if (props.groupName !== "approvedUsers") {
-      return <h3 style={{ color: "#d8e3e7" }}>פעילות פרונטלית</h3>;
+      return <h3 style={{ color: "#d8e3e7" }}>קורס לא מקוון</h3>;
     } else if (
       approvedUsers
         .filter((users) => users.activity_id === props.id)
@@ -343,7 +346,7 @@ export default function RecipeReviewCard(props) {
       if (props.zoom !== "") {
         return <h3 style={{ color: "green" }}>הקישור יפתח במפגש הבא</h3>;
       } else {
-        return <h3 style={{ color: "green" }}>אנא המתן למפגש הבא</h3>;
+        return <h3 style={{ color: "green" }}>יש להמתין למפגש הבא</h3>;
       }
     } else if (
       pendingUsers
@@ -354,6 +357,7 @@ export default function RecipeReviewCard(props) {
     ) {
       return (
         <CancelRegisterResponsiveDialogActivities
+          title={props.title}
           id={
             pendingUsers
               .filter((users) => users.activity_id === props.id)
@@ -373,6 +377,7 @@ export default function RecipeReviewCard(props) {
     ) {
       return (
         <CancelParticipationResponsiveDialogActivities
+          title={props.title}
           id={
             approvedUsers
               .filter((users) => users.activity_id === props.id)
@@ -391,6 +396,7 @@ export default function RecipeReviewCard(props) {
           familyName={props.familyName}
           phoneNumber={props.phoneNumber}
           id={props.id}
+          title={props.title}
         />
       );
     }
@@ -419,7 +425,7 @@ export default function RecipeReviewCard(props) {
         }
         subheader={
           <Typography className={classes.subColor}>
-            ע"י: {props.owner}
+            מרצה: {props.owner}
           </Typography>
         }
       />
@@ -469,15 +475,14 @@ export default function RecipeReviewCard(props) {
                     }}
                   >
                     <PeopleAltIcon
-                      style={{ fill: "rgba(60,60,60)", marginInlineEnd: 10 }}
+                      style={{ fill: "white", marginInlineEnd: 10 }}
                     ></PeopleAltIcon>
-                    <h3>
-                      כמות משתתפים:{" "}
+                    <h3 style={{ color: "white" }}>
                       {
                         approvedUsers.filter(
                           (users) => users.activity_id === props.id
                         ).length
-                      }
+                      } משתתפים
                     </h3>
                   </div>
                   <br></br>
@@ -486,40 +491,43 @@ export default function RecipeReviewCard(props) {
                   ).length !== 0 ? (
                     <table style={{ margin: "0 auto" }}>
                       <th> </th>
-                      <th className="nameOfStudent">:שם התלמיד/ה</th>
+                      <th className="nameOfStudent">:משתתפים</th>
                       {approvedUsers
                         .filter((users) => users.activity_id === props.id)
                         .map((user) => (
                           <tr className="nameOfStudent">
-                            <td style={{ width: 150 }}>
-                              <CancelParticipationResponsiveDialogActivitiesManager
-                                id={
-                                  approvedUsers
-                                    .filter(
-                                      (users2) =>
-                                        users2.activity_id === props.id
-                                    )
-                                    .filter(
-                                      (users2) => users2.name === user.name
-                                    )[0].id
-                                }
-                              />
-                            </td>
+                            {props.groupName === "admins" ?
+                              <td style={{ width: 140 }}>
+                                <CancelParticipationResponsiveDialogActivitiesManager
+                                  title={props.title}
+                                  name={user.name}
+                                  id={
+                                    approvedUsers
+                                      .filter(
+                                        (users2) =>
+                                          users2.activity_id === props.id
+                                      )
+                                      .filter(
+                                        (users2) => users2.name === user.name
+                                      )[0].id
+                                  }
+                                />
+                              </td>
+                              :
+                              <td style={{ width: 140 }}></td>}
                             <td style={{ width: 130 }}>{user.name}</td>
                           </tr>
                         ))}
                     </table>
                   ) : (
-                    ""
+                    console.log("")
                   )}
                 </div>
               ) : (
                 ""
               )}
               <Typography variant="body2" color="#d8e3e7" component="p">
-                <h3>מספר מפגשים: {props.activityCount}</h3>
-                <br></br>
-                <h3>:תאריכים</h3>
+                <h3 style={{ color: "white" }}>מספר מפגשים: {props.activityCount}</h3>
                 <br></br>
                 {props.dates.map((date, index) => {
                   return (
@@ -534,7 +542,7 @@ export default function RecipeReviewCard(props) {
                 })}
               </Typography>
             </Typography>
-            <h3>:תיאור הפעילות</h3>
+            <h3 style={{ color: "white" }}>:תיאור הקורס</h3>
             <br></br>
             <Typography className="actDesc">{props.description}</Typography>
             <br></br>

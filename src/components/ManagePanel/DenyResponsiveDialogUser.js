@@ -32,7 +32,7 @@ export default function DenyResponsiveDialogUser(props) {
 
   const handleClose = async () => {
     setOpen(false);
-    await deleteSingleUser(props.id).then(swal("", "הסרת המשתתף התקבלה בהצלחה", "success", {
+    await deleteSingleUser(props.id).then(swal("", "דחית השתתפות בקורס", "success", {
       button: "אישור",
     }));
     window.location.reload(false);
@@ -60,7 +60,7 @@ export default function DenyResponsiveDialogUser(props) {
         }}
         onClick={handleClickOpen}
       >
-        דחה
+        דחיה
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -70,35 +70,35 @@ export default function DenyResponsiveDialogUser(props) {
       >
         <DialogTitle
           id="responsive-dialog-title"
-          style={{ color: "red", backgroundColor: "black" }}
+          style={{ backgroundColor: "#d8e3e7" }}
         >
-          <b>ביטול הרשמה לפעילות</b>
+          <b style={{ color: "#132c33" }}>דחית הרשמה לקורס</b>
         </DialogTitle>
-        <DialogContent style={{ backgroundColor: "black" }}>
-          <DialogContentText style={{ color: "white" }}>
-            ?האם את/ה בטוח/ה שברצונך לדחות הרשמה של משתתפ/ת זה
+        <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
+          <DialogContentText style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}>
+            בלחיצה על "דחיה" השתתפות זאת תדחה, ניתן יהיה להירשם מחדש לקורס
           </DialogContentText>
         </DialogContent>
-        <DialogActions style={{ backgroundColor: "black" }}>
+        <DialogActions style={{ backgroundColor: "#d8e3e7" }}>
           <Button
             autoFocus
             onClick={handleCancel}
             style={{
-              backgroundColor: "red", maxHeight: "40px",
-              paddingBottom: "15px", border: "3px solid red",
+              backgroundColor: "#132c33", maxHeight: "40px",
+              paddingBottom: "15px", borderRadius: "10px"
             }}
           >
-            חזור
+            חזרה
           </Button>
           <Button
             onClick={handleClose}
             style={{
-              backgroundColor: "green", maxHeight: "40px",
-              paddingBottom: "15px", border: "3px solid green",
+              backgroundColor: "#132c33", maxHeight: "40px",
+              paddingBottom: "15px", borderRadius: "10px"
             }}
             autoFocus
           >
-            ביטול&nbsp;הרשמה
+            דחיה
           </Button>
         </DialogActions>
       </Dialog>

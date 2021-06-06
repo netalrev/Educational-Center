@@ -72,7 +72,7 @@ export default function ApproveResponsiveDialogActivity(props) {
   const handleClose = async () => {
     setOpen(false);
     await approveUser(props.id);
-    await deleteSinglePendingUser(props.id).then(swal("", "המשתתף אושר בהצלחה", "success", {
+    await deleteSinglePendingUser(props.id).then(swal("", "השתתפות אושרה", "success", {
       button: "אישור",
     }));
     window.location.reload(false);
@@ -101,7 +101,7 @@ export default function ApproveResponsiveDialogActivity(props) {
         }}
         onClick={handleClickOpen}
       >
-        אשר
+        אישור
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -111,35 +111,35 @@ export default function ApproveResponsiveDialogActivity(props) {
       >
         <DialogTitle
           id="responsive-dialog-title"
-          style={{ color: "red", backgroundColor: "#000000" }}
+          style={{ backgroundColor: "#d8e3e7" }}
         >
-          <b>אישור משתתף</b>
+          <b style={{ color: "#132c33" }}>אישור השתתפות</b>
         </DialogTitle>
-        <DialogContent style={{ backgroundColor: "#000000" }}>
-          <DialogContentText style={{ color: "#ffffff" }}>
-            ?האם את/ה בטוח/ה שברצונך לאשר את המשתתפ/ת
+        <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
+          <DialogContentText style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}>
+            בלחיצה על "אישור" קישור הזום יהיה זמין למשתתף או המשתתפת
           </DialogContentText>
         </DialogContent>
-        <DialogActions style={{ backgroundColor: "#000000" }}>
+        <DialogActions style={{ backgroundColor: "#d8e3e7" }}>
           <Button
             autoFocus
             onClick={handleCancel}
             style={{
-              backgroundColor: "red", maxHeight: "40px",
-              paddingBottom: "15px", border: "3px solid red",
+              backgroundColor: "#132c33", maxHeight: "40px",
+              paddingBottom: "15px", borderRadius: "10px"
             }}
           >
-            בטל
+            ביטול
           </Button>
           <Button
             onClick={handleClose}
             style={{
-              backgroundColor: "green", maxHeight: "40px",
-              paddingBottom: "15px", border: "3px solid green",
+              backgroundColor: "#132c33", maxHeight: "40px",
+              paddingBottom: "15px", borderRadius: "10px"
             }}
             autoFocus
           >
-            אשר
+            אישור
           </Button>
         </DialogActions>
       </Dialog>

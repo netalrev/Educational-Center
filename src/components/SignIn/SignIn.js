@@ -19,31 +19,6 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
 
-function Copyright() {
-  return (
-    <Typography
-      variant="body2"
-      align="center"
-      style={{
-        color: "#132c33",
-        padding: "20px",
-      }}
-    >
-      {"Copyright © "}
-      <Link
-        style={{
-          color: "#132c33",
-        }}
-        href="#"
-      >
-        המרחב החינוכי השלם
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     display: "flex",
@@ -113,26 +88,25 @@ async function signIn() {
   } catch (error) {
     history.push("/register");
     if (username == "" || username == null) {
-      swal(" ", "אנא מלא אימייל", "error", {
+      swal(" ", "יש להזין דוא\"ל", "error", {
         button: "אישור",
       });
     } else if (password == "" || password == null) {
-      swal(" ", "אנא מלא סיסמה", "error", {
+      swal(" ", "יש להזין סיסמה", "error", {
         button: "אישור",
       });
     } else if (password.length < 8) {
-      swal(" ", "סיסמה קצרה מ-8 תווים", "error", {
+      swal(" ", "סיסמה קצרה מדי, יש להזין 8 תווים לפחות", "error", {
         button: "אישור",
       });
     } else if (error.name == "UserNotFoundException") {
-      swal(" ", "אימייל זה אינו רשום לאתר", "error", {
+      swal(" ", "דוא\"ל זה אינו רשום במערכת, יש להרשם או לפנות למנהלי האתר", "error", {
         button: "אישור",
       });
     } else
-      swal(" ", "סיסמה/אימייל אינם נכונים", "error", {
+      swal(" ", "אחד מהפרטים אינם נכונים", "error", {
         button: "אישור",
       });
-    console.log("שגיאת התחברות", error);
   }
 }
 export default function SignIn() {
@@ -141,7 +115,6 @@ export default function SignIn() {
   history = useHistory();
 
   function doSomething(e) {
-    console.log("Loggin in....");
     username = document.getElementById("email").value;
     password = document.getElementById("password").value;
     signIn();
@@ -160,7 +133,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5" style={{
           color: "#132c33",
         }}>
-          כניסה
+          ברוכים הבאים למרחב החינוכי השלם
         </Typography>
         <form className={classes.form} onSubmit={doSomething} noValidate>
           <TextField
@@ -170,7 +143,7 @@ export default function SignIn() {
             required
             fullWidth
             id="email"
-            label="כתובת אימייל"
+            label="כתובת מייל"
             name="email"
             autoComplete="email"
             autoFocus
@@ -201,7 +174,7 @@ export default function SignIn() {
             variant="contained"
             className={classes.submit}
           >
-            התחבר
+            התחברות
           </Button>
           <Grid container>
             <Grid item xs>
@@ -212,7 +185,7 @@ export default function SignIn() {
                   color: "#132c33",
                 }}
               >
-                שכחתי את הסיסמה
+                שכחתי סיסמה
               </Link>
             </Grid>
             <Grid item>
@@ -223,15 +196,12 @@ export default function SignIn() {
                   color: "#132c33",
                 }}
               >
-                {"לא רשום? לחץ כאן להרשמה"}
+                {"אין לי חשבון, להרשמה"}
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
     </Container>
   );
 }

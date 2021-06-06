@@ -24,23 +24,18 @@ export default function FillResponsiveDialogActivitiesFeedback(props) {
   return (
     <div>
       <Button
-        startIcon={<EditIcon style={{
-          fill: "white",
-          maxWidth: "100px",
-          marginBottom: "10px"
-        }}></EditIcon>}
         variant="outlined"
         style={{
-          fill: "rgba(3, 3, 3, 0.5)",
-          backgroundColor: "green",
+          backgroundColor: "#51c4d3",
+          border: "3px solid #51c4d3",
+          color: "#d8e3e7",
           maxHeight: "40px",
           paddingBottom: "15px",
-          border: "3px solid green",
-
+          borderRadius: "10px",
         }}
         onClick={handleClickOpen}
       >
-        השלם
+        מילוי משוב
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -51,14 +46,16 @@ export default function FillResponsiveDialogActivitiesFeedback(props) {
       >
         <DialogTitle
           id="responsive-dialog-title"
-          style={{ color: "red", backgroundColor: "black" }}
+          style={{ backgroundColor: "#d8e3e7" }}
         >
-          <b>משוב פעילות עבור {props.title}</b>
+          <b style={{ color: "#132c33" }}>משוב עבור {props.title}</b>
         </DialogTitle>
-        <DialogContent style={{ backgroundColor: "black", color: "white" }}>
+        <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
           <DialogContentText
-            style={{ backgroundColor: "black", color: "white" }}
+            style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}
           >
+            <p>תאריך: {props.date.substring(0, 10)}</p>
+            <p>שעה: {props.date.substring(11)}</p>
             <ManageActivitiesFeedbackFormEdit
               groupName={props.groupName}
               date={props.date}
@@ -69,16 +66,16 @@ export default function FillResponsiveDialogActivitiesFeedback(props) {
             />
           </DialogContentText>
         </DialogContent>
-        <DialogActions style={{ backgroundColor: "black" }}>
+        <DialogActions style={{ backgroundColor: "#d8e3e7" }}>
           <Button
             autoFocus
             onClick={handleCancel}
             style={{
-              fill: "rgba(60,60,60)", backgroundColor: "red", maxHeight: "40px",
-              paddingBottom: "15px", border: "3px solid red",
+              backgroundColor: "#132c33", maxHeight: "40px",
+              paddingBottom: "15px", borderRadius: "10px"
             }}
           >
-            בטל
+            חזרה
           </Button>
         </DialogActions>
       </Dialog>

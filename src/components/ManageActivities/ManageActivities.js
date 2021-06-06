@@ -36,16 +36,9 @@ export default function ManageActivities(props) {
         familyName={props.familyName}
         id="1"
         currentTime={dateAndTime}
-        title="העלאת תוכן"
+        title="יצירת קורס חדש"
       />
       {props.groupName === "admins" ? (
-        // <DeleteEditPendingForAdmin
-        //   groupName={props.groupName}
-        //   type="pending"
-        //   email={props.email}
-        //   currentTime={dateAndTime}
-        //   title="פעילויות שטרם אושרו"
-        // />
         console.log()
       ) : (
         <DeleteEditPendingForContectSupplier
@@ -53,34 +46,28 @@ export default function ManageActivities(props) {
           type="pending"
           email={props.email}
           currentTime={dateAndTime}
-          title="פעילויות שטרם אושרו"
+          title="קורסים ממתינים לאישור הנהלה"
         />
       )}
-      {props.groupName === "admins" ? (
-        // <DeleteEditApprovedForAdmin
-        //   groupName={props.groupName}
-        //   type="approved"
-        //   email={props.email}
-        //   currentTime={dateAndTime}
-        //   title="פעיליות שאושרו"
-        // />
+      {props.groupName === "admins" ?
         console.log()
-      ) : (
-        <DeleteEditApprovedForContectSupplier
-          groupName={props.groupName}
-          type="approved"
-          email={props.email}
-          currentTime={dateAndTime}
-          title="פעיליות שאושרו"
-        />
-      )}
+        :
+        (
+          <DeleteEditApprovedForContectSupplier
+            groupName={props.groupName}
+            type="approved"
+            email={props.email}
+            currentTime={dateAndTime}
+            title="הקורסים שלי"
+          />
+        )}
       <ActivityFeedbackForAdmin
         groupName={props.groupName}
         phoneNumber={props.phoneNumber}
         type="approved"
         email={props.email}
         currentTime={dateAndTime}
-        title="משוב פעילויות"
+        title="משובים הממתינים לשליחה"
       />
       <ActivityInfo
         groupName={props.groupName}
@@ -88,7 +75,7 @@ export default function ManageActivities(props) {
         type="approved"
         email={props.email}
         currentTime={dateAndTime}
-        title="מידע עבור פעילויות"
+        title="מידע לפי קורסים"
       />
 
     </div>

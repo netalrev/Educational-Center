@@ -224,45 +224,45 @@ export default function ActivityInfo(props) {
         color: "white",
       },
       {
-        id: "bar",
-        label: "התקדמות הפעילות",
-        minWidth: 170,
-        maxWidth: 170,
-        align: "center",
-      },
-      {
-        id: "dates",
-        label: "תאריכי מפגשים",
-        minWidth: 170,
-        maxWidth: 170,
-        align: "center",
-      },
-      {
         id: "email",
-        label: "אימייל ספק התוכן",
+        label: "דוא\"ל מרצה",
         minWidth: 130,
         maxWidth: 130,
         align: "center",
       },
       {
-        id: "activityName",
-        label: "שם הפעילות",
-        minWidth: 120,
-        maxWidth: 170,
-        align: "center",
-      },
-      {
         id: "phoneNumber",
-        label: "פלאפון ספק התוכן",
+        label: "טלפון מרצה",
         minWidth: 120,
         maxWidth: 120,
         align: "center",
       },
       {
         id: "name",
-        label: "שם ספק התוכן",
+        label: "שם המרצה",
         minWidth: 120,
         maxWidth: 130,
+        align: "center",
+      },
+      {
+        id: "bar",
+        label: "התקדמות הקורס",
+        minWidth: 170,
+        maxWidth: 170,
+        align: "center",
+      },
+      {
+        id: "dates",
+        label: "מועדי הקורס",
+        minWidth: 170,
+        maxWidth: 170,
+        align: "center",
+      },
+      {
+        id: "activityName",
+        label: "שם הקורס",
+        minWidth: 120,
+        maxWidth: 170,
         align: "center",
       },
     ]
@@ -278,21 +278,21 @@ export default function ActivityInfo(props) {
       },
       {
         id: "bar",
-        label: "התקדמות הפעילות",
+        label: "התקדמות הקורס",
         minWidth: 170,
         maxWidth: 170,
         align: "center",
       },
       {
         id: "dates",
-        label: "תארכי מפגשים",
+        label: "מועדי הקורס",
         minWidth: 170,
         maxWidth: 170,
         align: "center",
       },
       {
         id: "activityName",
-        label: "שם הפעילות",
+        label: "שם הקורס",
         minWidth: 120,
         maxWidth: 170,
         align: "center",
@@ -350,7 +350,10 @@ export default function ActivityInfo(props) {
             </p>
             <br></br>
           </div>),
-        <LinearDeterminate color="red" score={progress} />,
+        <div>
+          <p>{activity.dates.filter(date => dates_class.compare(props.currentTime, dates_class.convert(date)) >= 0).length} / {activity.dates.length}</p>
+          <LinearDeterminate color="red" score={progress} />
+        </div>,
         <div>
           <WatchResponsiveDialogActivitiesFeedback
             title={activity.title}
@@ -362,6 +365,8 @@ export default function ActivityInfo(props) {
             givenName={props.givenName}
             familyName={props.familyName}
             groupName={props.groupName}
+            howManyPass={activity.dates.filter(date => dates_class.compare(props.currentTime, dates_class.convert(date)) >= 0).length}
+
           />
         </div>
       );

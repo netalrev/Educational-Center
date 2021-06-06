@@ -166,7 +166,7 @@ export default function ManageActivitiesFormEditPending(props) {
       i < document.getElementsByName("activityCount")[0].value;
       i++
     ) {
-      var temp = ":תאריך פעילות מספר" + " " + (i + 1);
+      var temp = ":מפגש" + " " + (i + 1);
       toReturn.push(
         <tr>
           <TextField
@@ -199,7 +199,7 @@ export default function ManageActivitiesFormEditPending(props) {
   function fillDateInputs() {
     var toReturn = [];
     for (var i = 0; i < props.activityCount; i++) {
-      var temp = ":תאריך פעילות מספר" + " " + (i + 1);
+      var temp = ":מפגש" + " " + (i + 1);
       toReturn.push(
         <tr>
           <TextField
@@ -263,7 +263,7 @@ export default function ManageActivitiesFormEditPending(props) {
                     <tr>
                       <FormElement
                         name="name"
-                        title=": שם הפעילות"
+                        title=": שם הקורס"
                         type="text"
                         defaultValue={activity.title}
                       />
@@ -271,13 +271,13 @@ export default function ManageActivitiesFormEditPending(props) {
                     <tr>
                       <FormElement
                         name="activity_img"
-                        title=": קישור לתמונה"
+                        title=": קישור לתמונת הקורס"
                         type="text"
                         defaultValue={activity.img}
                       />
                     </tr>
                     <tr>
-                      מפגש בזום
+                      הקורס יתבצע באופן מקוון
                         <Checkbox
                         id="zoomCheckBox"
                         checked={checked}
@@ -290,7 +290,7 @@ export default function ManageActivitiesFormEditPending(props) {
                     <tr>
                       <FormElement
                         name="activityCount"
-                        title=": מספר פעילויות"
+                        title=": מספר מפגשים"
                         type="number"
                         onChange={createDateInputs}
                         defaultValue={activity.activityCount}
@@ -301,7 +301,7 @@ export default function ManageActivitiesFormEditPending(props) {
                       <TextField
                         id="outlined-multiline-static"
                         name="activity_description"
-                        label=": תיאור הפעילויות"
+                        label=": תיאור הקורס"
                         className={classes.textField}
                         defaultValue={activity.description}
                         multiline
@@ -335,7 +335,8 @@ export default function ManageActivitiesFormEditPending(props) {
               );
             }
           })
-          : pendingActivitiess.map((activity) => {
+          :
+          pendingActivitiess.map((activity) => {
             if (props.id === activity.id) {
               return (
                 <div style={{ display: "flex", justifyContent: "center" }}>
@@ -343,7 +344,7 @@ export default function ManageActivitiesFormEditPending(props) {
                     <tr>
                       <FormElement
                         name="name"
-                        title=": שם הפעילות"
+                        title=": שם הקורס"
                         type="text"
                         defaultValue={activity.title}
                       />
@@ -351,13 +352,13 @@ export default function ManageActivitiesFormEditPending(props) {
                     <tr>
                       <FormElement
                         name="activity_img"
-                        title=": קישור לתמונה"
+                        title=": קישור לתמונת הקורס"
                         type="text"
                         defaultValue={activity.img}
                       />
                     </tr>
                     <tr>
-                      מפגש בזום
+                      הקורס יתבצע באופן מקוון
                         <Checkbox
                         id="zoomCheckBox"
                         checked={checked}
@@ -370,7 +371,7 @@ export default function ManageActivitiesFormEditPending(props) {
                     <tr>
                       <FormElement
                         name="activityCount"
-                        title=": מספר פעילויות"
+                        title=": מספר מפגשים"
                         type="number"
                         onChange={createDateInputs}
                         defaultValue={activity.activityCount}
@@ -380,7 +381,7 @@ export default function ManageActivitiesFormEditPending(props) {
                     <tr>
                       <TextField
                         id="outlined-multiline-static"
-                        label=": תיאור הפעילויות"
+                        label=": תיאור הקורס"
                         name="activity_description"
                         className={classes.textField}
                         defaultValue={activity.description}

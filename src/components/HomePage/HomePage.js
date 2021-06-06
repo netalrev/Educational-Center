@@ -33,10 +33,10 @@ export default function HomePage() {
           order to promote Israel as an educational nation.{" "}
         </h2>
         <button className="big-button" onClick={goToAc}>
-          לחץ כאן לכל הפעילויות
+          לכל הקורסים
         </button>
         <button className="big-button" onClick={goToProfile}>
-          לחץ כאן לדף הפרופיל
+          לאזור האישי
         </button>
       </div>
     </div>

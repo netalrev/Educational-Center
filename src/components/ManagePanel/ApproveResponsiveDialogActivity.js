@@ -97,7 +97,7 @@ export default function ApproveResponsiveDialogActivity(props) {
     setOpen(false);
     await approveActivity(props.id);
     await deleteSinglePending(props.id).then(
-      swal("", "התוכן אושר בהצלחה", "success", {
+      swal("", "הקורס אושר בהצלחה", "success", {
         button: "אישור",
       })
     );
@@ -130,7 +130,7 @@ export default function ApproveResponsiveDialogActivity(props) {
         }}
         onClick={handleClickOpen}
       >
-        אשר
+        אישור
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -140,37 +140,37 @@ export default function ApproveResponsiveDialogActivity(props) {
       >
         <DialogTitle
           id="responsive-dialog-title"
-          style={{ color: "white", backgroundColor: "black" }}
+          style={{ backgroundColor: "#d8e3e7" }}
         >
-          <b>אישור העלאת תוכן</b>
+          <b style={{ color: "#132c33" }}>אישור קורס - {props.title}</b>
         </DialogTitle>
-        <DialogContent style={{ color: "white", backgroundColor: "black" }}>
+        <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
           <DialogContentText
-            style={{ color: "white", backgroundColor: "black" }}
+            style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}
           >
-            ?האם את/ה בטוח/ה שפרטי הפעילות שהזנתם תואמים את הפעילות
+            בלחיצה על "אישור" הקורס יוצג בדף "קורסים" ויפתח להרשמה
           </DialogContentText>
         </DialogContent>
-        <DialogActions style={{ color: "white", backgroundColor: "black" }}>
+        <DialogActions style={{ backgroundColor: "#d8e3e7" }}>
           <Button
             autoFocus
             onClick={handleCancel}
             style={{
-              color: "white", backgroundColor: "red", maxHeight: "40px",
-              paddingBottom: "15px", border: "3px solid red",
+              backgroundColor: "#132c33", maxHeight: "40px",
+              paddingBottom: "15px", borderRadius: "10px"
             }}
           >
-            בטל&nbsp;העלאה
+            ביטול
           </Button>
           <Button
             onClick={handleClose}
             style={{
-              color: "white", backgroundColor: "green", maxHeight: "40px",
-              paddingBottom: "15px", border: "3px solid green",
+              backgroundColor: "#132c33", maxHeight: "40px",
+              paddingBottom: "15px", borderRadius: "10px"
             }}
             autoFocus
           >
-            אשר&nbsp;העלאה
+            אישור
           </Button>
         </DialogActions>
       </Dialog>

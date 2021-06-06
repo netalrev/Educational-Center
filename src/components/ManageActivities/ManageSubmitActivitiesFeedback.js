@@ -129,20 +129,20 @@ export default function ManageSubmitActivitiesFeedback(props) {
     <Card
       className={classes.root}
       style={{
-        color: "white",
-        backgroundColor: "black",
+        color: "#132c33",
+        backgroundColor: "#d8e3e7",
       }}
     >
       <CardHeader title={text} />
-      <CardContent>
+      <CardContent s>
         {<div>
           <h4>{text}</h4>
           <div
             style={{
               display: "flex",
               justifyContent: "center",
-              backgroundColor: "black",
-              color: "white",
+              backgroundColor: "#d8e3e7",
+              color: "#132c33",
             }}
           >
             <table>
@@ -150,21 +150,22 @@ export default function ManageSubmitActivitiesFeedback(props) {
                 <div>
                   {students.map((student) => (
                     <div>
+                      <h4>{student[0]}</h4>
                       <div
                         style={{
+                          minWidth: "200px",
                           borderStyle: "solid",
                           borderRadius: "15px",
-                          color: "white",
-                          backgroundColor: "black",
+                          color: "#132c33",
+                          backgroundColor: "#d8e3e7",
                         }}
                       >
-                        <h4>{student[0]}</h4>
                         <br></br>
-                        <h4>נוכחות במפגשים: {props.howManyPass} / {student[3]}</h4>
+                        <h4>נוכחות: {props.howManyPass} / {student[3]}</h4>
                         <br></br>
-                        <h4>ציון עבור השתתפות במפגש: 5 / {student[4] / props.howManyPass}</h4>
+                        <h4>השתתפות: 5 / {student[4] / props.howManyPass}</h4>
                         <br></br>
-                        <h4>ציון עבור תרומה במפגש: 5 / {student[5] / props.howManyPass}</h4>
+                        <h4>תרומה: 5 / {student[5] / props.howManyPass}</h4>
                         <br></br>
                       </div>
                       <br></br>

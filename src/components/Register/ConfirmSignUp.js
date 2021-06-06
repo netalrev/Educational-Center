@@ -138,7 +138,7 @@ export default function ConfirmSignUp(props) {
             color: "#132c33",
           }}
         >
-          אנא הזן את קוד האישור שקיבלת במייל
+          יש להזין את קוד האישור שקיבלת במייל
         </Typography>
         <form className={classes.form} validate>
           <TextField
@@ -186,9 +186,7 @@ export default function ConfirmSignUp(props) {
           לא קיבלתי קוד, שלח מחדש
         </Link>
       </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
+      <br></br>
     </Container>
   );
 }

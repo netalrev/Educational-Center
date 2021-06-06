@@ -4,6 +4,7 @@ import "./Navbar.css";
 import { Button } from "../Button";
 import { Auth } from "aws-amplify";
 import logo from "./logo.png"; // Tell webpack this JS file uses this image
+import PersonIcon from '@material-ui/icons/Person';
 
 var loggedIn = false;
 Auth.currentAuthenticatedUser().then((user) => (loggedIn = true));
@@ -47,9 +48,9 @@ class Navbar extends Component {
                   display:
                     (this.props.groupName !== "admins" &&
                       this.props.groupName !== "contentSuppliers" &&
-                      index === 2) ||
-                    (this.props.groupName !== "admins" && index === 3) ||
-                    (this.props.groupName === "null" && index !== 4)
+                      index === 1) ||
+                      (this.props.groupName !== "admins" && index === 2) ||
+                      (this.props.groupName === "null" && index !== 3)
                       ? "none"
                       : "block",
                 }}
@@ -67,10 +68,17 @@ class Navbar extends Component {
               this.props.givenName + " " + this.props.familyName) && (
               <Button>
                 {this.props.givenName} {this.props.familyName}
+                <PersonIcon
+                  style={{
+                    fill: "white",
+                    maxWidth: "100px",
+                    marginBottom: "11px"
+                  }}
+                ></PersonIcon>
               </Button>
             )
           ) : (
-            <Button>התחברות\הרשמה</Button>
+            <Button>התחברות</Button>
           )}
         </div>
       </nav>

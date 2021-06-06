@@ -341,7 +341,7 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
             })
         )
         .then(
-          swal("", "משוב הוזן בהצלחה.", "success", {
+          swal("", "משוב נשלח", "success", {
             button: "אישור",
           })
         )
@@ -350,7 +350,7 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
 
       window.location.reload(false);
     } else {
-      swal("", "אנא מלא את המשוב במלואו", "error", {
+      swal("", "יש למלא את המשוב במלואו", "error", {
         button: "אישור",
       });
     }
@@ -361,26 +361,18 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
   return (
     <div>
       <Button
-        startIcon={
-          <UpdateIcon
-            style={{
-              fill: "white",
-              maxWidth: "100px",
-              marginBottom: "11px",
-            }}
-          ></UpdateIcon>
-        }
         variant="outlined"
         style={{
-          fill: "#ffffff",
-          backgroundColor: "#04c704",
+          backgroundColor: "#132c33",
+          border: "3px solid #132c33",
+          color: "#d8e3e7",
           maxHeight: "40px",
           paddingBottom: "15px",
-          border: "3px solid #04c704",
+          borderRadius: "10px",
         }}
         onClick={handleClickOpen}
       >
-        עדכן
+        שמירה ושליחה
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -390,46 +382,37 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
       >
         <DialogTitle
           id="responsive-dialog-title"
-          style={{
-            color: "red",
-            backgroundColor: "black",
-          }}
+          style={{ backgroundColor: "#d8e3e7" }}
         >
-          <b>אישור העלאת תוכן</b>
+          <b style={{ color: "#132c33" }}>שליחת משוב</b>
         </DialogTitle>
-        <DialogContent style={{ color: "white", backgroundColor: "black" }}>
+        <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
           <DialogContentText
-            style={{ color: "white", backgroundColor: "black" }}
+            style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}
           >
-            ?האם את/ה בטוח/ה שפרטי הפעילות שהזנת תואמים את הפעילות
+            בלחיצה על "שליחה" המשוב ישלח להנהלה וינעל לשינויים
           </DialogContentText>
         </DialogContent>
-        <DialogActions style={{ color: "white", backgroundColor: "black" }}>
+        <DialogActions style={{ backgroundColor: "#d8e3e7" }}>
           <Button
             autoFocus
             onClick={handleCancel}
             style={{
-              fill: "white",
-              backgroundColor: "red",
-              maxHeight: "40px",
-              paddingBottom: "15px",
-              border: "3px solid red",
+              backgroundColor: "#132c33", maxHeight: "40px",
+              paddingBottom: "15px", borderRadius: "10px"
             }}
           >
-            בטל&nbsp;העלאה
-          </Button>
+            ביטול
+        </Button>
           <Button
             onClick={handleClose}
             style={{
-              fill: "white",
-              backgroundColor: "green",
-              maxHeight: "40px",
-              paddingBottom: "15px",
-              border: "3px solid green",
+              backgroundColor: "#132c33", maxHeight: "40px",
+              paddingBottom: "15px", borderRadius: "10px"
             }}
             autoFocus
           >
-            אשר&nbsp;העלאה
+            שליחה
           </Button>
         </DialogActions>
       </Dialog>

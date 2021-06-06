@@ -17,30 +17,6 @@ import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
 
 var history;
-function Copyright() {
-    return (
-        <Typography
-            variant="body2"
-            align="center"
-            style={{
-                color: "#132c33",
-                padding: "20px",
-            }}
-        >
-            {"Copyright © "}
-            <Link
-                style={{
-                    color: "#132c33",
-                }}
-                href="#"
-            >
-                המרחב החינוכי השלם
-      </Link>{" "}
-            {new Date().getFullYear()}
-            {"."}
-        </Typography>
-    );
-}
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -105,12 +81,12 @@ async function forgetPassword() {
             });
         }
         else if (error.name == "InvalidParameterException") {
-            swal("", "סיסמה קצרה מ-8 תווים", "error", {
+            swal("", "סיסמה קצרה מדי, יש להזין לפחות 8 תווים", "error", {
                 button: "אישור",
             });
         }
         else
-            swal("", ' אנא וודא שהפרטים נכונים ', "error", {
+            swal("", ' יש לוודא שהפרטים נכונים ', "error", {
                 button: "אישור",
             });
     }
@@ -122,10 +98,10 @@ export default function ForgetPassword(props) {
     function sendCode(e) {
         username = document.getElementById("email").value;
         Auth.forgotPassword(username)
-            .then(data => swal("", username + ' - קוד נשלח לכתובת המייל ', "success", {
+            .then(data => swal("", username + ' - קוד נשלח לדוא\"ל ', "success", {
                 button: "אישור",
             }))
-            .catch(err => swal("", "אימייל זה אינו רשום", "error", {
+            .catch(err => swal("", "דוא\"ל זה אינו רשום", "error", {
                 button: "אישור",
             }));
         e.preventDefault();
@@ -154,7 +130,7 @@ export default function ForgetPassword(props) {
                         margin: "20px",
                     }}
                 >
-                    דף איפוס סיסמה
+                    איפוס סיסמה
         </Typography>
                 <form className={classes.form} validate  >
                     <TextField
@@ -163,7 +139,7 @@ export default function ForgetPassword(props) {
                         required
                         fullWidth
                         id="email"
-                        label="כתובת אימייל"
+                        label="כתובת מייל"
                         lang="he"
                         name="email"
                         autoComplete="email"
@@ -183,7 +159,7 @@ export default function ForgetPassword(props) {
                         variant="contained"
                         className={classes.submit}
                     >
-                        שלח קוד אימות
+                        שלחו לי קוד אימות
           </Button>
                     <Typography
                         style={{
@@ -192,7 +168,7 @@ export default function ForgetPassword(props) {
                             marginBottom: "-20px",
                         }}
                     >
-                        אנא הזן את קוד האימות שקיבלת במייל
+                        יש להזין את קוד האימות שקיבלת במייל
                     </Typography>
                     <TextField
                         className={classes.textField}
@@ -202,7 +178,7 @@ export default function ForgetPassword(props) {
                         required
                         fullWidth
                         id="code"
-                        label="קוד אישור"
+                        label="קוד אימות"
                         style={{
                             marginTop: "20px",
                         }}
@@ -215,7 +191,7 @@ export default function ForgetPassword(props) {
                             marginBottom: "-20px",
                         }}
                     >
-                        אנא הזן סיסמה חדשה
+                        יש להזין סיסמה חדשה
                     </Typography>
                     <TextField
                         className={classes.textField}
@@ -248,14 +224,12 @@ export default function ForgetPassword(props) {
                         variant="contained"
                         className={classes.submit}
                     >
-                        אישור
+                        שינוי סיסמה
           </Button>
                 </form>
 
             </div>
-            <Box mt={5}>
-                <Copyright />
-            </Box>
+            <br></br>
         </Container>
     );
 }

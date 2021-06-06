@@ -34,7 +34,7 @@ export default function CancelRegisterResponsiveDialog(props) {
   const handleClose = async () => {
     setOpen(false);
     await deleteSingleUser(props.id).then(
-      swal("", "הסרתך התקבלה בהצלחה", "success", {
+      swal("", props.title + " הוסרת מקורס", "success", {
         button: "אישור",
       })
     );
@@ -66,7 +66,7 @@ export default function CancelRegisterResponsiveDialog(props) {
         }}
         onClick={handleClickOpen}
       >
-        בטל&nbsp;הרשמה
+        ביטול&nbsp;הרשמה
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -76,37 +76,37 @@ export default function CancelRegisterResponsiveDialog(props) {
       >
         <DialogTitle
           id="responsive-dialog-title"
-          style={{ backgroundColor: "black", color: "white" }}
+          style={{ backgroundColor: "#d8e3e7" }}
         >
-          <b>ביטול הרשמה לפעילות</b>
+          <b style={{ color: "#132c33" }}>ביטול הרשמה לקורס - {props.title}</b>
         </DialogTitle>
-        <DialogContent style={{ backgroundColor: "black", color: "white" }}>
+        <DialogContent style={{ backgroundColor: "#d8e3e7" }}>
           <DialogContentText
-            style={{ backgroundColor: "black", color: "white" }}
+            style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}
           >
-            ?האם את/ה בטוח/ה שברצונך לבטל את הרשמה לפעילות
+            בלחיצה על "הסרה" תבוטל הרשמתך לקורס
           </DialogContentText>
         </DialogContent>
-        <DialogActions style={{ backgroundColor: "black", color: "white" }}>
+        <DialogActions style={{ backgroundColor: "#d8e3e7" }}>
           <Button
             autoFocus
             onClick={handleCancel}
             style={{
-              fill: "white", backgroundColor: "red", maxHeight: "40px",
-              paddingBottom: "15px", border: "3px solid red",
+              backgroundColor: "#132c33", maxHeight: "40px",
+              paddingBottom: "15px", borderRadius: "10px"
             }}
           >
-            בטל
+            ביטול
           </Button>
           <Button
             onClick={handleClose}
             style={{
-              fill: "white", backgroundColor: "green", maxHeight: "40px",
-              paddingBottom: "15px", border: "3px solid green",
+              backgroundColor: "#132c33", maxHeight: "40px",
+              paddingBottom: "15px", borderRadius: "10px"
             }}
             autoFocus
           >
-            אשר
+            הסרה
           </Button>
         </DialogActions>
       </Dialog>
