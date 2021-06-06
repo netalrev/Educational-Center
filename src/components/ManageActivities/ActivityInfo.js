@@ -25,6 +25,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
+import WatchActivitySummary from "./WatchActivitySummary";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "95%",
@@ -355,12 +356,12 @@ export default function ActivityInfo(props) {
           <LinearDeterminate color="red" score={progress} />
         </div>,
         <div>
-          <WatchResponsiveDialogActivitiesFeedback
+          <WatchActivitySummary
             title={activity.title}
             dates={activity.dates}
             students={activity.form}
             idx={index}
-            id={activity.id}
+            activity_id={activity.id}
             email={props.email}
             givenName={props.givenName}
             familyName={props.familyName}
