@@ -178,7 +178,7 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                                   />
                                   <FormControlLabel
                                     value="0"
-                                    control={<Radio color="#132c33" />}
+                                    control={<Radio color="white" />}
                                     label="לא נכח"
                                     labelPlacement="top"
                                   />

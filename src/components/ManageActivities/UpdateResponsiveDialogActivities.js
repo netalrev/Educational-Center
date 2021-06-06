@@ -339,11 +339,11 @@ export default function UpdateResponsiveDialog(props) {
         }
         variant="outlined"
         style={{
-          fill: "white",
-          backgroundColor: "green",
+          fill: "#d8e3e7",
+          backgroundColor: "#132c33",
           maxHeight: "40px",
           paddingBottom: "15px",
-          border: "3px solid green",
+          border: "3px solid #132c33",
         }}
         onClick={handleClickOpen}
       >
