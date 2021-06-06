@@ -125,7 +125,7 @@ export default function ManageSubmitActivitiesFeedback(props) {
                   style={{
                     display: "flex",
                     justifyContent: "center",
-                    backgroundColor: "black",
+                    backgroundColor: "#d8e3e7",
                     color: "white",
                   }}
                 >
@@ -140,7 +140,7 @@ export default function ManageSubmitActivitiesFeedback(props) {
                                 borderStyle: "solid",
                                 borderRadius: "15px",
                                 color: "white",
-                                backgroundColor: "black",
+                                backgroundColor: "#d8e3e7",
                                 minWidth: "200px"
                               }}
                             >

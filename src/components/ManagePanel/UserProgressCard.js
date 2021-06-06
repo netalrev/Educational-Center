@@ -26,9 +26,9 @@ const useStyles = makeStyles((theme) => ({
         //"&:hover": { transform: "scale3d(1.05, 1.05, 1)" },
         "& label": {
             margin: "10px",
-            color: "white",
+            color: "#d8e3e7",
             fontSize: "2000px",
-            backgroundColor: "red",
+            backgroundColor: "#d8e3e7",
             borderRadius: "20px",
             zIndex: "1222",
         },
@@ -37,21 +37,21 @@ const useStyles = makeStyles((theme) => ({
     expand: {
         transform: "rotate(0deg)",
         marginLeft: "auto",
-        color: "red", //arrow color
+        color: "#d8e3e7", //arrow color
         transition: theme.transitions.create("transform", {
             duration: theme.transitions.duration.shortest,
         }),
     },
     expandOpen: {
         transform: "rotate(180deg)",
-        color: "red",
+        color: "#132c33",
     },
     avatar: {
         backgroundColor: red[500],
-        color: "white",
+        color: "#d8e3e7",
     },
     subColor: {
-        color: "red",
+        color: "#d8e3e7",
     },
 }));
 
@@ -200,8 +200,8 @@ export default function UserProgressCard(props) {
         <Card
             className={classes.root}
             style={{
-                color: "white",
-                backgroundColor: "black",
+                color: "#132c33",
+                backgroundColor: "#d8e3e7",
             }}
         >
             <CardHeader title={text} />
@@ -217,8 +217,8 @@ export default function UserProgressCard(props) {
                                     style={{
                                         display: "flex",
                                         justifyContent: "center",
-                                        backgroundColor: "black",
-                                        color: "white",
+                                        backgroundColor: "#d8e3e7",
+                                        color: "#132c33",
                                     }}
                                 >
                                     <table>
@@ -229,8 +229,8 @@ export default function UserProgressCard(props) {
                                                         style={{
                                                             borderStyle: "solid",
                                                             borderRadius: "15px",
-                                                            color: "white",
-                                                            backgroundColor: "black",
+                                                            color: "#132c33",
+                                                            backgroundColor: "#d8e3e7",
                                                             minWidth: "200px"
                                                         }}
                                                     >
