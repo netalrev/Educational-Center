@@ -362,8 +362,6 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                   />
                 </tr>
               </table>
-              //</div>
-              //</div>
             );
           }
         })}
