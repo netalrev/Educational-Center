@@ -93,12 +93,18 @@
 }
 @keyframes txt {
     0% {
-        content: "מתחבר.";
+        content: "מתחבר";
     }
-    50% {
-        content: "מתחבר..";
+    10% {
+        content: ".מתחבר";
     }
-    100% {
-        content: "מתחבר...";
+    20% {
+        content: "..מתחבר";
+    }
+    30% {
+        content: "...מתחבר";
+    }
+    40% {
+        content: "....מתחבר";
     }
 }

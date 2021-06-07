@@ -251,6 +251,11 @@ export default function ManageActivitiesFormEditApproved(props) {
                         onClick={handleChange}
                         fill="red"
                         inputProps={{ "aria-label": "primary checkbox" }}
+                        style={{
+                          paddingTop: "1px",
+                          backgroundColor: "#132c33", maxWidth: "40px",
+                          maxHeight: "40px",
+                        }}
                       />
                     </tr>
                     <tr>{zoomLink}</tr>
@@ -316,6 +321,11 @@ export default function ManageActivitiesFormEditApproved(props) {
                         onClick={handleChange}
                         style={{ fill: "#132c33" }}
                         inputProps={{ "aria-label": "primary checkbox" }}
+                        style={{
+                          paddingTop: "1px",
+                          backgroundColor: "#132c33", maxWidth: "40px",
+                          maxHeight: "40px",
+                        }}
                       />
                     </tr>
                     <tr>{zoomLink}</tr>
