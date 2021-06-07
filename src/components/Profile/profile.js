@@ -65,36 +65,119 @@ export default function Profile(props) {
     fetchUsers();
   }, []);
 
-  level = 1;
+  level = 8;
   return (
     <div className="card">
       <div className="ds-top"></div>
       <div className="avatar-holder1">
         <div id="container">
           <LinearDeterminate score={score} />
-          <span>Progress</span>
-          <span id="progress1">{score}%</span>
+
+          <span id="progress1" style={{ fontWeight: "700" }}>
+            {score}%
+          </span>
+          <span>התקדמות:</span>
         </div>
       </div>
       <div className="name">
         <a>{props.givenName + " " + props.familyName}</a>
         <h6 title="Level">
-          <div className="pointsHolder">
-            <div className="points1"> {level}</div>
-            <div className="points2"> /{grades.length}</div>
+          <div>
+            <table className="pointsHolder">
+              <td>
+                <div className="points2"> {grades.length}/</div>
+              </td>
+              <td>
+                <div className="points1"> {level}</div>
+              </td>
+            </table>
           </div>
         </h6>
       </div>
       <div className="logout">
         <div className="avatar">
-          {level === 1 ? (<p>1</p>) : (<div></div>)}
-          {level === 2 ? (<p>2</p>) : (<div></div>)}
-          {level === 3 ? (<p>3</p>) : (<div></div>)}
-          {level === 4 ? (<p>3</p>) : (<div></div>)}
-          {level === 5 ? (<Dog />) : (<div></div>)}
-          {level === 6 ? (<Dog />) : (<div></div>)}
-          {level === 7 ? (<Dog />) : (<div></div>)}
-          {level === 8 ? (<Dog />) : (<div></div>)}
+          {level === 1 ? (
+            <div>
+              {" "}
+              <p className="avatarLabel">
+                קיבלת כוכב על ההרשמה לפרוייקט! את\ה ברמה 1 אבל נמשיך להתקדם!
+              </p>{" "}
+              <div id="logo1">
+                <img className="pointsAvatar" src={"/img/partisipation.png"} />
+              </div>
+            </div>
+          ) : (
+            <div></div>
+          )}
+          {level === 2 ? (
+            <div>
+              {" "}
+              <p className="avatarLabel">רמה 2 - קיבלת תעודת השתתפות!</p>{" "}
+              <img className="pointsAvatar" src={"/img/diploma.png"} />{" "}
+            </div>
+          ) : (
+            <div></div>
+          )}
+          {level === 3 ? (
+            <div>
+              {" "}
+              <p className="avatarLabel">רמה 3 - מדליית ארד!</p>{" "}
+              <img className="pointsAvatar" src={"/img/bronze-medal.png"} />{" "}
+            </div>
+          ) : (
+            <div></div>
+          )}
+          {level === 4 ? (
+            <div>
+              {" "}
+              <p className="avatarLabel">רמה 4 - מדליית כסף!</p>{" "}
+              <img className="pointsAvatar" src={"/img/silver-medal.png"} />{" "}
+            </div>
+          ) : (
+            <div></div>
+          )}
+          {level === 5 ? (
+            <div>
+              {" "}
+              <p className="avatarLabel">רמה 5 - מדליית זהב!</p>{" "}
+              <img className="pointsAvatar" src={"/img/gold-medal.png"} />{" "}
+            </div>
+          ) : (
+            <div></div>
+          )}
+          {level === 6 ? (
+            <div>
+              {" "}
+              <p className="avatarLabel">
+                רמה 6 זה כבר מרשים, קיבלת גביע ארד!
+              </p>{" "}
+              <img className="pointsAvatar" src={"/img/trophy3.png"} />{" "}
+            </div>
+          ) : (
+            <div></div>
+          )}
+          {level === 7 ? (
+            <div>
+              {" "}
+              <p className="avatarLabel">
+                מדהים! הגעת לרמה 7 וקיבלת גביע כסף!
+              </p>{" "}
+              <img className="pointsAvatar" src={"/img/trophy2.png"} />{" "}
+            </div>
+          ) : (
+            <div></div>
+          )}
+          {level === 8 ? (
+            <div>
+              {" "}
+              <p className="avatarLabel">
+                אליפות! סיימת את הפרוייקט וקיבלת את גביע הזהב!
+              </p>{" "}
+              <img className="pointsAvatar" src={"/img/trophy1.png"} />{" "}
+            </div>
+          ) : (
+            <div></div>
+          )}
         </div>
 
         <div className="ds projects">
@@ -103,7 +186,7 @@ export default function Profile(props) {
             title="Number of projects created by the user"
             onClick={props.function}
           >
-            התקדמות בפעילויות
+            מעקב פעילויות
           </h6>
         </div>
       </div>

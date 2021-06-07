@@ -9,12 +9,6 @@
     }
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 .profileContainer {
     margin-top: 40px;
     padding-bottom: 520px;
@@ -190,25 +184,20 @@
     margin-top: 25px;
 }
 .pointsHolder {
-    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 .points1 {
     font-weight: 900;
     font-family: "Courier New", Courier, monospace;
     font-size: 70px;
     color: #d8e3e7;
-    width: 15%;
-    height: 200px;
-    float: left;
 }
 .points2 {
     font-weight: 900;
     font-size: 40px;
     color: #132c33;
     font-family: "Courier New", Courier, monospace;
-    margin-left: 90%;
-    height: 100px;
-    padding-top: 20px;
 }
 
 @keyframes fadeInMove {
@@ -368,7 +357,6 @@ span:last-child {
     padding-top: 20px;
     padding-bottom: 20px;
     margin-top: 10px;
-    margin-right: 5px;
     font-weight: 200;
     font-size: 25px;
     cursor: pointer;
@@ -441,4 +429,31 @@ span:last-child {
     color: white;
     font-size: 13px;
     cursor: pointer;
+}
+
+.logo1 {
+    margin: 0 35% 0 35%;
+    width: 30%;
+    height: auto;
+    background: #1595ce;
+}
+
+.logo1 img {
+    width: 100%;
+    height: auto;
+}
+
+.pointsAvatar {
+    -webkit-filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.8));
+    -webkit-transition: all 0.5s linear;
+    -o-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+    height: 130px;
+    width: 130px;
+    margin: 20px;
+}
+
+.avatarLabel {
+    color: #d8e3e7;
+    font-weight: 500;
 }
