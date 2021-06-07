@@ -9,7 +9,6 @@ import { API, graphqlOperation } from "aws-amplify";
 import ReactCardFlip from "react-card-flip";
 import LinearDeterminate from "./LinearDeterminate";
 
-
 var fname = "null";
 var gname = "null";
 var emailAddress = "null";
@@ -50,7 +49,7 @@ export default function Profile(props) {
   nextLevel = grades[level] - parseInt(myScore.score);
   var score = 0;
   score = parseInt(myScore.score) - grades[level - 1];
-  score = parseInt(score / (grades[level] - grades[level - 1]) * 100);
+  score = parseInt((score / (grades[level] - grades[level - 1])) * 100);
   const fetchUsers = async () => {
     try {
       const usersData = await API.graphql(graphqlOperation(listUsers));
@@ -79,9 +78,9 @@ export default function Profile(props) {
       <div className="name">
         <a>{props.givenName + " " + props.familyName}</a>
         <h6 title="Level">
-          <div>
-            <h1 className="points" > {level}</h1>
-            <h3 className="points" > /{grades.length}</h3>
+          <div className="pointsHolder">
+            <div className="points1"> {level}</div>
+            <div className="points2"> /{grades.length}</div>
           </div>
         </h6>
       </div>
@@ -89,6 +88,7 @@ export default function Profile(props) {
         <div className="avatar">
           <Dog />
         </div>
+
         <div className="ds projects">
           <h6
             className="prof1"
@@ -98,10 +98,7 @@ export default function Profile(props) {
             התקדמות בפעילויות
           </h6>
         </div>
-        <button className="signOutBtn" onClick={signOut}>
-          התנתקות
-        </button>
       </div>
-    </div >
+    </div>
   );
 }

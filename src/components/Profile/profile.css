@@ -17,7 +17,7 @@
 
 .profileContainer {
     margin-top: 40px;
-    padding-bottom: 570px;
+    padding-bottom: 520px;
 }
 
 .avater {
@@ -41,7 +41,7 @@
     height: 530px;
     border-radius: 10px;
     box-shadow: 0 10px 25px 5px rgba(0, 0, 0, 0.2);
-    background: #151515;
+    background: #126e82;
     overflow: hidden;
 }
 .card .ds-top {
@@ -52,7 +52,7 @@
     left: 0;
     width: 300px;
     height: 80px;
-    background: #132c33;
+    background: #51c4d3;
     animation: dsTop 1.5s;
 }
 .card .avatar-holder {
@@ -188,6 +188,27 @@
     left: 0;
     animation: mvBottom 1.5s;
     margin-top: 25px;
+}
+.pointsHolder {
+    width: 100%;
+}
+.points1 {
+    font-weight: 900;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 70px;
+    color: #d8e3e7;
+    width: 15%;
+    height: 200px;
+    float: left;
+}
+.points2 {
+    font-weight: 900;
+    font-size: 40px;
+    color: #132c33;
+    font-family: "Courier New", Courier, monospace;
+    margin-left: 90%;
+    height: 100px;
+    padding-top: 20px;
 }
 
 @keyframes fadeInMove {
@@ -333,11 +354,7 @@ span {
 span:last-child {
     float: right;
 }
-.points {
-    font-weight: 900;
-    font-family: "Courier New", Courier, monospace;
-    /* font-size: 80px; */
-}
+
 .levels {
     font-weight: 900;
     font-family: "Courier New", Courier, monospace;
@@ -409,10 +426,11 @@ span:last-child {
     }
 }
 .signOutBtn {
-    width: 100%;
+    width: 250px;
     height: 30px;
     background-color: #132c33;
     border: 3px solid #132c33;
+    margin-right: auto;
     color: white;
     font-size: 13px;
     cursor: pointer;
@@ -421,7 +439,7 @@ span:last-child {
 .prof1 {
     margin-bottom: 0.5%;
     width: 100%;
-    background-color: #132c33;
+    background-color: #51c4d3;
     border: 3px solid #132c33;
 }
 .prof1:hover {
