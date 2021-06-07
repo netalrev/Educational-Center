@@ -70,17 +70,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ActivityInfo(props) {
-  const headers = [
-    { label: "First Name", key: "firstname" },
-    { label: "Last Name", key: "lastname" },
-    { label: "Email", key: "email" }
-  ];
-
-  const data = [
-    { firstname: "GevGever", lastname: "Maor", email: "ah@smthing.co.com" },
-    { firstname: "HomHomo", lastname: "Yona", email: "rl@smthing.co.com" },
-    { firstname: "ProPro", lastname: "Yarin", email: "ymin@cocococo.com" }
-  ];
   var dates_class = {
     convert: function (d) {
       // Converts the date in d to a date-object. The input can be:
@@ -327,6 +316,18 @@ export default function ActivityInfo(props) {
         align: "center",
       },
     ];
+  // const headers = [
+  //   { label: "שם", key: "name" },
+  //   { label: "דוא\"ל", key: "email" },
+  //   { label: "טלפון", key: "phone" },
+  //   { label: "נו", key: "lastname" },
+  // ];
+
+  // const data = [
+  //   { firstname: "GevGever", lastname: "Maor", email: "ah@smthing.co.com" },
+  //   { firstname: "HomHomo", lastname: "Yona", email: "rl@smthing.co.com" },
+  //   { firstname: "ProPro", lastname: "Yarin", email: "ymin@cocococo.com" }
+  // ];
   const rows = (props.groupName === "admins") ? activitiesFeedbacks.map((activity, index) => {
     var progress = parseInt(((activity.dates.filter(date => dates_class.compare(props.currentTime, dates_class.convert(date)) >= 0).length) / activity.dates.length) * 100);
     return createDataAdmin(
@@ -350,7 +351,20 @@ export default function ActivityInfo(props) {
         <LinearDeterminate color="red" score={progress} />
       </div>,
       < div >
-        <WatchResponsiveDialogActivitiesFeedback
+        <WatchActivitySummary
+          title={activity.title}
+          dates={activity.dates}
+          students={activity.form}
+          idx={index}
+          activity_id={activity.id}
+          email={props.email}
+          givenName={props.givenName}
+          familyName={props.familyName}
+          groupName={props.groupName}
+          howManyPass={activity.dates.filter(date => dates_class.compare(props.currentTime, dates_class.convert(date)) >= 0).length}
+          type="mulitple"
+        />
+        {/* <WatchResponsiveDialogActivitiesFeedback
           title={activity.title}
           dates={activity.dates}
           students={activity.form}
@@ -361,16 +375,14 @@ export default function ActivityInfo(props) {
           familyName={props.familyName}
           groupName={props.groupName}
           howManyPass={activity.dates.filter(date => dates_class.compare(props.currentTime, dates_class.convert(date)) >= 0).length}
-        />
+        /> */}
       </div >,
-      <div>
-        <h6>hey</h6>
+      // <div>
+      //   <CSVLink data={data} headers={headers}>
+      //     Download me
+      // </CSVLink>
 
-        <CSVLink data={data} headers={headers}>
-          Download me
-      </CSVLink>
-
-      </div>
+      // </div>
 
     );
   })

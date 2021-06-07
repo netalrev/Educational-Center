@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { listSubmitedActivityFeedbacks } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 
-import WatchResponsiveDialogActivitiesFeedback from "./WatchResponsiveDialogActivitiesFeedback";
+import WatchActivitySummary from "../ManageActivities/WatchActivitySummary";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -191,7 +191,7 @@ export default function ManageCardActivitiesFeedback(props) {
         <br></br>
       </div>,
       <div>
-        <WatchResponsiveDialogActivitiesFeedback
+        {/* <WatchResponsiveDialogActivitiesFeedback
           title={activity.title}
           date={activity.date}
           students={activity.form}
@@ -201,8 +201,19 @@ export default function ManageCardActivitiesFeedback(props) {
           givenName={props.givenName}
           familyName={props.familyName}
           groupName={props.groupName}
-        />
-      </div>
+        /> */}
+        <WatchActivitySummary
+          title={activity.title}
+          dates={activity.date}
+          students={activity.form}
+          idx={index}
+          activity_id={activity.activity_id}
+          email={props.email}
+          givenName={props.givenName}
+          familyName={props.familyName}
+          groupName={props.groupName}
+          type="single" />
+      </div >
     );
   });
   function createDataAdmin(
