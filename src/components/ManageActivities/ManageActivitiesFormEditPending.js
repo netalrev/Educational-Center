@@ -104,7 +104,7 @@ export default function ManageActivitiesFormEditPending(props) {
     if (!document.getElementById("zoomCheckBox").checked == true) {
       toReturn = (
         <tr>
-          <FormElement name="activity_zoom" title=": קישור לזום" type="text" />
+          <FormElement name="activity_zoom" title="קישור לזום:" type="text" />
         </tr>
       );
     } else {
@@ -234,7 +234,7 @@ export default function ManageActivitiesFormEditPending(props) {
         <tr>
           <FormElement
             name="activity_zoom"
-            title=": קישור לזום"
+            title="קישור לזום:"
             type="text"
             defaultValue={props.zoom}
           />
@@ -264,7 +264,7 @@ export default function ManageActivitiesFormEditPending(props) {
                     <tr>
                       <FormElement
                         name="name"
-                        title=": שם הקורס"
+                        title="שם הקורס:"
                         type="text"
                         defaultValue={activity.title}
                       />
@@ -272,7 +272,7 @@ export default function ManageActivitiesFormEditPending(props) {
                     <tr>
                       <FormElement
                         name="activity_img"
-                        title=": קישור לתמונת הקורס"
+                        title="קישור לתמונת הקורס:"
                         type="text"
                         defaultValue={activity.img}
                       />
@@ -291,7 +291,7 @@ export default function ManageActivitiesFormEditPending(props) {
                     <tr>
                       <FormElement
                         name="activityCount"
-                        title=": מספר מפגשים"
+                        title="מספר מפגשים:"
                         type="number"
                         onChange={createDateInputs}
                         defaultValue={activity.activityCount}

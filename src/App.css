@@ -104,7 +104,7 @@ input:-webkit-autofill {
 tbody {
     color: #ffffff;
 }
-.swal-modal {
+/*.swal-modal {
     background-color: rgba(0, 0, 0, 0.651);
     color: #d8e3e7;
     justify-content: center;
@@ -122,7 +122,7 @@ tbody {
 .swal-button:hover {
     background-color: #5a0e01;
     color: #ffffff;
-}
+}*/
 textField {
     width: "90%";
     margin-left: "auto";
@@ -141,4 +141,19 @@ textField {
     to {
         box-shadow: 0px 0px 20px 5px #ff000000;
     }
+}
+.MuiToolbar-gutters{
+    background-color: #000000;
+    color: white;
+}
+.MuiTablePagination-actions{
+    color: white;
+}
+.MuiSelect-icon {
+    padding: auto;
+    margin-right: -10%;
+    border-radius: 20px;
+    background-color: white;
+    border: #000000;
+    size: 1px;
 }

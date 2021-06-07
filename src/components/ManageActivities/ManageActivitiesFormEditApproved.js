@@ -92,7 +92,7 @@ export default function ManageActivitiesFormEditApproved(props) {
     if (!document.getElementById("zoomCheckBox").checked == true) {
       toReturn = (
         <tr>
-          <FormElement name="activity_zoom" title=": קישור לזום" type="text" />
+          <FormElement name="activity_zoom" title="קישור לזום:" type="text" />
         </tr>
       );
     } else {
@@ -201,7 +201,7 @@ export default function ManageActivitiesFormEditApproved(props) {
         <tr>
           <FormElement
             name="activity_zoom"
-            title=": קישור לזום"
+            title="קישור לזום:"
             type="text"
             defaultValue={props.zoom}
           />
@@ -230,7 +230,7 @@ export default function ManageActivitiesFormEditApproved(props) {
                     <tr>
                       <FormElement
                         name="name"
-                        title=": שם הקורס"
+                        title="שם הקורס:"
                         type="text"
                         defaultValue={activity.title}
                       />
@@ -238,7 +238,7 @@ export default function ManageActivitiesFormEditApproved(props) {
                     <tr>
                       <FormElement
                         name="activity_img"
-                        title=": קישור לתמונת הקורס"
+                        title="קישור לתמונת הקורס:"
                         type="text"
                         defaultValue={activity.img}
                       />
@@ -257,7 +257,7 @@ export default function ManageActivitiesFormEditApproved(props) {
                     <tr>
                       <FormElement
                         name="activityCount"
-                        title=": מספר מפגשים"
+                        title="מספר מפגשים:"
                         type="number"
                         onChange={createDateInputs}
                         defaultValue={activity.activityCount}
@@ -267,7 +267,7 @@ export default function ManageActivitiesFormEditApproved(props) {
                     <tr>
                       <TextField
                         id="outlined-multiline-static"
-                        label=": תיאור הקורס"
+                        label=":תיאור הקורס"
                         className={classes.textField}
                         name="activity_description"
                         defaultValue={activity.description}
@@ -322,7 +322,7 @@ export default function ManageActivitiesFormEditApproved(props) {
                     <tr>
                       <FormElement
                         name="activityCount"
-                        title=": מספר מפגשים"
+                        title="מספר מפגשים:"
                         type="number"
                         onChange={createDateInputs}
                         defaultValue={activity.activityCount}
