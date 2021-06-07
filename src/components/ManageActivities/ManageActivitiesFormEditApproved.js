@@ -230,7 +230,7 @@ export default function ManageActivitiesFormEditApproved(props) {
                     <tr>
                       <FormElement
                         name="name"
-                        title="שם הקורס:"
+                        title=": שם הקורס"
                         type="text"
                         defaultValue={activity.title}
                       />
@@ -238,7 +238,7 @@ export default function ManageActivitiesFormEditApproved(props) {
                     <tr>
                       <FormElement
                         name="activity_img"
-                        title="קישור לתמונת הקורס:"
+                        title=": קישור לתמונת הקורס"
                         type="text"
                         defaultValue={activity.img}
                       />
@@ -251,13 +251,18 @@ export default function ManageActivitiesFormEditApproved(props) {
                         onClick={handleChange}
                         fill="red"
                         inputProps={{ "aria-label": "primary checkbox" }}
+                        style={{
+                          paddingTop: "1px",
+                          backgroundColor: "#132c33", maxWidth: "40px",
+                          maxHeight: "40px",
+                        }}
                       />
                     </tr>
                     <tr>{zoomLink}</tr>
                     <tr>
                       <FormElement
                         name="activityCount"
-                        title="מספר מפגשים:"
+                        title=": מספר מפגשים"
                         type="number"
                         onChange={createDateInputs}
                         defaultValue={activity.activityCount}
@@ -267,7 +272,7 @@ export default function ManageActivitiesFormEditApproved(props) {
                     <tr>
                       <TextField
                         id="outlined-multiline-static"
-                        label=":תיאור הקורס"
+                        label=": תיאור הקורס"
                         className={classes.textField}
                         name="activity_description"
                         defaultValue={activity.description}
@@ -316,13 +321,18 @@ export default function ManageActivitiesFormEditApproved(props) {
                         onClick={handleChange}
                         style={{ fill: "#132c33" }}
                         inputProps={{ "aria-label": "primary checkbox" }}
+                        style={{
+                          paddingTop: "1px",
+                          backgroundColor: "#132c33", maxWidth: "40px",
+                          maxHeight: "40px",
+                        }}
                       />
                     </tr>
                     <tr>{zoomLink}</tr>
                     <tr>
                       <FormElement
                         name="activityCount"
-                        title="מספר מפגשים:"
+                        title=": מספר מפגשים"
                         type="number"
                         onChange={createDateInputs}
                         defaultValue={activity.activityCount}

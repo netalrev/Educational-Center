@@ -1,9 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Corben:700");
 
 .main_div {
-    background-image: url("https://earlycollegenv.com/wp-content/uploads/2018/10/bigstock-Group-Of-High-School-Students-62220863-900x450.jpg");
-    min-height: 100%;
+    background-image: url("5X5_Image.jpeg");
+    min-height: 720px;
     /* Center and scale the image nicely */
+    min-width: 100px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

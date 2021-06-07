@@ -111,7 +111,7 @@ export default function ManageActivitiesFormPending(props) {
     if (!document.getElementById("zoomCheckBox").checked == true) {
       toReturn = (
         <tr>
-          <FormElement name="activity_zoom" title=": קישור לזום" type="text" />
+          <FormElement name="activity_zoom" title="קישור לזום :" type="text" />
         </tr>
       );
     } else {

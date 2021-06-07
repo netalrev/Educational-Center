@@ -124,6 +124,7 @@ tbody {
     color: #ffffff;
 }*/
 textField {
+    
     width: "90%";
     margin-left: "auto";
     margin-right: "auto";
@@ -156,4 +157,7 @@ textField {
     background-color: white;
     border: #000000;
     size: 1px;
+}
+.MuiSvgIcon-root{
+    
 }
