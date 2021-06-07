@@ -54,7 +54,7 @@ export default function FillResponsiveDialogActivitiesFeedback(props) {
           <DialogContentText
             style={{ backgroundColor: "#d8e3e7", color: "#132c33" }}
           >
-            <p>תאריך: {props.date.substring(0, 10)}</p>
+            <p>תאריך: {props.date.substring(0, 10).split("-").reverse().join("-")}</p>
             <p>שעה: {props.date.substring(11)}</p>
             <ManageActivitiesFeedbackFormEdit
               groupName={props.groupName}
