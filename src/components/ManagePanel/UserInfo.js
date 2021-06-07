@@ -291,7 +291,7 @@ export default function UserInfo(props) {
                                                     align={column.align}
                                                     style={{
                                                         minWidth: column.minWidth,
-                                                        backgroundColor: "white",
+                                                        backgroundColor: "black",
                                                         color: "white",
                                                     }}
                                                 >
