@@ -65,6 +65,7 @@ export default function Profile(props) {
     fetchUsers();
   }, []);
 
+  level = 1;
   return (
     <div className="card">
       <div className="ds-top"></div>
@@ -86,7 +87,14 @@ export default function Profile(props) {
       </div>
       <div className="logout">
         <div className="avatar">
-          <Dog />
+          {level === 1 ? (<p>1</p>) : (<div></div>)}
+          {level === 2 ? (<p>2</p>) : (<div></div>)}
+          {level === 3 ? (<p>3</p>) : (<div></div>)}
+          {level === 4 ? (<p>3</p>) : (<div></div>)}
+          {level === 5 ? (<Dog />) : (<div></div>)}
+          {level === 6 ? (<Dog />) : (<div></div>)}
+          {level === 7 ? (<Dog />) : (<div></div>)}
+          {level === 8 ? (<Dog />) : (<div></div>)}
         </div>
 
         <div className="ds projects">
