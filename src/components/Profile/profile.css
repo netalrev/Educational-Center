@@ -52,7 +52,7 @@
     left: 0;
     width: 300px;
     height: 80px;
-    background: #51c4d3;
+    background: #132c33;
     animation: dsTop 1.5s;
 }
 .card .avatar-holder {
@@ -363,12 +363,19 @@ span:last-child {
     margin-top: 20px;
 }
 .prof1 {
+    width: 100%;
+    background-color: #132c33;
+    padding-top: 20px;
+    padding-bottom: 20px;
     margin-top: 10px;
     margin-right: 5px;
     font-weight: 200;
     font-size: 25px;
     cursor: pointer;
-    text-shadow: 2px 2px 4px #132c33;
+    color: #d8e3e7;
+}
+.prof1:hover {
+    color: #126e82;
 }
 .prof2 {
     margin-top: 50px;
@@ -434,14 +441,4 @@ span:last-child {
     color: white;
     font-size: 13px;
     cursor: pointer;
-}
-
-.prof1 {
-    margin-bottom: 0.5%;
-    width: 100%;
-    background-color: #51c4d3;
-    border: 3px solid #132c33;
-}
-.prof1:hover {
-    color: #151515;
 }
