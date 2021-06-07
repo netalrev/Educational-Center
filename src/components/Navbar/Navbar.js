@@ -65,16 +65,9 @@ class Navbar extends Component {
         <div className="daniels">
           {this.props.givenName !== "null" ? (
             (MenuItems[4].title =
-              this.props.givenName + " " + this.props.familyName) && (
+              /*this.props.givenName + " " + this.props.familyName) && (*/
               <Button>
-                {this.props.givenName} {this.props.familyName}
-                <PersonIcon
-                  style={{
-                    fill: "white",
-                    maxWidth: "100px",
-                    marginBottom: "11px"
-                  }}
-                ></PersonIcon>
+                {/*<PersonIcon style={{}} />*/}  {this.props.givenName} {this.props.familyName}
               </Button>
             )
           ) : (

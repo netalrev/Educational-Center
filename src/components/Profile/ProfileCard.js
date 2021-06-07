@@ -29,7 +29,7 @@ class ProfileCard extends React.Component {
           className="_ReactCardFlip"
         >
           <div id="card_cont">
-            {this.props.groupName === "approvedUsers" ?
+            {this.props.groupName === "approvedUsers" ? (
               <Profile
                 className="flip_btn"
                 function={this.handleClick}
@@ -38,7 +38,7 @@ class ProfileCard extends React.Component {
                 email={this.props.email}
                 groupName={this.props.groupName}
               />
-              :
+            ) : (
               <ProfileAdmin
                 className="flip_btn"
                 function={this.handleClick}
@@ -46,7 +46,8 @@ class ProfileCard extends React.Component {
                 familyName={this.props.familyName}
                 email={this.props.email}
                 groupName={this.props.groupName}
-              />}
+              />
+            )}
             <div className="flip_btn"></div>
           </div>
           <div id="card_cont">
@@ -61,7 +62,8 @@ class ProfileCard extends React.Component {
             <div className="flip_btn"></div>
           </div>
         </ReactCardFlip>
-      </div>);
+      </div>
+    );
   }
 }
 export default ProfileCard;

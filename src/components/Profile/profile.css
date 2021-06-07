@@ -15,14 +15,9 @@
     box-sizing: border-box;
 }
 
-html,
-body {
-    width: 100%;
-    height: 100%;
-}
-
 .profileContainer {
     margin-top: 40px;
+    padding-bottom: 570px;
 }
 
 .avater {
@@ -36,7 +31,6 @@ body {
 .card {
     position: absolute;
     margin-top: 0;
-    margin-bottom: 150px;
     margin-left: auto;
     margin-right: auto;
     top: 0;
@@ -58,7 +52,7 @@ body {
     left: 0;
     width: 300px;
     height: 80px;
-    background: red;
+    background: #132c33;
     animation: dsTop 1.5s;
 }
 .card .avatar-holder {
@@ -143,7 +137,7 @@ body {
 }
 .card .button a:hover {
     color: white;
-    background: red;
+    background: #132c33;
 }
 .card .ds-info {
     position: absolute;
@@ -264,7 +258,7 @@ body {
 }
 .following {
     color: white;
-    background: red;
+    background: #132c33;
 }
 
 #container {
@@ -283,7 +277,7 @@ body {
     left: 48%;
     padding-left: 13px;
     padding-right: 13px;
-    border: 3px solid red;
+    border: 3px solid #132c33;
     border-radius: 15%;
     margin-left: 5px;
     margin-right: 5px;
@@ -348,7 +342,7 @@ span:last-child {
     font-weight: 900;
     font-family: "Courier New", Courier, monospace;
     font-size: 30px;
-    color: rgb(255, 0, 0);
+    color: #132c33;
     margin-top: 20px;
 }
 .prof1 {
@@ -357,7 +351,7 @@ span:last-child {
     font-weight: 200;
     font-size: 25px;
     cursor: pointer;
-    text-shadow: 2px 2px 4px #ff0000;
+    text-shadow: 2px 2px 4px #132c33;
 }
 .prof2 {
     margin-top: 50px;
@@ -380,8 +374,8 @@ span:last-child {
     font-size: 50px;
 }
 .flipIcon:hover {
-    color: red;
-    fill: #ff0000;
+    color: #132c33;
+    fill: #d8e3e7;
 }
 
 .progress2 {
@@ -417,19 +411,19 @@ span:last-child {
 .signOutBtn {
     width: 100%;
     height: 30px;
-    background-color: red;
-    border: 3px solid red;
+    background-color: #132c33;
+    border: 3px solid #132c33;
     color: white;
     font-size: 13px;
     cursor: pointer;
 }
 
-.prof1{
+.prof1 {
     margin-bottom: 0.5%;
     width: 100%;
-    background-color: red;
-    border: 3px solid red;
+    background-color: #132c33;
+    border: 3px solid #132c33;
 }
-.prof1:hover{
+.prof1:hover {
     color: #151515;
 }

@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
         right: 0,
         transition: "transform 0.15s ease-in-out",
     },
-    selectDropdown: { color: "white", backgroundColor: "black" },
+    selectDropdown: { color: "white", backgroundColor: "white" },
     menuItem: {
         "&:hover": {
             backgroundColor: "red",
@@ -291,7 +291,7 @@ export default function UserInfo(props) {
                                                     align={column.align}
                                                     style={{
                                                         minWidth: column.minWidth,
-                                                        backgroundColor: "black",
+                                                        backgroundColor: "white",
                                                         color: "white",
                                                     }}
                                                 >

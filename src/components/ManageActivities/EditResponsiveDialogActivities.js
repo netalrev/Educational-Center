@@ -23,10 +23,7 @@ export default function EditResponsiveDialogActivities(props) {
     setOpen(false);
   };
   return (
-    <div style={{
-      backgroundColor: "#000000",
-      color: "#ffffff"
-    }}>
+    <div>
       <Button
         startIcon={
           <EditIcon style={{//edit button size adjust
