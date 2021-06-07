@@ -7,6 +7,7 @@ import { Scrollbars } from "rc-scrollbars";
 import LinearDeterminate from "../Profile/LinearDeterminate";
 
 import WatchResponsiveDialogActivitiesFeedback from "./WatchResponsiveDialogActivitiesFeedback";
+import { CSVLink } from "react-csv";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -69,6 +70,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ActivityInfo(props) {
+  const headers = [
+    { label: "First Name", key: "firstname" },
+    { label: "Last Name", key: "lastname" },
+    { label: "Email", key: "email" }
+  ];
+
+  const data = [
+    { firstname: "GevGever", lastname: "Maor", email: "ah@smthing.co.com" },
+    { firstname: "HomHomo", lastname: "Yona", email: "rl@smthing.co.com" },
+    { firstname: "ProPro", lastname: "Yarin", email: "ymin@cocococo.com" }
+  ];
   var dates_class = {
     convert: function (d) {
       // Converts the date in d to a date-object. The input can be:
@@ -217,6 +229,14 @@ export default function ActivityInfo(props) {
   const columns = props.groupName === "admins" ?
     [
       {
+        id: "exports",
+        label: "export",
+        minWidth: 110,
+        maxWidth: 110,
+        align: "center",
+        color: "white",
+      },
+      {
         id: "buttons",
         label: "",
         minWidth: 110,
@@ -269,6 +289,14 @@ export default function ActivityInfo(props) {
     ]
     :
     [
+      {
+        id: "exports",
+        label: "export",
+        minWidth: 110,
+        maxWidth: 110,
+        align: "center",
+        color: "white",
+      },
       {
         id: "buttons",
         label: "",
@@ -334,7 +362,16 @@ export default function ActivityInfo(props) {
           groupName={props.groupName}
           howManyPass={activity.dates.filter(date => dates_class.compare(props.currentTime, dates_class.convert(date)) >= 0).length}
         />
-      </div >
+      </div >,
+      <div>
+        <h6>hey</h6>
+
+        <CSVLink data={data} headers={headers}>
+          Download me
+      </CSVLink>
+
+      </div>
+
     );
   })
     :
@@ -369,6 +406,13 @@ export default function ActivityInfo(props) {
             howManyPass={activity.dates.filter(date => dates_class.compare(props.currentTime, dates_class.convert(date)) >= 0).length}
 
           />
+        </div>
+        ,
+        <div>
+          <h6>hey</h6>
+          <CSVLink data={data} headers={headers}>
+            Download me
+          </CSVLink>
         </div>
       );
     })
@@ -457,18 +501,20 @@ export default function ActivityInfo(props) {
     email,
     dates,
     bar,
-    buttons
+    buttons,
+    exports
   ) {
-    return { name, phoneNumber, activityName, email, dates, bar, buttons };
+    return { name, phoneNumber, activityName, email, dates, bar, buttons, exports };
   }
 
   function createDataContentSuppliers(
     activityName,
     dates,
     bar,
-    buttons
+    buttons,
+    exports
   ) {
-    return { activityName, dates, bar, buttons };
+    return { activityName, dates, bar, buttons, exports };
   }
 
   const handleChangePage = (event, newPage) => {

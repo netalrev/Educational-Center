@@ -87,6 +87,7 @@ const useStyles = makeStyles((theme) => ({
     text: "red",
     right: 0,
     transition: "transform 0.15s ease-in-out",
+    marginBottom: "20px"
   },
   selectDropdown: { color: "white", backgroundColor: "black" },
   menuItem: {

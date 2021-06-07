@@ -26,19 +26,18 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 1000,
     margin: "10px",
-    backgroundColor: "black",
-    color: "red",
-    text: "white",
+    backgroundColor: "#d8e3e7",
+    color: "#132c33",
+    text: "#132c33",
     borderRadius: "4%",
     right: 0,
     transition: "transform 0.15s ease-in-out",
-    "&:hover": { transform: "scale3d(1.05, 1.05, 1)" },
   },
 
   expand: {
     transform: "rotate(0deg)",
     marginLeft: "auto",
-    color: "red", //arrow color
+    color: "#132c33", //arrow color
 
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
@@ -46,42 +45,44 @@ const useStyles = makeStyles((theme) => ({
   },
   expandOpen: {
     transform: "rotate(180deg)",
-    color: "red",
+    color: "#132c33",
+  },
+  tr_dates: {
+    margin: "auto",
   },
   avatar: {
     backgroundColor: red[500],
-    color: "white",
+    color: "#132c33",
   },
   subColor: {
-    color: "red",
+    color: "#132c33",
   },
   textField: {
     zIndex: "0",
-    border: "3px solid red",
-    borderRadius: "3px",
-
+    border: "3px solid #132c33",
+    borderRadius: "10px",
+    marginLeft: "auto",
+    marginRight: "auto",
+    minWidth: "95%",
+    marginTop: "15px",
     "& label.Mui-focused": {
       padding: "10px",
-      color: "white",
+      color: "#132c33",
     },
     "& input": {
-      color: "white",
+      color: "#132c33",
     },
     "& label": {
       padding: "10px",
-      color: "white",
+      color: "#132c33",
     },
     "& .MuiInput-underline:after": {
-      borderBottomColor: "red",
+      borderBottomColor: "#132c33",
     },
     "& .MuiOutlinedInput-root": {
       "&.Mui-focused fieldset": {
-        borderColor: "black",
+        borderColor: "#132c33",
       },
-    },
-    "& label span": {
-      //For remove Asterisk from required inputs.
-      display: "none",
     },
   },
 }));
@@ -103,7 +104,7 @@ export default function ManageActivitiesFormEditPending(props) {
     if (!document.getElementById("zoomCheckBox").checked == true) {
       toReturn = (
         <tr>
-          <FormElement name="activity_zoom" title=": קישור לזום" type="text" />
+          <FormElement name="activity_zoom" title="קישור לזום:" type="text" />
         </tr>
       );
     } else {
@@ -180,15 +181,15 @@ export default function ManageActivitiesFormEditPending(props) {
             className={classes.textField}
             InputLabelProps={{
               style: {
-                color: "#fff",
+                color: "#132c33",
                 right: "0px",
                 marginLeft: "35px",
-                backgroundColor: "black",
+                backgroundColor: "#d8e3e7",
               },
               shrink: true,
             }}
             InputProps={{
-              style: { color: "#fff" },
+              style: { color: "#132c33" },
             }}
           />
         </tr>
@@ -211,15 +212,15 @@ export default function ManageActivitiesFormEditPending(props) {
             className={classes.textField}
             InputLabelProps={{
               style: {
-                color: "#fff",
+                color: "#132c33",
                 right: "0px",
                 marginLeft: "35px",
-                backgroundColor: "black",
+                backgroundColor: "#d8e3e7",
               },
               shrink: true,
             }}
             InputProps={{
-              style: { color: "#fff" },
+              style: { color: "#132c33" },
             }}
           />
         </tr>
@@ -233,7 +234,7 @@ export default function ManageActivitiesFormEditPending(props) {
         <tr>
           <FormElement
             name="activity_zoom"
-            title=": קישור לזום"
+            title="קישור לזום:"
             type="text"
             defaultValue={props.zoom}
           />
@@ -263,7 +264,7 @@ export default function ManageActivitiesFormEditPending(props) {
                     <tr>
                       <FormElement
                         name="name"
-                        title=": שם הקורס"
+                        title="שם הקורס:"
                         type="text"
                         defaultValue={activity.title}
                       />
@@ -271,7 +272,7 @@ export default function ManageActivitiesFormEditPending(props) {
                     <tr>
                       <FormElement
                         name="activity_img"
-                        title=": קישור לתמונת הקורס"
+                        title="קישור לתמונת הקורס:"
                         type="text"
                         defaultValue={activity.img}
                       />
@@ -290,7 +291,7 @@ export default function ManageActivitiesFormEditPending(props) {
                     <tr>
                       <FormElement
                         name="activityCount"
-                        title=": מספר מפגשים"
+                        title="מספר מפגשים:"
                         type="number"
                         onChange={createDateInputs}
                         defaultValue={activity.activityCount}
@@ -309,15 +310,15 @@ export default function ManageActivitiesFormEditPending(props) {
                         variant="outlined"
                         InputLabelProps={{
                           style: {
-                            color: "#fff",
+                            color: "#132c33",
                             right: "0px",
                             marginLeft: "35px",
-                            backgroundColor: "black",
+                            backgroundColor: "#d8e3e7",
                           },
                           shrink: true,
                         }}
                         InputProps={{
-                          style: { color: "#fff" },
+                          style: { color: "#132c33" },
                         }}
                       />
                     </tr>
@@ -390,15 +391,15 @@ export default function ManageActivitiesFormEditPending(props) {
                         variant="outlined"
                         InputLabelProps={{
                           style: {
-                            color: "#fff",
+                            color: "#132c33",
                             right: "0px",
                             marginLeft: "35px",
-                            backgroundColor: "black",
+                            backgroundColor: "#d8e3e7",
                           },
                           shrink: true,
                         }}
                         InputProps={{
-                          style: { color: "#fff" },
+                          style: { color: "#d8e3e7" },
                         }}
                       />
                     </tr>

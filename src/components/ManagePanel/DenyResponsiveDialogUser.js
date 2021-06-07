@@ -60,7 +60,7 @@ export default function DenyResponsiveDialogUser(props) {
         }}
         onClick={handleClickOpen}
       >
-        דחיה
+        &nbsp;דחיה
       </Button>
       <Dialog
         fullScreen={fullScreen}

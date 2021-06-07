@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     //"&:hover": { transform: "scale3d(1.05, 1.05, 1)" },
     "& label": {
       margin: "10px",
-      color: "white",
+      color: "#132c33",
       fontSize: "2000px",
       backgroundColor: "red",
       borderRadius: "20px",
@@ -54,14 +54,14 @@ const useStyles = makeStyles((theme) => ({
   },
   expandOpen: {
     transform: "rotate(180deg)",
-    color: "red",
+    color: "#132c33",
   },
   avatar: {
     backgroundColor: red[500],
-    color: "white",
+    color: "#132c33",
   },
   subColor: {
-    color: "red",
+    color: "#132c33",
   },
 }));
 
@@ -111,8 +111,8 @@ export default function ManageSubmitActivitiesFeedback(props) {
     <Card
       className={classes.root}
       style={{
-        color: "white",
-        backgroundColor: "black",
+        color: "#132c33",
+        backgroundColor: "#d8e3e7",
       }}
     >
       <CardHeader title={text} />
@@ -125,8 +125,8 @@ export default function ManageSubmitActivitiesFeedback(props) {
                   style={{
                     display: "flex",
                     justifyContent: "center",
-                    backgroundColor: "black",
-                    color: "white",
+                    backgroundColor: "#d8e3e7",
+                    color: "#132c33",
                   }}
                 >
                   <table>
@@ -139,8 +139,8 @@ export default function ManageSubmitActivitiesFeedback(props) {
                               style={{
                                 borderStyle: "solid",
                                 borderRadius: "15px",
-                                color: "white",
-                                backgroundColor: "black",
+                                color: "#132c33",
+                                backgroundColor: "#d8e3e7",
                                 minWidth: "200px"
                               }}
                             >
