@@ -62,7 +62,7 @@ export default function WatchResponsiveDialogActivitiesFeedback(props) {
               students={props.students}
               id={props.id}
               email={props.email}
-              style={{ backgroundColor: "black" }}
+              style={{ backgroundColor: "#d8e3e7" }}
             />
           </DialogContentText>
         </DialogContent>
