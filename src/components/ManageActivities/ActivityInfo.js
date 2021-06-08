@@ -193,10 +193,8 @@ export default function ActivityInfo(props) {
       const approvedActivitiesData = await API.graphql(graphqlOperation(listApprovedActivitiess));
       const approvedActivitiesList = approvedActivitiesData.data.listApprovedActivitiess.items;
       approvedActivitiesList.sort(comparing);
-      console.log("LIST", approvedActivitiesList);
       setAllApprovedActivities(approvedActivitiesList);
       const feedbacks = howManyFeedBacks(approvedActivitiesList);
-      console.log("FEED", feedbacks);
     } catch (error) {
       console.log("error on fetching Approved Activities", error);
     }
