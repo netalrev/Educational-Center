@@ -1,48 +1,18 @@
-import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
-import swal from "sweetalert";
+import swal from "sweetalert"; //special alert
 
 
-var history;
-function Copyright() {
-  return (
-    <Typography
-      variant="body2"
-      align="center"
-      style={{
-        color: "#132c33",
-        padding: "20px",
-      }}
-    >
-      {"Copyright © "}
-      <Link
-        style={{
-          color: "#132c33",
-        }}
-        href="#"
-      >
-        המרחב החינוכי השלם
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
+//The style for Confirm Sign Up page.
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -87,7 +57,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//Var used for authentication procces and next page.
+var history;
 var username, code;
+
+//Authentication function for confirm register page with err messege for spesific issue.
 async function confirmSignUp() {
   try {
     await Auth.confirmSignUp(username, code);
@@ -99,6 +73,8 @@ async function confirmSignUp() {
     });
   }
 }
+
+//This function resend to user code for confirm register. for first send problem issues.
 async function resendConfirmationCode() {
   const mail = window.$mail;
   try {
@@ -111,17 +87,21 @@ async function resendConfirmationCode() {
   }
 }
 
+//The ConfirmSignUp component.
 export default function ConfirmSignUp(props) {
   const classes = useStyles();
   const mail = window.$mail;
   history = useHistory();
 
+  //Get values from user and run the authentication function.
   function confirmClick(e) {
     username = mail;
     code = document.getElementById("code").value;
     confirmSignUp();
     e.preventDefault();
   }
+
+  //HTML code with styling for spesific tags.
   return (
     <Container component="main" maxWidth="xs" id="allForm">
       <CssBaseline />
