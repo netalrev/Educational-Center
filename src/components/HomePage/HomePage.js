@@ -1,15 +1,20 @@
-import "./HomePage.css";
-import React from "react";
-import Button from "@material-ui/core/Button";
+import "./HomePage.css"; // All style (include main image) for home page.
 import { useHistory } from "react-router-dom";
+
+//For set next pages.
 var history;
 
+//Function to set next page to activities page from home page.
 function goToAc() {
   history.push("./activitiesPage");
 }
+
+//Function to set next page to register page from home page.
 function goToProfile() {
   history.push("./register");
 }
+
+//HTML code with scripts in tags.
 export default function HomePage() {
   history = useHistory();
   return (

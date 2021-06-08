@@ -11,7 +11,6 @@ Auth.currentAuthenticatedUser().then((user) => (loggedIn = true));
 
 //The Navbar Component.
 class Navbar extends Component {
-
   //If the user logged In.
   if(loggedIn) {
     MenuItems[5].title = this.props.givenName + " " + this.props.familyName;
@@ -54,8 +53,10 @@ class Navbar extends Component {
                     (this.props.groupName !== "admins" &&
                       this.props.groupName !== "contentSuppliers" &&
                       index === 1) ||
-                      (this.props.groupName !== "admins" && index === 2) ||
-                      (this.props.groupName === "null" && index !== 3)
+                    (this.props.groupName !== "admins" && index === 2) ||
+                    (this.props.groupName === "null" &&
+                      index !== 3 &&
+                      index !== 4)
                       ? "none"
                       : "block",
                 }}
@@ -71,8 +72,7 @@ class Navbar extends Component {
           {this.props.givenName !== "null" ? (
             (MenuItems[4].title = (
               <Button>
-                {this.props.givenName}{" "}
-                {this.props.familyName}
+                {this.props.givenName} {this.props.familyName}
               </Button>
             ))
           ) : (
