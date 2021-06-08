@@ -1,9 +1,4 @@
 export const MenuItems = [
-  // {
-  //   title: "שיעורים",
-  //   url: "/Classes",
-  //   cName: "nav-links",
-  // },
   {
     title: "קורסים",
     url: "/activitiespage",
