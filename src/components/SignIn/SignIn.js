@@ -1,24 +1,20 @@
-import React from "react";
-import { Hub, Logger } from "aws-amplify";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Auth } from "aws-amplify";
-import Loading from "../Loading/Loading";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import swal from "sweetalert";
+import swal from "sweetalert"; //special alert
 
+
+//The style for Sign In page.
 const useStyles = makeStyles((theme) => ({
   paper: {
     display: "flex",
@@ -76,13 +72,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//Var used for authentication procces and next page.
 var username, password;
 var history;
+
+//Authentication function for Sign In with several err messege for spesific issues.
 async function signIn() {
   try {
-    history.push("/loading");
-    const user = await Auth.signIn(username, password);
-    history.push("/register");
+    history.push("/loading");//Next page is loading
+    const user = await Auth.signIn(username, password);//Try to signin.
+    history.push("/register");//Next page is register or sign in page.
     document.getElementById("allForm").style.display = "none";
     window.location.reload();
   } catch (error) {
@@ -109,11 +108,14 @@ async function signIn() {
       });
   }
 }
+
+//The SignIn component.
 export default function SignIn() {
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
   history = useHistory();
 
+  //Get values from user and run the authentication function.
   function doSomething(e) {
     username = document.getElementById("email").value;
     password = document.getElementById("password").value;
@@ -121,6 +123,7 @@ export default function SignIn() {
     e.preventDefault();
   }
 
+  //HTML code with styling for spesific tags.
   return (
     <Container component="main" maxWidth="xs" id="allForm">
       <CssBaseline />

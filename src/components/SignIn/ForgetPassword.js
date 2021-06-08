@@ -1,23 +1,17 @@
-import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Auth } from 'aws-amplify';
 import { useHistory } from "react-router-dom";
-import swal from "sweetalert";
+import swal from "sweetalert"; //special alert
 
-var history;
 
+//The style for Forget Password page.
 const useStyles = makeStyles((theme) => ({
     paper: {
         display: "flex",
@@ -64,15 +58,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+//Var used for authentication procces and next page.
+var history;
 var username, code, new_password;
+
+//Authentication function for forget Password page with several err messege for spesific issues.
 async function forgetPassword() {
     try {
-        // Send confirmation code to user's email
+        // Send confirmation code to user's email.
         await Auth.forgotPasswordSubmit(username, code, new_password);
         swal("", 'סיסמה שונתה בהצלחה ', "success", {
             button: "אישור",
         });
-        history.push("/register");
+        history.push("/register");//The next page.
         return;
     } catch (error) {
         if (error.name == "CodeMismatchException") {
@@ -91,10 +89,14 @@ async function forgetPassword() {
             });
     }
 }
+
+//The ForgetPassword component.
 export default function ForgetPassword(props) {
     const classes = useStyles();
     const mail = window.$mail;
     history = useHistory();
+
+    //This function check if user email input are valid and send code for change password.
     function sendCode(e) {
         username = document.getElementById("email").value;
         Auth.forgotPassword(username)
@@ -106,6 +108,8 @@ export default function ForgetPassword(props) {
             }));
         e.preventDefault();
     }
+
+    //This function resend to user code for change password. for first send problem issues.
     function resendConfirmationCode(e) {
         code = document.getElementById("code").value;
         new_password = document.getElementById("new_password").value;
@@ -113,6 +117,7 @@ export default function ForgetPassword(props) {
         e.preventDefault();
     }
 
+    //HTML code with styling for spesific tags.
     return (
         <Container component="main" maxWidth="xs" id="allForm" >
             <CssBaseline />
