@@ -41,18 +41,19 @@ export default function Profile(props) {
   const grades = [0, 50, 150, 350, 750, 1550, 3150, 4750];
   var nextLevel = 0;
   var level = 0;
-  console.log(myScore.score)
-  for (var i = 0; i < grades.length - 1; i++) {
-    if (myScore.score >= grades[i] && myScore.score < grades[i + 1]) {
-      level = i + 1;
+  if (myScore !== undefined) {
+    for (var i = 0; i < grades.length - 1; i++) {
+      if (myScore.score >= grades[i] && myScore.score < grades[i + 1]) {
+        level = i + 1;
+      }
     }
+    if (myScore.score >= grades[grades.length - 1])
+      level = grades.length - 1;
+    nextLevel = grades[level] - parseInt(myScore.score);
+    var score = 0;
+    score = parseInt(myScore.score) - grades[level - 1];
+    score = parseInt((score / (grades[level] - grades[level - 1])) * 100);
   }
-  if (myScore.score >= grades[grades.length - 1])
-    level = grades.length - 1;
-  nextLevel = grades[level] - parseInt(myScore.score);
-  var score = 0;
-  score = parseInt(myScore.score) - grades[level - 1];
-  score = parseInt((score / (grades[level] - grades[level - 1])) * 100);
   const fetchUsers = async () => {
     try {
       const usersData = await API.graphql(graphqlOperation(listUsers));
@@ -108,7 +109,7 @@ export default function Profile(props) {
             <div>
               {" "}
               <p className="avatarLabel">
-                !קיבלת כוכב על ההרשמה לפרוייקט! אנחנו כעט ברמה 1 אבל נמשיך להתקדם
+                !קיבלת כוכב על ההרשמה לפרוייקט! אנחנו כעט ברמה 2 אבל נמשיך להתקדם
               </p>{" "}
               <div id="logo1">
                 <img className="pointsAvatar" src={"/img/partisipation.png"} />

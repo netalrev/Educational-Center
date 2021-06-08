@@ -1,4 +1,4 @@
-import React from "react";
+import React, { isValidElement } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -11,6 +11,8 @@ import { useState, useEffect } from "react";
 import { listSubmitedActivityFeedbacks } from "../../graphql/queries";
 import { Scrollbars } from "rc-scrollbars";
 import { CSVLink } from "react-csv";
+import Button from "@material-ui/core/Button";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
 
 import {
@@ -157,7 +159,7 @@ export default function ActivitySummary(props) {
             const activitiesFeedbackList = activitiesFeedbackData.data.listSubmitedActivityFeedbacks.items;
             setActivitiesFeedback(activitiesFeedbackList);
         } catch (error) {
-            console.log("error on fetching Pending Activities", error);
+            console.log("error on fetching submitted feedbacks", error);
         }
     };
     // A function to fetch all the submitted activity feedbacks and process data required for the .csv file.
@@ -172,8 +174,8 @@ export default function ActivitySummary(props) {
                 feedback = allActivitiesFeedback.filter(feedback => props.activity_id === feedback.activity_id && props.dates === feedback.date);
             // If props type is "multiple", it means we need to display all of the meetings that the course has, so we filter only by activity_id.
             else
-                feedback = allActivitiesFeedback.filter(feedback => props.activity_id === feedback.activity_id);
-            var feedback2 = allActivitiesFeedback.filter(feedback => props.activity_id === feedback.activity_id);
+                feedback = allActivitiesFeedback.filter(feedback => props.activity_id === feedback.activity_id).sort(compare_forms);
+            var feedback2 = allActivitiesFeedback.filter(feedback => props.activity_id === feedback.activity_id).sort(compare_forms);
             if (feedback.length !== 0) { // Check first that feedback is not empty, if it isn't empty then we take the forms from the feedbacks and start processing them into rows object for the .csv
                 var forms = feedback.map((feed, idx) => {
                     var new_form = feed.form;
@@ -188,23 +190,25 @@ export default function ActivitySummary(props) {
                     return { form: new_form, index: index, activityCount: new_activityCount, date: feed.date }
                 });
                 forms.sort(compare_forms);
-                var new_data = forms.map(form => {
-                    console.log("this is form", form)
+                var new_data = [];
+                forms.forEach(form => {
                     var toReturn = { activity_id: "", index: -1, activityCount: "", date: "", missing_students: [], attending_students: [] };
-                    if (form.form[0][3] === "0") {
-                        toReturn.missing_students.push(form.form[0]);
-                    }
-                    else {
-                        toReturn.attending_students.push(form.form[0]);
-                    }
-                    console.log("this is missing", toReturn.missing_students)
                     toReturn.activity_id = feedback[0].activity_id;
                     toReturn.activityCount = form.activityCount;
                     toReturn.date = form.date;
                     toReturn.index = form.index;
-                    return toReturn;
-                }
-                );
+                    form.form.forEach(child => {
+                        if (child[3] === "0") {
+                            toReturn.missing_students.push(child);
+                        }
+                        else {
+
+                            toReturn.attending_students.push(child);
+                        }
+
+                    });
+                    new_data.push(toReturn)
+                });
             }
             var new_headers = [
                 { label: "שם", key: "name" },
@@ -216,7 +220,9 @@ export default function ActivitySummary(props) {
                     new_headers.push({ label: "מפגש " + (forms[i].index) + " " + forms[i].date.substring(0, 10).split("-").reverse().join("-") + " " + forms[i].date.substring(11), key: "meeting" + (forms[i].index) })
                 }
                 var new_allData = [];
+                // console.log("FORMS", forms)
                 forms.forEach((data) => data.form.forEach(student => {
+                    // console.log("student", student)
                     var toPush;
                     var meeting = [];
                     if (new_allData.filter(student2 => student[1] === student2.email).length === 0) {
@@ -230,29 +236,30 @@ export default function ActivitySummary(props) {
                             if (toPush.meetings[i].index === data.index) {
                                 toPush.meetings[i].presence = student[3] === "10" ? "V" : "";
                                 toPush.meetings[i].participation = student[4];
-                                toPush.meetings[i].contribution = student[4];
+                                toPush.meetings[i].contribution = student[5];
                                 if (props.type === "single")
                                     toPush.index = data.index;
                                 break;
 
                             }
                         }
-                        if (new_allData.filter(data2 => data2.index === toPush.index).length === 0)
+                        if (new_allData.filter(data2 => data2.email === student[1] && data2.index === toPush.index).length === 0)
                             new_allData.push(toPush);
                     }
-                    else
-
+                    else {
                         new_allData.forEach(student2 => {
                             if (student[1] === student2.email) {
+                                console.log("compare", student, student2)
                                 toPush = { index: 0, name: student[0], email: student[1], phone: "0" + student[2].substring(4, 6) + "-" + student[2].substring(6, student[2].length), meetings: meeting }
-                                var len = new_allData[0].meetings.length;
+                                var len = student2.meetings.length;
                                 for (var i = 0; i < len; i++) {
-                                    if (new_allData[0].meetings[i].index === data.index) {
+                                    if (student2.meetings[i].index === data.index) {
 
-                                        student[3] === "10" ? new_allData[0].meetings[i].presence = "V" : new_allData[0].meetings[i].presence = "";
+                                        student[3] === "10" ? student2.meetings[i].presence = "V" : student2.meetings[i].presence = "";
 
-                                        new_allData[0].meetings[i].participation = student[4];
-                                        new_allData[0].meetings[i].contribution = student[5];
+                                        student2.meetings[i].participation = student[4];
+                                        student2.meetings[i].contribution = student[5];
+                                        // console.log("222222222222222222", student2, student);
                                         if (props.type === "single")
                                             new_allData.index = data.index;
                                         break;
@@ -263,14 +270,17 @@ export default function ActivitySummary(props) {
 
 
                         })
+                    }
                 }));
             }
+            // new_data.sort(compare_forms);
             setData(new_data);
+
             setHeaders(new_headers);
             setAllData(new_allData);
 
         } catch (error) {
-            console.log("error on fetching Pending Activities", error);
+            console.log("error on fetching all submitted feedbacks ", error);
         }
     };
     const func = async () => {
@@ -303,50 +313,71 @@ export default function ActivitySummary(props) {
         }
         // If props.type is "multiple", it means we need to show details about all of the meetings.
         // If props.type is "single", it means we need to show details about one single meeting of the course.
-        if (props.type === "multiple") {
-            //toInsert init, this variable will hold the rows of the .csv file.
-            // For every student in the allData array, it'll generate a "meetings" list which will hold 
-            // the student's grades for a single meeting.
-            toInsert = allData.map(student => {
-                toReturn = { name: student.name, email: student.email, phone: student.phone, };
-                student.meetings.map(meeting => toReturn["meeting" + meeting.index] = meeting.presence);
-                return toReturn;
-            });
-            var space = { name: "", email: "", phone: "" }; // Space variable for the .csv , equals to "\n".
-            var summary = []; // This list is the summary of all grades, each object in this list will represent a student's grades for a single meeting.
-            // If [x] students registered to a course, then for each student in the allData list we'll have
-            // a line in the Summary list, each line will contain the participation, contrubition and attendance values of every student.
-            allData.forEach(student => {
-                student.meetings.forEach(meet => {
-                    toReturn = { index: -1, email: student.email, participated: -1, contributed: -1, attended: -1 }
-                    toReturn.participated = parseInt(meet.participation) / 3;
-                    toReturn.contributed = parseInt(meet.contribution) / 3;
-                    toReturn.index = meet.index;
-                    meet.presence === "V" ? toReturn.attended = "10" : toReturn.attended = "0";
-                    summary.push(toReturn);
-                })
+        //toInsert init, this variable will hold the rows of the .csv file.
+        // For every student in the allData array, it'll generate a "meetings" list which will hold 
+        // the student's grades for a single meeting.
+        toInsert = allData.map(student => {
+            toReturn = { name: student.name, email: student.email, phone: student.phone, };
+            student.meetings.map(meeting => toReturn["meeting" + meeting.index] = meeting.presence);
+            return toReturn;
+        });
+        console.log(toInsert)
+        var space = { name: "", email: "", phone: "" }; // Space variable for the .csv , equals to "\n".
+        var summary = []; // This list is the summary of all grades, each object in this list will represent a student's grades for a single meeting.
+        // If [x] students registered to a course, then for each student in the allData list we'll have
+        // a line in the Summary list, each line will contain the participation, contrubition and attendance values of every student.
+        // console.log("aaa", allData)
+        allData.forEach(student => {
+            student.meetings.forEach(meet => {
+                toReturn = { index: -1, email: student.email, participated: -1, contributed: -1, attended: -1 }
+                toReturn.participated = parseInt(meet.participation);
+                toReturn.contributed = parseInt(meet.contribution);
+                toReturn.index = meet.index;
+                meet.presence === "V" ? toReturn.attended = "10" : toReturn.attended = "0";
+                summary.push(toReturn);
             })
-            toInsert.push({ name: " עבור:", email: props.title });
-            // Sum up all the grades for a single meeting, since we show an avearage and not every student's grades.
-            // Also count how many students has attended to each meeting.
+        })
+
+        toInsert.push(space);
+        toInsert.push(space);
+        toInsert.push({ name: " עבור:", email: props.title });
+        // Sum up all the grades for a single meeting, since we show an avearage and not every student's grades.
+        // Also count how many students has attended to each meeting.
+        if (props.type === "multiple") {
             summary.forEach(student => {
-                contribution_avg[student.index - 1] += (student.contributed / allData.length);
-                participation_avg[student.index - 1] += (student.participated / allData.length);
+                if (student.attended === "10") {
+                    contribution_avg[student.index - 1] += (student.contributed);
+                    participation_avg[student.index - 1] += (student.participated);
+                }
+
                 student.attended === "10" ? total_attended[student.index - 1]++ : total_attended[student.index - 1] = total_attended[student.index - 1];
             });
-            // For each meeting the course has, we display three lines of summary displaying how many students attended, participation and contribution avg.
-            for (var i = 0; i < participation_avg.length; i++) {
-                toInsert.push(space);
-                toInsert.push(space);
-                toInsert.push({ name: "סיכום נוכחות למפגש " + (i + 1) + ":", email: total_attended[i] });
-                toInsert.push({ name: "סיכום ניקוד השתתפות למפגש מספר " + (i + 1) + ":", email: participation_avg[i] });
-                toInsert.push({ name: "סיכום ניקוד תרומה למפגש מספר " + (i + 1) + ":", email: contribution_avg[i] });
-            }
+        }
+        else {
+            summary.forEach(student => {
+                if (student.attended === "10") {
+                    contribution_avg[0] += (student.contributed);
+                    participation_avg[0] += (student.participated);
+                }
 
+                student.attended === "10" ? total_attended[0]++ : total_attended[0] = total_attended[0];
+            });
+        }
+        console.log(contribution_avg, participation_avg)
+        // For each meeting the course has, we display three lines of summary displaying how many students attended, participation and contribution avg.
+        for (var i = 0; i < participation_avg.length; i++) {
+            toInsert.push(space);
+            toInsert.push(space);
+            if (props.type === "multiple")
+                toInsert.push({ name: "סיכום נוכחות למפגש " + (i + 1) + ":", phone: total_attended[i], email: "/ " + allData.length });
+            else
+                toInsert.push({ name: "סיכום נוכחות למפגש " + (allData[0].index) + ":", phone: total_attended[i], email: "/ " + allData.length });
+            toInsert.push({ name: "השתתפות כלל התלמידים שנכחו " + ":", phone: String((participation_avg[i] / 3) / total_attended[i]).substring(0, 4), email: "/ 5" });
+            toInsert.push({ name: "תרומת כלל התלמידים שנכחו " + ":", phone: String((contribution_avg[i] / 3) / total_attended[i]).substring(0, 4), email: "/ 5" });
         }
     }
     if (data === undefined) func();
-    data === undefined ?
+    (data === undefined || data.length === 0) ?
         toReturn = <div>טרם מולא משוב עבור קורס זה </div>
         :
         toReturn = (
@@ -357,9 +388,31 @@ export default function ActivitySummary(props) {
                     backgroundColor: "#d8e3e7",
                 }}
             >
-                <CSVLink data={toInsert} filename={filename} headers={headers}>
-                    Download me
+                <Button
+                    startIcon={
+                        <CheckCircleIcon
+                            style={{
+                                fill: "white",
+                                backgroundColor: "green",
+                                maxWidth: "100px",
+                                marginBottom: "11px"
+                            }}
+                        ></CheckCircleIcon>
+                    }
+                    variant="outlined"
+                    style={{
+                        fill: "white",
+                        backgroundColor: "green",
+                        maxHeight: "40px",
+                        paddingBottom: "15px",
+                        border: "3px solid green",
+                    }}
+                >
+                    <CSVLink data={toInsert} filename={filename} headers={headers}>
+                        Download me
                 </CSVLink>
+                </Button>
+
                 <CardContent s>
                     {<div>
                         <div
@@ -376,9 +429,10 @@ export default function ActivitySummary(props) {
                                         {data.map(activity => {
                                             participation_avg = 0
                                             contribution_avg = 0
+
                                             activity.attending_students.forEach(student => {
-                                                participation_avg += ((parseInt(student[4]) / 3)) / (activity.attending_students.length);
-                                                contribution_avg += (parseInt(student[5]) / 3) / (activity.attending_students.length);
+                                                participation_avg += parseInt(student[4]);
+                                                contribution_avg += parseInt(student[5]);
                                             })
                                             return (
                                                 <div>
@@ -395,8 +449,8 @@ export default function ActivitySummary(props) {
                                                     >
                                                         <br></br>
                                                         <h4>מספר משתתפים: {activity.attending_students.length + activity.missing_students.length} / {activity.attending_students.length}  </h4>
-                                                        <h4>השתתפות כלל התלמידים: 5 / {participation_avg} </h4>
-                                                        <h4>תרומת כלל התלמידים: 5 / {contribution_avg} </h4>
+                                                        <h4>השתתפות כלל התלמידים שנכחו: 5 / {String((participation_avg / 3) / (activity.attending_students.length)).substring(0, 4)} </h4>
+                                                        <h4>תרומת כלל התלמידים שנכחו: 5 / {String((contribution_avg / 3) / (activity.attending_students.length)).substring(0, 4)} </h4>
                                                         <br></br>
                                                         <th>
                                                             לא נכחו
