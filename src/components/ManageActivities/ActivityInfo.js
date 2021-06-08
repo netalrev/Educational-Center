@@ -193,10 +193,8 @@ export default function ActivityInfo(props) {
       const approvedActivitiesData = await API.graphql(graphqlOperation(listApprovedActivitiess));
       const approvedActivitiesList = approvedActivitiesData.data.listApprovedActivitiess.items;
       approvedActivitiesList.sort(comparing);
-      console.log("LIST", approvedActivitiesList);
       setAllApprovedActivities(approvedActivitiesList);
       const feedbacks = howManyFeedBacks(approvedActivitiesList);
-      console.log("FEED", feedbacks);
     } catch (error) {
       console.log("error on fetching Approved Activities", error);
     }
@@ -362,7 +360,7 @@ export default function ActivityInfo(props) {
           familyName={props.familyName}
           groupName={props.groupName}
           howManyPass={activity.dates.filter(date => dates_class.compare(props.currentTime, dates_class.convert(date)) >= 0).length}
-          type="mulitple"
+          type="multiple"
         />
         {/* <WatchResponsiveDialogActivitiesFeedback
           title={activity.title}
@@ -416,6 +414,7 @@ export default function ActivityInfo(props) {
             familyName={props.familyName}
             groupName={props.groupName}
             howManyPass={activity.dates.filter(date => dates_class.compare(props.currentTime, dates_class.convert(date)) >= 0).length}
+            type="multiple"
 
           />
         </div>
