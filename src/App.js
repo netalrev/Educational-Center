@@ -16,7 +16,6 @@ import ManageActivities from "./components/ManageActivities/ManageActivities";
 import Footer from "./components/Footer";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ActivitiesPage from "./components/Activities/ActivitiesPage";
-import ClassesPage from "./components/Classes/ClassesPage";
 import Amplify, { API, graphqlOperation, Auth } from "aws-amplify";
 import awsconfig from "./aws-exports";
 import ConfirmSignUp from "./components/Register/ConfirmSignUp";
@@ -151,8 +150,8 @@ function App() {
               <HomePage />
             </Route>
             {groupName === "admins" ||
-            groupName === "contentSuppliers" ||
-            groupName === "approvedUsers" ? (
+              groupName === "contentSuppliers" ||
+              groupName === "approvedUsers" ? (
               <Route exact path="/profile">
                 <h1>עמוד פרופיל</h1>
               </Route>
@@ -162,8 +161,8 @@ function App() {
               </Route>
             )}
             {groupName === "admins" ||
-            groupName === "contentSuppliers" ||
-            groupName === "approvedUsers" ? (
+              groupName === "contentSuppliers" ||
+              groupName === "approvedUsers" ? (
               <Route exact path="/activitiespage">
                 <ActivitiesPage
                   groupName={groupName}
@@ -178,17 +177,6 @@ function App() {
                 <h2 className="forbidden">
                   אנא התחבר\י על מנת לצפות בפעילויות
                 </h2>
-              </Route>
-            )}
-            {groupName === "admins" ||
-            groupName === "contentSuppliers" ||
-            groupName === "approvedUsers" ? (
-              <Route exact path="/classespage">
-                <ClassesPage />
-              </Route>
-            ) : (
-              <Route exact path="/classespage">
-                <h2 className="forbidden">אנא התחבר\י על מנת לצפות בשיעורים</h2>
               </Route>
             )}
 

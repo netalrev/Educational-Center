@@ -3,7 +3,6 @@ import "./profile.css";
 import Amplify, { Auth } from "aws-amplify";
 import { AmplifySignOut } from "@aws-amplify/ui-react";
 import { useState, useEffect } from "react";
-import Dog from "../Avatars/Dog";
 import { listUsers } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import ReactCardFlip from "react-card-flip";

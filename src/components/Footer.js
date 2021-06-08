@@ -1,21 +1,8 @@
-import React from "react";
-import {
-  AmplifyAuthenticator,
-  AmplifySignUp,
-  AmplifySignIn,
-  AmplifySignOut,
-} from "@aws-amplify/ui-react";
-import {
-  Box,
-  Container,
-  Row,
-  Column,
-  FooterLink,
-  Heading,
-} from "./FooterStyles";
+import { Box, Container, Heading, } from "./FooterStyles";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 
+//The copyright HTML code as function.
 function Copyright() {
   return (
     <Typography
@@ -40,6 +27,7 @@ function Copyright() {
   );
 }
 
+//The Footer component with HTML code for footer.
 const Footer = () => {
   return (
     <Box>
@@ -61,6 +49,7 @@ const Footer = () => {
           </p>
         </div>
       </Container>
+      {/* Copyright for icons */}
       <div style={{ color: "white", fontSize: "13px", margin: "20px" }}>
         Icons made by{" "}
         <a href="https://www.freepik.com" title="Freepik">
