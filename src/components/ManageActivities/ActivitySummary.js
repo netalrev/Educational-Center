@@ -114,7 +114,6 @@ export default function ActivitySummary(props) {
                 feedback = allActivitiesFeedback.filter(feedback => props.activity_id === feedback.activity_id);
             var feedback2 = allActivitiesFeedback.filter(feedback => props.activity_id === feedback.activity_id);
             if (feedback.length !== 0) {
-                console.log("FEED", feedback)
 
                 var forms = feedback.map((feed, idx) => {
 
@@ -131,7 +130,6 @@ export default function ActivitySummary(props) {
 
                     return { form: new_form, index: index, activityCount: new_activityCount, date: feed.date }
                 });
-                console.log("forms", forms);
                 var new_data = forms.map(form => {
                     var toReturn = { activity_id: "", index: -1, activityCount: "", date: "", missing_students: [], attending_students: [] };
                     if (form.form[3] === "0") {
@@ -157,34 +155,56 @@ export default function ActivitySummary(props) {
                 for (var i = 0; i < forms.length; i++) {
                     new_headers.push({ label: "מפגש " + (forms[i].index) + " " + forms[i].date.substring(0, 10).split("-").reverse().join("-") + " " + forms[i].date.substring(11), key: "meeting" + (forms[i].index) })
                 }
-
                 var new_allData = [];
                 forms.forEach((data) => data.form.forEach(student => {
+                    var toPush;
                     var meeting = [];
                     if (new_allData.filter(student2 => student[1] === student2.email).length === 0) {
+
                         for (var i = 0; i < forms.length; i++) {
-                            meeting.push({ index: forms[i].index, date: forms[i].date, presence: "N/A" });
+                            meeting.push({ index: forms[i].index, date: forms[i].date, presence: "N/A", contribution: 0, participation: 0, });
                         }
-                        var toPush = { name: student[0], email: student[1], phone: "0" + student[2].substring(4, 6) + "-" + student[2].substring(6, student[2].length), meetings: meeting }
+                        toPush = { index: 0, name: student[0], email: student[1], phone: "0" + student[2].substring(4, 6) + "-" + student[2].substring(6, student[2].length), meetings: meeting }
                         for (var i = 0; i < toPush.meetings.length; i++) {
-                            if (toPush.meetings[i].index === data.index)
+
+                            if (toPush.meetings[i].index === data.index) {
                                 toPush.meetings[i].presence = student[3] === "10" ? "V" : "";
-                            break;
+                                toPush.meetings[i].participation = student[4];
+                                toPush.meetings[i].contribution = student[4];
+                                if (props.type === "single")
+                                    toPush.index = data.index;
+                                break;
+
+                            }
                         }
-                        new_allData.push(toPush);
+                        if (new_allData.filter(data2 => data2.index === toPush.index).length === 0)
+                            new_allData.push(toPush);
                     }
                     else
+
                         new_allData.forEach(student2 => {
-                            if (student[1] === student2.email)
-                                for (var i = 0; i < student2.meetings.length; i++) {
-                                    if (student2.meetings[i].index === data.index) {
-                                        student2.meetings[i].presence = student[3] === "10" ? "V" : "";
+                            if (student[1] === student2.email) {
+                                toPush = { index: 0, name: student[0], email: student[1], phone: "0" + student[2].substring(4, 6) + "-" + student[2].substring(6, student[2].length), meetings: meeting }
+                                var len = new_allData[0].meetings.length;
+                                for (var i = 0; i < len; i++) {
+                                    if (new_allData[0].meetings[i].index === data.index) {
+
+                                        student[3] === "10" ? new_allData[0].meetings[i].presence = "V" : new_allData[0].meetings[i].presence = "";
+
+                                        new_allData[0].meetings[i].participation = student[4];
+                                        new_allData[0].meetings[i].contribution = student[5];
+                                        if (props.type === "single")
+                                            new_allData.index = data.index;
+                                        break;
                                     }
+
                                 }
+                            }
+
+
                         })
                 }));
             }
-            console.log(new_allData)
             setData(new_data);
             setHeaders(new_headers);
             setAllData(new_allData);
@@ -201,25 +221,59 @@ export default function ActivitySummary(props) {
     };
     var CSVdata = [];
 
-    var contribution_avg = 0;
-    var participation_avg = 0;
+    var contribution_avg = [];
+    var participation_avg = [];
+    var total_attended = [];
+    var filename = props.title + "_" + props.dates + "_" + props.idx + ".csv";
     var text = <b>{props.title}</b>;
     var toReturn;
     var toInsert = [];
     if (allData !== undefined) {
-        toInsert = allData.map(student => {
-            toReturn = { name: student.name, email: student.email, phone: student.phone };
-            student.meetings.map(meeting => toReturn["meeting" + meeting.index] = meeting.presence);
-            return toReturn;
-        });
-        var space = { name: "", email: "", phone: "" };
-        toInsert.push(space);
-        toInsert.push(space);
-        toInsert.push({ name: "מידע עבור:", email: props.title });
-        toInsert.push({ name: "נוכחות:", email: "" });
-        toInsert.push({ name: "השתתפות כללית:", email: "" });
-        toInsert.push({ name: "תרומה כללית:", email: "" });
-        console.log(toInsert)
+        participation_avg = [];
+        contribution_avg = [];
+        for (var i = 0; i < allData[0].meetings.length; i++) {
+            participation_avg.push(0);
+            contribution_avg.push(0);
+            total_attended.push(0);
+        }
+
+        if (props.type === "multiple") {
+            console.log(allData, "allDATA")
+            toInsert = allData.map(student => {
+                toReturn = { name: student.name, email: student.email, phone: student.phone, };
+                student.meetings.map(meeting => toReturn["meeting" + meeting.index] = meeting.presence);
+                return toReturn;
+            });
+            console.log(toInsert, "INSERT")
+            var space = { name: "", email: "", phone: "" };
+            var summary = [];
+            // var len = allData[0].meetings.length;
+            allData.forEach(student => {
+                student.meetings.forEach(meet => {
+                    toReturn = { index: -1, email: student.email, participated: -1, contributed: -1, attended: -1 }
+                    toReturn.participated = parseInt(meet.participation) / 3;
+                    toReturn.contributed = parseInt(meet.contribution) / 3;
+                    toReturn.index = meet.index;
+                    meet.presence === "V" ? toReturn.attended = "10" : toReturn.attended = "0";
+                    summary.push(toReturn);
+                })
+            })
+            toInsert.push({ name: " עבור:", email: props.title });
+            summary.forEach(student => {
+                console.log(student, "INDEX")
+                contribution_avg[student.index - 1] += (student.contributed / allData.length);
+                participation_avg[student.index - 1] += (student.participated / allData.length);
+                student.attended === "10" ? total_attended[student.index - 1]++ : total_attended[student.index - 1] = total_attended[student.index - 1];
+            });
+            for (var i = 0; i < participation_avg.length; i++) {
+                toInsert.push(space);
+                toInsert.push(space);
+                toInsert.push({ name: "סיכום נוכחות למפגש " + (i + 1) + ":", email: total_attended[i] });
+                toInsert.push({ name: "סיכום ניקוד השתתפות למפגש מספר " + (i + 1) + ":", email: participation_avg[i] });
+                toInsert.push({ name: "סיכום ניקוד תרומה למפגש מספר " + (i + 1) + ":", email: contribution_avg[i] });
+            }
+
+        }
     }
     if (data === undefined) func();
     data === undefined ?
@@ -233,7 +287,7 @@ export default function ActivitySummary(props) {
                     backgroundColor: "#d8e3e7",
                 }}
             >
-                <CSVLink data={toInsert} headers={headers}>
+                <CSVLink data={toInsert} filename={filename} headers={headers}>
                     Download me
                 </CSVLink>
                 <CardContent s>

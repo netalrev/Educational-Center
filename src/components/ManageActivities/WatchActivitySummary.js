@@ -63,6 +63,7 @@ export default function WatchActivitySummary(props) {
                             howManyPass={props.howManyPass}
                             type={props.type}
                             title={props.title}
+                            idx={props.idx}
                         />
                     </DialogContentText>
                 </DialogContent>
