@@ -150,31 +150,44 @@ export default function ActivitySummary(props) {
             }
             var new_headers = [
                 { label: "שם", key: "name" },
-                { label: "דוא\"ל", key: "email" },
+                { label: "דואר אלקטורני", key: "email" },
                 { label: "טלפון", key: "phone" },
             ];
             if (forms !== undefined) {
                 for (var i = 0; i < forms.length; i++) {
-                    new_headers.push({ label: "מפגש " + (i + 1), key: "meeting" + i })
+                    new_headers.push({ label: "מפגש " + (forms[i].index) + " " + forms[i].date.substring(0, 10).split("-").reverse().join("-") + " " + forms[i].date.substring(11), key: "meeting" + (forms[i].index) })
                 }
 
                 var new_allData = [];
                 forms.forEach((data) => data.form.forEach(student => {
-                    if (new_allData.filter(student2 => student[1] === student2[1]).length === 0) {
-                        var toPush = [data.date, data.index, student[0], student[1], student[2], student[3]]
-                        for (var i = 0; i < forms.length - 1; i++) {
-                            toPush.push(-1);
-                            new_allData.push(toPush);
+                    var meeting = [];
+                    if (new_allData.filter(student2 => student[1] === student2.email).length === 0) {
+                        for (var i = 0; i < forms.length; i++) {
+                            meeting.push({ index: forms[i].index, date: forms[i].date, presence: "N/A" });
                         }
-                        console.log(toPush, "PUSHH")
-                        // else
-                        //     new_allData
+                        var toPush = { name: student[0], email: student[1], phone: "0" + student[2].substring(4, 6) + "-" + student[2].substring(6, student[2].length), meetings: meeting }
+                        for (var i = 0; i < toPush.meetings.length; i++) {
+                            if (toPush.meetings[i].index === data.index)
+                                toPush.meetings[i].presence = student[3] === "10" ? "V" : "";
+                            break;
+                        }
+                        new_allData.push(toPush);
                     }
+                    else
+                        new_allData.forEach(student2 => {
+                            if (student[1] === student2.email)
+                                for (var i = 0; i < student2.meetings.length; i++) {
+                                    if (student2.meetings[i].index === data.index) {
+                                        student2.meetings[i].presence = student[3] === "10" ? "V" : "";
+                                    }
+                                }
+                        })
                 }));
-
-                console.log("aaalllll", new_allData, new_headers)
             }
+            console.log(new_allData)
             setData(new_data);
+            setHeaders(new_headers);
+            setAllData(new_allData);
 
         } catch (error) {
             console.log("error on fetching Pending Activities", error);
@@ -192,7 +205,22 @@ export default function ActivitySummary(props) {
     var participation_avg = 0;
     var text = <b>{props.title}</b>;
     var toReturn;
-
+    var toInsert = [];
+    if (allData !== undefined) {
+        toInsert = allData.map(student => {
+            toReturn = { name: student.name, email: student.email, phone: student.phone };
+            student.meetings.map(meeting => toReturn["meeting" + meeting.index] = meeting.presence);
+            return toReturn;
+        });
+        var space = { name: "", email: "", phone: "" };
+        toInsert.push(space);
+        toInsert.push(space);
+        toInsert.push({ name: "מידע עבור:", email: props.title });
+        toInsert.push({ name: "נוכחות:", email: "" });
+        toInsert.push({ name: "השתתפות כללית:", email: "" });
+        toInsert.push({ name: "תרומה כללית:", email: "" });
+        console.log(toInsert)
+    }
     if (data === undefined) func();
     data === undefined ?
         toReturn = <div>טרם מולא משוב עבור קורס זה </div>
@@ -205,7 +233,9 @@ export default function ActivitySummary(props) {
                     backgroundColor: "#d8e3e7",
                 }}
             >
-                <CardHeader title={text} />
+                <CSVLink data={toInsert} headers={headers}>
+                    Download me
+                </CSVLink>
                 <CardContent s>
                     {<div>
                         <h4>{text}</h4>
@@ -223,11 +253,12 @@ export default function ActivitySummary(props) {
                                         {data.map(activity => {
                                             participation_avg = 0
                                             contribution_avg = 0
+                                            activity.attending_students.forEach(student => {
+                                                participation_avg += ((parseInt(student[4]) / 3)) / (activity.attending_students.length);
+                                                contribution_avg += (parseInt(student[5]) / 3) / (activity.attending_students.length);
+                                            })
                                             return (
                                                 <div>
-                                                    <CSVLink data={CSVdata} headers={headers}>
-                                                        Download me
-                                                    </CSVLink>
                                                     <h3><b>{activity.date.substring(11).split("-").reverse().join("-")} {activity.date.substring(0, 10).split("-").reverse().join("-")} - {activity.index} מפגש מספר</b></h3>
                                                     <br></br>
                                                     <div
@@ -241,11 +272,6 @@ export default function ActivitySummary(props) {
                                                     >
                                                         <br></br>
                                                         <h4>מספר משתתפים: {activity.attending_students.length} / {activity.attending_students.length + activity.missing_students.length}</h4>
-
-                                                        {activity.attending_students.forEach(student => {
-                                                            participation_avg += ((parseInt(student[4]) / 3)) / (activity.attending_students.length);
-                                                            contribution_avg += (parseInt(student[5]) / 3) / (activity.attending_students.length);
-                                                        })}
                                                         <h4>השתתפות כלל התלמידים: 5 / {participation_avg} </h4>
                                                         <h4>תרומת כלל התלמידים: 5 / {contribution_avg} </h4>
                                                         <br></br>
