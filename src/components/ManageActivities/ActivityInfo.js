@@ -420,12 +420,12 @@ export default function ActivityInfo(props) {
           />
         </div>
         ,
-        <div>
-          <h6>hey</h6>
-          <CSVLink data={data} headers={headers}>
-            Download me
-          </CSVLink>
-        </div>
+        // <div>
+        //   <h6>hey</h6>
+        //   <CSVLink data={data} headers={headers}>
+        //     Download me
+        //   </CSVLink>
+        // </div>
       );
     })
     ;

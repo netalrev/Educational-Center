@@ -273,16 +273,17 @@ export default function Back(props) {
   return (
     <div className="card">
       <div className="ds-top">
-        <h4>הפעילויות שלי</h4>
+        <h4>הקורסים שלי</h4>
       </div>
       <Scrollbars style={{ marginBlockStart: 80, width: 300, height: 380, float: "right" }}>
         <div id="container2">
           <div className="activityRow">
             <div className="ds pens">
-              <h6 className="prof2" title="Number of pens created by the user">
-                פעילויות שסיימת
-          </h6>
               <h6 className="levels"> {myFinishActivities.length} </h6>
+              <h6 className="prof2" title="Number of pens created by the user">
+                קורסים שסיימת, קטן עלייך
+          </h6>
+              <br></br>
             </div>
           </div>
           {myFinishActivities}
@@ -290,10 +291,11 @@ export default function Back(props) {
         <div id="container2">
           <div className="activityRow">
             <div className="ds pens">
-              <h6 className="prof2" title="Number of pens created by the user">
-                פעילויות שכבר אושרת
-              </h6>
-              <h6 className="levels"> {myActivities.length} </h6>
+              <tr><h6 className="levels"> {myActivities.length} </h6></tr>
+              <tr><h6 className="prof2" title="Number of pens created by the user">
+                קורסים שבלעדייך זה לא היה אותו הדבר
+              </h6></tr>
+              <br></br>
             </div>
           </div>
           {myActivities}
@@ -301,10 +303,11 @@ export default function Back(props) {
         <div id="container2">
           <div className="activityRow">
             <div className="ds pens">
-              <h6 className="prof2" title="Number of pens created by the user">
-                פעילויות שממש עוד מעט תאושר אליהם
-          </h6>
               <h6 className="levels"> {personalActivitiesPending.length} </h6>
+              <h6 className="prof2" title="Number of pens created by the user">
+                קורסים שממש עוד מעט נאשר אותך אליהם
+          </h6>
+              <br></br>
             </div>
           </div>
           <h3>{personalActivitiesPending}</h3>
