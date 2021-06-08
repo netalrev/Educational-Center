@@ -189,13 +189,15 @@ export default function ActivitySummary(props) {
                 });
                 forms.sort(compare_forms);
                 var new_data = forms.map(form => {
+                    console.log("this is form", form)
                     var toReturn = { activity_id: "", index: -1, activityCount: "", date: "", missing_students: [], attending_students: [] };
-                    if (form.form[3] === "0") {
+                    if (form.form[0][3] === "0") {
                         toReturn.missing_students.push(form.form[0]);
                     }
                     else {
                         toReturn.attending_students.push(form.form[0]);
                     }
+                    console.log("this is missing", toReturn.missing_students)
                     toReturn.activity_id = feedback[0].activity_id;
                     toReturn.activityCount = form.activityCount;
                     toReturn.date = form.date;
@@ -282,7 +284,7 @@ export default function ActivitySummary(props) {
     var contribution_avg = [];
     var participation_avg = [];
     var total_attended = [];
-    var filename = props.title + "_" + props.dates + "_" + props.idx + ".csv";
+    var filename = props.title + ".csv";
     var text = <b>{props.title}</b>;
     var toReturn;
     var toInsert = [];
@@ -360,7 +362,6 @@ export default function ActivitySummary(props) {
                 </CSVLink>
                 <CardContent s>
                     {<div>
-                        <h4>{text}</h4>
                         <div
                             style={{
                                 display: "flex",
@@ -393,7 +394,7 @@ export default function ActivitySummary(props) {
                                                         }}
                                                     >
                                                         <br></br>
-                                                        <h4>מספר משתתפים: {activity.attending_students.length} / {activity.attending_students.length + activity.missing_students.length}</h4>
+                                                        <h4>מספר משתתפים: {activity.attending_students.length + activity.missing_students.length} / {activity.attending_students.length}  </h4>
                                                         <h4>השתתפות כלל התלמידים: 5 / {participation_avg} </h4>
                                                         <h4>תרומת כלל התלמידים: 5 / {contribution_avg} </h4>
                                                         <br></br>
