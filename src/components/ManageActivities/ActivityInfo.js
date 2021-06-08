@@ -362,7 +362,7 @@ export default function ActivityInfo(props) {
           familyName={props.familyName}
           groupName={props.groupName}
           howManyPass={activity.dates.filter(date => dates_class.compare(props.currentTime, dates_class.convert(date)) >= 0).length}
-          type="mulitple"
+          type="multiple"
         />
         {/* <WatchResponsiveDialogActivitiesFeedback
           title={activity.title}
@@ -416,6 +416,7 @@ export default function ActivityInfo(props) {
             familyName={props.familyName}
             groupName={props.groupName}
             howManyPass={activity.dates.filter(date => dates_class.compare(props.currentTime, dates_class.convert(date)) >= 0).length}
+            type="multiple"
 
           />
         </div>
