@@ -13,11 +13,8 @@
 .logo {
     height: 50%;
     width: 65px;
-    /*margin-top: 2.3rem;*/
     justify-self: start;
-    /*margin-left: 15px;*/
     cursor: pointer;
-    /*margin-bottom: 10px;*/
 }
 
 .fa-react {

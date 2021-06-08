@@ -38,14 +38,17 @@ export default function Profile(props) {
   const [users, setUsers] = useState([]);
   const [myScore, setMyScore] = useState([]);
   const [prevState, setState] = useState(props.flip_state);
-  const grades = [0, 50, 100, 300, 700, 1500, 3100, 4700];
+  const grades = [0, 50, 150, 350, 750, 1550, 3150, 4750];
   var nextLevel = 0;
   var level = 0;
+  console.log(myScore.score)
   for (var i = 0; i < grades.length - 1; i++) {
     if (myScore.score >= grades[i] && myScore.score < grades[i + 1]) {
       level = i + 1;
     }
   }
+  if (myScore.score >= grades[grades.length - 1])
+    level = grades.length - 1;
   nextLevel = grades[level] - parseInt(myScore.score);
   var score = 0;
   score = parseInt(myScore.score) - grades[level - 1];
@@ -64,20 +67,25 @@ export default function Profile(props) {
   useEffect(() => {
     fetchUsers();
   }, []);
-
-  level = 8;
   return (
     <div className="card">
       <div className="ds-top"></div>
       <div className="avatar-holder1">
-        <div id="container">
-          <LinearDeterminate score={score} />
+        {level === grades.length ?
+          <div id="container">
+            <span>הידד, סיימת את כל השלבים</span>
+            <br></br><br></br>
+          </div>
+          :
+          <div id="container">
+            <LinearDeterminate score={score} />
 
-          <span id="progress1" style={{ fontWeight: "700" }}>
-            {score}%
+            <span id="progress1" style={{ fontWeight: "700" }}>
+              {score}%
           </span>
-          <span>התקדמות:</span>
-        </div>
+            <span>:התקדמות</span>
+          </div>
+        }
       </div>
       <div className="name">
         <a>{props.givenName + " " + props.familyName}</a>
@@ -85,10 +93,10 @@ export default function Profile(props) {
           <div>
             <table className="pointsHolder">
               <td>
-                <div className="points2"> {grades.length}/</div>
+                <div className="points1"> {level}</div>
               </td>
               <td>
-                <div className="points1"> {level}</div>
+                <div className="points2"> /{grades.length}</div>
               </td>
             </table>
           </div>
@@ -100,7 +108,7 @@ export default function Profile(props) {
             <div>
               {" "}
               <p className="avatarLabel">
-                קיבלת כוכב על ההרשמה לפרוייקט! את\ה ברמה 1 אבל נמשיך להתקדם!
+                !קיבלת כוכב על ההרשמה לפרוייקט! אנחנו כעט ברמה 1 אבל נמשיך להתקדם
               </p>{" "}
               <div id="logo1">
                 <img className="pointsAvatar" src={"/img/partisipation.png"} />
@@ -112,7 +120,7 @@ export default function Profile(props) {
           {level === 2 ? (
             <div>
               {" "}
-              <p className="avatarLabel">רמה 2 - קיבלת תעודת השתתפות!</p>{" "}
+              <p className="avatarLabel">!רמה 2 - קיבלת תעודת השתתפות</p>{" "}
               <img className="pointsAvatar" src={"/img/diploma.png"} />{" "}
             </div>
           ) : (
@@ -121,7 +129,7 @@ export default function Profile(props) {
           {level === 3 ? (
             <div>
               {" "}
-              <p className="avatarLabel">רמה 3 - מדליית ארד!</p>{" "}
+              <p className="avatarLabel">!רמה 3 - מדליית ארד</p>{" "}
               <img className="pointsAvatar" src={"/img/bronze-medal.png"} />{" "}
             </div>
           ) : (
@@ -130,7 +138,7 @@ export default function Profile(props) {
           {level === 4 ? (
             <div>
               {" "}
-              <p className="avatarLabel">רמה 4 - מדליית כסף!</p>{" "}
+              <p className="avatarLabel">!רמה 4 - מדליית כסף</p>{" "}
               <img className="pointsAvatar" src={"/img/silver-medal.png"} />{" "}
             </div>
           ) : (
@@ -139,7 +147,7 @@ export default function Profile(props) {
           {level === 5 ? (
             <div>
               {" "}
-              <p className="avatarLabel">רמה 5 - מדליית זהב!</p>{" "}
+              <p className="avatarLabel">!רמה 5 - מדליית זהב</p>{" "}
               <img className="pointsAvatar" src={"/img/gold-medal.png"} />{" "}
             </div>
           ) : (
@@ -149,7 +157,7 @@ export default function Profile(props) {
             <div>
               {" "}
               <p className="avatarLabel">
-                רמה 6 זה כבר מרשים, קיבלת גביע ארד!
+                !רמה 6 זה כבר מרשים, קיבלת גביע ארד
               </p>{" "}
               <img className="pointsAvatar" src={"/img/trophy3.png"} />{" "}
             </div>
@@ -160,7 +168,7 @@ export default function Profile(props) {
             <div>
               {" "}
               <p className="avatarLabel">
-                מדהים! הגעת לרמה 7 וקיבלת גביע כסף!
+                !מדהים! הגעת לרמה 7 וקיבלת גביע כסף
               </p>{" "}
               <img className="pointsAvatar" src={"/img/trophy2.png"} />{" "}
             </div>
@@ -171,7 +179,7 @@ export default function Profile(props) {
             <div>
               {" "}
               <p className="avatarLabel">
-                אליפות! סיימת את הפרוייקט וקיבלת את גביע הזהב!
+                !אליפות! סיימת את הפרוייקט וקיבלת את גביע הזהב
               </p>{" "}
               <img className="pointsAvatar" src={"/img/trophy1.png"} />{" "}
             </div>
@@ -186,7 +194,7 @@ export default function Profile(props) {
             title="Number of projects created by the user"
             onClick={props.function}
           >
-            מעקב פעילויות
+            הקורסים שלי
           </h6>
         </div>
       </div>
