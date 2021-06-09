@@ -1,7 +1,6 @@
 import React from "react";
 import { deletePendingUser } from "../../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
-
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -13,10 +12,16 @@ import { useTheme } from "@material-ui/core/styles";
 import PersonAddDisabledIcon from "@material-ui/icons/PersonAddDisabled";
 import swal from "sweetalert";
 
+
 export default function CancelRegisterResponsiveDialog(props) {
+
+  //               Use State Initialization              //
+
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
+  //                 Functions                //
 
   const deleteSingleUser = async (id_to_delete) => {
     try {
