@@ -336,7 +336,7 @@ export default function Back(props) {
         style={{
           marginBlockStart: "80px",
           width: 300,
-          height: 380,
+          height: 390,
           float: "right",
         }}
       >
@@ -347,7 +347,6 @@ export default function Back(props) {
               <h6 className="prof2" title="Number of pens created by the user">
                 קורסים שסיימת, קטן עלייך
               </h6>
-              <br></br>
             </div>
           </div>
           {myFinishActivities}
@@ -363,22 +362,20 @@ export default function Back(props) {
                   className="prof2"
                   title="Number of pens created by the user"
                 >
-                  קורסים שבלעדייך זה לא היה אותו הדבר
+                  קורסים שבלעדייך זה לא יהיה אותו הדבר
                 </h6>
               </tr>
-              <br></br>
             </div>
           </div>
           {myActivities}
         </div>
         <div id="container2">
-          <div className="activityRow">
+          <div className="activityRow1">
             <div className="ds pens">
               <h6 className="levels"> {personalActivitiesPending.length} </h6>
               <h6 className="prof2" title="Number of pens created by the user">
                 קורסים שממש עוד מעט נאשר אותך אליהם
               </h6>
-              <br></br>
             </div>
           </div>
           <h3>{personalActivitiesPending}</h3>

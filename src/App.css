@@ -38,7 +38,7 @@ amplify-sign-in {
 /* Works on Firefox */
 * {
     scrollbar-width: thin;
-    scrollbar-color: rgb(255, 255, 255) rgb(0, 0, 0);
+    scrollbar-color: rgb(255, 255, 255) #132c33;
 }
 
 /* Works on Chrome, Edge, and Safari */
@@ -47,14 +47,14 @@ amplify-sign-in {
 }
 
 *::-webkit-scrollbar-track {
-    background: rgb(0, 0, 0);
+    background: #132c33;
     padding: 3px;
 }
 
 *::-webkit-scrollbar-thumb {
-    background-color: rgb(255, 255, 255);
+    background-color: #d8e3e7;
     border-radius: 20px;
-    border: 3px solid rgb(0, 0, 0);
+    border: 3px solid #1595ce;
 }
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -124,7 +124,6 @@ tbody {
     color: #ffffff;
 }*/
 textField {
-    
     width: "90%";
     margin-left: "auto";
     margin-right: "auto";
@@ -143,11 +142,11 @@ textField {
         box-shadow: 0px 0px 20px 5px #ff000000;
     }
 }
-.MuiToolbar-gutters{
+.MuiToolbar-gutters {
     background-color: #000000;
     color: white;
 }
-.MuiTablePagination-actions{
+.MuiTablePagination-actions {
     color: white;
 }
 .MuiSelect-icon {
@@ -158,6 +157,5 @@ textField {
     border: #000000;
     size: 1px;
 }
-.MuiSvgIcon-root{
-    
+.MuiSvgIcon-root {
 }
