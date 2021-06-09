@@ -3,12 +3,7 @@ import { useState, useEffect } from "react";
 import { listApprovedActivitiess, listApprovedUsers } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import clsx from "clsx";
-import { Scrollbars } from "rc-scrollbars";
 import LinearDeterminate from "../Profile/LinearDeterminate";
-
-import WatchResponsiveDialogActivitiesFeedback from "./WatchResponsiveDialogActivitiesFeedback";
-import { CSVLink } from "react-csv";
-
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -25,8 +20,9 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import Typography from "@material-ui/core/Typography";
 import WatchActivitySummary from "./WatchActivitySummary";
+
+//Style for the activity information part.
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "95%",
@@ -121,22 +117,28 @@ export default function ActivityInfo(props) {
     },
   };
 
+  //               Use State Initialization              //
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [activitiesFeedbacks, setActivitiesFeedbacks] = useState([]);
-  // const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [approvedUsers, setApprovedUsers] = useState([]);
   const [personalActivitiesID, setPersonalActivitiesID] = useState([]);
   const [allApprovedActivities, setAllApprovedActivities] = useState([]);
 
+  //                 Use Effects                //
   useEffect(() => {
     fetchApprovedUsers();
   }, []);
   useEffect(() => {
     fetchAllApprovedActivities();
   }, [personalActivitiesID]);
+
+
+  //                 Functions                //
+
+  //Function to comparing two dates. return true if date a>date b and 0 else.
   function comparing(a, b) {
     var i = 0,
       j = 0;
@@ -170,6 +172,7 @@ export default function ActivityInfo(props) {
     }
   }
 
+  //Function for fetch all approved users 
   const fetchApprovedUsers = async () => {
     try {
       const usersData = await API.graphql(graphqlOperation(listApprovedUsers));
@@ -188,6 +191,8 @@ export default function ActivityInfo(props) {
       console.log("error on fetching approved users", error);
     }
   };
+
+  //Function for fetch all approved activities.
   const fetchAllApprovedActivities = async () => {
     try {
       const approvedActivitiesData = await API.graphql(graphqlOperation(listApprovedActivitiess));
@@ -199,6 +204,8 @@ export default function ActivityInfo(props) {
       console.log("error on fetching Approved Activities", error);
     }
   };
+
+  //Function that calculate how many feedback for all activities.
   function howManyFeedBacks(activities) {
     const feedbackPerActivity = activities.filter(activity => personalActivitiesID.includes(activity.id))
       .map(activity => {
@@ -213,6 +220,7 @@ export default function ActivityInfo(props) {
     return feedbackPerActivity;
   }
 
+  //The columns values of the table.
   const columns = props.groupName === "admins" ?
     [
       {
@@ -314,18 +322,8 @@ export default function ActivityInfo(props) {
         align: "center",
       },
     ];
-  // const headers = [
-  //   { label: "שם", key: "name" },
-  //   { label: "דוא\"ל", key: "email" },
-  //   { label: "טלפון", key: "phone" },
-  //   { label: "נו", key: "lastname" },
-  // ];
 
-  // const data = [
-  //   { firstname: "GevGever", lastname: "Maor", email: "ah@smthing.co.com" },
-  //   { firstname: "HomHomo", lastname: "Yona", email: "rl@smthing.co.com" },
-  //   { firstname: "ProPro", lastname: "Yarin", email: "ymin@cocococo.com" }
-  // ];
+  //The rows values of the table.
   const rows = (props.groupName === "admins") ? activitiesFeedbacks.map((activity, index) => {
     var progress = parseInt(((activity.dates.filter(date => dates_class.compare(props.currentTime, dates_class.convert(date)) >= 0).length) / activity.dates.length) * 100);
     return createDataAdmin(
@@ -362,26 +360,7 @@ export default function ActivityInfo(props) {
           howManyPass={activity.dates.filter(date => dates_class.compare(props.currentTime, dates_class.convert(date)) >= 0).length}
           type="multiple"
         />
-        {/* <WatchResponsiveDialogActivitiesFeedback
-          title={activity.title}
-          dates={activity.dates}
-          students={activity.form}
-          idx={index}
-          id={activity.id}
-          email={props.email}
-          givenName={props.givenName}
-          familyName={props.familyName}
-          groupName={props.groupName}
-          howManyPass={activity.dates.filter(date => dates_class.compare(props.currentTime, dates_class.convert(date)) >= 0).length}
-        /> */}
       </div >,
-      // <div>
-      //   <CSVLink data={data} headers={headers}>
-      //     Download me
-      // </CSVLink>
-
-      // </div>
-
     );
   })
     :
@@ -419,12 +398,6 @@ export default function ActivityInfo(props) {
           />
         </div>
         ,
-        // <div>
-        //   <h6>hey</h6>
-        //   <CSVLink data={data} headers={headers}>
-        //     Download me
-        //   </CSVLink>
-        // </div>
       );
     })
     ;
@@ -483,6 +456,7 @@ export default function ActivityInfo(props) {
     },
   };
 
+  //Function for compere date and time create.return 1 if date&time a>date&time b and 0 else.
   function compare_createdAt(a, b) {
     var a_converted = dates_class.convert(a.createdAt);
     var b_converted = dates_class.convert(b.createdAt);
@@ -490,6 +464,8 @@ export default function ActivityInfo(props) {
     else if (dates_class.compare(a_converted, b_converted) == 0) return 0;
     else return -1;
   }
+
+  //async function for fetch all activities feedbacks.
   const fetchActivitiesFeedbacks = async () => {
     try {
       const activitiesFeedbacksData = await API.graphql(graphqlOperation(listApprovedActivitiess));
@@ -505,6 +481,7 @@ export default function ActivityInfo(props) {
     }
   };
 
+  //This function create data for ADMIN.
   function createDataAdmin(
     name,
     phoneNumber,
@@ -518,6 +495,7 @@ export default function ActivityInfo(props) {
     return { name, phoneNumber, activityName, email, dates, bar, buttons, exports };
   }
 
+  //This function create data for CONTENT SUPPLIER.
   function createDataContentSuppliers(
     activityName,
     dates,
@@ -528,6 +506,7 @@ export default function ActivityInfo(props) {
     return { activityName, dates, bar, buttons, exports };
   }
 
+  //    Handler functions   //
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -541,7 +520,9 @@ export default function ActivityInfo(props) {
     setExpanded(!expanded);
   };
 
-  var text = <b>{props.title}</b>;
+  var text = <b>{props.title}</b>;//Var for title
+
+  //React componenet of the activities iknformation.
   return (
     <Card className={classes.root}>
       <CardHeader title={text} />

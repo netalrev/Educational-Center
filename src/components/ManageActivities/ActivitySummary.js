@@ -6,15 +6,12 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import { common, red } from "@material-ui/core/colors";
 import TextField from "@material-ui/core/TextField";
-// import SubmitResponsiveDialogActivityFeedback from "./SubmitResponsiveDialogActivityFeedback";
 import { useState, useEffect } from "react";
 import { listSubmitedActivityFeedbacks } from "../../graphql/queries";
 import { Scrollbars } from "rc-scrollbars";
 import { CSVLink } from "react-csv";
 import Button from "@material-ui/core/Button";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-
-
 import {
     deletePendingActivities,
     deleteApprovedActivities,
