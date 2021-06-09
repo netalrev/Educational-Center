@@ -163,8 +163,6 @@
 .card .ds-info .projects p,
 .card .ds-info .posts p {
     font-size: 15px;
-    margin-top: 5px;
-    margin-bottom: 0px;
 }
 .card .ds-info .ds:nth-of-type(2) {
     animation-delay: 0.5s;
@@ -182,6 +180,12 @@
     left: 0;
     animation: mvBottom 1.5s;
     margin-top: 25px;
+    background-color: #132c33;
+}
+.myCurses {
+    font-size: 23px;
+    color: #d8e3e7;
+    margin-top: 15px;
 }
 .pointsHolder {
     margin-right: auto;
@@ -281,16 +285,17 @@
 
 #container2 {
     position: relative;
-    width: 50vw;
-    top: 45%;
-    left: 48%;
+    top: 80px;
+    left: 50%;
     padding-left: 13px;
     padding-right: 13px;
-    border: 3px solid #132c33;
-    border-radius: 15%;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: auto;
+    margin-right: auto;
     transform: translate3d(-50%, -50%, 0);
+}
+.activityRow1 {
+    margin-top: 68px;
+    margin-bottom: 20px;
 }
 
 input {
@@ -346,10 +351,21 @@ span:last-child {
 .levels {
     font-weight: 900;
     font-family: "Courier New", Courier, monospace;
-    font-size: 30px;
-    color: #132c33;
-    margin-top: 20px;
+    font-size: 40px;
+    color: #d8e3e7;
+    margin: 15px;
+    text-shadow: 0 0 19px #1595ce;
 }
+.levels2 {
+    font-weight: 900;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 40px;
+    color: #d8e3e7;
+    margin: 15px;
+    padding-top: 40px;
+    text-shadow: 0 0 19px #1595ce;
+}
+
 .prof1 {
     width: 100%;
     background-color: #132c33;
@@ -367,6 +383,7 @@ span:last-child {
 .prof2 {
     font-weight: 100;
     font-size: 15px;
+    color: #d8e3e7;
 }
 .card_cont {
     min-width: 270px;
@@ -383,9 +400,13 @@ span:last-child {
     cursor: pointer;
     font-size: 50px;
 }
-.flipIcon:hover {
-    color: #132c33;
+.flipIcon {
+    color: #d8e3e7;
     fill: #d8e3e7;
+}
+.flipIcon:hover {
+    color: #1595ce;
+    fill: #1595ce;
 }
 
 .progress2 {
@@ -450,7 +471,15 @@ span:last-child {
     width: 130px;
     margin: 20px;
 }
-
+.pointsAvatar2 {
+    -webkit-filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.8));
+    -webkit-transition: all 0.5s linear;
+    -o-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+    height: 40px;
+    width: 40px;
+    margin: 12px;
+}
 .avatarLabel {
     color: #d8e3e7;
     font-weight: 500;

@@ -13,7 +13,13 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { makeStyles } from "@material-ui/core/styles";
-import { listApprovedUsers, listUsers, listApprovedActivitiess, listPendingUsers, listPendingActivitiess } from "../../graphql/queries";
+import {
+  listApprovedUsers,
+  listUsers,
+  listApprovedActivitiess,
+  listPendingUsers,
+  listPendingActivitiess,
+} from "../../graphql/queries";
 import LinearDeterminate from "./LinearDeterminate";
 
 const useStyles = makeStyles((theme) => ({
@@ -54,14 +60,14 @@ var dates_class = {
     return d.constructor === Date
       ? d
       : d.constructor === Array
-        ? new Date(d[0], d[1], d[2])
-        : d.constructor === Number
-          ? new Date(d)
-          : d.constructor === String
-            ? new Date(d)
-            : typeof d === "object"
-              ? new Date(d.year, d.month, d.date)
-              : NaN;
+      ? new Date(d[0], d[1], d[2])
+      : d.constructor === Number
+      ? new Date(d)
+      : d.constructor === String
+      ? new Date(d)
+      : typeof d === "object"
+      ? new Date(d.year, d.month, d.date)
+      : NaN;
   },
   compare: function (a, b) {
     // Compare two dates (could be of any type supported by the convert
@@ -104,14 +110,17 @@ export default function Back(props) {
   const [myFinishActivities, setMyFinishActivities] = useState([]);
   const [url, setUrl] = useState([]);
   const [personalActivitiesID, setPersonalActivitiesID] = useState([]);
-  const [personalActivitiesPending, setPersonalActivitiesPending] = useState([]);
+  const [personalActivitiesPending, setPersonalActivitiesPending] = useState(
+    []
+  );
 
   var activitiesHTML = "";
 
   // alert(activitysHTML);
   function howManyFeedBacks(activities) {
-    const feedbackPerActivity = activities.filter(activity => personalActivitiesID.includes(activity.id))
-      .map(activity => {
+    const feedbackPerActivity = activities
+      .filter((activity) => personalActivitiesID.includes(activity.id))
+      .map((activity) => {
         var amount = 0;
         activity.dates.forEach((date) => {
           if (dates_class.compare(dateAndTime, dates_class.convert(date)) >= 0)
@@ -119,7 +128,7 @@ export default function Back(props) {
         });
         var id = activity.id;
         return { id, amount };
-      })
+      });
     return feedbackPerActivity;
   }
   const fetchTimeAndDate = async () => {
@@ -173,31 +182,72 @@ export default function Back(props) {
   }
   const fetchAllApprovedActivities = async () => {
     try {
-      const approvedActivitiesData = await API.graphql(graphqlOperation(listApprovedActivitiess));
-      const approvedActivitiesList = approvedActivitiesData.data.listApprovedActivitiess.items;
+      const approvedActivitiesData = await API.graphql(
+        graphqlOperation(listApprovedActivitiess)
+      );
+      const approvedActivitiesList =
+        approvedActivitiesData.data.listApprovedActivitiess.items;
       approvedActivitiesList.sort(comparing);
       setAllApprovedActivities(approvedActivitiesList);
       const feedbacks = howManyFeedBacks(approvedActivitiesList);
       var finished = [];
       var notFinshed = [];
-      const x = approvedActivitiesList.filter(activity => personalActivitiesID.includes(activity.id))
-        .map(activity => {
-          var progress = parseInt(((feedbacks.filter(feedback => feedback.id === activity.id)[0].amount) / activity.dates.length) * 100);
-          if (feedbacks.filter(feedback => feedback.id === activity.id)[0].amount < approvedActivitiesList.filter(activity2 => activity2.id === activity.id)[0].dates.length)
+      const x = approvedActivitiesList
+        .filter((activity) => personalActivitiesID.includes(activity.id))
+        .map((activity) => {
+          var progress = parseInt(
+            (feedbacks.filter((feedback) => feedback.id === activity.id)[0]
+              .amount /
+              activity.dates.length) *
+              100
+          );
+          if (
+            feedbacks.filter((feedback) => feedback.id === activity.id)[0]
+              .amount <
+            approvedActivitiesList.filter(
+              (activity2) => activity2.id === activity.id
+            )[0].dates.length
+          )
             notFinshed.push(
               <div className="activityRow">
                 <p>{activity.title}</p>
                 <LinearDeterminate score={progress} />
-                <p>{feedbacks.filter(feedback => feedback.id === activity.id)[0].amount} / {approvedActivitiesList.filter(activity2 => activity2.id === activity.id)[0].dates.length}</p>
+                <p>
+                  {
+                    feedbacks.filter(
+                      (feedback) => feedback.id === activity.id
+                    )[0].amount
+                  }{" "}
+                  /{" "}
+                  {
+                    approvedActivitiesList.filter(
+                      (activity2) => activity2.id === activity.id
+                    )[0].dates.length
+                  }
+                </p>
                 <br></br>
               </div>
-            )
+            );
           else
-            finished.push(<div className="activityRow">
-              <p>{activity.title}</p>
-              <p>{feedbacks.filter(feedback => feedback.id === activity.id)[0].amount} / {approvedActivitiesList.filter(activity2 => activity2.id === activity.id)[0].dates.length}</p>
-              <br></br>
-            </div>)
+            finished.push(
+              <div className="activityRow">
+                <p>{activity.title}</p>
+                <p>
+                  {
+                    feedbacks.filter(
+                      (feedback) => feedback.id === activity.id
+                    )[0].amount
+                  }{" "}
+                  /{" "}
+                  {
+                    approvedActivitiesList.filter(
+                      (activity2) => activity2.id === activity.id
+                    )[0].dates.length
+                  }
+                </p>
+                <br></br>
+              </div>
+            );
           return activity.id;
         });
       setMyActivities(notFinshed);
@@ -211,14 +261,21 @@ export default function Back(props) {
     try {
       const usersData = await API.graphql(graphqlOperation(listPendingUsers));
       const usersList = usersData.data.listPendingUsers.items;
-      const activityData = await API.graphql(graphqlOperation(listApprovedActivitiess));
+      const activityData = await API.graphql(
+        graphqlOperation(listApprovedActivitiess)
+      );
       const activityList = activityData.data.listApprovedActivitiess.items;
-      const personalActivitiesIdList = usersList.filter((user) => user.email === props.email).map(user => user.activity_id);
-      const myPendingActivities = activityList.filter(activity => personalActivitiesIdList.includes(activity.id)).map(activity =>
-        <div className="activityRow">
-          <p>{activity.title}</p>
-          <br></br>
-        </div>);
+      const personalActivitiesIdList = usersList
+        .filter((user) => user.email === props.email)
+        .map((user) => user.activity_id);
+      const myPendingActivities = activityList
+        .filter((activity) => personalActivitiesIdList.includes(activity.id))
+        .map((activity) => (
+          <div className="activityRow">
+            <p>{activity.title}</p>
+            <br></br>
+          </div>
+        ));
       setPersonalActivitiesPending(myPendingActivities);
     } catch (error) {
       console.log("error on fetching pending users", error);
@@ -229,12 +286,14 @@ export default function Back(props) {
     try {
       const usersData = await API.graphql(graphqlOperation(listApprovedUsers));
       const usersList = usersData.data.listApprovedUsers.items;
-      const personalActivitiesIdList = usersList.filter((user) => user.email === props.email);
-      const IDs = personalActivitiesIdList.map(activity => {
+      const personalActivitiesIdList = usersList.filter(
+        (user) => user.email === props.email
+      );
+      const IDs = personalActivitiesIdList.map((activity) => {
         if (activity !== null) {
-          return activity.activity_id
+          return activity.activity_id;
         }
-      })
+      });
       setPersonalActivitiesID(IDs);
       setApprovedUsers(usersList);
     } catch (error) {
@@ -268,48 +327,76 @@ export default function Back(props) {
     fetchPendingUsers();
   }, []);
 
-
   return (
     <div className="card">
       <div className="ds-top">
-        <h4>הקורסים שלי</h4>
+        <h4 className="myCurses">הקורסים שלי</h4>
       </div>
-      <Scrollbars style={{ marginBlockStart: 80, width: 300, height: 380, float: "right" }}>
+      <Scrollbars
+        style={{
+          marginBlockStart: "80px",
+          width: 300,
+          height: 390,
+          float: "right",
+        }}
+      >
         <div id="container2">
           <div className="activityRow">
             <div className="ds pens">
-              <h6 className="levels"> {myFinishActivities.length} </h6>
+              <h6 className="levels2"> {myFinishActivities.length} </h6>
               <h6 className="prof2" title="Number of pens created by the user">
                 קורסים שסיימת, קטן עלייך
-          </h6>
-              <br></br>
+              </h6>
+              <img className="pointsAvatar2" src={"/img/completed.png"} />
             </div>
           </div>
-          {myFinishActivities}
+          <div
+            style={{
+              paddingTop: "10px",
+              textShadow: "0 0 19px #ffffff",
+            }}
+          >
+            {myFinishActivities}
+          </div>
         </div>
         <div id="container2">
           <div className="activityRow">
             <div className="ds pens">
-              <tr><h6 className="levels"> {myActivities.length} </h6></tr>
-              <tr><h6 className="prof2" title="Number of pens created by the user">
-                קורסים שבלעדייך זה לא היה אותו הדבר
-              </h6></tr>
-              <br></br>
+              <tr>
+                <h6 className="levels"> {myActivities.length} </h6>
+              </tr>
+              <tr>
+                <h6
+                  className="prof2"
+                  title="Number of pens created by the user"
+                >
+                  קורסים שבלעדייך זה לא יהיה אותו הדבר
+                </h6>
+                <img className="pointsAvatar2" src={"/img/validation.png"} />
+              </tr>
             </div>
           </div>
           {myActivities}
         </div>
         <div id="container2">
-          <div className="activityRow">
+          <div className="activityRow1">
             <div className="ds pens">
               <h6 className="levels"> {personalActivitiesPending.length} </h6>
               <h6 className="prof2" title="Number of pens created by the user">
                 קורסים שממש עוד מעט נאשר אותך אליהם
-          </h6>
-              <br></br>
+              </h6>
+              <img className="pointsAvatar2" src={"/img/pending.png"} />
             </div>
           </div>
-          <h3>{personalActivitiesPending}</h3>
+          <h3
+            style={{
+              fontSize: "13px",
+              color: "#d8e3e7",
+              marginBottom: "20px",
+            }}
+          >
+            {personalActivitiesPending}
+          </h3>
         </div>
       </Scrollbars>
       <div className="logout">
