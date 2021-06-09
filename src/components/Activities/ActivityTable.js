@@ -1,12 +1,11 @@
-import React, { Component } from "react";
 import { useState, useEffect } from "react";
 import { listApprovedActivitiess } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import { makeStyles } from "@material-ui/core/styles";
 import RecipeReviewCard from "./RecipeReviewCard";
 import SearchBar from "material-ui-search-bar";
-import $ from "jquery";
 
+//The style for Activities table.
 const useStyles = makeStyles((theme) => ({
   searchBar: {
     zIndex: "0",
@@ -36,17 +35,18 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
 export default function ActivityTable(props) {
+
+  //               Use State Initialization              //
+
   const [allApprovedActivitiess, setAllApprovedActivitiess] = useState([]);
   const [toShow, setToShow] = useState([]);
   const classes = useStyles();
 
-  useEffect(() => {
-    fetchAllApprovedActivities();
-  }, [props.currentTime]);
-  useEffect(() => {
-    fillToShow();
-  }, [allApprovedActivitiess]);
+
+  //                 Functions                //
+
   var dates_class = {
     convert: function (d) {
       // Converts the date in d to a date-object. The input can be:
@@ -98,6 +98,7 @@ export default function ActivityTable(props) {
     },
   };
 
+  //This function comparing between two courses to find the first one ( date and time !).
   function comparing(a, b) {
     var i = 0,
       j = 0;
@@ -136,6 +137,8 @@ export default function ActivityTable(props) {
       else return -1;
     }
   }
+
+  //async function to fetch all aprroved activities. 
   const fetchAllApprovedActivities = async () => {
     try {
       const approvedActivitiesData = await API.graphql(
@@ -177,6 +180,7 @@ export default function ActivityTable(props) {
     }
   };
 
+  //This function return a card that shows all the courses details.
   function fillToShow() {
     var allActivity = [];
     allActivity = allApprovedActivitiess.map((activity) => (
@@ -200,6 +204,7 @@ export default function ActivityTable(props) {
     setToShow(allActivity);
   }
 
+  //This function return all the courses details that found by the saerch.
   function search(key) {
     var allActivity = [];
     allActivity = allApprovedActivitiess.map((activity) => (
@@ -219,6 +224,8 @@ export default function ActivityTable(props) {
         currentTime={props.currentTime}
       />
     ));
+
+    //Extention for search function.
     const filterdToShow = allActivity.filter((activity) => {
       if (
         activity.props.title.includes(key) ||
@@ -229,6 +236,18 @@ export default function ActivityTable(props) {
     setToShow(filterdToShow);
   }
 
+  //                 Use Effects                //
+  useEffect(() => {
+    fetchAllApprovedActivities();
+  }, [props.currentTime]);
+  useEffect(() => {
+    fillToShow();
+  }, [allApprovedActivitiess]);
+
+
+  //                 Flow               //
+
+  //React componenet with search bar for activities.
   return (
     <div style={{ width: "100%", padding: "20px" }}>
       <div>

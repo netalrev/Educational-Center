@@ -1,9 +1,7 @@
-import React from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import HomePage from "./components/HomePage/HomePage";
 import Loading from "./components/Loading/Loading";
-import Profile from "./components/Profile/profile";
 import ProfileCard from "./components/Profile/ProfileCard";
 import SignUp from "./components/Register/SignUp";
 import { useState, useEffect } from "react";
@@ -19,22 +17,20 @@ import ActivitiesPage from "./components/Activities/ActivitiesPage";
 import Amplify, { API, graphqlOperation, Auth } from "aws-amplify";
 import awsconfig from "./aws-exports";
 import ConfirmSignUp from "./components/Register/ConfirmSignUp";
-import { I18n } from "aws-amplify";
-import { Translations } from "@aws-amplify/ui-components";
 import { Hub, Logger } from "aws-amplify";
 import swal from "sweetalert";
-// import ReactCardFlip from "react-card-flip";
 
 Amplify.configure(awsconfig); //AWS CONFIGORE
+
+//Vlaues of current authenticated user.
 var fname = "null";
 var gname = "null";
 var emailAddress = "null";
 var groupName = "null";
 var phoneNumber = "null";
-var groups = new Array(3);
+var groups = new Array(3);//For check user group.
 
-const confirmEmail = React.createContext("confirmEmail");
-
+//Get vlaues from current authenticated user.
 Auth.currentAuthenticatedUser().then(
   (user) =>
     (gname = user.attributes.given_name) &&
@@ -45,12 +41,12 @@ Auth.currentAuthenticatedUser().then(
     (groupName = groups[0])
 );
 
+//Info messege for several events.
 const logger = new Logger("Logger", "INFO");
 const listener = (data) => {
   switch (data.payload.event) {
     case "signIn":
       logger.info("user signed in");
-
       break;
     case "signUp":
       logger.info("user signed up");
@@ -68,16 +64,21 @@ const listener = (data) => {
       logger.error("Something went wrong, look at data object", data);
   }
 };
-
-function refreshPage() {
-  window.location.reload();
-}
+//Connect listener for authentication.
 Hub.listen("auth", listener);
-const loader = document.querySelector(".loader");
+
 function App() {
+
+  //                 Use State Initialization                //
+
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [users, setUsers] = useState([]);
+
+
+  //                 Functions                //
+
+  ////async function that return all user list stored in DB.
   const fetchUsers = async () => {
     try {
       const usersData = await API.graphql(graphqlOperation(listUsers));
@@ -87,6 +88,8 @@ function App() {
       console.log("error on fetching users", error);
     }
   };
+
+  //async function that crate new user and enter it to DB.
   const create_User = async () => {
     try {
       var IDs = users.map((element) => parseInt(element.id));
@@ -106,11 +109,12 @@ function App() {
       console.log("error creating user: ", error);
     }
   };
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+  //Helper function for async function createUser.
+  const createU = async () => {
+    await create_User();
+  };
 
-  if (isAuthenticating) void 0;
+  ////async function thath check if this user is authenticated.
   async function onLoad() {
     try {
       await Auth.currentSession();
@@ -124,12 +128,24 @@ function App() {
     }
     setIsAuthenticating(false);
   }
+
+
+  //                 Use Effects                //
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+
   useEffect(() => {
     onLoad();
   }, []);
-  const createU = async () => {
-    await create_User();
-  };
+
+
+  //                 Flow                //
+
+  if (isAuthenticating) void 0;
+
+  //Check if this authenticated user is not in the user list. if true - enter his to list, else-ignore.
   if (
     users.filter((user) => user.email === emailAddress).length === 0 &&
     groupName === "approvedUsers"
@@ -137,6 +153,7 @@ function App() {
     createU();
   }
 
+  //React componenet with cases for spesific group.
   return (
     <div className="App">
       <Navbar givenName={gname} familyName={fname} groupName={groupName} />
@@ -174,7 +191,7 @@ function App() {
               </Route>
             ) : (
               <Route exact path="/activitiespage">
-                <h2 className="forbidden">
+                <h2 className="forbidden" style={{ color: "#132c33" }}>
                   אנא התחבר\י על מנת לצפות בפעילויות
                 </h2>
               </Route>
