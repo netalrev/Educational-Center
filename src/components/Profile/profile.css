@@ -354,7 +354,16 @@ span:last-child {
     font-size: 40px;
     color: #d8e3e7;
     margin: 15px;
-    text-shadow: 0 0 19px #132c33;
+    text-shadow: 0 0 19px #1595ce;
+}
+.levels2 {
+    font-weight: 900;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 40px;
+    color: #d8e3e7;
+    margin: 15px;
+    padding-top: 40px;
+    text-shadow: 0 0 19px #1595ce;
 }
 
 .prof1 {
@@ -462,7 +471,15 @@ span:last-child {
     width: 130px;
     margin: 20px;
 }
-
+.pointsAvatar2 {
+    -webkit-filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.8));
+    -webkit-transition: all 0.5s linear;
+    -o-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+    height: 40px;
+    width: 40px;
+    margin: 12px;
+}
 .avatarLabel {
     color: #d8e3e7;
     font-weight: 500;

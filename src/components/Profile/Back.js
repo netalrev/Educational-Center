@@ -343,13 +343,21 @@ export default function Back(props) {
         <div id="container2">
           <div className="activityRow">
             <div className="ds pens">
-              <h6 className="levels"> {myFinishActivities.length} </h6>
+              <h6 className="levels2"> {myFinishActivities.length} </h6>
               <h6 className="prof2" title="Number of pens created by the user">
                 קורסים שסיימת, קטן עלייך
               </h6>
+              <img className="pointsAvatar2" src={"/img/completed.png"} />
             </div>
           </div>
-          {myFinishActivities}
+          <div
+            style={{
+              paddingTop: "10px",
+              textShadow: "0 0 19px #ffffff",
+            }}
+          >
+            {myFinishActivities}
+          </div>
         </div>
         <div id="container2">
           <div className="activityRow">
@@ -364,6 +372,7 @@ export default function Back(props) {
                 >
                   קורסים שבלעדייך זה לא יהיה אותו הדבר
                 </h6>
+                <img className="pointsAvatar2" src={"/img/validation.png"} />
               </tr>
             </div>
           </div>
@@ -376,9 +385,18 @@ export default function Back(props) {
               <h6 className="prof2" title="Number of pens created by the user">
                 קורסים שממש עוד מעט נאשר אותך אליהם
               </h6>
+              <img className="pointsAvatar2" src={"/img/pending.png"} />
             </div>
           </div>
-          <h3>{personalActivitiesPending}</h3>
+          <h3
+            style={{
+              fontSize: "13px",
+              color: "#d8e3e7",
+              marginBottom: "20px",
+            }}
+          >
+            {personalActivitiesPending}
+          </h3>
         </div>
       </Scrollbars>
       <div className="logout">
