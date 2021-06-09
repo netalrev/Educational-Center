@@ -183,6 +183,11 @@
     animation: mvBottom 1.5s;
     margin-top: 25px;
 }
+.myCurses {
+    font-size: 23px;
+    color: #d8e3e7;
+    margin-top: 15px;
+}
 .pointsHolder {
     margin-right: auto;
 }
@@ -281,15 +286,13 @@
 
 #container2 {
     position: relative;
-    width: 50vw;
     top: 45%;
-    left: 48%;
+    left: 50%;
     padding-left: 13px;
     padding-right: 13px;
-    border: 3px solid #132c33;
     border-radius: 15%;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: auto;
+    margin-right: auto;
     transform: translate3d(-50%, -50%, 0);
 }
 
