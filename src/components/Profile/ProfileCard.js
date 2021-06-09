@@ -4,7 +4,6 @@ import ReactCardFlip from "react-card-flip";
 import Amplify, { Auth } from "aws-amplify";
 import { AmplifySignOut } from "@aws-amplify/ui-react";
 import Profile from "./profile";
-import ProfileAdmin from "./profileAdmin";
 import Back from "./Back";
 
 async function signOut() {
@@ -49,14 +48,7 @@ class ProfileCard extends React.Component {
                   groupName={this.props.groupName}
                 />
               ) : (
-                <ProfileAdmin
-                  className="flip_btn"
-                  function={this.handleClick}
-                  givenName={this.props.givenName}
-                  familyName={this.props.familyName}
-                  email={this.props.email}
-                  groupName={this.props.groupName}
-                />
+                <div></div>
               )}
               <div className="flip_btn"></div>
             </div>
@@ -81,6 +73,8 @@ class ProfileCard extends React.Component {
             paddingRight: "60px",
             paddingTop: "15px",
             paddingBottom: "15px",
+            marginBottom: "15px",
+
             borderRadius: "10px",
           }}
           onClick={signOut}

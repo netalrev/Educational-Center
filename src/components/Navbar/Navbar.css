@@ -11,8 +11,7 @@
 }
 
 .logo {
-    height: 50%;
-    width: 65px;
+    height: 100%;
     justify-self: start;
     cursor: pointer;
 }
@@ -97,7 +96,10 @@
     }
 
     .logo {
-        visibility: hidden;
+        /* visibility: hidden; */
+        margin-left: auto;
+        margin-right: auto;
+        height: 100%;
     }
 
     .menu-icon {
@@ -132,5 +134,9 @@
     }
     .daniels {
         display: none;
+    }
+    .desc {
+        margin-left: 25px;
+        margin-right: 25px;
     }
 }
