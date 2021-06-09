@@ -1,13 +1,17 @@
-import React, { Component } from "react";
 import Loading from "../Loading/Loading";
 import ActivityTable from "./ActivityTable";
 import { useState, useEffect } from "react";
 import $ from "jquery";
 
 export default function ActivitiesPage(props) {
+
+  //               Use State Initialization              //
   const [dateAndTime, setDateAndTime] = useState([]);
   const [url, setUrl] = useState([]);
 
+  //                 Functions                //
+
+  //async function that return Israeli local time and date from an API.
   const fetchTimeAndDate = async () => {
     try {
       var url =
@@ -21,13 +25,22 @@ export default function ActivitiesPage(props) {
       console.log("Error fetching date and time.", err);
     }
   };
+
+
+  //                 Use Effects                //
+
   useEffect(() => {
     fetchTimeAndDate();
   }, [url]);
+
+
+  //                 Flow               //
+
   $("#activities_page").hide();
   setTimeout(() => $("#loadingg").hide(), 2000);
   setTimeout(() => $("#activities_page").show(), 2000);
 
+  //React componenet of the activities table.
   return (
     <div>
       <div id="loadingg">
@@ -46,8 +59,3 @@ export default function ActivitiesPage(props) {
     </div>
   );
 }
-/*
-$("td").each(function () {
-  $(this).css("color", "#ffffff");
-});
-*/

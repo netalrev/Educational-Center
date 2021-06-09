@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-//Var used for authentication procces and next page.
+//Vars used for authentication procces and next page.
 var username, password;
 var history;
 
