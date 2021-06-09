@@ -24,7 +24,6 @@ import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import { red } from "@material-ui/core/colors";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import VideocamIcon from "@material-ui/icons/Videocam";
 import VideocamOffIcon from "@material-ui/icons/VideocamOff";
@@ -32,11 +31,12 @@ import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import OpenZoomLink from "./OpenZoomLink";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 
+
+//Style for review card page.
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 320,
     minWidth: 320,
-    // maxHeight: 700,
     margin: "10px",
     background: "#132c33",
     borderRadius: "4%",
@@ -44,13 +44,12 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     color: "#d8e3e7",
     transition: "transform 0.15s ease-in-out",
-    //"&:hover": { transform: "scale3d(1.05, 1.05, 1)" },
     boxShadow: "5px 5px 9px rgba(20, 18, 18, 0.62)",
   },
 
   media: {
     height: 0,
-    paddingTop: "56.25%", // 16:9
+    paddingTop: "56.25%",
   },
   expand: {
     transform: "rotate(0deg)",
@@ -66,12 +65,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function RecipeReviewCard(props) {
+
+  //               Use State Initialization              //
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [pendingUsers, setPendingUsers] = useState([]);
   const [approvedUsers, setApprovedUsers] = useState([]);
   const [activityFeedbacks, setActivityFeedbacks] = useState([]);
   const [allApprovedActivitiess, setAllApprovedActivitiess] = useState([]);
+
+  //               Use Effect Initialization              //
   useEffect(() => {
     fetchAllApprovedActivities();
   }, []);
@@ -87,6 +90,9 @@ export default function RecipeReviewCard(props) {
     fetchActivityFeedbacks();
   }, []);
 
+  //                 Functions                //
+
+  //async function to fetch all the approved activity.
   const fetchAllApprovedActivities = async () => {
     try {
       const approvedActivitiesData = await API.graphql(
@@ -100,6 +106,7 @@ export default function RecipeReviewCard(props) {
     }
   };
 
+  //async function to fetch all the activities feedback.
   const fetchActivityFeedbacks = async () => {
     try {
       const feedbacksData = await API.graphql(
@@ -111,6 +118,8 @@ export default function RecipeReviewCard(props) {
       console.log("error on fetching activity feedbacks", error);
     }
   };
+
+  //async function to fetch all the approved user.
   const fetchApprovedUsers = async () => {
     try {
       const usersData = await API.graphql(graphqlOperation(listApprovedUsers));
@@ -121,6 +130,7 @@ export default function RecipeReviewCard(props) {
     }
   };
 
+  //async function to fetch all the approved user.
   const fetchPendingUsers = async () => {
     try {
       const usersData = await API.graphql(graphqlOperation(listPendingUsers));
@@ -130,6 +140,8 @@ export default function RecipeReviewCard(props) {
       console.log("error on fetching pending users", error);
     }
   };
+
+  //async function to create new activity feedback.
   const createNewActivityFeedback = async () => {
     try {
       var new_form = [];
@@ -183,7 +195,6 @@ export default function RecipeReviewCard(props) {
         )[0].phone_number,
         form: new_form,
       };
-      // console.log("HELLO", activityFeedback);
       await API.graphql(
         graphqlOperation(createActivityFeedback, { input: activityFeedback })
       );
@@ -192,6 +203,7 @@ export default function RecipeReviewCard(props) {
       console.log("error creating activity feedback: ", error);
     }
   };
+
   var dates_class = {
     convert: function (d) {
       // Converts the date in d to a date-object. The input can be:
@@ -242,9 +254,13 @@ export default function RecipeReviewCard(props) {
         : NaN;
     },
   };
+
+  //Helper function for create 
   const createActivityF = async () => {
     await createNewActivityFeedback();
   };
+
+  //This function return spesific button for spesific group user.
   function whichButton() {
     var start = props.dates.filter(
       (date) =>
@@ -402,9 +418,12 @@ export default function RecipeReviewCard(props) {
     }
   }
 
+  //Handler function 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  //React componenet for review card.
   return (
     <Card className={classes.root}>
       <CardHeader

@@ -32,6 +32,8 @@ export default function CancelRegisterResponsiveDialog(props) {
     }
   };
 
+  //            Handlers functions           //
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -49,6 +51,7 @@ export default function CancelRegisterResponsiveDialog(props) {
     setOpen(false);
   };
 
+  //React componenet table for register activities participation.
   return (
     <div>
       <Button
