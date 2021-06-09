@@ -16,6 +16,7 @@ import swal from "sweetalert";
 export default function CancelParticipationResponsiveDialog(props) {
 
   //               Use State Initialization              //
+
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));

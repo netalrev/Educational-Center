@@ -34,8 +34,15 @@ export default function CancelParticipationResponsiveDialog(props) {
     }
   };
 
+  //            Handlers functions           //
+
   const handleClickOpen = () => {
     setOpen(true);
+  };
+
+
+  const handleCancel = () => {
+    setOpen(false);
   };
 
   const handleClose = async () => {
@@ -45,10 +52,8 @@ export default function CancelParticipationResponsiveDialog(props) {
     }));
     window.location.reload(false);
   };
-  const handleCancel = () => {
-    setOpen(false);
-  };
 
+  //React componenet table for activities participation.
   return (
     <div>
       <Button

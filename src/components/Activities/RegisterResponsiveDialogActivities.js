@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -16,15 +15,23 @@ import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import swal from "sweetalert";
 
 export default function RegisterResponsiveDialog(props) {
+
+  //               Use State Initialization              //
+
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [pendingUsers, setPendingUsers] = useState([]);
 
+  //               Use effect Initialization              //
+
   useEffect(() => {
     fetchPendingUsers();
   }, []);
 
+  //                 Functions                //
+
+  //async function to fetch to pending users.
   const fetchPendingUsers = async () => {
     try {
       const usersData = await API.graphql(graphqlOperation(listPendingUsers));
@@ -35,6 +42,7 @@ export default function RegisterResponsiveDialog(props) {
     }
   };
 
+  //async function that return all register pending user.
   const registerPendingUser = async () => {
     try {
       var IDs = pendingUsers.map((element) => parseInt(element.id));
@@ -54,6 +62,8 @@ export default function RegisterResponsiveDialog(props) {
       console.log("error adding user: ", error);
     }
   };
+
+  //Handler function 
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -67,10 +77,12 @@ export default function RegisterResponsiveDialog(props) {
     );
     window.location.reload(false);
   };
+
   const handleCancel = () => {
     setOpen(false);
   };
 
+  //React componenet table for register activities participation. 
   return (
     <div>
       <Button
