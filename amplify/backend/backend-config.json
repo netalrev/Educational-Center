@@ -23,5 +23,13 @@
         }
       }
     }
+  },
+  "function": {
+    "educationalcenter925226fc": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": []
+    }
   }
 }

@@ -198,7 +198,7 @@ export default function DeleteEditPendingForAdmin(props) {
   const rows = allPendingActivitiess.map((activity, index) => {
     return createDataAdmin(
       activity.owner,
-      activity.phone_number,
+      activity.phone_number.length === 13 ? "0" + String(activity.phone_number).substring(4, 6) + "-" + String(activity.phone_number).substring(6) : String(activity.phone_number).substring(4, 7) + "-" + String(activity.phone_number).substring(7),
       activity.title,
       activity.email,
       <Typography>{activity.description}</Typography>,

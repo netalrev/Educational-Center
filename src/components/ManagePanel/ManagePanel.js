@@ -52,14 +52,14 @@ export default function ManagePanel(props) {
         groupName={props.groupName}
         email={props.email}
         currentTime={dateAndTime}
-        title="משובים לפי משתתפים"
+        title="דו''ח מסכם לפי משתתפים"
         style={{ textAlign: "center", align: "center" }}
       />
       <ManageCardActivitiesFeedback
         groupName={props.groupName}
         email={props.email}
         currentTime={dateAndTime}
-        title="משובים לפי מפגש בקורס"
+        title="דו''ח מסכם לפי מפגש בקורס"
         style={{ textAlign: "center", align: "center" }}
       />
     </div>
