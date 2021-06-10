@@ -159,15 +159,24 @@ export default function UserProgressCard(props) {
                     var contribute = 0;
                     var participation = 0;
                     var filtered = feedbacks.filter(feedback => feedback.activity_id === id);
-                    filtered.forEach(feedback => {
-                        console.log(feedback.form, "FORM", parseInt(feedback.form[0][4]))
-                        if (feedback.form[0][3] === "10") attendance += 1;
-                        if (feedback.form[0][4] !== "0") contribute += parseInt(feedback.form[0][4]) / 3;
-                        if (feedback.form[0][5] !== "0") participation += parseInt(feedback.form[0][5]) / 3;
+                    console.log("FILTERED", filtered)
+                    var i = 0;
+                    filtered.forEach(meeting => {
+                        meeting.form.forEach(feedback => {
+                            if (feedback[1] === props.email) {
+                                console.log(feedback)
+                                if (feedback[3] === "10") attendance += 1;
+                                if (feedback[4] !== "0") contribute += parseInt(feedback[4]) / 3;
+                                if (feedback[5] !== "0") participation += parseInt(feedback[5]) / 3;
+                            }
+                            i++;
+                        })
+                        // console.log("HELLO", feedback.form[i][1])
+
                     })
                     courses.push({ id, attendance, contribute, participation })
                 });
-                console.log("COURSES", courses);
+                // console.log("COURSES", props.email);
                 setUserInfo(courses);
             }
         }
@@ -235,7 +244,7 @@ export default function UserProgressCard(props) {
                                                         }}
                                                     >
                                                         <br></br>
-                                                        <h4>נוכחות: {course.attendance} / {elm.dates.length}</h4>
+                                                        <h4>נוכחות: {elm.dates.length} / {course.attendance}</h4>
                                                         <br></br>
                                                         <h4>השתתפות : 5 / {parseInt(course.participation) / elm.dates.length}</h4>
                                                         <br></br>

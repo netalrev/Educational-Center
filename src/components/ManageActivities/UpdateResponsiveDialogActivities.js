@@ -222,17 +222,17 @@ export default function UpdateResponsiveDialog(props) {
   function validation() {
     if (props.type === "approved" && props.groupName === "contentSuppliers") {
       if (document.getElementById("zoomCheckBox").checked) {
-        if (
-          !validURL(document.getElementsByName("activity_zoom")[0].value) ||
-          document.getElementsByName("activity_zoom")[0].value === ""
-        )
-          return "קישור לזום אינו תקין";
-      } else if (
+        if (document.getElementsByName("activity_zoom")[0].value !== "") {
+          if (!validURL(document.getElementsByName("activity_zoom")[0].value))
+            return "קישור לזום אינו תקין";
+        }
+      } if (
         !document.getElementsByName("activityCount")[0].value ||
         document.getElementsByName("activityCount")[0].value < 1 ||
         document.getElementsByName("activityCount")[0].value === ""
       )
         return "יש להכניס לפחות מפגש אחד";
+
       var date_map = Array.from(document.getElementsByName("dates")).map(
         (date) => date.value
       );
@@ -256,26 +256,26 @@ export default function UpdateResponsiveDialog(props) {
       )
         return "קישור לתמונה אינו תקין, יש לנסות קישור אחר";
       else if (document.getElementById("zoomCheckBox").checked) {
-        if (
-          !validURL(document.getElementsByName("activity_zoom")[0].value) ||
-          document.getElementsByName("activity_zoom")[0].value === ""
-        )
-          return "קישור לזום אינו תקין";
+        if (document.getElementsByName("activity_zoom")[0].value !== "")
+          if (!validURL(document.getElementsByName("activity_zoom")[0].value))
+            return "קישור לזום אינו תקין";
       } else if (
         !document.getElementsByName("activityCount")[0].value ||
         document.getElementsByName("activityCount")[0].value < 1 ||
         document.getElementsByName("activityCount")[0].value === ""
       )
         return "יש להכניס לפחות מפגש אחד";
-      var date_map = Array.from(document.getElementsByName("dates")).map(
-        (date) => date.value
-      );
-      var current_time = props.currentTime;
-      var temp;
-      for (var i = 0; i < date_map.length; i++) {
-        temp = dates_class.convert(date_map[i]);
-        if (dates_class.compare(current_time, temp) == 1)
-          return "יש להכניס מועד עתידי";
+      if (props.groupName === "contentSuppliers") {
+        var date_map = Array.from(document.getElementsByName("dates")).map(
+          (date) => date.value
+        );
+        var current_time = props.currentTime;
+        var temp;
+        for (var i = 0; i < date_map.length; i++) {
+          temp = dates_class.convert(date_map[i]);
+          if (dates_class.compare(current_time, temp) == 1)
+            return "יש להכניס מועד עתידי";
+        }
       }
       if (
         document.getElementsByName("activity_description")[0].value.length <

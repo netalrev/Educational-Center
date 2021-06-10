@@ -216,14 +216,6 @@ export default function ActivityInfo(props) {
   const columns = props.groupName === "admins" ?
     [
       {
-        id: "exports",
-        label: "export",
-        minWidth: 110,
-        maxWidth: 110,
-        align: "center",
-        color: "white",
-      },
-      {
         id: "buttons",
         label: "",
         minWidth: 110,
@@ -276,14 +268,6 @@ export default function ActivityInfo(props) {
     ]
     :
     [
-      {
-        id: "exports",
-        label: "export",
-        minWidth: 110,
-        maxWidth: 110,
-        align: "center",
-        color: "white",
-      },
       {
         id: "buttons",
         label: "",

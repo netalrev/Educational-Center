@@ -230,7 +230,7 @@ export default function ActivitySummary(props) {
                         for (var i = 0; i < forms.length; i++) {
                             meeting.push({ index: forms[i].index, date: forms[i].date, presence: "N/A", contribution: 0, participation: 0, });
                         }
-                        toPush = { index: 0, name: student[0], email: student[1], phone: "0" + student[2].substring(4, 6) + "-" + student[2].substring(6, student[2].length), meetings: meeting }
+                        toPush = { index: 0, name: student[0], email: student[1], phone: student[2].length === 9 ? "0" + student[2].substring(4, 6) + "-" + student[2].substring(6, student[2].length) : student[2].substring(4, 7) + "-" + student[2].substring(7, student[2].length), meetings: meeting }
                         for (var i = 0; i < toPush.meetings.length; i++) {
 
                             if (toPush.meetings[i].index === data.index) {
