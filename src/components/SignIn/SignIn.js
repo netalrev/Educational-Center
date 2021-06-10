@@ -123,7 +123,7 @@ export default function SignIn() {
     e.preventDefault();
   }
 
-  //HTML code with styling for spesific tags.
+  //REACT Component with styling for spesific tags.
   return (
     <Container component="main" maxWidth="xs" id="allForm">
       <CssBaseline />
