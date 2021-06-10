@@ -12,9 +12,15 @@ import ManageActivitiesFormEditPending from "./ManageActivitiesFormEditPending";
 import ManageActivitiesFormEditApproved from "./ManageActivitiesFormEditApproved";
 
 export default function EditResponsiveDialogActivities(props) {
+
+  //               Use State Initialization              //
+
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
+  //    Hnadler function    //
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -22,6 +28,8 @@ export default function EditResponsiveDialogActivities(props) {
   const handleCancel = () => {
     setOpen(false);
   };
+
+  //React componenet.
   return (
     <div>
       <Button

@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { deletePendingUser, createApprovedUser } from "../../graphql/mutations";
 import { getPendingUser, listApprovedUsers } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
-
 import Button from "@material-ui/core/Button";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import Dialog from "@material-ui/core/Dialog";
@@ -16,15 +15,23 @@ import { useTheme } from "@material-ui/core/styles";
 import swal from "sweetalert";
 
 export default function ApproveResponsiveDialogActivity(props) {
+
+  //               Use State Initialization              //
+
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [approvedUsers, setApprovedUsers] = useState([]);
 
+  //               Use Effect Initialization              //
+
   useEffect(() => {
     fetchApprovedUsers();
   }, []);
 
+  //               Functions              //
+
+  //async function to fetch approved users.
   const fetchApprovedUsers = async () => {
     try {
       const usersData = await API.graphql(graphqlOperation(listApprovedUsers));
@@ -35,6 +42,7 @@ export default function ApproveResponsiveDialogActivity(props) {
     }
   };
 
+  //async function to fetch approved user.
   const approveUser = async (id_to_fetch) => {
     try {
       const fetched = await API.graphql(
@@ -56,6 +64,7 @@ export default function ApproveResponsiveDialogActivity(props) {
     }
   };
 
+  //async function to delete pending user.
   const deleteSinglePendingUser = async (id_to_delete) => {
     try {
       const del = { id: id_to_delete };
@@ -65,6 +74,8 @@ export default function ApproveResponsiveDialogActivity(props) {
     }
   };
 
+
+  //      Handler functions      //
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -81,6 +92,7 @@ export default function ApproveResponsiveDialogActivity(props) {
     setOpen(false);
   };
 
+  //The react component with sytle in tags.
   return (
     <div>
       <Button

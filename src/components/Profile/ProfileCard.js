@@ -1,12 +1,11 @@
 import "./profile.css";
-import React, { Component } from "react";
+import React from "react";
 import ReactCardFlip from "react-card-flip";
-import Amplify, { Auth } from "aws-amplify";
-import { AmplifySignOut } from "@aws-amplify/ui-react";
+import { Auth } from "aws-amplify";
 import Profile from "./profile";
-import ProfileAdmin from "./profileAdmin";
 import Back from "./Back";
 
+//async function to user sign out.
 async function signOut() {
   try {
     await Auth.signOut();
@@ -15,6 +14,7 @@ async function signOut() {
     console.log("error signing out: ", error);
   }
 }
+
 class ProfileCard extends React.Component {
   constructor() {
     super();
@@ -23,12 +23,13 @@ class ProfileCard extends React.Component {
     };
     this.handleClick = this.handleClick.bind(this);
   }
-
+  //Handler function.
   handleClick(e) {
     e.preventDefault();
     this.setState((prevState) => ({ isFlipped: !prevState.isFlipped }));
   }
 
+  //The REACT component with style in tag.
   render() {
     return (
       <div>
@@ -49,14 +50,7 @@ class ProfileCard extends React.Component {
                   groupName={this.props.groupName}
                 />
               ) : (
-                <ProfileAdmin
-                  className="flip_btn"
-                  function={this.handleClick}
-                  givenName={this.props.givenName}
-                  familyName={this.props.familyName}
-                  email={this.props.email}
-                  groupName={this.props.groupName}
-                />
+                <div></div>
               )}
               <div className="flip_btn"></div>
             </div>
@@ -81,6 +75,8 @@ class ProfileCard extends React.Component {
             paddingRight: "60px",
             paddingTop: "15px",
             paddingBottom: "15px",
+            marginBottom: "15px",
+            marginTop: "60px",
             borderRadius: "10px",
           }}
           onClick={signOut}

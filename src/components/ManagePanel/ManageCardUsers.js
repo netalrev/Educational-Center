@@ -7,10 +7,8 @@ import {
 } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import clsx from "clsx";
-
 import DenyResponsiveDialogUser from "./DenyResponsiveDialogUser";
 import ApproveResponsiveDialogUser from "./ApproveResponsiveDialogUser";
-
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -27,6 +25,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 
+//The columns values of the table.
 const columns = [
   { id: "buttons", label: "", minWidth: 110, maxWidth: 110, align: "center" },
   {
@@ -59,6 +58,7 @@ const columns = [
   },
 ];
 
+//The style for manage card activity part.
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "95%",
@@ -100,6 +100,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ManageCardUsers(props) {
+
+  //               Use State Initialization              //
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [allApprovedActivitiess, setAllApprovedActivitiess] = useState([]);
@@ -107,6 +110,9 @@ export default function ManageCardUsers(props) {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [users, setPendingUsers] = useState([]);
   const [rows, setRows] = useState([]);
+
+
+  //    Handler functions   //
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -119,6 +125,9 @@ export default function ManageCardUsers(props) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  //               Use Effect Initialization              //
+
   useEffect(() => {
     fetchPendingUsers();
   }, []);
@@ -128,6 +137,9 @@ export default function ManageCardUsers(props) {
   useEffect(() => {
     createRow();
   }, [users, allApprovedActivitiess]);
+
+  //               Functions              //
+
   var dates_class = {
     convert: function (d) {
       // Converts the date in d to a date-object. The input can be:
@@ -193,6 +205,8 @@ export default function ManageCardUsers(props) {
     else if (dates_class.compare(a_converted, b_converted) == 0) return 0;
     else return -1;
   }
+
+  //The rows values of the table.
   function createRow() {
     const row = users.map((user, index) => {
       return createDataUser(
@@ -220,6 +234,7 @@ export default function ManageCardUsers(props) {
     return { name, phoneNumber, email, ActivityName, buttons };
   }
 
+  //async function to fetch all approved activities.
   const fetchAllApprovedActivities = async () => {
     try {
       const approvedActivitiesData = await API.graphql(
@@ -233,6 +248,7 @@ export default function ManageCardUsers(props) {
     }
   };
 
+  //async function  to fetch pending users.
   const fetchPendingUsers = async () => {
     try {
       const usersData = await API.graphql(graphqlOperation(listPendingUsers));
@@ -243,7 +259,8 @@ export default function ManageCardUsers(props) {
     }
   };
 
-  var text = <b>{props.title}</b>;
+  var text = <b>{props.title}</b>;//Var for title.
+  //The react componenet.
   return (
     <Card className={classes.root}>
       <CardHeader title={text} />

@@ -1,7 +1,6 @@
 import React from "react";
 import { deletePendingUser } from "../../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
-
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -13,10 +12,16 @@ import { useTheme } from "@material-ui/core/styles";
 import PersonAddDisabledIcon from "@material-ui/icons/PersonAddDisabled";
 import swal from "sweetalert";
 
+
 export default function CancelRegisterResponsiveDialog(props) {
+
+  //               Use State Initialization              //
+
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
+  //                 Functions                //
 
   const deleteSingleUser = async (id_to_delete) => {
     try {
@@ -26,6 +31,8 @@ export default function CancelRegisterResponsiveDialog(props) {
       console.log("Error on delete single pending user ", error);
     }
   };
+
+  //            Handlers functions           //
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -44,6 +51,7 @@ export default function CancelRegisterResponsiveDialog(props) {
     setOpen(false);
   };
 
+  //React componenet table for register activities participation.
   return (
     <div>
       <Button

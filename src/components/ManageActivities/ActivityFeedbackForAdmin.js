@@ -4,9 +4,7 @@ import { listActivityFeedbacks } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import clsx from "clsx";
 import { Scrollbars } from "rc-scrollbars";
-
 import FillResponsiveDialogActivitiesFeedback from "./FillResponsiveDialogActivitiesFeedback";
-
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -23,8 +21,8 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import Typography from "@material-ui/core/Typography";
 
+//Style for adtivities feedbacks page
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "95%",
@@ -68,13 +66,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ActivityFeedbackForAdmin(props) {
+
+  //               Use State Initialization              //
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [activitiesFeedbacks, setActivitiesFeedbacks] = useState([]);
-  // const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
+  //The columns values of the table.
   const columns = props.groupName === "admins" ?
     [
       {
@@ -161,6 +162,7 @@ export default function ActivityFeedbackForAdmin(props) {
       },
     ];
 
+  //The rows values of the table.
   const rows = (props.groupName === "admins") ? activitiesFeedbacks.map((activity, index) => {
     return createDataAdmin(
       activity.owner,
@@ -225,9 +227,12 @@ export default function ActivityFeedbackForAdmin(props) {
     })
     ;
 
+  //                 Use Effects                //
   useEffect(() => {
     fetchActivitiesFeedbacks();
   }, []);
+
+  //                        Functions                       //
   var dates_class = {
     convert: function (d) {
       // Converts the date in d to a date-object. The input can be:
@@ -279,6 +284,7 @@ export default function ActivityFeedbackForAdmin(props) {
     },
   };
 
+  //Function that compare two dates and return 1 if equals and 0 else.
   function compare_createdAt(a, b) {
     var a_converted = dates_class.convert(a.createdAt);
     var b_converted = dates_class.convert(b.createdAt);
@@ -286,6 +292,8 @@ export default function ActivityFeedbackForAdmin(props) {
     else if (dates_class.compare(a_converted, b_converted) == 0) return 0;
     else return -1;
   }
+
+  //async function to fetch activities feedback.
   const fetchActivitiesFeedbacks = async () => {
     try {
       const activitiesFeedbacksData = await API.graphql(
@@ -304,6 +312,7 @@ export default function ActivityFeedbackForAdmin(props) {
     }
   };
 
+  //This function create data for ADMIN.
   function createDataAdmin(
     name,
     phoneNumber,
@@ -316,6 +325,7 @@ export default function ActivityFeedbackForAdmin(props) {
     return { name, phoneNumber, activityName, email, date, students, buttons };
   }
 
+  //This function create data For CONTENT SUPPLIER.
   function createDataContentSuppliers(
     activityName,
     date,
@@ -325,6 +335,7 @@ export default function ActivityFeedbackForAdmin(props) {
     return { activityName, date, students, buttons };
   }
 
+  //      Handler Function    //
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -338,7 +349,9 @@ export default function ActivityFeedbackForAdmin(props) {
     setExpanded(!expanded);
   };
 
-  var text = <b>{props.title}</b>;
+  var text = <b>{props.title}</b>; // Var for title.
+
+  //React componenet of the activities feedback.
   return (
     <Card className={classes.root}>
       <CardHeader title={text} />

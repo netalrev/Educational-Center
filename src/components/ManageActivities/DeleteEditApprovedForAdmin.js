@@ -3,10 +3,8 @@ import { useState, useEffect } from "react";
 import { listApprovedActivitiess } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import clsx from "clsx";
-
 import DenyResponsiveDialogActivities from "./DenyResponsiveDialogActivities";
 import EditResponsiveDialogActivities from "./EditResponsiveDialogActivities";
-
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -25,6 +23,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 
+//The columns values of the table.
 const columns = [
   {
     id: "buttons",
@@ -78,6 +77,7 @@ const columns = [
   },
 ];
 
+//Style for adtivities feedbacks page.
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "95%",
@@ -119,13 +119,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function DeleteEditPendingForAdmin(props) {
+
+  //               Use State Initialization              //
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [allApprovedActivitiess, setAllApprovedActivitiess] = useState([]);
-  // const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  //all activities to rows.
   const rows = allApprovedActivitiess.map((activity, index) => {
     return createDataAdmin(
       activity.owner,
@@ -175,9 +179,14 @@ export default function DeleteEditPendingForAdmin(props) {
     );
   });
 
+  //               Use Effect Initialization              //
+
   useEffect(() => {
     fetchAllApprovedActivities();
   }, []);
+
+  //               Functions              //
+
   var dates_class = {
     convert: function (d) {
       // Converts the date in d to a date-object. The input can be:
@@ -228,6 +237,8 @@ export default function DeleteEditPendingForAdmin(props) {
         : NaN;
     },
   };
+
+  //Helper variabels.
   var tzoffset_start = new Date().getTimezoneOffset() * 60000;
   var tzoffset_end = new Date().getTimezoneOffset() * 60000 - 60 * 60000;
   var current_time = dates_class.convert(
@@ -236,6 +247,8 @@ export default function DeleteEditPendingForAdmin(props) {
   var current_time_20 = dates_class.convert(
     new Date(Date.now() - tzoffset_end).toISOString().substring(0, 16)
   );
+
+  //Function to compare two dates. return 1 if date a> date b and 0 else.
   function compare_createdAt(a, b) {
     var a_converted = dates_class.convert(a.createdAt);
     var b_converted = dates_class.convert(b.createdAt);
@@ -243,6 +256,8 @@ export default function DeleteEditPendingForAdmin(props) {
     else if (dates_class.compare(a_converted, b_converted) == 0) return 0;
     else return -1;
   }
+
+  //async function to fetch all approved activities.
   const fetchAllApprovedActivities = async () => {
     try {
       const approvedActivitiesData = await API.graphql(
@@ -277,6 +292,7 @@ export default function DeleteEditPendingForAdmin(props) {
     };
   }
 
+  //    Handler functions   //
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -290,7 +306,8 @@ export default function DeleteEditPendingForAdmin(props) {
     setExpanded(!expanded);
   };
 
-  var text = <b>{props.title}</b>;
+  var text = <b>{props.title}</b>; // var for title.
+  //React componenet of the activities edit.
   return (
     <Card className={classes.root}>
       <CardHeader title={text} />

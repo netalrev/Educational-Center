@@ -15,17 +15,23 @@ import {
   listPendingActivitiess,
   listApprovedActivitiess,
 } from "../../graphql/queries";
-import Amplify, { API, graphqlOperation } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
 import SaveIcon from '@material-ui/icons/Save';
 import swal from "sweetalert";
 
 export default function UpdateResponsiveDialog(props) {
+
+  //               Use State Initialization              //
+
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [allPendingActivitiess, setPendingActivitiess] = useState([]);
   const [allApprovedActivitiess, setApprovedActivitiess] = useState([]);
+
+  //               Functions              //
+
   var dates_class = {
     convert: function (d) {
       // Converts the date in d to a date-object. The input can be:
@@ -84,6 +90,9 @@ export default function UpdateResponsiveDialog(props) {
   var current_time_20 = dates_class.convert(
     new Date(Date.now() - tzoffset_end).toISOString().substring(0, 16)
   );
+
+  //               Use Effect Initialization              //
+
   useEffect(() => {
     fetchPendingActivities();
   }, []);
@@ -92,6 +101,12 @@ export default function UpdateResponsiveDialog(props) {
     // Fetch for content suppliers
     fetchAllApprovedActivities();
   }, []);
+
+
+  //               More Functions..              //
+
+
+  //Function to compare two dates.return 1 if date a > date b,0 if equals and -1 else.
   function compare_dates(a, b) {
     var a_converted = dates_class.convert(a);
     var b_converted = dates_class.convert(b);
@@ -112,6 +127,7 @@ export default function UpdateResponsiveDialog(props) {
     }
   };
 
+  //async function to fetch pending activitis.
   const fetchPendingActivities = async () => {
     try {
       const activitiesData = await API.graphql(
@@ -123,6 +139,8 @@ export default function UpdateResponsiveDialog(props) {
       console.log("error on fetching Pending Activities", error);
     }
   };
+
+  //async function to fetch edit pending activitis.
   const editPendingActivities = async (id) => {
     try {
       var list = allPendingActivitiess.filter((activity) => activity.id === id);
@@ -158,6 +176,8 @@ export default function UpdateResponsiveDialog(props) {
       console.log("Error in updating pending activity", error);
     }
   };
+
+  //async function to edit approved activity by id.
   const editApprovedActivities = async (id) => {
     try {
       var list = allApprovedActivitiess.filter(
@@ -199,9 +219,8 @@ export default function UpdateResponsiveDialog(props) {
       console.log("Error in approved activity", error);
     }
   };
-  function contains_heb(str) {
-    return /[\u0590-\u05FF]/.test(str);
-  }
+
+  //This function validate URL Link.
   function validURL(str) {
     var pattern = new RegExp(
       "^(https?:\\/\\/)?" + // protocol
@@ -214,11 +233,15 @@ export default function UpdateResponsiveDialog(props) {
     ); // fragment locator
     return !!pattern.test(str);
   }
+
+  //This function validate email address.
   function validateEmail(email) {
     const re =
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
+
+  //Function for check if the new/edit activity is valid bedore update the DB. 
   function validation() {
     if (props.type === "approved" && props.groupName === "contentSuppliers") {
       if (document.getElementById("zoomCheckBox").checked) {
@@ -286,6 +309,9 @@ export default function UpdateResponsiveDialog(props) {
       return "true";
     }
   }
+
+  //    Hanlder Function    //
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -325,6 +351,7 @@ export default function UpdateResponsiveDialog(props) {
     setOpen(false);
   };
 
+  //React component .
   return (
     <div>
       <Button

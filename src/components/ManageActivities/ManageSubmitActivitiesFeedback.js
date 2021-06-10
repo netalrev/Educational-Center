@@ -1,26 +1,14 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import { red } from "@material-ui/core/colors";
-import TextField from "@material-ui/core/TextField";
-// import SubmitResponsiveDialogActivityFeedback from "./SubmitResponsiveDialogActivityFeedback";
 import { useState, useEffect } from "react";
 import { listSubmitedActivityFeedbacks } from "../../graphql/queries";
-import {
-  deletePendingActivities,
-  deleteApprovedActivities,
-} from "../../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
-import Typography from "@material-ui/core/Typography";
 
+//Style for adtivities edit page.
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 1000,
@@ -31,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "4%",
     right: 0,
     transition: "transform 0.15s ease-in-out",
-    //"&:hover": { transform: "scale3d(1.05, 1.05, 1)" },
     "& label": {
       margin: "10px",
       color: "white",
@@ -64,10 +51,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ManageSubmitActivitiesFeedback(props) {
+
+  //               Use State Initialization              //
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [activitiesFeedback, setActivitiesFeedback] = useState([]);
   const [allActivitiesFeedback, setAllActivitiesFeedback] = useState([]);
+
+  //               Use Effect Initialization              //
 
   useEffect(() => {
     // Fetch for content suppliers
@@ -79,6 +71,9 @@ export default function ManageSubmitActivitiesFeedback(props) {
     fetchAllActivitiesFeedbacks();
   }, []);
 
+  //               Functions              //
+
+  //async function to fetch pending activity.
   const fetchActivitiesFeedbacks = async () => {
     try {
       const activitiesFeedbackData = await API.graphql(
@@ -90,6 +85,7 @@ export default function ManageSubmitActivitiesFeedback(props) {
     }
   };
 
+  //async function to fetch all pending activities.
   const fetchAllActivitiesFeedbacks = async () => {
     try {
       const activitiesFeedbackData = await API.graphql(graphqlOperation(listSubmitedActivityFeedbacks));
@@ -100,9 +96,7 @@ export default function ManageSubmitActivitiesFeedback(props) {
     }
   };
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  //Get all students.
   var students = [];
   allActivitiesFeedback.filter(activity => props.id === activity.activity_id).forEach(user => {
     var idx = -1;
@@ -124,7 +118,8 @@ export default function ManageSubmitActivitiesFeedback(props) {
     }
   });
 
-  var text = <b>{props.title}</b>;
+  var text = <b>{props.title}</b>;//Var for title.
+  //React component.
   return (
     <Card
       className={classes.root}

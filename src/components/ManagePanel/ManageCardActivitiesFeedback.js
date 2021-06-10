@@ -22,9 +22,9 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import Typography from "@material-ui/core/Typography";
 import $ from "jquery";
 
+//The columns values of the table.
 const columns = [
   {
     id: "button",
@@ -71,6 +71,7 @@ const columns = [
   },
 ];
 
+//The style for manage card activity part.
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "95%",
@@ -114,12 +115,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ManageCardActivitiesFeedback(props) {
+
+  //               Use State Initialization              //
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [allPendingActivitiess, setAllPendingActivitiess] = useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [activitiess, setActivitiess] = useState([]);
+
+  //               Functions              //
+
   var dates_class = {
     convert: function (d) {
       // Converts the date in d to a date-object. The input can be:
@@ -170,6 +177,8 @@ export default function ManageCardActivitiesFeedback(props) {
         : NaN;
     },
   };
+
+  //Function to compare two dates.return 1 if date a > date b,0 if equals and -1 else.
   function compare_createdAt(a, b) {
     var a_converted = dates_class.convert(a.createdAt);
     var b_converted = dates_class.convert(b.createdAt);
@@ -177,6 +186,8 @@ export default function ManageCardActivitiesFeedback(props) {
     else if (dates_class.compare(a_converted, b_converted) == 0) return 0;
     else return -1;
   }
+
+  //The rows values of the table.
   const rows = activitiess.map((activity, index) => {
     return createDataAdmin(
       activity.owner,
@@ -191,17 +202,6 @@ export default function ManageCardActivitiesFeedback(props) {
         <br></br>
       </div>,
       <div>
-        {/* <WatchResponsiveDialogActivitiesFeedback
-          title={activity.title}
-          date={activity.date}
-          students={activity.form}
-          idx={index}
-          id={activity.activity_id}
-          email={props.email}
-          givenName={props.givenName}
-          familyName={props.familyName}
-          groupName={props.groupName}
-        /> */}
         <WatchActivitySummary
           title={activity.title}
           dates={activity.date}
@@ -234,6 +234,8 @@ export default function ManageCardActivitiesFeedback(props) {
     };
   }
 
+  //        Handler functions      //
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
     $("td").each(function () {
@@ -248,13 +250,15 @@ export default function ManageCardActivitiesFeedback(props) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  //               Use Effect Initialization              //
+
   useEffect(() => {
     fetchActivitiesFeedbacks();
   });
-  // const handleExpandClick = () => {
-  //     setExpanded(!expanded);
-  // };
 
+
+  //async function to fetch activities feedback.
   const fetchActivitiesFeedbacks = async () => {
     try {
       const activitiesFeedbacksData = await API.graphql(graphqlOperation(listSubmitedActivityFeedbacks));
@@ -265,7 +269,8 @@ export default function ManageCardActivitiesFeedback(props) {
     }
   };
 
-  var text = <b>{props.title}</b>;
+  var text = <b>{props.title}</b>;//Var for title.
+  //The react component
   return (
     <Card className={classes.root}>
       <CardHeader title={text} />

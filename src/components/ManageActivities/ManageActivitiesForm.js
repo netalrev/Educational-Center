@@ -7,7 +7,6 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
-import { red } from "@material-ui/core/colors";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import FormElement from "./FormElement";
 import TextField from "@material-ui/core/TextField";
@@ -15,6 +14,7 @@ import { useState } from "react";
 import UploadResponsiveDialogActivities from "./UploadResponsiveDialogActivities";
 import Checkbox from "@material-ui/core/Checkbox";
 
+//Style for adtivities edit page.
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "40%",
@@ -62,7 +62,6 @@ const useStyles = makeStyles((theme) => ({
     border: "3px solid #132c33",
     borderRadius: "10px",
     minWidth: "450px",
-    //textAlign: "center",
 
     "& label.Mui-focused": {
       padding: "10px",
@@ -92,6 +91,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ManageActivitiesFormPending(props) {
+
+
+  //               Use State Initialization              //
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [dates, setDates] = useState([]);
@@ -101,6 +104,9 @@ export default function ManageActivitiesFormPending(props) {
       <FormElement name="activity_zoom" title="קישור לזום :" type="text" />
     </tr>
   );
+
+  //               Handler function              //
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -119,6 +125,8 @@ export default function ManageActivitiesFormPending(props) {
     }
     setZoomLink(toReturn);
   };
+
+  //               Function              //
 
   function createDateInputs(event) {
     var toReturn = [];

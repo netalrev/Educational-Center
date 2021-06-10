@@ -13,10 +13,15 @@ import PersonAddDisabledIcon from "@material-ui/icons/PersonAddDisabled";
 import swal from "sweetalert";
 
 export default function DenyResponsiveDialogUser(props) {
+
+  //               Use State Initialization              //
+
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
+  //               Functions              //
+  //async function to delete sungle user
   const deleteSingleUser = async (id_to_delete) => {
     try {
       const del = { id: id_to_delete };
@@ -25,6 +30,9 @@ export default function DenyResponsiveDialogUser(props) {
       console.log("Error on delete single pending user ", error);
     }
   };
+
+
+  //Handler functions
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -41,6 +49,7 @@ export default function DenyResponsiveDialogUser(props) {
     setOpen(false);
   };
 
+  //The react component with style in tags.
   return (
     <div>
       <Button

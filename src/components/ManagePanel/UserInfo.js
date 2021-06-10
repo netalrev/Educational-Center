@@ -3,8 +3,6 @@ import clsx from "clsx";
 import { useState, useEffect } from "react";
 import { listSubmitedActivityFeedbacks, listUsers } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
-
-
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -21,11 +19,11 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import Typography from "@material-ui/core/Typography";
 import $ from "jquery";
 import LinearDeterminate from "../Profile/LinearDeterminate";
 import WatchUserActivityProgress from "./WatchUserActivityProgress";
 
+//The columns values of the table.
 const columns = [
     {
         id: "button",
@@ -65,6 +63,7 @@ const columns = [
     },
 ];
 
+//The style for manage card activity part.
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: "95%",
@@ -105,6 +104,9 @@ const useStyles = makeStyles((theme) => ({
         color: "red",
     },
 }));
+
+//               Functions              //
+
 var dates_class = {
     convert: function (d) {
         // Converts the date in d to a date-object. The input can be:
@@ -155,6 +157,8 @@ var dates_class = {
             : NaN;
     },
 };
+
+//Function to compare two dates.return 1 if date a > date b,0 if equals and -1 else.
 function compare_createdAt(a, b) {
     var a_converted = dates_class.convert(a.createdAt);
     var b_converted = dates_class.convert(b.createdAt);
@@ -162,13 +166,19 @@ function compare_createdAt(a, b) {
     else if (dates_class.compare(a_converted, b_converted) == 0) return 0;
     else return -1;
 }
+
 export default function UserInfo(props) {
+
+    //               Use State Initialization              //
+
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [activitiess, setActivitiess] = useState([]);
     const [users, setUsers] = useState([]);
+
+    //Function to fetch all users.
     const fetchUsers = async () => {
         try {
             const usersData = await API.graphql(graphqlOperation(listUsers));
@@ -178,6 +188,9 @@ export default function UserInfo(props) {
             console.log("error on fetching users", error);
         }
     };
+
+    //               Use Effect Initialization              //
+
     useEffect(() => {
         fetchUsers();
     }, []);
@@ -185,6 +198,7 @@ export default function UserInfo(props) {
         fetchActivitiesFeedbacks();
     }, []);
 
+    //The rows values of the table.
     const rows = users.map((user, index) => {
         const grades = [0, 50, 100, 300, 700, 1500, 3100, 4700];
         var level = 0;
@@ -226,6 +240,9 @@ export default function UserInfo(props) {
             button
         };
     }
+
+    //        Handler Functions         //
+
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
         $("td").each(function () {
@@ -240,10 +257,7 @@ export default function UserInfo(props) {
         setExpanded(!expanded);
     };
 
-    // const handleExpandClick = () => {
-    //     setExpanded(!expanded);
-    // };
-
+    //function to fetch all activities feedback.
     const fetchActivitiesFeedbacks = async () => {
         try {
             const activitiesFeedbacksData = await API.graphql(graphqlOperation(listSubmitedActivityFeedbacks));
@@ -255,7 +269,8 @@ export default function UserInfo(props) {
         }
     };
 
-    var text = <b>{props.title}</b>;
+    var text = <b>{props.title}</b>;//Var for title.
+    //The react component.
     return (
         <Card className={classes.root}>
             <CardHeader title={text} />

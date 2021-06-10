@@ -6,15 +6,12 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import { common, red } from "@material-ui/core/colors";
 import TextField from "@material-ui/core/TextField";
-// import SubmitResponsiveDialogActivityFeedback from "./SubmitResponsiveDialogActivityFeedback";
 import { useState, useEffect } from "react";
 import { listSubmitedActivityFeedbacks } from "../../graphql/queries";
 import { Scrollbars } from "rc-scrollbars";
 import { CSVLink } from "react-csv";
 import Button from "@material-ui/core/Button";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-
-
 import {
     deletePendingActivities,
     deleteApprovedActivities,
@@ -392,8 +389,7 @@ export default function ActivitySummary(props) {
                     startIcon={
                         <CheckCircleIcon
                             style={{
-                                fill: "white",
-                                backgroundColor: "green",
+                                fill: "#132c33",
                                 maxWidth: "100px",
                                 marginBottom: "11px"
                             }}
@@ -401,14 +397,16 @@ export default function ActivitySummary(props) {
                     }
                     variant="outlined"
                     style={{
-                        fill: "white",
-                        backgroundColor: "green",
+                        fill: "#132c33",
+                        backgroundColor: "#51c4d3",
                         maxHeight: "40px",
                         paddingBottom: "15px",
-                        border: "3px solid green",
+                        border: "3px solid #51c4d3",
                     }}
                 >
-                    <CSVLink data={toInsert} filename={filename} headers={headers}>
+                    <CSVLink data={toInsert} filename={filename} headers={headers} style={{
+                        fill: "#132c33"
+                    }}>
                         Download me
                 </CSVLink>
                 </Button>

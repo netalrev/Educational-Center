@@ -1,19 +1,19 @@
-import React, { Component } from "react";
 import "./profile.css";
-import Amplify, { Auth } from "aws-amplify";
-import { AmplifySignOut } from "@aws-amplify/ui-react";
+import { Auth } from "aws-amplify";
 import { useState, useEffect } from "react";
 import { listUsers } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
-import ReactCardFlip from "react-card-flip";
 import LinearDeterminate from "./LinearDeterminate";
 
+//Helper vriables (for Authentication procces)
 var fname = "null";
 var gname = "null";
 var emailAddress = "null";
 var groupName = "null";
 var phoneNumber = "null";
 var groups = new Array(3);
+
+//Authentication checks
 Auth.currentAuthenticatedUser().then(
   (user) =>
     (gname = user.attributes.given_name) &&
@@ -24,6 +24,9 @@ Auth.currentAuthenticatedUser().then(
     (groupName = groups[0])
 );
 
+//    Function    //
+
+//async function to signOut.
 async function signOut() {
   try {
     await Auth.signOut();
@@ -34,6 +37,9 @@ async function signOut() {
 }
 
 export default function Profile(props) {
+
+  //               Use State Initialization              //
+
   const [users, setUsers] = useState([]);
   const [myScore, setMyScore] = useState([]);
   const [prevState, setState] = useState(props.flip_state);
@@ -46,13 +52,14 @@ export default function Profile(props) {
         level = i + 1;
       }
     }
-    if (myScore.score >= grades[grades.length - 1])
-      level = grades.length - 1;
+    if (myScore.score >= grades[grades.length - 1]) level = grades.length - 1;
     nextLevel = grades[level] - parseInt(myScore.score);
     var score = 0;
     score = parseInt(myScore.score) - grades[level - 1];
     score = parseInt((score / (grades[level] - grades[level - 1])) * 100);
   }
+
+  //async function to fetch all users.
   const fetchUsers = async () => {
     try {
       const usersData = await API.graphql(graphqlOperation(listUsers));
@@ -64,28 +71,33 @@ export default function Profile(props) {
       console.log("error on fetching users", error);
     }
   };
+
+
   useEffect(() => {
     fetchUsers();
   }, []);
+
+  //The react component 
   return (
     <div className="card">
       <div className="ds-top"></div>
       <div className="avatar-holder1">
-        {level === grades.length ?
+        {level === grades.length ? (
           <div id="container">
             <span>הידד, סיימת את כל השלבים</span>
-            <br></br><br></br>
+            <br></br>
+            <br></br>
           </div>
-          :
+        ) : (
           <div id="container">
             <LinearDeterminate score={score} />
 
             <span id="progress1" style={{ fontWeight: "700" }}>
               {score}%
-          </span>
+            </span>
             <span>:התקדמות</span>
           </div>
-        }
+        )}
       </div>
       <div className="name">
         <a>{props.givenName + " " + props.familyName}</a>
@@ -105,10 +117,11 @@ export default function Profile(props) {
       <div className="logout">
         <div className="avatar">
           {level === 1 ? (
-            <div>
+            <div style={{ background: "#126e82" }}>
               {" "}
               <p className="avatarLabel">
-                !קיבלת כוכב על ההרשמה לפרוייקט! אנחנו כעט ברמה 2 אבל נמשיך להתקדם
+                !קיבלת כוכב על ההרשמה לפרוייקט! אנחנו כעט ברמה 2 אבל נמשיך
+                להתקדם
               </p>{" "}
               <div id="logo1">
                 <img className="pointsAvatar" src={"/img/partisipation.png"} />
@@ -118,7 +131,7 @@ export default function Profile(props) {
             <div></div>
           )}
           {level === 2 ? (
-            <div>
+            <div style={{ background: "#126e82" }}>
               {" "}
               <p className="avatarLabel">!רמה 2 - קיבלת תעודת השתתפות</p>{" "}
               <img className="pointsAvatar" src={"/img/diploma.png"} />{" "}
@@ -127,7 +140,7 @@ export default function Profile(props) {
             <div></div>
           )}
           {level === 3 ? (
-            <div>
+            <div style={{ background: "#126e82" }}>
               {" "}
               <p className="avatarLabel">!רמה 3 - מדליית ארד</p>{" "}
               <img className="pointsAvatar" src={"/img/bronze-medal.png"} />{" "}
@@ -136,7 +149,7 @@ export default function Profile(props) {
             <div></div>
           )}
           {level === 4 ? (
-            <div>
+            <div style={{ background: "#126e82" }}>
               {" "}
               <p className="avatarLabel">!רמה 4 - מדליית כסף</p>{" "}
               <img className="pointsAvatar" src={"/img/silver-medal.png"} />{" "}
@@ -145,7 +158,7 @@ export default function Profile(props) {
             <div></div>
           )}
           {level === 5 ? (
-            <div>
+            <div style={{ background: "#126e82" }}>
               {" "}
               <p className="avatarLabel">!רמה 5 - מדליית זהב</p>{" "}
               <img className="pointsAvatar" src={"/img/gold-medal.png"} />{" "}
@@ -154,7 +167,7 @@ export default function Profile(props) {
             <div></div>
           )}
           {level === 6 ? (
-            <div>
+            <div style={{ background: "#126e82" }}>
               {" "}
               <p className="avatarLabel">
                 !רמה 6 זה כבר מרשים, קיבלת גביע ארד
@@ -165,7 +178,7 @@ export default function Profile(props) {
             <div></div>
           )}
           {level === 7 ? (
-            <div>
+            <div style={{ background: "#126e82" }}>
               {" "}
               <p className="avatarLabel">
                 !מדהים! הגעת לרמה 7 וקיבלת גביע כסף
@@ -176,7 +189,7 @@ export default function Profile(props) {
             <div></div>
           )}
           {level === 8 ? (
-            <div>
+            <div style={{ background: "#126e82" }}>
               {" "}
               <p className="avatarLabel">
                 !אליפות! סיימת את הפרוייקט וקיבלת את גביע הזהב

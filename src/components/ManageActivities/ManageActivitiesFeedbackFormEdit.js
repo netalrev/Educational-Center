@@ -1,26 +1,20 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import { red } from "@material-ui/core/colors";
-import TextField from "@material-ui/core/TextField";
 import SubmitResponsiveDialogActivityFeedback from "./SubmitResponsiveDialogActivityFeedback";
 import { useState, useEffect } from "react";
 import { listActivityFeedbacks } from "../../graphql/queries";
-import {
-  deletePendingActivities,
-  deleteApprovedActivities,
-} from "../../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-import Typography from "@material-ui/core/Typography";
 
+//Style for adtivities edit page.
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 1000,
@@ -70,10 +64,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ManageActivitiesFeedbackFormEdit(props) {
+
+  //               Use State Initialization              //
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [activitiesFeedback, setActivitiesFeedback] = useState([]);
   const [allActivitiesFeedback, setAllActivitiesFeedback] = useState([]);
+
+  //               Use Effect Initialization              //
 
   useEffect(() => {
     // Fetch for content suppliers
@@ -85,6 +84,9 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
     fetchAllActivitiesFeedbacks();
   }, []);
 
+  //               Functions              //
+
+  //async function for fetch activity feedback.
   const fetchActivitiesFeedbacks = async () => {
     try {
       const activitiesFeedbackData = await API.graphql(
@@ -100,6 +102,7 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
     }
   };
 
+  //async function for fetch all activities feedbacks.
   const fetchAllActivitiesFeedbacks = async () => {
     try {
       const activitiesFeedbackData = await API.graphql(
@@ -113,16 +116,12 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
     }
   };
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
-  var text = <b>{props.title}</b>;
+  var text = <b>{props.title}</b>;//Var for title.
+  //React component .
   return (
     <Card
       className={classes.root}
       style={{
-        /*color: "white",*/
         backgroundColor: "#d8e3e7",
       }}
     >
@@ -134,22 +133,12 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
             activity.date === props.date
           ) {
             return (
-              //  <div>
-              //<div>
               <table>
                 <tr>
                   <div>
                     {activity.form.map((student) => (
                       <div>
                         <div
-                          style={
-                            {
-                              /* borderStyle: "solid",
-                                 borderRadius: "15px",
-                                 color: "white",
-                                 backgroundColor: "black",*/
-                            }
-                          }
                         >
                           <h4>:{student[0]}</h4>
                           <br></br>

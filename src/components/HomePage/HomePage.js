@@ -18,31 +18,34 @@ function goToProfile() {
 export default function HomePage() {
   history = useHistory();
   return (
-    <div className="main_div">
-      <div className="background-tint">
-        <h1 className="homeTitle1">ברוכים הבאים אל 5 על 5</h1>
-        <h2 className="homeTitle2">
-          The purpose of the association is to make every youth in Israel
-          accessible to a variety of educational solutions, to reduce social
-          disparities and provide equal opportunities for everyone, while
-          creating a coalition of educators, building a community, and making
-          partnerships with government ministries, authorities, business and
-          third sector. The association will provide educational and moral
-          values tools, that will enable the youth to excel, integrate into
-          society as a contributing citizen and a leader, characterize and
-          implement a technological platform integrated with artificial
-          intelligence that will enable fast, smart and effective connection
-          between non-formal education, government ministries, authorities,
-          schools, communities and the youth, developing relevant educational
-          solutions and connecting them to educational institutions abroad in
-          order to promote Israel as an educational nation.{" "}
-        </h2>
-        <button className="big-button" onClick={goToAc}>
-          לכל הקורסים
-        </button>
-        <button className="big-button" onClick={goToProfile}>
-          לאזור האישי
-        </button>
+    <div className="main_div" style={{ backgroundImage: "/img/wallpaper.png" }}>
+      <img className="wallpaper1" src={"/img/wallpaper.png"} />
+      <div className="buttons">
+        <h3 className="desc">
+          נט-סקילס רחובות- הדרך החדשה שלכם לצרוך תוכן איכותי! <br></br>חשבתם פעם
+          על לימודי שחמט? מרגישים שאתם חייבים לדעת לתכנת? חלמתם פעם על לימודי
+          גיטרה? בא לכם לעשות יוגה? ומה עם להקים סטארטאפ? הגעתם למקום הנכון!
+          נט-סקילס מגיש לכם את התוכן שאתם הכי רוצים ללמוד ישר אל כף היד! איפה?-
+          בזום, מתי? מתי שנוח לכם, כמה?- בחינם! אז איך זה עובד? חמישה מפגשים
+          קצרים עם מומחי תוכן שמגיעים בהתנדבות להעביר לכם את הסדנה הכי מקצועית
+          יש! אנחנו מזמינים אותכם לקחת חלק בסדנאות ייחודיות במגוון רחב של עולמות
+          תוכן- להכיר, ללמוד, לשאול, לגלות ובעיקר פשוט ליהנות. נתראה!
+        </h3>
+
+        <table className="buttons">
+          <div class="img-with-text">
+            <img className="home_logo" src={"/img/allActivities.png"} />
+            <button className="big-button" onClick={goToAc}>
+              לכל הקורסים
+            </button>{" "}
+          </div>
+          <div class="img-with-text">
+            <img className="home_logo" src={"/img/myProfile.png"} />
+            <button className="big-button" onClick={goToProfile}>
+              לאזור האישי
+            </button>
+          </div>
+        </table>
       </div>
     </div>
   );

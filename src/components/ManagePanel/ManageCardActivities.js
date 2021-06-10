@@ -3,11 +3,9 @@ import clsx from "clsx";
 import { useState, useEffect } from "react";
 import { listPendingActivitiess } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
-
 import DenyResponsiveDialogActivities from "../ManageActivities/DenyResponsiveDialogActivities";
 import EditResponsiveDialogActivities from "../ManageActivities/EditResponsiveDialogActivities";
 import ApproveResponsiveDialogActivity from "./ApproveResponsiveDialogActivity";
-
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -27,6 +25,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 import $ from "jquery";
 
+//The columns values of the table.
 const columns = [
   {
     id: "buttons",
@@ -80,6 +79,7 @@ const columns = [
   },
 ];
 
+//The style for manage card activity part.
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "95%",
@@ -122,12 +122,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ManageCardActivities(props) {
+
+  //               Use State Initialization              //
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [allPendingActivitiess, setAllPendingActivitiess] = useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [activitiess, setActivitiess] = useState([]);
+
+  //               Functions              //
+
   var dates_class = {
     convert: function (d) {
       // Converts the date in d to a date-object. The input can be:
@@ -186,6 +192,8 @@ export default function ManageCardActivities(props) {
   var current_time_20 = dates_class.convert(
     new Date(Date.now() - tzoffset_end).toISOString().substring(0, 16)
   );
+
+  //Function to compare two dates.return 1 if date a > date b,0 if equals and -1 else.
   function compare_createdAt(a, b) {
     var a_converted = dates_class.convert(a.createdAt);
     var b_converted = dates_class.convert(b.createdAt);
@@ -193,6 +201,8 @@ export default function ManageCardActivities(props) {
     else if (dates_class.compare(a_converted, b_converted) == 0) return 0;
     else return -1;
   }
+
+  //The rows values of the table.
   const rows = activitiess.map((activity, index) => {
     return createDataAdmin(
       activity.owner,
@@ -250,6 +260,21 @@ export default function ManageCardActivities(props) {
       </div>
     );
   });
+
+  //async function to fetch pending activities.
+  const fetchPendingActivities = async () => {
+    try {
+      const PendingActivitiesData = await API.graphql(
+        graphqlOperation(listPendingActivitiess)
+      );
+      const PendingActivitiesList =
+        PendingActivitiesData.data.listPendingActivitiess.items;
+      setActivitiess(PendingActivitiesList.sort(compare_createdAt));
+    } catch (error) {
+      console.log("error on fetching Pending Activities", error);
+    }
+  };
+
   function createDataAdmin(
     name,
     phoneNumber,
@@ -270,6 +295,8 @@ export default function ManageCardActivities(props) {
     };
   }
 
+  //        Handler functions       //  
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
     $("td").each(function () {
@@ -284,27 +311,17 @@ export default function ManageCardActivities(props) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+
+  //               Use Effect Initialization              //
   useEffect(() => {
     fetchPendingActivities();
   }, []);
-  // const handleExpandClick = () => {
-  //     setExpanded(!expanded);
-  // };
 
-  const fetchPendingActivities = async () => {
-    try {
-      const PendingActivitiesData = await API.graphql(
-        graphqlOperation(listPendingActivitiess)
-      );
-      const PendingActivitiesList =
-        PendingActivitiesData.data.listPendingActivitiess.items;
-      setActivitiess(PendingActivitiesList.sort(compare_createdAt));
-    } catch (error) {
-      console.log("error on fetching Pending Activities", error);
-    }
-  };
 
-  var text = <b>{props.title}</b>;
+
+  var text = <b>{props.title}</b>;//Var for title
+  //The react component.
   return (
     <Card className={classes.root}>
       <CardHeader title={text} />

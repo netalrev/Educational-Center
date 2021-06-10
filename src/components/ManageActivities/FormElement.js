@@ -1,8 +1,8 @@
 import { TextField } from "@material-ui/core";
-import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-
 import "./FormElement.css";
+
+//Style for form elements.
 const useStyles = makeStyles((theme) => ({
   textField: {
     zIndex: "0",
@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FormElement(props) {
   const classes = useStyles();
+  //React form element component
   return (
     <tr dir="rtl">
       <TextField

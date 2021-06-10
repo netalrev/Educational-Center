@@ -12,6 +12,7 @@ import { listApprovedActivitiess } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import Checkbox from "@material-ui/core/Checkbox";
 
+//Style for adtivities edit page.
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 1000,
@@ -78,6 +79,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ManageActivitiesFormEditApproved(props) {
+
+  //               Use State Initialization              //
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [approvedActivitiess, setApprovedActivitiess] = useState([]);
@@ -86,6 +90,7 @@ export default function ManageActivitiesFormEditApproved(props) {
   const [zoomLink, setZoomLink] = useState(fillZoomInput, "");
   const [checked, setChecked] = useState(fillCheckInput, "");
 
+  //    Hnadler function    //
   var handleChange = (event) => {
     var toReturn;
     setChecked(!document.getElementById("zoomCheckBox").checked);
@@ -101,6 +106,8 @@ export default function ManageActivitiesFormEditApproved(props) {
     setZoomLink(toReturn);
   };
 
+  //               Use Effect Initialization              //
+
   useEffect(() => {
     // Fetch for content suppliers
     fetchApprovedActivities();
@@ -110,6 +117,10 @@ export default function ManageActivitiesFormEditApproved(props) {
     // Fetch for admins
     fetchAllApprovedActivities();
   }, []);
+
+  //               Functions              //
+
+  //Function to fetch approved acrivity.
   const fetchApprovedActivities = async () => {
     try {
       const ApprovedActivitiesData = await API.graphql(
@@ -125,6 +136,7 @@ export default function ManageActivitiesFormEditApproved(props) {
     }
   };
 
+  //Function to fetch all approved acrivities.
   const fetchAllApprovedActivities = async () => {
     try {
       const ApprovedActivitiesData = await API.graphql(
@@ -138,10 +150,7 @@ export default function ManageActivitiesFormEditApproved(props) {
     }
   };
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
+  //Function to create date inputs for new/edit activity
   function createDateInputs(event) {
     var toReturn = [];
     if (document.getElementsByName("activityCount")[0].value > 10) {
@@ -174,6 +183,8 @@ export default function ManageActivitiesFormEditApproved(props) {
     }
     setDates(toReturn);
   }
+
+  //Function to fill the inputs of dates for edit/new activity.
   function fillDateInputs() {
     var toReturn = [];
     var tzoffset = new Date().getTimezoneOffset() * 60000;
@@ -195,6 +206,7 @@ export default function ManageActivitiesFormEditApproved(props) {
     return toReturn;
   }
 
+  //return react component for  zoom link.
   function fillZoomInput() {
     if (props.isZoom) {
       return (
@@ -210,13 +222,18 @@ export default function ManageActivitiesFormEditApproved(props) {
     }
     return null;
   }
+
+  //Function to check if zoom link is used.
   function fillCheckInput() {
     if (props.isZoom) {
       return true;
     }
     return false;
   }
-  var text = <b>{props.title}</b>;
+
+  var text = <b>{props.title}</b>;//Var for title.
+
+  //React component.
   return (
     <Card className={classes.root}>
       <CardHeader title={text} />
@@ -356,7 +373,6 @@ export default function ManageActivitiesFormEditApproved(props) {
             }
           })}
       </CardContent>
-      {/* </Collapse> */}
     </Card>
   );
 }
