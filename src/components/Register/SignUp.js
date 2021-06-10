@@ -97,7 +97,7 @@ async function signUp() {
     } else if (
       phone_number[4] != "0" ||
       isNaN(phone_number.substring(1)) ||
-      phone_number.length !== 14
+      phone_number.length !== 14 && phone_number.length !== 13
     ) {
       swal("", "מספר טלפון לא תקין", "error", {
         button: "אישור",

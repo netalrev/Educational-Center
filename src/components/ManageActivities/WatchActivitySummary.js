@@ -7,13 +7,18 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
-import EditIcon from "@material-ui/icons/Edit";
 import ActivitySummary from "./ActivitySummary";
 
 export default function WatchActivitySummary(props) {
+
+    //               Use State Initialization              //
+
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
+    //      Handler functions       //
+
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -21,6 +26,8 @@ export default function WatchActivitySummary(props) {
     const handleCancel = () => {
         setOpen(false);
     };
+
+    //REACT Component.
     return (
         <div>
             <Button

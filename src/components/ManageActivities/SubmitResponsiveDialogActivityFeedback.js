@@ -18,13 +18,14 @@ import {
   createSubmitedActivityFeedback,
   updateActivityFeedback,
 } from "../../graphql/mutations";
-
-import Amplify, { API, graphqlOperation } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
-import UpdateIcon from "@material-ui/icons/Update";
 import swal from "sweetalert";
 
 export default function SubmitResponsiveDialogActivityFeedback(props) {
+
+  //               Use State Initialization              //
+
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -33,6 +34,10 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
   const [allSubmittedActivitiesFeedback, setSubmittedActivitiesFeedback] =
     useState([]);
   const [users, setUsers] = useState([]);
+
+  //               Functions              //
+
+  //async function to fetch the users.
   const fetchUsers = async () => {
     try {
       const usersData = await API.graphql(graphqlOperation(listUsers));
@@ -44,6 +49,8 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
       console.log("error on fetching users", error);
     }
   };
+
+  //async function to update user score value.
   const updateScore = async (to_update, to_add) => {
     try {
       var list = users.filter((user) => user.id === to_update);
@@ -66,15 +73,7 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
       console.log("Error in updating pending activity", error);
     }
   };
-  // id: ID!
-  //     name: String!
-  //     email: String!
-  //     phone_number: String!
-  //     score: Int!
 
-  // useEffect(() => { // Fetch for content suppliers
-  //     fetchActivitiesFeedbacks();
-  // }, []);
   var dates_class = {
     convert: function (d) {
       // Converts the date in d to a date-object. The input can be:
@@ -125,6 +124,9 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
         : NaN;
     },
   };
+
+  //               Use Effect Initialization              //
+
   useEffect(() => {
     // Fetch for admins
     fetchAllActivitiesFeedbacks();
@@ -138,6 +140,9 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
     fetchUsers();
   }, []);
 
+  //               More Functions..              //
+
+  //async function to fetch all submitted activities feedback.
   const fetchSubmittedActivitiesFeedbacks = async () => {
     try {
       const submitteActivitiesFeedbackData = await API.graphql(
@@ -150,6 +155,8 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
       console.log("error on fetching submitted activites feedback", error);
     }
   };
+
+  //async function to fetch activity feedback.
   const fetchActivitiesFeedbacks = async () => {
     try {
       const activitiesFeedbackData = await API.graphql(
@@ -165,6 +172,7 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
     }
   };
 
+  //async function to fetch all activities feedback.
   const fetchAllActivitiesFeedbacks = async () => {
     try {
       const activitiesFeedbackData = await API.graphql(
@@ -177,6 +185,8 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
       console.log("error on fetching Pending Activities", error);
     }
   };
+
+  //async function to delete activity feedbak by id .
   const delete_ActivityFeedback = async (id_to_delete) => {
     try {
       const del = { id: id_to_delete };
@@ -187,6 +197,8 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
       console.log("Error on delete single Approved Activity ", error);
     }
   };
+
+  //async function to create new submitted feedback.
   const createNewSubmittedFeedback = async () => {
     try {
       var toCreate = allActivitiesFeedback.filter(
@@ -223,6 +235,8 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
       console.log("Error while creating new submitted feedback.", err);
     }
   };
+
+  //async function that edit the activity feedback by id.
   const editActivityFeedback = async (id) => {
     try {
       var list = allActivitiesFeedback.filter(
@@ -309,6 +323,8 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
     }
     return true;
   };
+
+  //    Handler/Helper function   //
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -358,6 +374,7 @@ export default function SubmitResponsiveDialogActivityFeedback(props) {
   const handleCancel = () => {
     setOpen(false);
   };
+  //The react componenet.
   return (
     <div>
       <Button

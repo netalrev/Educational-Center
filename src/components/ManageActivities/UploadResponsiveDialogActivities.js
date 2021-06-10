@@ -7,22 +7,29 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import { createPendingActivities } from "../../graphql/mutations";
 import { listPendingActivitiess } from "../../graphql/queries";
-import Amplify, { API, graphqlOperation } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
 import swal from "sweetalert";
 
 export default function UploadResponsiveDialog(props) {
+
+  //               Use State Initialization              //
+
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [pendingActivities, setPendingActivitiess] = useState([]);
 
+  //               Use Effect Initialization              //
+
   useEffect(() => {
     fetchPendingActivities();
   }, []);
+
+  //               Functions              //
+
   var dates_class = {
     convert: function (d) {
       // Converts the date in d to a date-object. The input can be:
@@ -81,6 +88,8 @@ export default function UploadResponsiveDialog(props) {
   var current_time_20 = dates_class.convert(
     new Date(Date.now() - tzoffset_end).toISOString().substring(0, 16)
   );
+
+  //async function to fetch pending activities.
   const fetchPendingActivities = async () => {
     try {
       const activitiesData = await API.graphql(
@@ -92,9 +101,8 @@ export default function UploadResponsiveDialog(props) {
       console.log("error on fetching songs", error);
     }
   };
-  function contains_heb(str) {
-    return /[\u0590-\u05FF]/.test(str);
-  }
+
+  //This function validate URL Link.
   function validURL(str) {
     var pattern = new RegExp(
       "^(https?:\\/\\/)?" + // protocol
@@ -107,11 +115,15 @@ export default function UploadResponsiveDialog(props) {
     ); // fragment locator
     return !!pattern.test(str);
   }
+
+  //This function validate email address.
   function validateEmail(email) {
     const re =
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
+
+  //Function for check if the new/edit activity is valid bedore update the DB. 
   function validation() {
     if (
       document.getElementsByName("name")[0].value > 100 ||
@@ -151,6 +163,8 @@ export default function UploadResponsiveDialog(props) {
       return "תיאור קצר מדי ";
     return "true";
   }
+
+  //Function to compare two dates. return 1 if date a > date b , 0 if equals and -1 else.
   function compare_dates(a, b) {
     var a_converted = dates_class.convert(a);
     var b_converted = dates_class.convert(b);
@@ -158,6 +172,8 @@ export default function UploadResponsiveDialog(props) {
     else if (dates_class.compare(a_converted, b_converted) == 0) return 0;
     else return -1;
   }
+
+  //async function to create new activity.
   const createActivity = async () => {
     try {
       var IDs = pendingActivities.map((element) => parseInt(element.id));
@@ -196,6 +212,10 @@ export default function UploadResponsiveDialog(props) {
       console.log("error creating activity: ", error);
     }
   };
+
+  //    Hanlder Functions    //
+
+
   const handleClickOpen = () => {
     var validate = validation();
     if (validate === "true") setOpen(true);
@@ -220,6 +240,7 @@ export default function UploadResponsiveDialog(props) {
     setOpen(false);
   };
 
+  //The react componenet.
   return (
     <div>
       <Button

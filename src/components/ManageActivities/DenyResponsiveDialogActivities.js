@@ -11,15 +11,17 @@ import {
   deletePendingActivities,
   deleteApprovedActivities,
 } from "../../graphql/mutations";
-import Amplify, { API, graphqlOperation } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
 import DeleteIcon from "@material-ui/icons/Delete";
 import swal from "sweetalert";
 
 export default function DenyResponsiveDialogActivities(props) {
+  //               Use State Initialization              //
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
+  //async function to delete activity by id.
   const deleteSinglePending = async (id_to_delete) => {
     try {
       const del = { id: id_to_delete };
@@ -31,6 +33,7 @@ export default function DenyResponsiveDialogActivities(props) {
     }
   };
 
+  //async function to delete approved activity by id.
   const deleteSingleApproved = async (id_to_delete) => {
     try {
       const del = { id: id_to_delete };
@@ -41,6 +44,8 @@ export default function DenyResponsiveDialogActivities(props) {
       console.log("Error on delete single Approved Activity ", error);
     }
   };
+
+  //    Handler function    //
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -67,6 +72,7 @@ export default function DenyResponsiveDialogActivities(props) {
     setOpen(false);
   };
 
+  //react component dialog activities.
   return (
     <div>
       <Button

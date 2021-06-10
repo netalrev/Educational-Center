@@ -1,27 +1,18 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
-import IconButton from "@material-ui/core/IconButton";
 import { red } from "@material-ui/core/colors";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import FormElement from "./FormElement";
 import TextField from "@material-ui/core/TextField";
 import UpdateResponsiveDialogActivities from "./UpdateResponsiveDialogActivities";
 import { useState, useEffect } from "react";
 import { listPendingActivitiess } from "../../graphql/queries";
-import {
-  deletePendingActivities,
-  deleteApprovedActivities,
-} from "../../graphql/mutations";
-import Amplify, { API, graphqlOperation, selectInput } from "aws-amplify";
-import ActivityTable from "../Activities/ActivityTable";
+import { API, graphqlOperation } from "aws-amplify";
 import Checkbox from "@material-ui/core/Checkbox";
 
+//Style for adtivities edit page.
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 1000,
@@ -88,6 +79,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ManageActivitiesFormEditPending(props) {
+
+  //               Use State Initialization              //
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [pendingActivitiess, setPendingActivitiess] = useState([]);
@@ -96,8 +90,7 @@ export default function ManageActivitiesFormEditPending(props) {
   const [zoomLink, setZoomLink] = useState(fillZoomInput, "");
   const [checked, setChecked] = useState(fillCheckInput, "");
 
-  // const [allPendingActivitiess, setAllPendingActivitiess] = useState([]);
-
+  //Handler fiunction
   var handleChange = (event) => {
     var toReturn;
     setChecked(!document.getElementById("zoomCheckBox").checked);
@@ -113,6 +106,8 @@ export default function ManageActivitiesFormEditPending(props) {
     setZoomLink(toReturn);
   };
 
+  //               Use Effect Initialization              //
+
   useEffect(() => {
     // Fetch for content suppliers
     fetchPendingActivities();
@@ -122,6 +117,11 @@ export default function ManageActivitiesFormEditPending(props) {
     // Fetch for admins
     fetchAllPendingActivities();
   }, []);
+
+
+  //               Functions              //
+
+  //async function to fetch pending activity.
   const fetchPendingActivities = async () => {
     try {
       const PendingActivitiesData = await API.graphql(
@@ -137,6 +137,7 @@ export default function ManageActivitiesFormEditPending(props) {
     }
   };
 
+  //async function to fetch all pending activities.
   const fetchAllPendingActivities = async () => {
     try {
       const PendingActivitiesData = await API.graphql(
@@ -150,10 +151,7 @@ export default function ManageActivitiesFormEditPending(props) {
     }
   };
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
+  //Function to create date inputs for new/edit activity
   function createDateInputs(event) {
     var toReturn = [];
     if (document.getElementsByName("activityCount")[0].value > 10) {
@@ -197,6 +195,8 @@ export default function ManageActivitiesFormEditPending(props) {
     }
     setDates(toReturn);
   }
+
+  //Function to fill the inputs of dates for edit/new activity.
   function fillDateInputs() {
     var toReturn = [];
     for (var i = 0; i < props.activityCount; i++) {
@@ -228,6 +228,8 @@ export default function ManageActivitiesFormEditPending(props) {
     }
     return toReturn;
   }
+
+  //return react component for  zoom link.
   function fillZoomInput() {
     if (props.isZoom) {
       return (
@@ -243,6 +245,8 @@ export default function ManageActivitiesFormEditPending(props) {
     }
     return null;
   }
+
+  //Function to check if zoom link is used.
   function fillCheckInput() {
     if (props.isZoom) {
       return true;
@@ -250,7 +254,8 @@ export default function ManageActivitiesFormEditPending(props) {
     return false;
   }
 
-  var text = <b>{props.title}</b>;
+  var text = <b>{props.title}</b>;//Var title.
+  //React component.
   return (
     <Card className={classes.root}>
       <CardHeader title={text} />

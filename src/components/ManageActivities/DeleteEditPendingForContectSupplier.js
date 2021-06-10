@@ -23,6 +23,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 
+//The columns values of the table.
 const columns = [
   { id: "buttons", label: "", minWidth: 140, maxWidth: 140, align: "center" },
   {
@@ -48,6 +49,7 @@ const columns = [
   },
 ];
 
+//Style for adtivities feedbacks page.
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "95%",
@@ -90,12 +92,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function DeleteEditPendingForContectSupplier(props) {
+
+  //               Use State Initialization              //
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [pendingActivitiess, setPendingActivitiess] = useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [checked, setChecked] = React.useState(true);
+
+  //               Functions              //
+
   var dates_class = {
     convert: function (d) {
       // Converts the date in d to a date-object. The input can be:
@@ -146,6 +154,8 @@ export default function DeleteEditPendingForContectSupplier(props) {
         : NaN;
     },
   };
+
+  //Helper variables
   var tzoffset_start = new Date().getTimezoneOffset() * 60000;
   var tzoffset_end = new Date().getTimezoneOffset() * 60000 - 60 * 60000;
   var current_time = dates_class.convert(
@@ -154,6 +164,8 @@ export default function DeleteEditPendingForContectSupplier(props) {
   var current_time_20 = dates_class.convert(
     new Date(Date.now() - tzoffset_end).toISOString().substring(0, 16)
   );
+
+  //Function to compare two dates. return 1 if date a> date b and 0 else.
   function compare_createdAt(a, b) {
     var a_converted = dates_class.convert(a.createdAt);
     var b_converted = dates_class.convert(b.createdAt);
@@ -161,6 +173,8 @@ export default function DeleteEditPendingForContectSupplier(props) {
     else if (dates_class.compare(a_converted, b_converted) == 0) return 0;
     else return -1;
   }
+
+  //values for the table rows.
   const rows = pendingActivitiess.map((activity, index) => {
     return createDataContectSupplier(
       activity.owner,
@@ -239,6 +253,8 @@ export default function DeleteEditPendingForContectSupplier(props) {
     return { name, activityName, email, description, dates, buttons };
   }
 
+  //    Handler function    //
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -252,7 +268,8 @@ export default function DeleteEditPendingForContectSupplier(props) {
     setExpanded(!expanded);
   };
 
-  var text = <b>{props.title}</b>;
+  var text = <b>{props.title}</b>;//Var for title.
+  //React componenet of the activities edit.
   return (
     <Card className={classes.root}>
       <CardHeader title={text} />

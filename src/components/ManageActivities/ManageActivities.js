@@ -1,16 +1,20 @@
-import React, { Component } from "react";
-import DeleteEditPendingForAdmin from "./DeleteEditPendingForAdmin";
 import DeleteEditPendingForContectSupplier from "./DeleteEditPendingForContectSupplier";
 import DeleteEditApprovedForContectSupplier from "./DeleteEditApprovedForContectSupplier";
-import DeleteEditApprovedForAdmin from "./DeleteEditApprovedForAdmin";
 import ActivityFeedbackForAdmin from "./ActivityFeedbackForAdmin";
 import ManageActivitiesForm from "./ManageActivitiesForm";
 import ActivityInfo from "./ActivityInfo";
 import { useState, useEffect } from "react"
 
-// class ManageActivities extends Component {
+
 export default function ManageActivities(props) {
+
+  //               Use State Initialization              //
+
   const [dateAndTime, setDateAndTime] = useState([]);
+
+  //               Functions              //
+
+  //async function to get the jerusalem-israel local date and time.
   const fetchTimeAndDate = async () => {
     try {
       var url =
@@ -24,9 +28,14 @@ export default function ManageActivities(props) {
       console.log("Error fetching date and time.", err);
     }
   };
+
+  //               Use Effect Initialization              //
+
   useEffect(() => {
     fetchTimeAndDate();
   });
+
+  //React component for manage activities.
   return (
     <div style={{ align: "justify", align: "center" }}>
       <ManageActivitiesForm

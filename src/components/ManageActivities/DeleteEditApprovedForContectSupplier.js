@@ -49,7 +49,7 @@ const columns = [
   },
 ];
 
-//Style for adtivities feedbacks page.
+//Style for adtivities edit page.
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "95%",
@@ -196,7 +196,7 @@ export default function DeleteEditPendingForAdmin(props) {
     }
   };
 
-
+  //values for the table rows.
   const rows = approvedActivitiess.map((activity, index) => {
     return createDataContectSupplier(
       activity.owner,
