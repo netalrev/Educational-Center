@@ -77,7 +77,7 @@
         transition: all 0.5s ease;
     }
     .nav-menu.active {
-        background: #000000;
+        background: #132c33;
         left: 0;
         opacity: 1;
         transition: all 0.5s ease;
@@ -128,9 +128,7 @@
         font-size: 1.5rem;
     }
     .nav-links-mobile:hover {
-        background: #fff;
-        color: #51c4d3;
-        transition: 250ms;
+        background: #51c4d3;
     }
     .daniels {
         display: none;

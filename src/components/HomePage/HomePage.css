@@ -9,6 +9,7 @@
 .wallpaper1 {
     max-width: 100%;
     max-height: 100%;
+    margin-bottom: 35px;
 }
 .desc {
     margin-left: 250px;
@@ -71,6 +72,20 @@ h2 {
 }
 .buttons {
     display: inline-block;
+    margin-bottom: 40px;
+}
+.home_logo {
+    width: 100px;
+    height: 100px;
+}
+.img-with-text {
+    text-align: justify;
+    width: [width of img];
+}
+
+.img-with-text img {
+    display: block;
+    margin: 0 auto;
 }
 
 button.big-button {
@@ -86,6 +101,10 @@ button.big-button {
     cursor: pointer;
     font-size: larger;
     color: #d8e3e7;
+}
+button.big-button:hover {
+    background-color: #126e82;
+    background: #126e82;
 }
 
 @media screen and (max-width: 960px) {

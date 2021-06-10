@@ -74,7 +74,7 @@ class ProfileCard extends React.Component {
             paddingTop: "15px",
             paddingBottom: "15px",
             marginBottom: "15px",
-
+            marginTop: "60px",
             borderRadius: "10px",
           }}
           onClick={signOut}

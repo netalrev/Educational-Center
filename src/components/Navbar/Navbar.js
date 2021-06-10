@@ -3,7 +3,7 @@ import { MenuItems } from "./MenuItems"; //All menu items (haeders).
 import "./Navbar.css";
 import { Button } from "../Button";
 import { Auth } from "aws-amplify";
-import logo from "./logo.png"; // Tell webpack this JS file uses this image
+//import logo from "./logo.png"; // Tell webpack this JS file uses this image
 
 //Check if user are logged In for show spesific navbar according to user group.
 var loggedIn = false;
@@ -28,7 +28,7 @@ class Navbar extends Component {
       <nav className="NavbarItems">
         <img
           className="logo"
-          src={logo}
+          src="logo.png"
           alt="Logo"
           onClick={(e) => {
             e.preventDefault();
