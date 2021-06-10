@@ -389,8 +389,7 @@ export default function ActivitySummary(props) {
                     startIcon={
                         <CheckCircleIcon
                             style={{
-                                fill: "white",
-                                backgroundColor: "green",
+                                fill: "#132c33",
                                 maxWidth: "100px",
                                 marginBottom: "11px"
                             }}
@@ -398,14 +397,16 @@ export default function ActivitySummary(props) {
                     }
                     variant="outlined"
                     style={{
-                        fill: "white",
-                        backgroundColor: "green",
+                        fill: "#132c33",
+                        backgroundColor: "#51c4d3",
                         maxHeight: "40px",
                         paddingBottom: "15px",
-                        border: "3px solid green",
+                        border: "3px solid #51c4d3",
                     }}
                 >
-                    <CSVLink data={toInsert} filename={filename} headers={headers}>
+                    <CSVLink data={toInsert} filename={filename} headers={headers} style={{
+                        fill: "#132c33"
+                    }}>
                         Download me
                 </CSVLink>
                 </Button>
