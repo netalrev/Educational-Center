@@ -16,22 +16,30 @@ import {
   listApprovedActivitiess,
   listPendingActivitiess,
 } from "../../graphql/queries";
-import Amplify, { API, graphqlOperation } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import swal from "sweetalert";
 
 export default function ApproveResponsiveDialogActivity(props) {
+
+  //               Use State Initialization              //
+
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [approvedActivitiess, setApprovedActivitiess] = useState([]);
   const [activitiess, setActivitiess] = useState([]);
 
+  //               Use Effect Initialization              //
+
   useEffect(() => {
     fetchApprovedActivities();
   }, []);
 
+  //             Functions            //
+
+  //async function to fetch pending activities
   const fetchPendingActivities = async () => {
     try {
       const PendingActivitiesData = await API.graphql(
@@ -45,6 +53,7 @@ export default function ApproveResponsiveDialogActivity(props) {
     }
   };
 
+  //async function to fetch approved activities
   const fetchApprovedActivities = async () => {
     try {
       const activitiesData = await API.graphql(
@@ -57,6 +66,7 @@ export default function ApproveResponsiveDialogActivity(props) {
     }
   };
 
+  //async function to fetch approved activity
   const approveActivity = async (id_to_fetch) => {
     try {
       const fetched = await API.graphql(
@@ -78,6 +88,7 @@ export default function ApproveResponsiveDialogActivity(props) {
     }
   };
 
+  //async function to delete pending activity by id.
   const deleteSinglePending = async (id_to_delete) => {
     try {
       const del = { id: id_to_delete };
@@ -88,6 +99,9 @@ export default function ApproveResponsiveDialogActivity(props) {
       console.log("Error on delete single pending activity ", error);
     }
   };
+
+
+  //    Handler fucntions   //
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -107,6 +121,7 @@ export default function ApproveResponsiveDialogActivity(props) {
     setOpen(false);
   };
 
+  //The react component with style in tags.
   return (
     <div>
       <Button

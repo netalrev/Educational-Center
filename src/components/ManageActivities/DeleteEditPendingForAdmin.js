@@ -300,6 +300,7 @@ export default function DeleteEditPendingForAdmin(props) {
   };
 
   var text = <b>{props.title}</b>;//Var for title.
+  //The react component.
   return (
     <Card className={classes.root}>
       <CardHeader title={text} />

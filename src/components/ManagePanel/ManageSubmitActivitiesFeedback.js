@@ -1,28 +1,16 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import { red } from "@material-ui/core/colors";
-import TextField from "@material-ui/core/TextField";
-// import SubmitResponsiveDialogActivityFeedback from "./SubmitResponsiveDialogActivityFeedback";
 import { useState, useEffect } from "react";
 import { listSubmitedActivityFeedbacks } from "../../graphql/queries";
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
-import {
-  deletePendingActivities,
-  deleteApprovedActivities,
-} from "../../graphql/mutations";
 import { API, graphqlOperation } from "aws-amplify";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
-import Typography from "@material-ui/core/Typography";
 
+//The style for manage card activity part.
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 1000,
@@ -66,10 +54,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ManageSubmitActivitiesFeedback(props) {
+
+  //               Use State Initialization              //
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [activitiesFeedback, setActivitiesFeedback] = useState([]);
   const [allActivitiesFeedback, setAllActivitiesFeedback] = useState([]);
+
+  //               Use Effect Initialization              //
 
   useEffect(() => {
     // Fetch for content suppliers
@@ -81,6 +74,9 @@ export default function ManageSubmitActivitiesFeedback(props) {
     fetchAllActivitiesFeedbacks();
   }, []);
 
+  //               Functions              //
+
+  //async function to fetch activity feedback.
   const fetchActivitiesFeedbacks = async () => {
     try {
       const activitiesFeedbackData = await API.graphql(
@@ -91,7 +87,7 @@ export default function ManageSubmitActivitiesFeedback(props) {
       console.log("error on fetching Pending Activities", error);
     }
   };
-
+  //async function to fetch activities feedback.
   const fetchAllActivitiesFeedbacks = async () => {
     try {
       const activitiesFeedbackData = await API.graphql(graphqlOperation(listSubmitedActivityFeedbacks));
@@ -102,11 +98,8 @@ export default function ManageSubmitActivitiesFeedback(props) {
     }
   };
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
-  var text = <b>{props.title}</b>;
+  var text = <b>{props.title}</b>;//Var for title.
+  //The react component.
   return (
     <Card
       className={classes.root}
@@ -157,11 +150,6 @@ export default function ManageSubmitActivitiesFeedback(props) {
                       </div>
                     </tr>
                     <tr>
-                      {/* <SubmitResponsiveDialogActivityFeedback
-                        id={props.id}
-                        date={activity.date}
-                        student={activity.form}
-                      /> */}
                     </tr>
                   </table>
                 </div>

@@ -7,14 +7,17 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
-import EditIcon from "@material-ui/icons/Edit";
 import UserProgressCard from "./UserProgressCard";
 
 export default function WatchUserActivityProgress(props) {
+
+    //               Use State Initialization              //
+
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
+    //               Handler Function              //
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -23,6 +26,8 @@ export default function WatchUserActivityProgress(props) {
     const handleCancel = () => {
         setOpen(false);
     };
+
+    //The react component with style in tags.
     return (
         <div>
             <Button

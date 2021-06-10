@@ -1,4 +1,3 @@
-import React, { Component } from "react";
 import ManageCardActivities from "./ManageCardActivities";
 import ManageCardActivitiesFeedback from "./ManageCardActivitiesFeedback";
 import UserInfo from "./UserInfo";
@@ -7,7 +6,9 @@ import DeleteEditApprovedForAdmin from "../ManageActivities/DeleteEditApprovedFo
 import { useEffect, useState } from "react"
 
 export default function ManagePanel(props) {
+  //               Use State Initialization              //
   const [dateAndTime, setDateAndTime] = useState([]);
+  //               Function              //
   const fetchTimeAndDate = async () => {
     try {
       var url =
@@ -21,9 +22,11 @@ export default function ManagePanel(props) {
       console.log("Error fetching date and time.", err);
     }
   };
+  //               Use Effect Initialization              //
   useEffect(() => {
     fetchTimeAndDate();
   });
+  //The react component
   return (
     <div>
       <ManageCardActivities
