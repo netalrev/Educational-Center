@@ -1,19 +1,19 @@
-import React, { Component } from "react";
 import "./profile.css";
-import Amplify, { Auth } from "aws-amplify";
-import { AmplifySignOut } from "@aws-amplify/ui-react";
+import { Auth } from "aws-amplify";
 import { useState, useEffect } from "react";
 import { listUsers } from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
-import ReactCardFlip from "react-card-flip";
 import LinearDeterminate from "./LinearDeterminate";
 
+//Helper vriables (for Authentication procces)
 var fname = "null";
 var gname = "null";
 var emailAddress = "null";
 var groupName = "null";
 var phoneNumber = "null";
 var groups = new Array(3);
+
+//Authentication checks
 Auth.currentAuthenticatedUser().then(
   (user) =>
     (gname = user.attributes.given_name) &&
@@ -24,6 +24,9 @@ Auth.currentAuthenticatedUser().then(
     (groupName = groups[0])
 );
 
+//    Function    //
+
+//async function to signOut.
 async function signOut() {
   try {
     await Auth.signOut();
@@ -34,6 +37,9 @@ async function signOut() {
 }
 
 export default function Profile(props) {
+
+  //               Use State Initialization              //
+
   const [users, setUsers] = useState([]);
   const [myScore, setMyScore] = useState([]);
   const [prevState, setState] = useState(props.flip_state);
@@ -52,6 +58,8 @@ export default function Profile(props) {
     score = parseInt(myScore.score) - grades[level - 1];
     score = parseInt((score / (grades[level] - grades[level - 1])) * 100);
   }
+
+  //async function to fetch all users.
   const fetchUsers = async () => {
     try {
       const usersData = await API.graphql(graphqlOperation(listUsers));
@@ -63,9 +71,13 @@ export default function Profile(props) {
       console.log("error on fetching users", error);
     }
   };
+
+
   useEffect(() => {
     fetchUsers();
   }, []);
+
+  //The react component 
   return (
     <div className="card">
       <div className="ds-top"></div>

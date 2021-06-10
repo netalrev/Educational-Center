@@ -1,11 +1,11 @@
 import "./profile.css";
-import React, { Component } from "react";
+import React from "react";
 import ReactCardFlip from "react-card-flip";
-import Amplify, { Auth } from "aws-amplify";
-import { AmplifySignOut } from "@aws-amplify/ui-react";
+import { Auth } from "aws-amplify";
 import Profile from "./profile";
 import Back from "./Back";
 
+//async function to user sign out.
 async function signOut() {
   try {
     await Auth.signOut();
@@ -14,6 +14,7 @@ async function signOut() {
     console.log("error signing out: ", error);
   }
 }
+
 class ProfileCard extends React.Component {
   constructor() {
     super();
@@ -22,12 +23,13 @@ class ProfileCard extends React.Component {
     };
     this.handleClick = this.handleClick.bind(this);
   }
-
+  //Handler function.
   handleClick(e) {
     e.preventDefault();
     this.setState((prevState) => ({ isFlipped: !prevState.isFlipped }));
   }
 
+  //The REACT component with style in tag.
   render() {
     return (
       <div>

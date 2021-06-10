@@ -60,14 +60,14 @@ var dates_class = {
     return d.constructor === Date
       ? d
       : d.constructor === Array
-      ? new Date(d[0], d[1], d[2])
-      : d.constructor === Number
-      ? new Date(d)
-      : d.constructor === String
-      ? new Date(d)
-      : typeof d === "object"
-      ? new Date(d.year, d.month, d.date)
-      : NaN;
+        ? new Date(d[0], d[1], d[2])
+        : d.constructor === Number
+          ? new Date(d)
+          : d.constructor === String
+            ? new Date(d)
+            : typeof d === "object"
+              ? new Date(d.year, d.month, d.date)
+              : NaN;
   },
   compare: function (a, b) {
     // Compare two dates (could be of any type supported by the convert
@@ -199,7 +199,7 @@ export default function Back(props) {
             (feedbacks.filter((feedback) => feedback.id === activity.id)[0]
               .amount /
               activity.dates.length) *
-              100
+            100
           );
           if (
             feedbacks.filter((feedback) => feedback.id === activity.id)[0]
