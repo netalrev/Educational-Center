@@ -332,73 +332,100 @@ export default function Back(props) {
       <div className="ds-top">
         <h4 className="myCurses">הקורסים שלי</h4>
       </div>
-      <Scrollbars
-        style={{
-          marginBlockStart: "80px",
-          width: 300,
-          height: 390,
-          float: "right",
-        }}
-      >
-        <div id="container2">
-          <div className="activityRow">
-            <div className="ds pens">
-              <h6 className="levels2"> {myFinishActivities.length} </h6>
-              <h6 className="prof2" title="Number of pens created by the user">
-                קורסים שסיימת, קטן עלייך
-              </h6>
-              <img className="pointsAvatar2" src={"/img/completed.png"} />
-            </div>
-          </div>
-          <div
-            style={{
-              paddingTop: "10px",
-              textShadow: "0 0 19px #ffffff",
-            }}
-          >
-            {myFinishActivities}
-          </div>
-        </div>
-        <div id="container2">
-          <div className="activityRow">
-            <div className="ds pens">
-              <tr>
-                <h6 className="levels"> {myActivities.length} </h6>
-              </tr>
-              <tr>
+      <div>
+        <Scrollbars
+          style={{
+            marginBlockStart: "80px",
+            width: 300,
+            height: 390,
+            float: "right",
+          }}
+        >
+          <div id="container3">
+            <div className="activityRow">
+              <div className="ds pens">
+                <h6 className="levels2"> {myFinishActivities.length} </h6>
                 <h6
                   className="prof2"
                   title="Number of pens created by the user"
                 >
-                  קורסים שבלעדייך זה לא יהיה אותו הדבר
+                  קורסים שסיימת, קטן עלייך
                 </h6>
-                <img className="pointsAvatar2" src={"/img/validation.png"} />
-              </tr>
+                <img className="pointsAvatar2" src={"/img/completed.png"} />
+              </div>
+            </div>
+            <div
+              style={{
+                paddingTop: "10px",
+                textShadow: "0 0 19px #ffffff",
+                marginBottom: "45px",
+                fontSize: "13px",
+                color: "#132c33",
+                fontWeight: "600",
+              }}
+            >
+              {myFinishActivities}
             </div>
           </div>
-          {myActivities}
-        </div>
-        <div id="container2">
-          <div className="activityRow1">
-            <div className="ds pens">
-              <h6 className="levels"> {personalActivitiesPending.length} </h6>
-              <h6 className="prof2" title="Number of pens created by the user">
-                קורסים שממש עוד מעט נאשר אותך אליהם
-              </h6>
-              <img className="pointsAvatar2" src={"/img/pending.png"} />
+          <div id="container2">
+            <div className="activityRow">
+              <div className="ds pens">
+                <tr>
+                  <h6 className="levels"> {myActivities.length} </h6>
+                </tr>
+                <tr>
+                  <h6
+                    className="prof2"
+                    title="Number of pens created by the user"
+                  >
+                    קורסים שבלעדייך זה לא יהיה אותו הדבר
+                  </h6>
+                  <img className="pointsAvatar2" src={"/img/validation.png"} />
+                </tr>
+              </div>
+            </div>
+            <div
+              style={{
+                paddingTop: "10px",
+                textShadow: "0 0 19px #ffffff",
+                marginBottom: "45px",
+                fontSize: "13px",
+                color: "#132c33",
+                fontWeight: "600",
+              }}
+            >
+              {myActivities}
             </div>
           </div>
-          <h3
-            style={{
-              fontSize: "13px",
-              color: "#d8e3e7",
-              marginBottom: "20px",
-            }}
-          >
-            {personalActivitiesPending}
-          </h3>
-        </div>
-      </Scrollbars>
+          <div id="container2">
+            <div className="activityRow1">
+              <div className="ds pens">
+                <h6 className="levels"> {personalActivitiesPending.length} </h6>
+                <h6
+                  className="prof2"
+                  title="Number of pens created by the user"
+                >
+                  קורסים שממש עוד מעט נאשר אותך אליהם
+                </h6>
+                <img className="pointsAvatar2" src={"/img/pending.png"} />
+              </div>
+            </div>
+
+            <div
+              style={{
+                paddingTop: "10px",
+                textShadow: "0 0 19px #ffffff",
+                marginBottom: "45px",
+                fontSize: "13px",
+                color: "#132c33",
+                fontWeight: "600",
+              }}
+            >
+              {personalActivitiesPending}
+            </div>
+          </div>
+        </Scrollbars>
+      </div>
       <div className="logout">
         <div className="bottomProfile" onClick={props.function}>
           <ReplayIcon fontSize="large" className="flipIcon" />

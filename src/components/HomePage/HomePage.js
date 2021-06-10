@@ -22,8 +22,8 @@ export default function HomePage() {
       <img className="wallpaper1" src={"/img/wallpaper.png"} />
       <div className="buttons">
         <h3 className="desc">
-          נט-סקילס רחובות- הדרך החדשה שלכם לצרוך תוכן איכותי! חשבתם פעם על
-          לימודי שחמט? מרגישים שאתם חייבים לדעת לתכנת? חלמתם פעם על לימודי
+          נט-סקילס רחובות- הדרך החדשה שלכם לצרוך תוכן איכותי! <br></br>חשבתם פעם
+          על לימודי שחמט? מרגישים שאתם חייבים לדעת לתכנת? חלמתם פעם על לימודי
           גיטרה? בא לכם לעשות יוגה? ומה עם להקים סטארטאפ? הגעתם למקום הנכון!
           נט-סקילס מגיש לכם את התוכן שאתם הכי רוצים ללמוד ישר אל כף היד! איפה?-
           בזום, מתי? מתי שנוח לכם, כמה?- בחינם! אז איך זה עובד? חמישה מפגשים
@@ -31,12 +31,21 @@ export default function HomePage() {
           יש! אנחנו מזמינים אותכם לקחת חלק בסדנאות ייחודיות במגוון רחב של עולמות
           תוכן- להכיר, ללמוד, לשאול, לגלות ובעיקר פשוט ליהנות. נתראה!
         </h3>
-        <button className="big-button" onClick={goToAc}>
-          לכל הקורסים
-        </button>
-        <button className="big-button" onClick={goToProfile}>
-          לאזור האישי
-        </button>
+
+        <table className="buttons">
+          <div class="img-with-text">
+            <img className="home_logo" src={"/img/allActivities.png"} />
+            <button className="big-button" onClick={goToAc}>
+              לכל הקורסים
+            </button>{" "}
+          </div>
+          <div class="img-with-text">
+            <img className="home_logo" src={"/img/myProfile.png"} />
+            <button className="big-button" onClick={goToProfile}>
+              לאזור האישי
+            </button>
+          </div>
+        </table>
       </div>
     </div>
   );
