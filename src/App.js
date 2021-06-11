@@ -98,7 +98,7 @@ function App() {
       });
       const user = {
         name: gname + " " + fname,
-        id: IDs.length == 0 ? 0 : IDs[IDs.length - 1] + 1,
+        id: IDs.length === 0 ? 0 : IDs[IDs.length - 1] + 1,
         email: emailAddress,
         phone_number: phoneNumber,
         score: 0,
