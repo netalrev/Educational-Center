@@ -147,34 +147,19 @@ export default function ActivityTable(props) {
       const approvedActivitiesList =
         approvedActivitiesData.data.listApprovedActivitiess.items;
       approvedActivitiesList.sort(comparing);
+      var copy = [];
       for (var i = 0; i < approvedActivitiesList.length; i++) {
         if (
-          dates_class.compare(
-            props.currentTime,
-            dates_class.convert(
-              dates_class
-                .convert(
-                  approvedActivitiesList[i].dates[
-                  approvedActivitiesList[i].dates.length - 1
-                  ]
-                )
-                .setMinutes(
-                  dates_class
-                    .convert(
-                      approvedActivitiesList[i].dates[
-                      approvedActivitiesList[i].dates.length - 1
-                      ]
-                    )
-                    .getMinutes() + 60
-                )
-            )
-          ) === 1
-        ) {
-          approvedActivitiesList.splice(i, 1);
-          i = 0;
+          dates_class.compare(props.currentTime, dates_class.convert(
+            dates_class.convert(approvedActivitiesList[i].dates[
+              approvedActivitiesList[i].dates.length - 1])
+              .setMinutes(dates_class.convert(
+                approvedActivitiesList[i].dates[
+                approvedActivitiesList[i].dates.length - 1]).getMinutes() + 60))) <= 0) {
+          copy.push(approvedActivitiesList[i]);
         }
       }
-      setAllApprovedActivitiess(approvedActivitiesList);
+      setAllApprovedActivitiess(copy);
     } catch (error) {
       console.log("error on fetching Approved Activities", error);
     }

@@ -209,7 +209,7 @@ export default function UserInfo(props) {
         }
         return createDataAdmin(
             user.name,
-            user.phone_number,
+            user.phone_number.length === 13 ? "0" + String(user.phone_number).substring(4, 6) + "-" + String(user.phone_number).substring(6) : String(user.phone_number).substring(4, 7) + "-" + String(user.phone_number).substring(7),
             user.email,
             <div>
                 <p>

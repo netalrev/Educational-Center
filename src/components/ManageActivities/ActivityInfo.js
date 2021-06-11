@@ -224,14 +224,6 @@ export default function ActivityInfo(props) {
   const columns = props.groupName === "admins" ?
     [
       {
-        id: "exports",
-        label: "export",
-        minWidth: 110,
-        maxWidth: 110,
-        align: "center",
-        color: "white",
-      },
-      {
         id: "buttons",
         label: "",
         minWidth: 110,
@@ -285,14 +277,6 @@ export default function ActivityInfo(props) {
     :
     [
       {
-        id: "exports",
-        label: "export",
-        minWidth: 110,
-        maxWidth: 110,
-        align: "center",
-        color: "white",
-      },
-      {
         id: "buttons",
         label: "",
         minWidth: 110,
@@ -328,7 +312,7 @@ export default function ActivityInfo(props) {
     var progress = parseInt(((activity.dates.filter(date => dates_class.compare(props.currentTime, dates_class.convert(date)) >= 0).length) / activity.dates.length) * 100);
     return createDataAdmin(
       activity.owner,
-      activity.phone_number,
+      activity.phone_number.length === 13 ? "0" + String(activity.phone_number).substring(4, 6) + "-" + String(activity.phone_number).substring(6) : String(activity.phone_number).substring(4, 7) + "-" + String(activity.phone_number).substring(7),
       activity.title,
       activity.email,
       activity.dates.map((date, index) => {

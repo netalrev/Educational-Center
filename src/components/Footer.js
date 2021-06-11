@@ -115,6 +115,7 @@ const Footer = () => {
         <a href="https://www.flaticon.com/" title="Flaticon">
           www.flaticon.com
         </a>
+        Powered by <a href="https://www.amdoren.com">Amdoren</a>
       </div>
     </Box>
   );

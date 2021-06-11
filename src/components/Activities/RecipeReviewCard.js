@@ -156,7 +156,9 @@ export default function RecipeReviewCard(props) {
         student.push(element.email);
         student.push(element.phone_number);
         new_form.push(student);
+
       });
+      if (new_form.length === 0) return;
       var IDs = activityFeedbacks.map((element) => parseInt(element.id));
       IDs.sort(function compareNumbers(a, b) {
         return a - b;

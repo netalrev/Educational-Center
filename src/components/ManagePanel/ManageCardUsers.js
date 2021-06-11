@@ -211,7 +211,7 @@ export default function ManageCardUsers(props) {
     const row = users.map((user, index) => {
       return createDataUser(
         user.name,
-        user.phone_number,
+        user.phone_number.length === 13 ? "0" + String(user.phone_number).substring(4, 6) + "-" + String(user.phone_number).substring(6) : String(user.phone_number).substring(4, 7) + "-" + String(user.phone_number).substring(7),
         user.email,
         allApprovedActivitiess.filter(
           (activity) => activity.id === user.activity_id
