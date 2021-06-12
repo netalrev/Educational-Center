@@ -93,18 +93,18 @@
 }
 @keyframes txt {
     0% {
-        content: "מתחבר";
+        content: "טוען";
     }
     10% {
-        content: ".מתחבר";
+        content: ".טוען";
     }
     20% {
-        content: "..מתחבר";
+        content: "..טוען";
     }
     30% {
-        content: "...מתחבר";
+        content: "...טוען";
     }
     40% {
-        content: "....מתחבר";
+        content: "....טוען";
     }
 }
