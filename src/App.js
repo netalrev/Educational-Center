@@ -128,77 +128,77 @@ function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [users, setUsers] = useState([]);
-  const [allUsers, setAllUsers] = useState([]);
-  const [creds, setCreds] = useState([]);
+  // const [allUsers, setAllUsers] = useState([]);
+  // const [creds, setCreds] = useState([]);
 
-  // const? [users, setUsers] = useState([]);
-  const checkCognitoUserSession = async () => {
-    const getAwsCredentials = await Auth.currentCredentials();
-    const awsCredentials = await Auth.essentialCredentials(getAwsCredentials);
+  // // const? [users, setUsers] = useState([]);
+  // const checkCognitoUserSession = async () => {
+  //   const getAwsCredentials = await Auth.currentCredentials();
+  //   const awsCredentials = await Auth.essentialCredentials(getAwsCredentials);
 
-    console.log("GGGGGGGGGG", awsCredentials)
-    setCreds(awsCredentials);
+  //   console.log("GGGGGGGGGG", awsCredentials)
+  //   setCreds(awsCredentials);
 
-    // accessKeyId, secretAccessKey, sessionToken post login
-    if (awsCredentials !== undefined && awsCredentials.length !== 0) {
-      getUsers();
-    }
-  };
-  const getUsers = async () => {
-    try {
-      const getAwsCredentials = await Auth.currentCredentials();
-      const awsCredentials = await Auth.essentialCredentials(getAwsCredentials);
-      var creds = new AWS.Credentials('akid', 'secret', 'session');
-      AWS.config.region = 'us-east-2'; // Region
-      AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-        IdentityPoolId: 'us-east-2:f7ebd251-3285-45af-8a4e-1d79d22ea590',
-      });
-      console.log(AWS.config.credentials);
-      console.log("creds", creds)
-      if (awsCredentials !== undefined && awsCredentials.length !== 0) {
-        let new_allUsers = [];
-        let more = true;
-        let paginationToken = '';
-        while (more) {
-          let params = {
-            UserPoolId: "us-east-2_FAO6krzFK",
-            // Limit: 60
-          };
-          if (paginationToken !== '') {
-            params.PaginationToken = paginationToken;
-          }
+  //   // accessKeyId, secretAccessKey, sessionToken post login
+  //   if (awsCredentials !== undefined && awsCredentials.length !== 0) {
+  //     getUsers();
+  //   }
+  // };
+  // const getUsers = async () => {
+  //   try {
+  //     const getAwsCredentials = await Auth.currentCredentials();
+  //     const awsCredentials = await Auth.essentialCredentials(getAwsCredentials);
+  //     var creds = new AWS.Credentials('akid', 'secret', 'session');
+  //     AWS.config.region = 'us-east-2'; // Region
+  //     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+  //       IdentityPoolId: 'us-east-2:f7ebd251-3285-45af-8a4e-1d79d22ea590',
+  //     });
+  //     console.log(AWS.config.credentials);
+  //     console.log("creds", creds)
+  //     if (awsCredentials !== undefined && awsCredentials.length !== 0) {
+  //       let new_allUsers = [];
+  //       let more = true;
+  //       let paginationToken = '';
+  //       while (more) {
+  //         let params = {
+  //           UserPoolId: "us-east-2_FAO6krzFK",
+  //           // Limit: 60
+  //         };
+  //         if (paginationToken !== '') {
+  //           params.PaginationToken = paginationToken;
+  //         }
 
-          AWS.config.update({
-            region: "us-east-2",
-            accessKeyId: awsCredentials.accessKeyId,
-            secretAccessKey: awsCredentials.secretAccessKey,
-            sessionToken: awsCredentials.sessionToken
-          });
-          const cognito = new AWS.CognitoIdentityServiceProvider();
-          const rawUsers = await cognito.listUsers(params).promise();
-          console.log(rawUsers)
-          new_allUsers = new_allUsers.concat(rawUsers.Users);
-          console.log("new_allUsers", new_allUsers);
-          if (rawUsers.PaginationToken) {
-            paginationToken = rawUsers.PaginationToken;
-          } else {
-            more = false;
-          }
-        }
-        setAllUsers(new_allUsers);
-      }
-    }
-    catch (e) {
-      console.log(e);
-    }
-  };
+  //         AWS.config.update({
+  //           region: "us-east-2",
+  //           accessKeyId: awsCredentials.accessKeyId,
+  //           secretAccessKey: awsCredentials.secretAccessKey,
+  //           sessionToken: awsCredentials.sessionToken
+  //         });
+  //         const cognito = new AWS.CognitoIdentityServiceProvider();
+  //         const rawUsers = await cognito.listUsers(params).promise();
+  //         console.log(rawUsers)
+  //         new_allUsers = new_allUsers.concat(rawUsers.Users);
+  //         console.log("new_allUsers", new_allUsers);
+  //         if (rawUsers.PaginationToken) {
+  //           paginationToken = rawUsers.PaginationToken;
+  //         } else {
+  //           more = false;
+  //         }
+  //       }
+  //       setAllUsers(new_allUsers);
+  //     }
+  //   }
+  //   catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
   // useEffect(() => {
   //   checkCognitoUserSession();
   // }, []);
-  useEffect(() => {
-    getUsers();
-  }, []);
+  // useEffect(() => {
+  //   getUsers();
+  // }, []);
   //                 Functions                //
 
   ////async function that return all user list stored in DB.

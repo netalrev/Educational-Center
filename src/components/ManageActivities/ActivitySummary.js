@@ -361,9 +361,9 @@ export default function ActivitySummary(props) {
             if (props.type === "multiple")
                 toInsert.push({ name: "סיכום נוכחות למפגש " + (i + 1) + ":", phone: total_attended[i], email: "/ " + allData.length });
             else
-                toInsert.push({ name: "סיכום נוכחות למפגש " + (allData[0].index) + ":", phone: total_attended[i], email: "/ " + allData.length });
-            toInsert.push({ name: "השתתפות כלל התלמידים שנכחו " + ":", phone: total_attended[i] === 0 ? "0" : String((participation_avg[i] / 3) / total_attended[i]).substring(0, 4), email: "/ 5" });
-            toInsert.push({ name: "תרומת כלל התלמידים שנכחו " + ":", phone: total_attended[i] === 0 ? "0" : String((contribution_avg[i] / 3) / total_attended[i]).substring(0, 4), email: "/ 5" });
+                toInsert.push({ name: "נוכחות" + (allData[0].index) + ":", phone: total_attended[i], email: "/ " + allData.length });
+            toInsert.push({ name: "השתתפות ממוצעת" + ":", phone: total_attended[i] === 0 ? "0" : String((participation_avg[i] / 3) / total_attended[i]).substring(0, 4), email: "/ 5" });
+            toInsert.push({ name: "תרומת ממוצעת" + ":", phone: total_attended[i] === 0 ? "0" : String((contribution_avg[i] / 3) / total_attended[i]).substring(0, 4), email: "/ 5" });
         }
     }
     if (data === undefined) func();
@@ -401,7 +401,7 @@ export default function ActivitySummary(props) {
                         fill: "#132c33"
                     }}>
                         Download me
-                </CSVLink>
+                    </CSVLink>
                 </Button>
 
                 <CardContent s>
@@ -445,10 +445,10 @@ export default function ActivitySummary(props) {
                                                         <br></br>
                                                         <th>
                                                             לא נכחו
-                                                </th>
+                                                        </th>
                                                         <th>
                                                             נכחו
-                                                </th>
+                                                        </th>
                                                         <tr>
                                                             <td>
                                                                 <Scrollbars style={{ width: 130, height: 200, float: "right" }}>
