@@ -23,6 +23,29 @@ export default function ManagePanel(props) {
         const data = await res.json();
         setDateAndTime(data.datetime);
       }
+      // var date = new Date().toLocaleDateString();
+      // var day = "";
+      // var month = "";
+      // var year = "";
+      // if (date[1] === ".") {
+      //   day = "0" + date.substring(0, 1);
+      //   date = date.substring(2);
+      // }
+      // else {
+      //   day = date.substring(0, 2);
+      //   date = date.substring(3);
+      // }
+      // if (date[1] === ".") {
+      //   month = "0" + date.substring(0, 1);
+      //   date = date.substring(2);
+      // }
+      // else {
+      //   month = date.substring(0, 2);
+      //   date = date.substring(3);
+      // }
+      // var toSend = date + "-" + month + "-" + day + " " + new Date().toLocaleTimeString();
+      // console.log(toSend, typeof (toSend))
+      // setDateAndTime(toSend);
     } catch (err) {
       console.log("Error fetching date and time.", err);
     }
@@ -30,64 +53,88 @@ export default function ManagePanel(props) {
   //               Use Effect Initialization              //
   useEffect(() => {
     fetchTimeAndDate();
-  });
+  }, []);
   //The react component
-  return (
-    <div>
-      <ManageCardComfirmUsers
-        groupName={props.groupName}
-        email={props.email}
-        currentTime={dateAndTime}
-        title="אישור משתמשים חדשים"
-        style={{ textAlign: "center", align: "center" }}
-      />
-      <ManageCardEditUsers
-        groupName={props.groupName}
-        email={props.email}
-        currentTime={dateAndTime}
-        title="ניהול משתמשים"
-        style={{ textAlign: "center", align: "center" }}
-      />
-      <ManageCardBlockUsers
-        groupName={props.groupName}
-        email={props.email}
-        currentTime={dateAndTime}
-        title="ניהול משתמשים חסומים"
-        style={{ textAlign: "center", align: "center" }}
-      />
-      <ManageCardActivities
-        groupName={props.groupName}
-        email={props.email}
-        currentTime={dateAndTime}
-        title="קורסים הממתינים לאישור"
-        style={{ textAlign: "center", align: "center" }}
-      />
-      <DeleteEditApprovedForAdmin
-        groupName={props.groupName}
-        currentTime={dateAndTime}
-        type="pending"
-        email={props.email}
-        title="קורסים מאושרים"
-      />
-      <ManageCardUsers
-        currentTime={dateAndTime}
-        groupName={props.groupName}
-        title="אישור משתתפים הממתינים לקורס"
-      />
-      <UserInfo
-        groupName={props.groupName}
-        email={props.email}
-        currentTime={dateAndTime}
-        title="דו''ח מסכם לפי משתתפים"
-        style={{ textAlign: "center", align: "center" }}
-      />
-      <ManageCardActivitiesFeedback
-        groupName={props.groupName}
-        email={props.email}
-        currentTime={dateAndTime}
-        title="דו''ח מסכם לפי מפגש בקורס"
-        style={{ textAlign: "center", align: "center" }}
-      />
-    </div>
-  );
+  // var date = new Date().toLocaleDateString();
+  // var day = "";
+  // var month = "";
+  // var year = "";
+  // if (date[1] === ".") {
+  //   day = "0" + date.substring(0, 1);
+  //   date = date.substring(2);
+  // }
+  // else {
+  //   day = date.substring(0, 2);
+  //   date = date.substring(3);
+  // }
+  // if (date[1] === ".") {
+  //   month = "0" + date.substring(0, 1);
+  //   date = date.substring(2);
+  // }
+  // else {
+  //   month = date.substring(0, 2);
+  //   date = date.substring(3);
+  // }
+  // var dateAndTime = date + "-" + month + "-" + day + " " + new Date().toLocaleTimeString();
+  if (dateAndTime !== undefined) {
+    return (
+      <div>
+        <ManageCardComfirmUsers
+          groupName={props.groupName}
+          email={props.email}
+          currentTime={dateAndTime}
+          title="אישור משתמשים חדשים"
+          style={{ textAlign: "center", align: "center" }}
+        />
+        <ManageCardEditUsers
+          groupName={props.groupName}
+          email={props.email}
+          currentTime={dateAndTime}
+          title="ניהול משתמשים"
+          style={{ textAlign: "center", align: "center" }}
+        />
+        <ManageCardBlockUsers
+          groupName={props.groupName}
+          email={props.email}
+          currentTime={dateAndTime}
+          title="ניהול משתמשים חסומים"
+          style={{ textAlign: "center", align: "center" }}
+        />
+        <ManageCardActivities
+          groupName={props.groupName}
+          email={props.email}
+          currentTime={dateAndTime}
+          title="קורסים הממתינים לאישור"
+          style={{ textAlign: "center", align: "center" }}
+        />
+        <DeleteEditApprovedForAdmin
+          groupName={props.groupName}
+          currentTime={dateAndTime}
+          type="pending"
+          email={props.email}
+          title="קורסים מאושרים"
+        />
+        <ManageCardUsers
+          currentTime={dateAndTime}
+          groupName={props.groupName}
+          title="אישור משתתפים הממתינים לקורס"
+        />
+        <UserInfo
+          groupName={props.groupName}
+          email={props.email}
+          currentTime={dateAndTime}
+          title="דו''ח מסכם לפי משתתפים"
+          style={{ textAlign: "center", align: "center" }}
+        />
+        <ManageCardActivitiesFeedback
+          groupName={props.groupName}
+          email={props.email}
+          currentTime={dateAndTime}
+          title="דו''ח מסכם לפי מפגש בקורס"
+          style={{ textAlign: "center", align: "center" }}
+        />
+      </div>
+    );
+  }
+  return;
 }

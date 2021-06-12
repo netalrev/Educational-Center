@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ActivityTable(props) {
 
   //               Use State Initialization              //
-  const [dateAndTime, setDateAndTime] = useState([]);
+  // const [dateAndTime, setDateAndTime] = useState([]);
   const [allApprovedActivitiess, setAllApprovedActivitiess] = useState([]);
   const [toShow, setToShow] = useState([]);
   const classes = useStyles();
@@ -106,7 +106,7 @@ export default function ActivityTable(props) {
       if (
         dates_class.compare(
           dates_class.convert(a.dates[i]),
-          dateAndTime
+          props.currentTime
         ) === -1
       ) {
         i++;
@@ -114,7 +114,7 @@ export default function ActivityTable(props) {
       } else if (
         dates_class.compare(
           dates_class.convert(b.dates[j]),
-          dateAndTime
+          props.currentTime
         ) === -1
       ) {
         j++;
@@ -140,24 +140,48 @@ export default function ActivityTable(props) {
 
   //async function to fetch all aprroved activities.
 
-  const fetchTimeAndDate = async () => {
-    try {
-      if (dateAndTime.length === 0) {
-        var url =
-          "https://timezone.abstractapi.com/v1/current_time/?api_key=6fd38868af1a4f1b8958be2d7f676947&location=Jerusalem";
-        if (url.length !== 0) {
-          const res = await fetch(url);
-          const data = await res.json();
-          setDateAndTime(data.datetime);
-        }
-      }
-    } catch (err) {
-      console.log("Error fetching date and time.", err);
-    }
-  };
+  // const fetchTimeAndDate = async () => {
+  //   try {
+  //     if (dateAndTime.length === 0) {
+  //       // var url =
+  //       //   "https://timezone.abstractapi.com/v1/current_time/?api_key=6fd38868af1a4f1b8958be2d7f676947&location=Jerusalem";
+  //       // if (url.length !== 0) {
+  //       //   const res = await fetch(url);
+  //       //   const data = await res.json();
+  //       //   // setDateAndTime(data.datetime);
+  //       // }
+  //       var date = new Date().toLocaleDateString();
+  //       var day = "";
+  //       var month = "";
+  //       var year = "";
+  //       if (date[1] === ".") {
+  //         day = "0" + date.substring(0, 1);
+  //         date = date.substring(2);
+  //       }
+  //       else {
+  //         day = date.substring(0, 2);
+  //         date = date.substring(3);
+  //       }
+  //       if (date[1] === ".") {
+  //         month = "0" + date.substring(0, 1);
+  //         date = date.substring(2);
+  //       }
+  //       else {
+  //         month = date.substring(0, 2);
+  //         date = date.substring(3);
+  //       }
+  //       var toSend = date + "-" + month + "-" + day + " " + new Date().toLocaleTimeString();
+  //       console.log(toSend, typeof (toSend))
+  //       // setDateAndTime(toSend);
+  //     }
+  //   } catch (err) {
+  //     console.log("Error fetching date and time.", err);
+  //   }
+  // };
 
   const fetchAllApprovedActivities = async () => {
     try {
+      console.log(props.currentTime, typeof (props.currentTime))
       const approvedActivitiesData = await API.graphql(
         graphqlOperation(listApprovedActivitiess)
       );
@@ -167,7 +191,7 @@ export default function ActivityTable(props) {
       var copy = [];
       for (var i = 0; i < approvedActivitiesList.length; i++) {
         if (
-          dates_class.compare(dateAndTime, dates_class.convert(
+          dates_class.compare(props.currentTime, dates_class.convert(
             dates_class.convert(approvedActivitiesList[i].dates[
               approvedActivitiesList[i].dates.length - 1])
               .setMinutes(dates_class.convert(
@@ -200,7 +224,7 @@ export default function ActivityTable(props) {
         familyName={props.familyName}
         phoneNumber={props.phoneNumber}
         groupName={props.groupName}
-        currentTime={dateAndTime}
+        currentTime={props.currentTime}
       />
     ));
     setToShow(allActivity);
@@ -223,7 +247,7 @@ export default function ActivityTable(props) {
         familyName={props.familyName}
         phoneNumber={props.phoneNumber}
         zoom={activity.zoom}
-        currentTime={dateAndTime}
+        currentTime={props.currentTime}
       />
     ));
 
@@ -239,15 +263,38 @@ export default function ActivityTable(props) {
   }
 
   //                 Use Effects                //
-  useEffect(() => {
-    fetchTimeAndDate();
-  }, []);
+  // useEffect(() => {
+  //   fetchTimeAndDate();
+  // }, []);
   useEffect(() => {
     fetchAllApprovedActivities();
-  }, [dateAndTime]);
+  }, []);
   useEffect(() => {
     fillToShow();
   }, [allApprovedActivitiess]);
+
+  // var date = new Date().toLocaleDateString();
+  // var day = "";
+  // var month = "";
+  // var year = "";
+  // if (date[1] === ".") {
+  //   day = "0" + date.substring(0, 1);
+  //   date = date.substring(2);
+  // }
+  // else {
+  //   day = date.substring(0, 2);
+  //   date = date.substring(3);
+  // }
+  // if (date[1] === ".") {
+  //   month = "0" + date.substring(0, 1);
+  //   date = date.substring(2);
+  // }
+  // else {
+  //   month = date.substring(0, 2);
+  //   date = date.substring(3);
+  // }
+  // var dateAndTime = date + "-" + month + "-" + day + " " + new Date().toLocaleTimeString();
+  // console.log(toSend, typeof (toSend))
 
 
   //                 Flow               //
