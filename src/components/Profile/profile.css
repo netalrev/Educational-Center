@@ -1,0 +1,496 @@
+@import url("https://fonts.googleapis.com/css?family=Krub:400,700");
+
+@keyframes grow {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 44%;
+    }
+}
+
+.profileContainer {
+    margin-top: 40px;
+    padding-bottom: 520px;
+}
+
+.avater {
+    max-width: 290px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-bottom: 0;
+}
+.card {
+    position: absolute;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 250px;
+    height: 530px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px 5px rgba(0, 0, 0, 0.2);
+    background: #126e82;
+    overflow: hidden;
+}
+.card .ds-top {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 300px;
+    height: 80px;
+    background: #132c33;
+    animation: dsTop 1.5s;
+}
+.card .avatar-holder {
+    position: absolute;
+    margin: auto;
+    right: 0;
+    left: 0;
+    width: 200px;
+    overflow: hidden;
+    animation: mvTop 1.5s;
+}
+.card .avatar-holder1 {
+    position: absolute;
+    margin: auto;
+    right: 0;
+    left: 0;
+    width: 200px;
+    height: 300px;
+    overflow: hidden;
+    animation: mvTop 1.5s;
+}
+.card .avatar-holder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.card .name {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin-top: 20px;
+    width: inherit;
+    height: 200px;
+    text-align: center;
+    animation: fadeIn 2s ease-in;
+}
+.card .name a {
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 18px;
+}
+.card .name a:hover {
+    text-decoration: underline;
+}
+.card .name h6 {
+    position: absolute;
+    margin: auto;
+    font-size: 30px;
+    height: 170px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: white;
+    width: 40px;
+}
+.card .button {
+    position: absolute;
+    margin: auto;
+    padding: 8px;
+    top: 20px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: inherit;
+    height: 40px;
+    text-align: center;
+    animation: fadeIn 2s ease-in;
+    outline: none;
+}
+.card .button a {
+    padding: 5px 20px;
+    border-radius: 10px;
+    color: white;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    font-size: 10px;
+    transition: all 1s;
+}
+.card .button a:hover {
+    color: white;
+    background: #132c33;
+}
+.card .ds-info {
+    position: absolute;
+    margin: auto;
+    top: 20px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: inherit;
+    height: 40px;
+    display: flex;
+}
+.card .ds-info .pens,
+.card .ds-info .projects,
+.card .ds-info .posts {
+    position: relative;
+    left: -340px;
+    align-self: center;
+    width: 80px;
+    text-align: center;
+    margin-left: 8px;
+    margin-right: 8px;
+    color: white;
+    animation: fadeInMove 2s;
+    animation-fill-mode: forwards;
+}
+
+.card .ds-info .pens p,
+.card .ds-info .projects p,
+.card .ds-info .posts p {
+    font-size: 15px;
+}
+.card .ds-info .ds:nth-of-type(2) {
+    animation-delay: 0.5s;
+}
+.card .ds-info .ds:nth-of-type(1) {
+    animation-delay: 1s;
+}
+
+.logout {
+    position: absolute;
+    margin: auto;
+    width: 100%;
+    bottom: 0px;
+    right: 0;
+    left: 0;
+    animation: mvBottom 1.5s;
+    margin-top: 25px;
+    background-color: #132c33;
+}
+.myCurses {
+    font-size: 23px;
+    color: #d8e3e7;
+    margin-top: 15px;
+}
+.pointsHolder {
+    margin-right: auto;
+}
+.points1 {
+    font-weight: 900;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 70px;
+    color: #d8e3e7;
+}
+.points2 {
+    font-weight: 900;
+    font-size: 40px;
+    color: #132c33;
+    font-family: "Courier New", Courier, monospace;
+}
+
+@keyframes fadeInMove {
+    0% {
+        opacity: 0;
+        left: -300px;
+    }
+    100% {
+        opacity: 1;
+        left: 0;
+    }
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes htmlSkill {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 95%;
+    }
+}
+@keyframes cssSkill {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 90%;
+    }
+}
+@keyframes jsSkill {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 75%;
+    }
+}
+@keyframes mvBottom {
+    0% {
+        bottom: -150px;
+    }
+    100% {
+        bottom: 10px;
+    }
+}
+@keyframes mvTop {
+    0% {
+        top: -150px;
+    }
+    100% {
+        top: 40px;
+    }
+}
+@keyframes dsTop {
+    0% {
+        top: -150px;
+    }
+    100% {
+        top: 0;
+    }
+}
+.following {
+    color: white;
+    background: #132c33;
+}
+
+#container {
+    position: relative;
+    width: 50vw;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    margin-top: 50px;
+}
+
+#container2 {
+    position: relative;
+    left: 50%;
+    margin-top: 20px;
+    padding-left: 13px;
+    padding-right: 13px;
+    margin-left: auto;
+    margin-right: auto;
+    transform: translate3d(-50%, -50%, 0);
+}
+#container3 {
+    position: relative;
+    margin-top: 170px;
+    left: 50%;
+    padding-left: 13px;
+    padding-right: 13px;
+    margin-left: auto;
+    margin-right: auto;
+    transform: translate3d(-50%, -50%, 0);
+}
+.activityRow1 {
+    margin-top: 68px;
+    margin-bottom: 20px;
+}
+
+input {
+    display: none;
+}
+
+.myLabel {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 40px;
+    background: transparent;
+    border-radius: 0.4rem;
+    border: 2px solid white;
+    overflow: hidden;
+    box-shadow: -2px 0 8px 0 rgba(255, 255, 255, 0.6);
+}
+.myLabel div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to bottom, #ff7878 35%, #ff0404);
+    height: 100%;
+    width: 0%;
+    animation: grow 2s forwards;
+    box-shadow: 0 0 8px 1px white inset;
+}
+.myLabel div:before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/172299/bubbles-mask.gif);
+    mix-blend-mode: overlay;
+    opacity: 0.5;
+}
+
+span {
+    display: inline-block;
+    color: white;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 0.7rem;
+}
+span:last-child {
+    float: right;
+}
+
+.levels {
+    font-weight: 900;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 40px;
+    color: #d8e3e7;
+    margin: 15px;
+    text-shadow: 0 0 19px #1595ce;
+}
+.levels2 {
+    font-weight: 900;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 40px;
+    color: #d8e3e7;
+    margin: 15px;
+    padding-top: 40px;
+    text-shadow: 0 0 19px #1595ce;
+}
+
+.prof1 {
+    width: 100%;
+    background-color: #132c33;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 10px;
+    font-weight: 200;
+    font-size: 25px;
+    cursor: pointer;
+    color: #d8e3e7;
+}
+.prof1:hover {
+    color: #126e82;
+}
+.prof2 {
+    font-weight: 100;
+    font-size: 15px;
+    color: #d8e3e7;
+}
+.card_cont {
+    min-width: 270px;
+    margin-top: 0;
+}
+.flip_btn {
+    min-width: 270px;
+    margin-top: 0;
+}
+._ReactCardFlip {
+    min-width: 270px;
+}
+.bottomProfile {
+    cursor: pointer;
+    font-size: 50px;
+}
+.flipIcon {
+    color: #d8e3e7;
+    fill: #d8e3e7;
+}
+.flipIcon:hover {
+    color: #1595ce;
+    fill: #1595ce;
+}
+
+.progress2 {
+    background: rgba(255, 255, 255, 0.1);
+    justify-content: flex-start;
+    border-radius: 100px;
+    align-items: center;
+    margin-top: 10px;
+    position: relative;
+    padding: 0 5px;
+    display: flex;
+    height: 40px;
+    width: 500px;
+}
+
+.progress2-value {
+    animation: load 3s normal forwards;
+    box-shadow: 0 10px 40px -10px #fff;
+    border-radius: 100px;
+    background: #fff;
+    height: 30px;
+    width: 0;
+}
+
+@keyframes load {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 68%;
+    }
+}
+.signOutBtn {
+    width: 250px;
+    height: 30px;
+    background-color: #132c33;
+    border: 3px solid #132c33;
+    margin-right: auto;
+    color: white;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.logo1 {
+    margin: 0 35% 0 35%;
+    width: 30%;
+    height: auto;
+    background: #1595ce;
+}
+
+.logo1 img {
+    width: 100%;
+    height: auto;
+}
+
+.pointsAvatar {
+    -webkit-filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.8));
+    -webkit-transition: all 0.5s linear;
+    -o-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+    height: 130px;
+    width: 130px;
+    margin: 20px;
+}
+.pointsAvatar2 {
+    -webkit-filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.8));
+    -webkit-transition: all 0.5s linear;
+    -o-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+    height: 40px;
+    width: 40px;
+    margin: 12px;
+}
+.avatarLabel {
+    color: #d8e3e7;
+    font-weight: 500;
+}

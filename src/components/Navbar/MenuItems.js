@@ -1,34 +1,27 @@
 export const MenuItems = [
   {
+    title: "קורסים",
+    url: "/activitiespage",
+    cName: "nav-links",
+  },
+  {
+    title: "אזור מרצה",
+    url: "/manageActivities",
+    cName: "nav-links",
+  },
+  {
+    title: "אזור ניהול",
+    url: "/ManagerPanel",
+    cName: "nav-links",
+  },
+  {
     title: "דף הבית",
     url: "/",
     cName: "nav-links",
   },
   {
-    title: "שיעורים",
-    url: "/Classes",
-    cName: "nav-links",
-  },
-  {
-    title: "פעילויות",
-    url: "/Activities",
-    cName: "nav-links",
-  },
-  {
-    title: "צור קשר",
-    url: "/ContactUs",
-    cName: "nav-links",
-  },
-  {
-    title: "ניהול תכנים",
-    url: "/manageActivities",
-    cName: "nav-links",
-
-  },
-  {
-    title: "התחברות/הרשמה",
+    title: "התחברות",
     url: "/register",
     cName: "nav-links-mobile",
   },
-
 ];

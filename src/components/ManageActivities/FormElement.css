@@ -1,0 +1,13 @@
+.formInputs {
+    width: 200px;
+    padding-right: 3%;
+}
+
+.tdsForm {
+    width: 200px;
+    padding-right: 20px;
+}
+label>span {
+    display: none;
+}
+

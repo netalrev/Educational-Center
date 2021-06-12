@@ -1,0 +1,90 @@
+import "./profile.css";
+import React from "react";
+import ReactCardFlip from "react-card-flip";
+import { Auth } from "aws-amplify";
+import Profile from "./profile";
+import Back from "./Back";
+
+//async function to user sign out.
+async function signOut() {
+  try {
+    await Auth.signOut();
+    window.location.reload();
+  } catch (error) {
+    console.log("error signing out: ", error);
+  }
+}
+
+class ProfileCard extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      isFlipped: false,
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+  //Handler function.
+  handleClick(e) {
+    e.preventDefault();
+    this.setState((prevState) => ({ isFlipped: !prevState.isFlipped }));
+  }
+
+  //The REACT component with style in tag.
+  render() {
+    return (
+      <div>
+        <div className="profileContainer">
+          <ReactCardFlip
+            isFlipped={this.state.isFlipped}
+            flipDirection="horizontal"
+            className="_ReactCardFlip"
+          >
+            <div id="card_cont">
+              {this.props.groupName === "approvedUsers" ? (
+                <Profile
+                  className="flip_btn"
+                  function={this.handleClick}
+                  givenName={this.props.givenName}
+                  familyName={this.props.familyName}
+                  email={this.props.email}
+                  groupName={this.props.groupName}
+                />
+              ) : (
+                <div></div>
+              )}
+              <div className="flip_btn"></div>
+            </div>
+            <div id="card_cont">
+              <Back
+                className="flip_btn"
+                function={this.handleClick}
+                givenName={this.props.givenName}
+                familyName={this.props.familyName}
+                email={this.props.email}
+                groupName={this.props.groupName}
+              />
+              <div className="flip_btn"></div>
+            </div>
+          </ReactCardFlip>
+        </div>
+        <button
+          style={{
+            backgroundColor: "#132c33",
+            color: "#d8e3e7",
+            paddingLeft: "60px",
+            paddingRight: "60px",
+            paddingTop: "15px",
+            paddingBottom: "15px",
+            marginBottom: "15px",
+            marginTop: "60px",
+            borderRadius: "10px",
+          }}
+          onClick={signOut}
+        >
+          התנתקות
+        </button>
+      </div>
+    );
+  }
+}
+export default ProfileCard;

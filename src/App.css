@@ -1,23 +1,161 @@
-*{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     text-align: center;
-    font-family: 'Rubik', sans-serif;
+    font-family: "Montserrat", sans-serif;
     max-width: 100%;
+    /* color: #132c33; */
 }
-.main{
-    background-image: url("https://cdn.pixabay.com/photo/2016/07/29/15/30/pokemon-1553995_1280.jpg");
-    display: flex;
-    position:static;
-    background-color: rgb(27, 28, 29);
+
+.main {
+    position: static;
     align-items: center;
     align-self: center;
-    min-height: 400px;
     justify-content: center;
     justify-self: center;
-    padding-top: 20px;
-    padding-bottom: 0;
+    padding: auto;
+    margin-bottom: 0px;
+    background-color: #d8e3e7;
+    padding-top: 0px;
+    min-height: 490px;
 }
-.mainPage{
+.forbidden {
+    color: aliceblue;
+}
+.profileHeader {
+    color: #ffffff;
+}
+amplify-authenticator {
+    color: #2fb415;
+
+    padding: 5px;
+}
+amplify-sign-in {
+    padding: 0px;
+}
+
+/* Works on Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(255, 255, 255) #132c33;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #132c33;
+    padding: 3px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #d8e3e7;
+    border-radius: 20px;
+    border: 3px solid #1595ce;
+}
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    cursor: pointer;
+    display: block;
+    width: 8px;
+    color: #132c33;
+    text-align: center;
+    position: relative;
+    margin: 9px;
+}
+input[type="number"]:hover::-webkit-inner-spin-button {
+    background: #132c33 url("http://i.stack.imgur.com/YYySO.png") no-repeat 50% 50%;
+    width: 14px;
+    height: 14px;
+    padding: 4px;
+    position: relative;
+    right: 4px;
+    border-radius: 28px;
+}
+html {
+    height: 100%;
+}
+
+body {
+    background-color: #d8e3e7;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px rgb(0, 0, 0) inset !important;
+    color: #d8e3e7;
+}
+
+input:-webkit-autofill {
+    -webkit-text-fill-color: rgb(255, 255, 255) !important;
+}
+.searchBar {
+    margin-top: 30px;
+    color: #000000;
+}
+.tableTxt {
+    color: #ffffff;
+}
+tbody {
+    color: #ffffff;
+}
+/*.swal-modal {
+    background-color: rgba(0, 0, 0, 0.651);
+    color: #d8e3e7;
+    justify-content: center;
+    text-align: center;
+}
+.swal-text {
+    color: #d8e3e7;
+    font-size: 33px;
+    text-align: center;
+}
+.swal-button {
+    background-color: #ff2600;
+    color: #ffffff;
+}
+.swal-button:hover {
+    background-color: #5a0e01;
+    color: #ffffff;
+}*/
+textField {
+    width: "90%";
+    margin-left: "auto";
+    margin-right: "auto";
+    padding-bottom: 0;
+    color: aqua;
+}
+#startZoom {
+    animation: pulse 0.5s infinite alternate;
+}
+
+@keyframes pulse {
+    from {
+        box-shadow: 0px 0px 10px 3px #ffffffab;
+    }
+    to {
+        box-shadow: 0px 0px 20px 5px #ff000000;
+    }
+}
+.MuiToolbar-gutters {
+    background-color: #000000;
+    color: white;
+}
+.MuiTablePagination-actions {
+    color: white;
+}
+.MuiSelect-icon {
+    padding: auto;
+    margin-right: -10%;
+    border-radius: 20px;
+    background-color: white;
+    border: #000000;
+    size: 1px;
+}
+.MuiSvgIcon-root {
 }

@@ -1,0 +1,77 @@
+  type PendingUser @model {
+    id: ID!
+    name: String!
+    email: String!
+    phone_number: String!
+    activity_id: String!
+}
+
+  type ApprovedUser @model {
+    id: ID!
+    name: String!
+    email: String!
+    phone_number: String!
+    activity_id: String!
+}
+
+  type PendingActivities @model {
+    id: ID!
+    title: String!
+    description: String!
+    activityCount: String!
+    dates: [String!]
+    owner: String!
+    img: String
+    zoom: String
+    phone_number: String!
+    email: String!
+}
+
+type ApprovedActivities @model {
+    id: ID!
+    title: String!
+    description: String!
+    activityCount: String!
+    dates: [String!]
+    owner: String!
+    img: String
+    zoom: String
+    phone_number: String!
+    email: String!
+}
+
+type ActivityFeedback @model {
+    id: ID!
+    title: String!
+    activityCount: String!
+    date: String!
+    owner: String!
+    img: String
+    zoom: String
+    phone_number: String!
+    email: String!
+    form: [[String!]]
+    activity_id: String!
+}
+
+type SubmitedActivityFeedback @model {
+    id: ID!
+    title: String!
+    activityCount: String!
+    date: String!
+    owner: String!
+    img: String
+    zoom: String
+    phone_number: String!
+    email: String!
+    form: [[String!]]
+    activity_id: String!
+}
+
+type User @model {
+    id: ID!
+    name: String!
+    email: String!
+    phone_number: String!
+    score: Int!
+}

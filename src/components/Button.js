@@ -1,13 +1,13 @@
-import React from "react";
+/*Costum Button*/
+
 import "./Button.css";
 
-const STYLES = ["btn--primary", "btn--outline"];
-const SIZES = ["btn--medium", "btn--large"];
+const STYLES = ["btn--primary", "btn--outline"]; //For select style.
+const SIZES = ["btn--medium", "btn--large"]; //For select size.
 
 export const Button = ({
   children,
   type,
-  onClick,
   buttonStyle,
   buttonSize,
 }) => {
@@ -20,7 +20,7 @@ export const Button = ({
       className={`btn ${checkButtonStyle} ${checkButtonSize}`}
       onClick={(e) => {
         e.preventDefault();
-        window.location.href = "/register"; //Url to SignUp button.
+        window.location.href = "/register"; //Url to Reginster or SignUp pages.
       }}
       type={type}
     >
