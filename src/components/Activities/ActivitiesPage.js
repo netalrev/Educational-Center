@@ -7,32 +7,32 @@ export default function ActivitiesPage(props) {
 
   //               Use State Initialization              //
 
-  const [dateAndTime, setDateAndTime] = useState([]);
-  const [url, setUrl] = useState([]);
+  // const [dateAndTime, setDateAndTime] = useState([]);
+  // const [url, setUrl] = useState([]);
 
   //                 Functions                //
 
   //async function that return Israeli local time and date from an API.
-  const fetchTimeAndDate = async () => {
-    try {
-      var url =
-        "http://api.timezonedb.com/v2.1/get-time-zone?key=7IOGNZDWONQE&format=json&by=zone&zone=Asia/Jerusalem";
-      if (url.length !== 0) {
-        const res = await fetch(url);
-        const data = await res.json();
-        setDateAndTime(data.formatted);
-      }
-    } catch (err) {
-      console.log("Error fetching date and time.", err);
-    }
-  };
+  // const fetchTimeAndDate = async () => {
+  //   try {
+  //     var url =
+  //       "https://timezone.abstractapi.com/v1/current_time/?api_key=6fd38868af1a4f1b8958be2d7f676947&location=Jerusalem";
+  //     if (url.length !== 0) {
+  //       const res = await fetch(url);
+  //       const data = await res.json();
+  //       setDateAndTime(data.datetime);
+  //     }
+  //   } catch (err) {
+  //     console.log("Error fetching date and time.", err);
+  //   }
+  // };
 
 
   //                 Use Effects                //
 
-  useEffect(() => {
-    fetchTimeAndDate();
-  }, [url]);
+  // useEffect(() => {
+  //   fetchTimeAndDate();
+  // }, []);
 
 
   //                 Flow               //
@@ -49,7 +49,7 @@ export default function ActivitiesPage(props) {
       </div>
       <div id="activities_page">
         <ActivityTable
-          currentTime={dateAndTime}
+          // currentTime={dateAndTime}
           email={props.email}
           givenName={props.givenName}
           familyName={props.familyName}

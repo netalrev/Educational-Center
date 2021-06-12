@@ -132,13 +132,14 @@ export default function Back(props) {
     return feedbackPerActivity;
   }
   const fetchTimeAndDate = async () => {
+
     try {
       var url =
-        "http://api.timezonedb.com/v2.1/get-time-zone?key=7IOGNZDWONQE&format=json&by=zone&zone=Asia/Jerusalem";
+        "https://timezone.abstractapi.com/v1/current_time/?api_key=6fd38868af1a4f1b8958be2d7f676947&location=Jerusalem";
       if (url.length !== 0) {
         const res = await fetch(url);
         const data = await res.json();
-        setDateAndTime(data.formatted);
+        setDateAndTime(data.datetime);
       }
     } catch (err) {
       console.log("Error fetching date and time.", err);

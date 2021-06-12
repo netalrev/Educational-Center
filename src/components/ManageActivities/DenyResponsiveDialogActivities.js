@@ -10,7 +10,12 @@ import { useTheme } from "@material-ui/core/styles";
 import {
   deletePendingActivities,
   deleteApprovedActivities,
+  deleteApprovedUser
+
 } from "../../graphql/mutations";
+import {
+  listApprovedUsers
+} from "../../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import DeleteIcon from "@material-ui/icons/Delete";
 import swal from "sweetalert";
@@ -25,6 +30,14 @@ export default function DenyResponsiveDialogActivities(props) {
   const deleteSinglePending = async (id_to_delete) => {
     try {
       const del = { id: id_to_delete };
+      const allRegisters = await API.graphql(graphqlOperation(listApprovedUsers, { filter: { activity_id: { eq: id_to_delete } } }));
+      const allRegistersList = allRegisters.data.listApprovedUsers.items;
+      console.log(allRegistersList, "ASDASD")
+      if (allRegistersList !== undefined && allRegistersList.length !== 0)
+        allRegistersList.forEach(student => {
+          var to_del = { id: student.id };
+          deleteUserRegister(to_del);
+        })
       await API.graphql(
         graphqlOperation(deletePendingActivities, { input: del })
       );
@@ -32,11 +45,22 @@ export default function DenyResponsiveDialogActivities(props) {
       console.log("Error on delete single pending activity ", error);
     }
   };
-
+  const deleteUserRegister = async (id_to_delete) => {
+    await API.graphql(graphqlOperation(deleteApprovedUser, { input: id_to_delete }));
+  }
   //async function to delete approved activity by id.
   const deleteSingleApproved = async (id_to_delete) => {
     try {
       const del = { id: id_to_delete };
+      const allRegisters = await API.graphql(graphqlOperation(listApprovedUsers, { filter: { activity_id: { eq: id_to_delete } } }));
+      const allRegistersList = allRegisters.data.listApprovedUsers.items;
+      console.log(allRegistersList, "ASDASD")
+      if (allRegistersList !== undefined && allRegistersList.length !== 0)
+        allRegistersList.forEach(student => {
+          var to_del = { id: student.id };
+          deleteUserRegister(to_del);
+        })
+
       await API.graphql(
         graphqlOperation(deleteApprovedActivities, { input: del })
       );

@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ActivityTable(props) {
 
   //               Use State Initialization              //
-
+  const [dateAndTime, setDateAndTime] = useState([]);
   const [allApprovedActivitiess, setAllApprovedActivitiess] = useState([]);
   const [toShow, setToShow] = useState([]);
   const classes = useStyles();
@@ -106,7 +106,7 @@ export default function ActivityTable(props) {
       if (
         dates_class.compare(
           dates_class.convert(a.dates[i]),
-          props.currentTime
+          dateAndTime
         ) === -1
       ) {
         i++;
@@ -114,7 +114,7 @@ export default function ActivityTable(props) {
       } else if (
         dates_class.compare(
           dates_class.convert(b.dates[j]),
-          props.currentTime
+          dateAndTime
         ) === -1
       ) {
         j++;
@@ -138,7 +138,24 @@ export default function ActivityTable(props) {
     }
   }
 
-  //async function to fetch all aprroved activities. 
+  //async function to fetch all aprroved activities.
+
+  const fetchTimeAndDate = async () => {
+    try {
+      if (dateAndTime.length === 0) {
+        var url =
+          "https://timezone.abstractapi.com/v1/current_time/?api_key=6fd38868af1a4f1b8958be2d7f676947&location=Jerusalem";
+        if (url.length !== 0) {
+          const res = await fetch(url);
+          const data = await res.json();
+          setDateAndTime(data.datetime);
+        }
+      }
+    } catch (err) {
+      console.log("Error fetching date and time.", err);
+    }
+  };
+
   const fetchAllApprovedActivities = async () => {
     try {
       const approvedActivitiesData = await API.graphql(
@@ -150,7 +167,7 @@ export default function ActivityTable(props) {
       var copy = [];
       for (var i = 0; i < approvedActivitiesList.length; i++) {
         if (
-          dates_class.compare(props.currentTime, dates_class.convert(
+          dates_class.compare(dateAndTime, dates_class.convert(
             dates_class.convert(approvedActivitiesList[i].dates[
               approvedActivitiesList[i].dates.length - 1])
               .setMinutes(dates_class.convert(
@@ -183,7 +200,7 @@ export default function ActivityTable(props) {
         familyName={props.familyName}
         phoneNumber={props.phoneNumber}
         groupName={props.groupName}
-        currentTime={props.currentTime}
+        currentTime={dateAndTime}
       />
     ));
     setToShow(allActivity);
@@ -206,7 +223,7 @@ export default function ActivityTable(props) {
         familyName={props.familyName}
         phoneNumber={props.phoneNumber}
         zoom={activity.zoom}
-        currentTime={props.currentTime}
+        currentTime={dateAndTime}
       />
     ));
 
@@ -223,8 +240,11 @@ export default function ActivityTable(props) {
 
   //                 Use Effects                //
   useEffect(() => {
+    fetchTimeAndDate();
+  }, []);
+  useEffect(() => {
     fetchAllApprovedActivities();
-  }, [props.currentTime]);
+  }, [dateAndTime]);
   useEffect(() => {
     fillToShow();
   }, [allApprovedActivitiess]);
