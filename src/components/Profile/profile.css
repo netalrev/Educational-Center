@@ -295,7 +295,7 @@
 }
 #container3 {
     position: relative;
-    top: 170px;
+    margin-top: 170px;
     left: 50%;
     padding-left: 13px;
     padding-right: 13px;
