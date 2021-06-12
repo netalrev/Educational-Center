@@ -8,6 +8,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import Amplify, { Auth } from "aws-amplify";
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import awsconfig from "../../aws-exports";
 import { CognitoIdentityProviderClient, ListUsersCommand } from "@aws-sdk/client-cognito-identity-provider";
 
@@ -143,20 +144,21 @@ export default function ApproveResponsiveDialogConfirmAdmins(props) {
     <div>
       <Button
         startIcon={
-          <CheckCircleIcon
+          <PersonAddIcon
             style={{
               fill: "white",
               backgroundColor: "green",
               maxWidth: "100px",
               marginBottom: "11px"
             }}
-          ></CheckCircleIcon>
+          ></PersonAddIcon>
         }
         variant="outlined"
         style={{
           fill: "white",
           backgroundColor: "green",
           maxHeight: "40px",
+          minWidth: "200px",
           paddingBottom: "15px",
           border: "3px solid green",
         }}
