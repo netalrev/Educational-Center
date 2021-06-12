@@ -84,7 +84,7 @@ export default function ManageActivities(props) {
         type="approved"
         email={props.email}
         currentTime={dateAndTime}
-        title="מידע לפי קורסים"
+        title="דו''ח מסכם לפי קורס"
       />
 
     </div>

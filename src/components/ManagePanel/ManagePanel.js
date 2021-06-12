@@ -2,6 +2,9 @@ import ManageCardActivities from "./ManageCardActivities";
 import ManageCardActivitiesFeedback from "./ManageCardActivitiesFeedback";
 import UserInfo from "./UserInfo";
 import ManageCardUsers from "./ManageCardUsers";
+import ManageCardBlockUsers from "./ManageCardBlockUsers";
+import ManageCardEditUsers from "./ManageCardEditUsers";
+import ManageCardComfirmUsers from "./ManageCardComfirmUsers";
 import DeleteEditApprovedForAdmin from "../ManageActivities/DeleteEditApprovedForAdmin";
 import { useEffect, useState } from "react"
 
@@ -29,6 +32,27 @@ export default function ManagePanel(props) {
   //The react component
   return (
     <div>
+      <ManageCardComfirmUsers
+        groupName={props.groupName}
+        email={props.email}
+        currentTime={dateAndTime}
+        title="אישור משתמשים חדשים"
+        style={{ textAlign: "center", align: "center" }}
+      />
+      <ManageCardEditUsers
+        groupName={props.groupName}
+        email={props.email}
+        currentTime={dateAndTime}
+        title="ניהול משתמשים"
+        style={{ textAlign: "center", align: "center" }}
+      />
+      <ManageCardBlockUsers
+        groupName={props.groupName}
+        email={props.email}
+        currentTime={dateAndTime}
+        title="ניהול משתמשים חסומים"
+        style={{ textAlign: "center", align: "center" }}
+      />
       <ManageCardActivities
         groupName={props.groupName}
         email={props.email}
@@ -46,20 +70,20 @@ export default function ManagePanel(props) {
       <ManageCardUsers
         currentTime={dateAndTime}
         groupName={props.groupName}
-        title="משתתפים הממתינים לאישור"
+        title="אישור משתתפים הממתינים לקורס"
       />
       <UserInfo
         groupName={props.groupName}
         email={props.email}
         currentTime={dateAndTime}
-        title="משובים לפי משתתפים"
+        title="דו''ח מסכם לפי משתתפים"
         style={{ textAlign: "center", align: "center" }}
       />
       <ManageCardActivitiesFeedback
         groupName={props.groupName}
         email={props.email}
         currentTime={dateAndTime}
-        title="משובים לפי מפגש בקורס"
+        title="דו''ח מסכם לפי מפגש בקורס"
         style={{ textAlign: "center", align: "center" }}
       />
     </div>

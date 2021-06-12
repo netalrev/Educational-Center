@@ -217,9 +217,7 @@ export default function ActivitySummary(props) {
                     new_headers.push({ label: "מפגש " + (forms[i].index) + " " + forms[i].date.substring(0, 10).split("-").reverse().join("-") + " " + forms[i].date.substring(11), key: "meeting" + (forms[i].index) })
                 }
                 var new_allData = [];
-                // console.log("FORMS", forms)
                 forms.forEach((data) => data.form.forEach(student => {
-                    // console.log("student", student)
                     var toPush;
                     var meeting = [];
                     if (new_allData.filter(student2 => student[1] === student2.email).length === 0) {
@@ -227,7 +225,7 @@ export default function ActivitySummary(props) {
                         for (var i = 0; i < forms.length; i++) {
                             meeting.push({ index: forms[i].index, date: forms[i].date, presence: "N/A", contribution: 0, participation: 0, });
                         }
-                        toPush = { index: 0, name: student[0], email: student[1], phone: "0" + student[2].substring(4, 6) + "-" + student[2].substring(6, student[2].length), meetings: meeting }
+                        toPush = { index: 0, name: student[0], email: student[1], phone: student[2].length === 9 ? "0" + student[2].substring(4, 6) + "-" + student[2].substring(6, student[2].length) : student[2].substring(4, 7) + "-" + student[2].substring(7, student[2].length), meetings: meeting }
                         for (var i = 0; i < toPush.meetings.length; i++) {
 
                             if (toPush.meetings[i].index === data.index) {
@@ -246,7 +244,6 @@ export default function ActivitySummary(props) {
                     else {
                         new_allData.forEach(student2 => {
                             if (student[1] === student2.email) {
-                                console.log("compare", student, student2)
                                 toPush = { index: 0, name: student[0], email: student[1], phone: "0" + student[2].substring(4, 6) + "-" + student[2].substring(6, student[2].length), meetings: meeting }
                                 var len = student2.meetings.length;
                                 for (var i = 0; i < len; i++) {
@@ -256,7 +253,6 @@ export default function ActivitySummary(props) {
 
                                         student2.meetings[i].participation = student[4];
                                         student2.meetings[i].contribution = student[5];
-                                        // console.log("222222222222222222", student2, student);
                                         if (props.type === "single")
                                             new_allData.index = data.index;
                                         break;
@@ -318,12 +314,10 @@ export default function ActivitySummary(props) {
             student.meetings.map(meeting => toReturn["meeting" + meeting.index] = meeting.presence);
             return toReturn;
         });
-        console.log(toInsert)
         var space = { name: "", email: "", phone: "" }; // Space variable for the .csv , equals to "\n".
         var summary = []; // This list is the summary of all grades, each object in this list will represent a student's grades for a single meeting.
         // If [x] students registered to a course, then for each student in the allData list we'll have
         // a line in the Summary list, each line will contain the participation, contrubition and attendance values of every student.
-        // console.log("aaa", allData)
         allData.forEach(student => {
             student.meetings.forEach(meet => {
                 toReturn = { index: -1, email: student.email, participated: -1, contributed: -1, attended: -1 }
@@ -360,7 +354,6 @@ export default function ActivitySummary(props) {
                 student.attended === "10" ? total_attended[0]++ : total_attended[0] = total_attended[0];
             });
         }
-        console.log(contribution_avg, participation_avg)
         // For each meeting the course has, we display three lines of summary displaying how many students attended, participation and contribution avg.
         for (var i = 0; i < participation_avg.length; i++) {
             toInsert.push(space);
@@ -368,9 +361,9 @@ export default function ActivitySummary(props) {
             if (props.type === "multiple")
                 toInsert.push({ name: "סיכום נוכחות למפגש " + (i + 1) + ":", phone: total_attended[i], email: "/ " + allData.length });
             else
-                toInsert.push({ name: "סיכום נוכחות למפגש " + (allData[0].index) + ":", phone: total_attended[i], email: "/ " + allData.length });
-            toInsert.push({ name: "השתתפות כלל התלמידים שנכחו " + ":", phone: String((participation_avg[i] / 3) / total_attended[i]).substring(0, 4), email: "/ 5" });
-            toInsert.push({ name: "תרומת כלל התלמידים שנכחו " + ":", phone: String((contribution_avg[i] / 3) / total_attended[i]).substring(0, 4), email: "/ 5" });
+                toInsert.push({ name: "נוכחות" + (allData[0].index) + ":", phone: total_attended[i], email: "/ " + allData.length });
+            toInsert.push({ name: "השתתפות ממוצעת" + ":", phone: total_attended[i] === 0 ? "0" : String((participation_avg[i] / 3) / total_attended[i]).substring(0, 4), email: "/ 5" });
+            toInsert.push({ name: "תרומת ממוצעת" + ":", phone: total_attended[i] === 0 ? "0" : String((contribution_avg[i] / 3) / total_attended[i]).substring(0, 4), email: "/ 5" });
         }
     }
     if (data === undefined) func();
@@ -408,7 +401,7 @@ export default function ActivitySummary(props) {
                         fill: "#132c33"
                     }}>
                         Download me
-                </CSVLink>
+                    </CSVLink>
                 </Button>
 
                 <CardContent s>
@@ -447,15 +440,15 @@ export default function ActivitySummary(props) {
                                                     >
                                                         <br></br>
                                                         <h4>מספר משתתפים: {activity.attending_students.length + activity.missing_students.length} / {activity.attending_students.length}  </h4>
-                                                        <h4>השתתפות כלל התלמידים שנכחו: 5 / {String((participation_avg / 3) / (activity.attending_students.length)).substring(0, 4)} </h4>
-                                                        <h4>תרומת כלל התלמידים שנכחו: 5 / {String((contribution_avg / 3) / (activity.attending_students.length)).substring(0, 4)} </h4>
+                                                        <h4>השתתפות כלל התלמידים שנכחו: 5 / {activity.attending_students.length === 0 ? "0" : String((participation_avg / 3) / (activity.attending_students.length)).substring(0, 4)} </h4>
+                                                        <h4>תרומת כלל התלמידים שנכחו: 5 / {activity.attending_students.length === 0 ? "0" : String((contribution_avg / 3) / (activity.attending_students.length)).substring(0, 4)} </h4>
                                                         <br></br>
                                                         <th>
                                                             לא נכחו
-                                                </th>
+                                                        </th>
                                                         <th>
                                                             נכחו
-                                                </th>
+                                                        </th>
                                                         <tr>
                                                             <td>
                                                                 <Scrollbars style={{ width: 130, height: 200, float: "right" }}>

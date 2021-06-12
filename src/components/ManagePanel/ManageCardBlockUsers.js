@@ -1,6 +1,12 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
+import { useState, useEffect } from "react";
+import ApproveResponsiveDialogUnblock from "./ApproveResponsiveDialogUnblock";
+import ApproveResponsiveDialogBlock from "./ApproveResponsiveDialogBlock";
+import ApproveResponsiveDialogConfirmContentSuppliers from "./ApproveResponsiveDialogConfirmContentSuppliers";
+import ApproveResponsiveDialogConfirmAdmins from "./ApproveResponsiveDialogConfirmAdmins";
+import ApproveResponsiveDialogConfirmUsers from "./ApproveResponsiveDialogConfirmUsers";
+import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -8,11 +14,6 @@ import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { useState, useEffect } from "react";
-import { listPendingActivitiess } from "../../graphql/queries";
-import { API, graphqlOperation } from "aws-amplify";
-import DenyResponsiveDialogActivities from "./DenyResponsiveDialogActivities";
-import EditResponsiveDialogActivities from "./EditResponsiveDialogActivities";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -21,56 +22,48 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import Typography from "@material-ui/core/Typography";
+import $ from "jquery";
+import Amplify, { Auth } from "aws-amplify";
+import awsconfig from "../../aws-exports";
+import { CognitoIdentityProviderClient, ListUsersCommand } from "@aws-sdk/client-cognito-identity-provider";
+var AWS = require('aws-sdk');
 
-//The columns vales of the table.
+Amplify.configure(awsconfig); //AWS CONFIGORE
+
+//The columns values of the table.
 const columns = [
-  { id: "buttons", label: "", minWidth: 110, maxWidth: 110, align: "center" },
   {
-    id: "dates",
-    label: "תארכי מפגשים",
-    minWidth: 170,
-    maxWidth: 170,
-    align: "center",
-  },
-  {
-    id: "description",
-    label: "תיאור הפעילות",
-    minWidth: 170,
-    maxWidth: 200,
+    id: "buttons",
+    label: "",
+    minWidth: 110,
+    maxWidth: 110,
     align: "center",
   },
   {
     id: "email",
-    label: "אימייל ספק התוכן",
+    label: "דוא\"ל",
     minWidth: 130,
     maxWidth: 130,
     align: "center",
-  },
-  {
-    id: "activityName",
-    label: "שם הפעילות",
-    minWidth: 120,
-    maxWidth: 170,
-    align: "center",
+    color: "white",
   },
   {
     id: "phoneNumber",
-    label: "פלאפון ספק התוכן",
+    label: "טלפון",
     minWidth: 120,
     maxWidth: 120,
     align: "center",
   },
   {
     id: "name",
-    label: "שם ספק התוכן",
+    label: "שם",
     minWidth: 120,
     maxWidth: 130,
     align: "center",
   },
 ];
 
-//Style for adtivities feedbacks page.
+//The style for manage card activity part.
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "95%",
@@ -97,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
   expand: {
     transform: "rotate(0deg)",
     marginLeft: "auto",
-    color: "red", //arrow color
+    color: "white", //arrow color
 
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
@@ -112,15 +105,76 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DeleteEditPendingForAdmin(props) {
+export default function ManageCardBlockUsers(props) {
 
   //               Use State Initialization              //
 
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [allPendingActivitiess, setAllPendingActivitiess] = useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [allUsers, setAllUsers] = useState([]);
+  const [creds, setCreds] = useState([]);
+
+  // const? [users, setUsers] = useState([]);
+  const checkCognitoUserSession = async () => {
+    const getAwsCredentials = await Auth.currentCredentials();
+    const awsCredentials = await Auth.essentialCredentials(getAwsCredentials);
+    setCreds(awsCredentials);
+
+    // accessKeyId, secretAccessKey, sessionToken post login
+    if (awsCredentials !== undefined && awsCredentials.length !== 0) {
+      getUsers();
+    }
+  };
+  const getUsers = async () => {
+    try {
+      const getAwsCredentials = await Auth.currentCredentials();
+      const awsCredentials = await Auth.essentialCredentials(getAwsCredentials);
+      var creds = new AWS.Credentials('akid', 'secret', 'session');
+      AWS.config.region = 'us-east-2'; // Region
+      AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: 'us-east-2:f7ebd251-3285-45af-8a4e-1d79d22ea590',
+      });
+      if (awsCredentials !== undefined && awsCredentials.length !== 0) {
+        let new_all = [];
+        let more = true;
+        let paginationToken = '';
+        while (more) {
+          let params = {
+            UserPoolId: "us-east-2_FAO6krzFK",
+          };
+          if (paginationToken !== '') {
+            params.PaginationToken = paginationToken;
+          }
+          AWS.config.update({
+            region: "us-east-2",
+            accessKeyId: awsCredentials.accessKeyId,
+            secretAccessKey: awsCredentials.secretAccessKey,
+            sessionToken: awsCredentials.sessionToken
+          });
+          const cognito = new AWS.CognitoIdentityServiceProvider();
+          const rawUsers = await cognito.listUsers(params).promise();
+          new_all = new_all.concat(rawUsers.Users);
+          new_all = new_all.filter(user => user.UserStatus === "CONFIRMED" && user.Enabled === false);
+          if (rawUsers.PaginationToken) {
+            paginationToken = rawUsers.PaginationToken;
+          }
+          else {
+            more = false;
+          }
+        }
+        setAllUsers(new_all);
+      }
+    }
+    catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   //               Functions              //
 
@@ -174,8 +228,6 @@ export default function DeleteEditPendingForAdmin(props) {
         : NaN;
     },
   };
-
-  //Helper variables.
   var tzoffset_start = new Date().getTimezoneOffset() * 60000;
   var tzoffset_end = new Date().getTimezoneOffset() * 60000 - 60 * 60000;
   var current_time = dates_class.convert(
@@ -185,7 +237,7 @@ export default function DeleteEditPendingForAdmin(props) {
     new Date(Date.now() - tzoffset_end).toISOString().substring(0, 16)
   );
 
-  //Function that compare two dates. if date a> date b return 1 else return 0.
+  //Function to compare two dates.return 1 if date a > date b,0 if equals and -1 else.
   function compare_createdAt(a, b) {
     var a_converted = dates_class.convert(a.createdAt);
     var b_converted = dates_class.convert(b.createdAt);
@@ -194,112 +246,56 @@ export default function DeleteEditPendingForAdmin(props) {
     else return -1;
   }
 
-  //The rows vales of the table.
-  const rows = allPendingActivitiess.map((activity, index) => {
+  //The rows values of the table.
+  const rows = allUsers.map((user, index) => {
     return createDataAdmin(
-      activity.owner,
-      activity.phone_number.length === 13 ? "0" + String(activity.phone_number).substring(4, 6) + "-" + String(activity.phone_number).substring(6) : String(activity.phone_number).substring(4, 7) + "-" + String(activity.phone_number).substring(7),
-      activity.title,
-      activity.email,
-      <Typography>{activity.description}</Typography>,
-      activity.dates.map((date, index) => (
-        <div>
-          <p>:מפגש {index + 1}</p>
-          <p>
-            תאריך - {date.substring(0, 10).split("-").reverse().join("-")} שעה -{" "}
-            {date.substring(11)}
-          </p>
-          <br></br>
-        </div>
-      )),
+      user.Attributes[5].Value + " " + user.Attributes[6].Value,
+      user.Attributes[4].Value.length === 13 ? "0" + String(user.Attributes[4].Value).substring(4, 6) + "-" + String(user.Attributes[4].Value).substring(6) : String(user.Attributes[4].Value).substring(4, 7) + "-" + String(user.Attributes[4].Value).substring(7),
+      user.Attributes[7].Value,
       <div>
-        <DenyResponsiveDialogActivities
-          groupName={props.groupName}
-          type="pending"
-          id={activity.id}
-          currentTime={props.currentTime}
-          email={props.email}
-          givenName={props.givenName}
-          familyName={props.familyName}
-        />
-        <br></br>
-        <EditResponsiveDialogActivities
-          zoom={activity.zoom}
-          isZoom={activity.zoom === "" ? false : true}
-          groupName={props.groupName}
-          type="pending"
-          currentTime={props.currentTime}
-          description={activity.description}
-          activityCount={activity.activityCount}
-          dates={activity.dates}
-          idx={index}
-          id={activity.id}
-          email={props.email}
-          givenName={props.givenName}
-          familyName={props.familyName}
-          groupName={props.groupName}
+        <ApproveResponsiveDialogUnblock
+          givenName={user.Attributes[5].Value}
+          familyName={user.Attributes[6].Value}
+          email={user.Attributes[7].Value}
         />
       </div>
     );
   });
 
-  //               Use Effect Initialization              //
-
-  useEffect(() => {
-    // Fetch for admins
-    fetchAllPendingActivities();
-  }, []);
-
-  //async function for all pending activities.
-  const fetchAllPendingActivities = async () => {
-    try {
-      const PendingActivitiesData = await API.graphql(
-        graphqlOperation(listPendingActivitiess)
-      );
-      const PendingActivitiesList =
-        PendingActivitiesData.data.listPendingActivitiess.items;
-      setAllPendingActivitiess(PendingActivitiesList.sort(compare_createdAt));
-    } catch (error) {
-      console.log("error on fetching Pending Activities", error);
-    }
-  };
+  //async function to fetch pending activities.
 
   function createDataAdmin(
     name,
     phoneNumber,
-    activityName,
     email,
-    description,
-    dates,
     buttons
   ) {
     return {
       name,
       phoneNumber,
-      activityName,
       email,
-      description,
-      dates,
       buttons,
     };
   }
 
-  //    Handler functions   //
+  //        Handler functions       //  
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
+    $("td").each(function () {
+      $(this).css("color", "#ffffff");
+    });
   };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  var text = <b>{props.title}</b>;//Var for title.
+  var text = <b>{props.title}</b>;//Var for title
   //The react component.
   return (
     <Card className={classes.root}>
@@ -318,20 +314,26 @@ export default function DeleteEditPendingForAdmin(props) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              color: "white",
+            }}
+          >
             <Paper className={classes.root}>
               <TableContainer className={classes.container}>
                 <Table stickyHeader aria-label="sticky table">
                   <TableHead>
-                    <TableRow>
+                    <TableRow key={rows.id}>
                       {columns.map((column) => (
                         <TableCell
                           key={column.id}
                           align={column.align}
                           style={{
                             minWidth: column.minWidth,
-                            color: "white",
                             backgroundColor: "black",
+                            color: "white",
                           }}
                         >
                           {column.label}

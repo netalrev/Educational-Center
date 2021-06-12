@@ -136,12 +136,11 @@ export default function UploadResponsiveDialog(props) {
     )
       return "קישור לתמונה אינו תקין, יש לנסות קישור אחר";
     else if (document.getElementById("zoomCheckBox").checked) {
-      if (
-        !validURL(document.getElementsByName("activity_zoom")[0].value) ||
-        document.getElementsByName("activity_zoom")[0].value === ""
-      )
-        return "קישור לזום אינו תקין";
-    } else if (
+      if (document.getElementsByName("activity_zoom")[0].value !== "")
+        if (!validURL(document.getElementsByName("activity_zoom")[0].value))
+          return "קישור לזום אינו תקין";
+    }
+    if (
       !document.getElementsByName("activityCount")[0].value ||
       document.getElementsByName("activityCount")[0].value < 1 ||
       document.getElementsByName("activityCount")[0].value === ""

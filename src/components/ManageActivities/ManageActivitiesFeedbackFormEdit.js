@@ -16,22 +16,22 @@ import FormLabel from "@material-ui/core/FormLabel";
 
 //Style for adtivities edit page.
 const useStyles = makeStyles((theme) => ({
+
   root: {
     maxWidth: 1000,
     minWidth: 400,
-    margin: "10px",
+    margin: "5px",
     borderRadius: "10px",
-    border: "3px solid #132c33",
+    //border: "3px solid #132c33",
     right: 0,
     transition: "transform 0.15s ease-in-out",
-    //"&:hover": { transform: "scale3d(1.05, 1.05, 1)" },
     "& label": {
-      margin: "10px",
+      margin: "5px",
       color: "#d8e3e7",
       fontSize: "20px",
       backgroundColor: "#126e82",
       borderRadius: "10px",
-      //zIndex: "1222",
+
     },
   },
   expand: {
@@ -168,8 +168,8 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                               <p
                                 style={{
                                   color: "#132c33",
-                                  margin: "10px",
-                                  fontSize: "30px",
+                                  margin: "5px",
+                                  fontSize: "15px",
                                 }}
                               >
                                 נכח
@@ -191,8 +191,8 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                               <p
                                 style={{
                                   color: "#132c33",
-                                  margin: "10px",
-                                  fontSize: "30px",
+                                  margin: "5px",
+                                  fontSize: "15px",
                                 }}
                               >
                                 לא נכח
@@ -212,8 +212,8 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                               <p
                                 style={{
                                   color: "#132c33",
-                                  margin: "10px",
-                                  fontSize: "30px",
+                                  margin: "5px",
+                                  fontSize: "15px",
                                   fontWeight: "900",
                                 }}
                               >
@@ -258,8 +258,8 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                               <p
                                 style={{
                                   color: "#132c33",
-                                  margin: "10px",
-                                  fontSize: "30px",
+                                  margin: "5px",
+                                  fontSize: "15px",
                                   fontWeight: "900",
                                 }}
                               >
@@ -280,8 +280,8 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                               <p
                                 style={{
                                   color: "#132c33",
-                                  margin: "10px",
-                                  fontSize: "30px",
+                                  margin: "5px",
+                                  fontSize: "15px",
                                   fontWeight: "900",
                                 }}
                               >
@@ -328,8 +328,8 @@ export default function ManageActivitiesFeedbackFormEdit(props) {
                               <p
                                 style={{
                                   color: "#132c33",
-                                  margin: "10px",
-                                  fontSize: "30px",
+                                  margin: "5px",
+                                  fontSize: "15px",
                                   fontWeight: "900",
                                 }}
                               >

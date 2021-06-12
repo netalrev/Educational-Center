@@ -166,7 +166,7 @@ export default function ActivityFeedbackForAdmin(props) {
   const rows = (props.groupName === "admins") ? activitiesFeedbacks.map((activity, index) => {
     return createDataAdmin(
       activity.owner,
-      activity.phone_number,
+      activity.phone_number.length === 13 ? "0" + String(activity.phone_number).substring(4, 6) + "-" + String(activity.phone_number).substring(6) : String(activity.phone_number).substring(4, 7) + "-" + String(activity.phone_number).substring(7),
       activity.title,
       activity.email,
       <p>

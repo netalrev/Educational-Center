@@ -6,6 +6,7 @@ import $ from "jquery";
 export default function ActivitiesPage(props) {
 
   //               Use State Initialization              //
+
   const [dateAndTime, setDateAndTime] = useState([]);
   const [url, setUrl] = useState([]);
 

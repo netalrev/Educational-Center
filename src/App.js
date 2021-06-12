@@ -19,9 +19,63 @@ import awsconfig from "./aws-exports";
 import ConfirmSignUp from "./components/Register/ConfirmSignUp";
 import { Hub, Logger } from "aws-amplify";
 import swal from "sweetalert";
+import { CognitoIdentityProviderClient, ListUsersCommand } from "@aws-sdk/client-cognito-identity-provider";
+var AWS = require('aws-sdk');
 
 Amplify.configure(awsconfig); //AWS CONFIGORE
 
+
+
+
+
+// awsconfig.getUsers = () => {
+//   var params = {
+//     UserPoolId: "us-east-2_FAO6krzFK"
+//   };
+//   console.log(params, "parasdas")
+//   console.log("GEGEGASDASDs", checkCognitoUserSession());
+//   return new Promise((resolve, reject) => {
+//     AWS.config.update({ region: "us-east-2", 'accessKeyId': AWS_ACCESS_KEY_ID, 'secretAccessKey': AWS_SECRET_KEY });
+//     var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
+//     cognitoidentityserviceprovider.listUsers(params, (err, data) => {
+//       if (err) {
+//         console.log(err);
+//         reject(err)
+//       }
+//       else {
+//         console.log("data", data);
+//         resolve(data)
+//       }
+//     })
+//   });
+// }
+
+// const cred = checkCognitoUserSession();
+// const aws_cred = cred.then(data => data);
+// // console.log("creds", aws_cred.then(data => console.log("LOOK MAOR", data)));
+// const fetchAllUsers = async () => {
+//   const client = new CognitoIdentityProviderClient({
+//     region: "us-east-2",
+//     credentials: {
+//       accessKeyId: aws_cred.then(data => data.accessKeyId),
+//       secretAccessKey: aws_cred.then(data => data.secretAccessKey),
+//     }
+//   });
+//   const params = {};
+//   const command = new ListUsersCommand({ UserPoolId: "us-east-2_FAO6krzFK" });
+//   console.log("CMDDDd", command)
+//   try {
+//     const data = await client.send(command).then(data => console.log("OKSS", data));
+//     console.log("HEYYx", data)
+
+//     // return this.setState({ users: data });
+//   } catch (error) {
+//     console.log(error);
+//     // return this.setState({ error: error });
+//   } finally {
+//     // this.setState({ loading: false });
+//   }
+// }
 //Vlaues of current authenticated user.
 var fname = "null";
 var gname = "null";
@@ -74,8 +128,77 @@ function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [users, setUsers] = useState([]);
+  // const [allUsers, setAllUsers] = useState([]);
+  // const [creds, setCreds] = useState([]);
 
+  // // const? [users, setUsers] = useState([]);
+  // const checkCognitoUserSession = async () => {
+  //   const getAwsCredentials = await Auth.currentCredentials();
+  //   const awsCredentials = await Auth.essentialCredentials(getAwsCredentials);
 
+  //   console.log("GGGGGGGGGG", awsCredentials)
+  //   setCreds(awsCredentials);
+
+  //   // accessKeyId, secretAccessKey, sessionToken post login
+  //   if (awsCredentials !== undefined && awsCredentials.length !== 0) {
+  //     getUsers();
+  //   }
+  // };
+  // const getUsers = async () => {
+  //   try {
+  //     const getAwsCredentials = await Auth.currentCredentials();
+  //     const awsCredentials = await Auth.essentialCredentials(getAwsCredentials);
+  //     var creds = new AWS.Credentials('akid', 'secret', 'session');
+  //     AWS.config.region = 'us-east-2'; // Region
+  //     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+  //       IdentityPoolId: 'us-east-2:f7ebd251-3285-45af-8a4e-1d79d22ea590',
+  //     });
+  //     console.log(AWS.config.credentials);
+  //     console.log("creds", creds)
+  //     if (awsCredentials !== undefined && awsCredentials.length !== 0) {
+  //       let new_allUsers = [];
+  //       let more = true;
+  //       let paginationToken = '';
+  //       while (more) {
+  //         let params = {
+  //           UserPoolId: "us-east-2_FAO6krzFK",
+  //           // Limit: 60
+  //         };
+  //         if (paginationToken !== '') {
+  //           params.PaginationToken = paginationToken;
+  //         }
+
+  //         AWS.config.update({
+  //           region: "us-east-2",
+  //           accessKeyId: awsCredentials.accessKeyId,
+  //           secretAccessKey: awsCredentials.secretAccessKey,
+  //           sessionToken: awsCredentials.sessionToken
+  //         });
+  //         const cognito = new AWS.CognitoIdentityServiceProvider();
+  //         const rawUsers = await cognito.listUsers(params).promise();
+  //         console.log(rawUsers)
+  //         new_allUsers = new_allUsers.concat(rawUsers.Users);
+  //         console.log("new_allUsers", new_allUsers);
+  //         if (rawUsers.PaginationToken) {
+  //           paginationToken = rawUsers.PaginationToken;
+  //         } else {
+  //           more = false;
+  //         }
+  //       }
+  //       setAllUsers(new_allUsers);
+  //     }
+  //   }
+  //   catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   checkCognitoUserSession();
+  // }, []);
+  // useEffect(() => {
+  //   getUsers();
+  // }, []);
   //                 Functions                //
 
   ////async function that return all user list stored in DB.
@@ -98,7 +221,7 @@ function App() {
       });
       const user = {
         name: gname + " " + fname,
-        id: IDs.length == 0 ? 0 : IDs[IDs.length - 1] + 1,
+        id: IDs.length === 0 ? 0 : IDs[IDs.length - 1] + 1,
         email: emailAddress,
         phone_number: phoneNumber,
         score: 0,
@@ -258,4 +381,5 @@ function App() {
     </div>
   );
 }
+
 export default App;

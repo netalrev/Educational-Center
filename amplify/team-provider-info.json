@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "educationalcenter496797e3": {}
+      },
+      "function": {
+        "educationalcenter925226fc": {
+          "deploymentBucketName": "amplify-educationalcenter-dev-171718-deployment",
+          "s3Key": "amplify-builds/educationalcenter925226fc-7574422b727372325541-build.zip"
+        }
       }
     }
   }
