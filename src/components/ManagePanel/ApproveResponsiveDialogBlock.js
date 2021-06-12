@@ -8,6 +8,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import Amplify, { Auth } from "aws-amplify";
+import BlockIcon from '@material-ui/icons/Block';
 import awsconfig from "../../aws-exports";
 import { CognitoIdentityProviderClient, ListUsersCommand } from "@aws-sdk/client-cognito-identity-provider";
 
@@ -102,7 +103,7 @@ export default function ApproveResponsiveDialogBlock(props) {
   const handleClose = async () => {
     setOpen(false);
     await BlockUsers().then(
-      swal("", "אישור משתמש/ת בוצע בהצלחה", "success", {
+      swal("", "חסימת משתמש/ת בוצע בהצלחה", "success", {
         button: "אישור",
       })
     );
@@ -117,22 +118,23 @@ export default function ApproveResponsiveDialogBlock(props) {
     <div>
       <Button
         startIcon={
-          <HighlightOffIcon
+          <BlockIcon
             style={{
               fill: "white",
-              backgroundColor: "green",
+              backgroundColor: "red",
               maxWidth: "100px",
               marginBottom: "11px"
             }}
-          ></HighlightOffIcon>
+          ></BlockIcon>
         }
         variant="outlined"
         style={{
           fill: "white",
-          backgroundColor: "green",
+          backgroundColor: "red",
           maxHeight: "40px",
+          minWidth: "200px",
           paddingBottom: "15px",
-          border: "3px solid green",
+          border: "3px solid red",
         }}
         onClick={handleClickOpen}
       >
