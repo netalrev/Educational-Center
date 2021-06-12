@@ -37,7 +37,6 @@ async function signOut() {
 }
 
 export default function Profile(props) {
-
   //               Use State Initialization              //
 
   const [users, setUsers] = useState([]);
@@ -72,12 +71,11 @@ export default function Profile(props) {
     }
   };
 
-
   useEffect(() => {
     fetchUsers();
   }, []);
 
-  //The react component 
+  //The react component
   return (
     <div className="card">
       <div className="ds-top"></div>
